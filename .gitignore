@@ -1,0 +1,32 @@
+# dependencies
+node_modules
+
+# IDE
+/.idea
+/.awcache
+
+#environment config
+.env
+
+# misc
+npm-debug.log
+
+# example
+/quick-start
+
+# tests
+/test
+/coverage
+/.nyc_output
+
+# dist
+/dist
+/public/lib
+/src/secretKeys.ts
+
+#cli symlink in root
+/cli.ts
+
+#logs
+workspaces/api/logs/*.log
+workspaces/api/logs/*.audit.json

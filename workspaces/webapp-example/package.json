@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "name": "nestjs-bff-webapp-example",
+  "version": "0.1.0",
+  "description": "A Nestjs Backend-For-Frontend example web-app client",
+  "author": "ahrnee",
+  "license": "MIT",
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {}
+}

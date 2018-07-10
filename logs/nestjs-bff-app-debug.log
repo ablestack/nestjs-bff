@@ -1,0 +1,19 @@
+{"level":"info","message":"Starting Nest application... NestFactory true","timestamp":"2018-07-10T11:38:47.166Z"}
+{"level":"info","message":"MongooseModule dependencies initialized InstanceLoader true","timestamp":"2018-07-10T11:38:47.194Z"}
+{"level":"info","message":"CommonModule dependencies initialized InstanceLoader true","timestamp":"2018-07-10T11:38:47.195Z"}
+{"level":"info","message":"WebAppModule dependencies initialized InstanceLoader true","timestamp":"2018-07-10T11:38:47.196Z"}
+{"level":"info","message":"CatsModule dependencies initialized InstanceLoader true","timestamp":"2018-07-10T11:38:47.197Z"}
+{"level":"info","message":"AuthModule dependencies initialized InstanceLoader true","timestamp":"2018-07-10T11:38:47.198Z"}
+{"level":"info","message":"MongooseCoreModule dependencies initialized InstanceLoader true","timestamp":"2018-07-10T11:38:47.216Z"}
+{"level":"info","message":"WebAppController {/}: RoutesResolver true","timestamp":"2018-07-10T11:38:47.229Z"}
+{"level":"info","message":"Mapped {/, GET} route RouterExplorer true","timestamp":"2018-07-10T11:38:47.231Z"}
+{"level":"info","message":"AuthController {/auth}: RoutesResolver true","timestamp":"2018-07-10T11:38:47.232Z"}
+{"level":"info","message":"Mapped {/token, GET} route RouterExplorer true","timestamp":"2018-07-10T11:38:47.233Z"}
+{"level":"info","message":"Mapped {/data, GET} route RouterExplorer true","timestamp":"2018-07-10T11:38:47.234Z"}
+{"level":"info","message":"CatsController {/cats}: RoutesResolver true","timestamp":"2018-07-10T11:38:47.234Z"}
+{"level":"info","message":"Mapped {/, POST} route RouterExplorer true","timestamp":"2018-07-10T11:38:47.236Z"}
+{"level":"info","message":"Mapped {/, GET} route RouterExplorer true","timestamp":"2018-07-10T11:38:47.237Z"}
+{"level":"info","message":"Mapped {/protected, GET} route RouterExplorer true","timestamp":"2018-07-10T11:38:47.237Z"}
+{"level":"info","message":"Mapped {/:id, GET} route RouterExplorer true","timestamp":"2018-07-10T11:38:47.238Z"}
+{"level":"info","message":"Nest application successfully started NestApplication true","timestamp":"2018-07-10T11:38:47.239Z"}
+{"host":"localhost:3000","connection":"keep-alive","upgrade-insecure-requests":"1","user-agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36","accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8","accept-encoding":"gzip, deflate, br","accept-language":"en-US,en;q=0.9","if-none-match":"W/\"b-EFAlOux7Kcr/ZEgGkn2r+oFAbu4\"","level":"debug","message":"C:\\Users\\James\\_Dev\\nestjs-bff\\workspaces\\api\\src\\cats\\cats.controller.ts - findAll - headers","timestamp":"2018-07-10T11:39:38.023Z"}

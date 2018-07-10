@@ -1,0 +1,21 @@
+{
+  "extends": ["tslint:recommended"],
+  "jsRules": {
+    "no-unused-expression": true
+  },
+  "rules": {
+    "curly": false,
+    "eofline": false,
+    "quotemark": [true, "single"],
+    "max-line-length": [true, 180],
+    "object-literal-sort-keys": false,
+    "arrow-parens": false,
+    "no-empty-interface": false,
+    "no-empty": false,
+    "max-classes-per-file": false,
+    "ordered-imports": false,
+    "interface-name": false,
+    "member-ordering": [true, { "order": "fields-first" }]
+  },
+  "rulesDirectory": []
+}

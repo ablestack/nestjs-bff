@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "workspaces": [
+    "workspaces/api",
+    "workspaces/cli",
+    "workspaces/webapp-example"
+  ],
+  "name": "nestjs-bff",
+  "version": "0.1.0",
+  "description": "A Nestjs Backend-For-Frontend with CLI",
+  "author": "ahrnee",
+  "license": "MIT",
+  "scripts": {
+    "start-bff-api": "ts-node --project workspaces/api/tsconfig.json -r tsconfig-paths/register ./workspaces/api/src/main.ts",
+    "db-seed:dev": "ts-node cli migration-custom --filename seed-dev --direction up"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "ts-node": "^4.1.0"
+  }
+}

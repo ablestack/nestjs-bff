@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "workspaces\\api"
+		},
+		{
+			"path": "workspaces\\cli"
+		},
+		{
+			"path": "workspaces\\webapp-example"
+		}
+	],
+	"settings": {
+		"editor.formatOnSave": true
+	}
+}

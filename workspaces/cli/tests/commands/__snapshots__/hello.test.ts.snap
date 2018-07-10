@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`hello says hello with the right name, after asking it if not provided 1`] = `"? What's your name? "`;
+
+exports[`hello says hello with the right name, after asking it if not provided 2`] = `":wave:  Hello stranger!"`;
+
+exports[`hello says hello with the right name, after asking it if not provided 3`] = `"Oh, nice to meet you, gabro!"`;
+
+exports[`hello says hello with the right name, without asking it if provided 1`] = `"Oh, nice to meet you, gabro!"`;
