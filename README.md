@@ -148,6 +148,13 @@ The following functionality remains to be implemented for a solid v1.0 candidate
 
 - Users: A Users service, with associated models, controller, and CRUD capabilities
 
+# Attributions
+
+This codebase contains code from the following open source libraries:
+
+- https://github.com/nestjs/nest
+- https://github.com/balmasi/migrate-mongoose
+
 # Contributions
 
 Contributions are not only welcome, but encouraged. Please help make this better!
