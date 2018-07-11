@@ -2,13 +2,19 @@
 
 ## Description
 
-A NestJS BFF (Backend For Frontend) starter project. Includes an API, CLI, and example client webapp. Features include production grade logging, authorization, authentication, MongoDB migrations, and end-to-end testing.
+A NestJS BFF (Backend For Frontend) starter project. Includes an API, CLI, and example client webapp. Features include production grade:
 
-The CLI setup that allows the NestJS API services to be easily exposed and executed via command line. This prevents having to maintain a separate Business Logic codebase for a CLI system - and enables CLI driven development... a surprisingly fast and pleasant development experience.
+- Logging (with Winston)
+- Authorization & authentication (with JWT and Bearer tokens)
+- MongoDB Database migrations with a custom migrations solution
+- Custom configuration provider, leveraging strongly typed JSON files, with .env file for environment specific & sensitive data
+- End-to-end testing with JEST
+
+The CLI is structured to allow the API NestJS API services to be easily exposed and executed via command line. This prevents having to maintain a separate Business Logic codebase for a CLI system - and enables CLI driven development... a surprisingly fast and pleasant development experience.
 
 Leverages Yarn Workspaces to allow for a Monorepo setup, containing the API, CLI, and example client webapp.
 
-The majority of this code is simply a compilation of the great work of some real craftsman out there - not least Kamil Myśliwiec and team who made NestJS. However, setting up an initial production-ready NestJS BFF project has proved to still take a significant amount of time and effort. This work is being shared so that others can benefit from this... and also help make it better!
+The majority of this code is a crafted compilation of the great work of some real craftsman out there - not least Kamil Myśliwiec and team who made NestJS. However, setting up an initial production-ready NestJS BFF project has proved to still take a significant amount of time and effort. This work is being shared so that others can benefit from this... and also help make it better!
 
 ## API Description
 
@@ -148,13 +154,10 @@ The following functionality remains to be implemented for a solid v1.0 candidate
 
 - Users: A Users service, with associated models, controller, and CRUD capabilities
 
-# Attributions
-
-This codebase contains code from the following open source libraries:
-
-- https://github.com/nestjs/nest
-- https://github.com/balmasi/migrate-mongoose
-
 # Contributions
 
-Contributions are not only welcome, but encouraged. Please help make this better!
+Contributions are not only welcome, but encouraged. Please help make this better! See the [Contributions Guide](CONTRIBUTIONS.md) for details.
+
+# Attributions
+
+See the [Attributions](attributions/ATTRIBUTIONS.md) section.
