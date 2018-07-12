@@ -2,13 +2,17 @@
 
 ## Description
 
-NestJS-BFF is a starter project for those looking for a fast-track to building a production-grade web-application with a NestJS backend, and a fully client-side JavaScript frontend.
+NestJS-BFF is a starter project for those looking for a fast-track to building a production-grade [BFF](https://samnewman.io/patterns/architectural/bff/) web application with [NestJS](https://nestjs.com/). This is a Monorepo project containing an API, example web client, and a companion CLI. It leverages Yarn Workspaces for convenient centralized package management across all three.
 
-The contained API and CLI works well with any client side JavaScript framework. This provided example web client uses Angular, which is is particularly well suited. This is due to the use of the same strongly typed primary language (TypeScript), and extremely similar architecture and design patterns (Servces, Providers, Modules, DI, etc)
+## Background
 
-This project leverages Yarn Workspaces to allow for a Monorepo setup, containing an API, CLI, and example client webapp.
+[NestJS](https://nestjs.com/) is a fantastic project, and a pleasure to develop with. However, it is a framework by design, and not an out-of-the-box complete system. While this make it a powerful and flexible toolkit for building web-apps, there are quite a few features missing that are often taken for granted in other web-application systems.
 
-### Developer Benefits of NestJS-BFF with an Angular Frontend
+Features such as logging, configuration management, data-base migrations, and even authentication are either missing, not production ready, or need to be assembled and configured from nest-js samples and examples. To get from a vanilla nest-js scaffold to a production-ready web-application stack is a worthwhile, but time consuming endeavor. This project aims to provide a short-cut for those who wish to save themselves some time, and an example of a full nest-js web-application implementation for the rest of us.
+
+### Developer Benefits
+
+There are a number of benefits that make NestJs and Angular a very compelling web development stack:
 
 - NestJS and Angular are both versatile and highly compatible frameworks, that provide a great developer experience
 - Significant reduction in context-switching between frontend and backend development
@@ -20,19 +24,7 @@ This project leverages Yarn Workspaces to allow for a Monorepo setup, containing
 - Leverages fully open source technology
 - Hosting options are broad, and flexible, with multiple value-options, including broad native cloud hosting support (including Heroku)
 
-## Overview
-
-- Production grade Logging (with Winston)
-- Production grade authorization & authentication (with JWT and Bearer tokens)
-- Highly structured but flexible configuration system, leveraging strongly typed JSON files, with .env file for environment specific & sensitive data
-- MongoDB Database migrations with a custom migrations solution
-- End-to-end testing with JEST
-- Easily extensible companion CLI, which supports execution of DB Migrations
-- Example integration with Angular client WebApp
-
-The majority of this code is a crafted compilation of the great work of some real craftsman out there - not least Kamil Myśliwiec and team who made NestJS. However, setting up an initial production-ready NestJS BFF project has proved to still take a significant amount of time and effort. This work is being shared so that others can benefit from this... and also help make it better!
-
-## API Description
+## API Overview
 
 Based on the standard Nest CLI generated API, with the following customizations and enhancements:
 
@@ -43,7 +35,7 @@ Based on the standard Nest CLI generated API, with the following customizations 
 - **Configuration Service**: Strongly typed production-grade configuration system. Centralizes configuration and leverages both .env and fast and flexible ts object literal based configuration
 - **e2e Testing**: e2e testing of controllers and services, including exercising of authentication and authorization
 
-## CLI Description
+## CLI Overview
 
 The CLI is structured to allow the API NestJS API services to be easily exposed and executed via command line. This prevents having to maintain a separate Business Logic codebase for a CLI system - and enables CLI driven development... a surprisingly fast and good development experience.
 
@@ -52,7 +44,7 @@ The primary set of services that are currently exposed via the CLI are for datab
 - **Initiate MongoDB Migrations**
 - **Initiate customDB scripts - useful for e2e test DB seeding**
 
-## Example WebApp Client Description
+## Example WebApp Client Overview
 
 Demonstrates how to integrate with the NextJS BFF, including:
 
