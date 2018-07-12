@@ -6,9 +6,9 @@ NestJS-BFF is a starter project for those looking to fast-track building a produ
 
 ## Background
 
-[NestJS](https://nestjs.com/) is a fantastic project, and a pleasure to develop with. However, it is a framework by design, and not an turnkey web application solution. While this make it a powerful and flexible toolkit for building web-apps, there are quite a few features missing that are often taken for granted in other web-application systems.
+[NestJS](https://nestjs.com/) is a fantastic project, and a pleasure to develop with. However, it is a framework by design, and not an turnkey web application solution. While this makes it a powerful and flexible toolkit for building web-apps, there are quite a few features missing that are often taken for granted in other web-application systems.
 
-Features such as logging, configuration management, data-base migrations, and even authentication are either missing from a newly scaffolded nest-js web-application, or not production ready. To get to a production-ready web-application stack with nest-js is a worthwhile endeavor, but can be very time consuming. This project aims to provide a short-cut for those who wish to save themselves some time, and an example of a full nest-js web-application implementation for the rest of us.
+Features such as logging, configuration management, data-base migrations, and even authentication are either missing from a newly scaffolded nest-js web-application, or not production quality. To create an enterprise-ready web-application base with nest-js is a worthwhile endeavor, but can be very time consuming. This project aims to provide a short-cut for those who wish to save themselves some time, and an example of a hardened nest-js web-application implementation for the rest of us.
 
 ### Developer Benefits
 
