@@ -2,13 +2,13 @@
 
 ## Description
 
-NestJS-BFF is a starter project for those looking for a fast-track to building a production-grade [BFF](https://samnewman.io/patterns/architectural/bff/) web application with [NestJS](https://nestjs.com/). This is a Monorepo project containing an API, example web client, and a companion CLI. It leverages Yarn Workspaces for convenient centralized package management across all three.
+NestJS-BFF is a starter project for those looking to fast-track building a production-grade [BFF](https://samnewman.io/patterns/architectural/bff/) web application with [NestJS](https://nestjs.com/). This is a Monorepo project containing an API, example web client, and a companion CLI. It leverages Yarn Workspaces for convenient centralized package management across all three.
 
 ## Background
 
-[NestJS](https://nestjs.com/) is a fantastic project, and a pleasure to develop with. However, it is a framework by design, and not an out-of-the-box complete system. While this make it a powerful and flexible toolkit for building web-apps, there are quite a few features missing that are often taken for granted in other web-application systems.
+[NestJS](https://nestjs.com/) is a fantastic project, and a pleasure to develop with. However, it is a framework by design, and not an turnkey web application solution. While this make it a powerful and flexible toolkit for building web-apps, there are quite a few features missing that are often taken for granted in other web-application systems.
 
-Features such as logging, configuration management, data-base migrations, and even authentication are either missing, not production ready, or need to be assembled and configured from nest-js samples and examples. To get from a vanilla nest-js scaffold to a production-ready web-application stack is a worthwhile, but time consuming endeavor. This project aims to provide a short-cut for those who wish to save themselves some time, and an example of a full nest-js web-application implementation for the rest of us.
+Features such as logging, configuration management, data-base migrations, and even authentication are either missing from a newly scaffolded nest-js web-application, or not production ready. To get to a production-ready web-application stack with nest-js is a worthwhile endeavor, but can be very time consuming. This project aims to provide a short-cut for those who wish to save themselves some time, and an example of a full nest-js web-application implementation for the rest of us.
 
 ### Developer Benefits
 
