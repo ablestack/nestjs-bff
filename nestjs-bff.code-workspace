@@ -10,7 +10,7 @@
 			"path": "workspaces\\cli"
 		},
 		{
-			"path": "workspaces\\webapp-example"
+			"path": "workspaces\\webclient"
 		}
 	],
 	"settings": {

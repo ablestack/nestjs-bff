@@ -3,7 +3,7 @@
   "workspaces": [
     "workspaces/api",
     "workspaces/cli",
-    "workspaces/webapp-example"
+    "workspaces/webclient"
   ],
   "name": "nestjs-bff",
   "version": "0.1.0",
