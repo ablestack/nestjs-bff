@@ -11,6 +11,10 @@
   "description": "A Nestjs Backend-For-Frontend with CLI",
   "author": "ahrnee",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ahrnee/nestjs-bff.git"
+  },
   "scripts": {
     "install-all": "yarn install && cd webclient && yarn install && cd ..",
     "start-bff-api": "ts-node --project api/tsconfig.json -r tsconfig-paths/register ./api/src/main.ts",
