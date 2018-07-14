@@ -4,6 +4,7 @@ import * as jwt from 'jsonwebtoken';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { LoggerService } from '../common/services/logger.service';
 import { AccessTokenWithMetadata } from './interfaces/jwt-accessTokenData.interface';
+import { AuthenticateDto } from './dto/authenticate-dto';
 
 @Injectable()
 export class AuthService {
@@ -33,5 +34,11 @@ export class AuthService {
     // no additional validation needed.  We trust the jwt token provided, and just pass it along (TODO: verify this notion is watertight)
     this.loggerService.debug('auth.service - validateUser - payload', payload);
     return payload;
+  }
+
+  public async authenticateUser(authenticateDto: AuthenticateDto): Promise<boolean> {
+    if (authenticateDto.username === 'user@mydomain.com' && authenticateDto.password === 'user') return true;
+    if (authenticateDto.username === 'staff@mydomain.com' && authenticateDto.password === 'staff') return true;
+    return false;
   }
 }

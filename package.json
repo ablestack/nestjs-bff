@@ -1,11 +1,5 @@
 {
   "private": true,
-  "workspaces": {
-    "packages": [
-      "api",
-      "cli"
-    ]
-  },
   "name": "nestjs-bff",
   "version": "0.1.0",
   "description": "A Nestjs Backend-For-Frontend with CLI",

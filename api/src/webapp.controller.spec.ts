@@ -1,7 +1,7 @@
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { WebAppController } from './webapp.controller';
-import { WebAppService } from './webapp.service';
+import { WebAppHealthCheckService } from './webAppHealthCheck.service';
 
 describe('WebAppController', () => {
   let app: TestingModule;
@@ -9,7 +9,7 @@ describe('WebAppController', () => {
   beforeAll(async () => {
     app = await Test.createTestingModule({
       controllers: [WebAppController],
-      providers: [WebAppService],
+      providers: [WebAppHealthCheckService],
     }).compile();
   });
 

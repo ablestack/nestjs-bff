@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
-import { WebAppHealthCheckService } from './webAppHealthCheck.service';
+import { WebAppHealthCheckService } from 'webAppHealthCheck.service';
 
 @Controller()
 export class WebAppController {

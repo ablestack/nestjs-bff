@@ -3,12 +3,14 @@ import { Test } from '@nestjs/testing';
 import { AuthModule } from '../../src/auth/auth.module';
 import { AuthService } from '../../src/auth/auth.service';
 import { INestApplication } from '@nestjs/common';
+import { AuthenticateDto } from '../../src/auth/dto/authenticate-dto';
 
 describe('Auth', () => {
   let app: INestApplication;
 
   const authService = {
     createToken: () => 'tokenString',
+    authenticateUser: (authenticateDto: AuthenticateDto) => true,
   };
 
   beforeAll(async () => {
@@ -23,9 +25,10 @@ describe('Auth', () => {
     await app.init();
   });
 
-  it(`/GET auth`, () => {
+  it(`/POST auth`, () => {
     return request(app.getHttpServer())
-      .get('/auth/token')
+      .post('/auth/authenticate')
+      .set('authenticateDto', `{ username: 'staff@mydomain.com', password:'staff'}`)
       .expect(200)
       .expect({
         data: authService.createToken(),

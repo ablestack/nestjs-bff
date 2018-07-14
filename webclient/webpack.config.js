@@ -1,42 +1,48 @@
-﻿const HtmlWebpackPlugin = require('html-webpack-plugin');
+﻿const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  entry: './src/main.ts',
+  entry: "./src/main.ts",
 
   module: {
     rules: [
       {
         test: /\.ts$/,
-        use: ['ts-loader', 'angular2-template-loader'],
+        use: ["ts-loader", "angular2-template-loader"],
         exclude: /node_modules/
       },
       {
         test: /\.(html|css)$/,
-        loader: 'raw-loader'
-      },
+        loader: "raw-loader"
+      }
     ]
   },
-  
+
   resolve: {
-    extensions: ['.ts', '.js']
+    extensions: [".ts", ".js"]
   },
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
-      filename: 'index.html',
-      inject: 'body'
+      template: "./src/index.html",
+      filename: "index.html",
+      inject: "body"
     })
   ],
 
   optimization: {
     splitChunks: {
-      chunks: 'all',
+      chunks: "all"
     },
     runtimeChunk: true
   },
 
   devServer: {
-    historyApiFallback: true
+    historyApiFallback: true,
+    proxy: {
+      "/api": {
+        target: "http://localhost:3000",
+        secure: false
+      }
+    }
   }
 };
