@@ -1,13 +1,17 @@
 # Nestjs-BFF
 
 <p align="center">
-  <i><a href="README.md">Overview</a></i>
-  &nbsp;&nbsp;&nbsp;
-	<a href="api/README.md">API</a>
-  &nbsp;&nbsp;&nbsp;
-	<a href="cli/README.md">CLI</a>
-  &nbsp;&nbsp;&nbsp;
-	<a href="webclient/README.md">Web Client</a>
+  <span style="border: 1px solid #ddd">
+    <span style="padding:0 5px"></span>
+    <i><a href="README.md">Overview</a></i>
+    <span style="padding:0 10px; color:#eee">|</span>
+    <a href="api/README.md">API</a>
+    <span style="padding:0 10px; color:#eee">|</span>
+    <a href="cli/README.md">CLI</a>
+    <span style="padding:0 10px; color:#eee">|</span>
+    <a href="webclient/README.md">Web Client</a>
+    <span style="padding:0 5px"></span>
+  </span>
 </p>
 
 ## Overview
