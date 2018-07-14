@@ -1,7 +1,7 @@
 # Nestjs-BFF
 
 <p align="center">
-  <a href="README.md">Overview</a>
+  <i><a href="README.md">Overview</a></i>
   &nbsp;&nbsp;&nbsp;
 	<a href="api/README.md">API</a>
   &nbsp;&nbsp;&nbsp;
@@ -10,9 +10,11 @@
 	<a href="webclient/README.md">Web Client</a>
 </p>
 
-## Description
+## Overview
 
-NestJS-BFF is a starter project for those looking to fast-track building a production-grade [BFF](https://samnewman.io/patterns/architectural/bff/) web application with [NestJS](https://nestjs.com/). This is a Monorepo project containing an API, example web client, and a companion CLI. It leverages Yarn Workspaces for convenient centralized package management across all three.
+NestJS-BFF is a starter project for those looking to fast-track building a production-grade [BFF](https://samnewman.io/patterns/architectural/bff/) web application with [NestJS](https://nestjs.com/).
+
+This is a Monorepo project containing an API, companion CLI, and Web Client. Follow the README navigation links for details on each of these.
 
 ## Background
 
@@ -41,3 +43,12 @@ Contributions are not only welcome, but encouraged. Please help make this better
 # Attributions
 
 See the [Attributions](attributions/ATTRIBUTIONS.md) section.
+
+## Readme Navigation
+
+Further details on each of the systems contained in this project can be found via the following links:
+
+- _[Overview](README.md)_
+- [API](api/README.md)
+- [CLI](cli/README.md)
+- [Web Client](webclient/README.md)

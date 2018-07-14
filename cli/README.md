@@ -5,7 +5,7 @@
   &nbsp;&nbsp;&nbsp;
 	<a href="../api/README.md">API</a>
   &nbsp;&nbsp;&nbsp;
-	<a href="README.md">CLI</a>
+	<i><a href="README.md">CLI</a></i>
   &nbsp;&nbsp;&nbsp;
 	<a href="../webclient/README.md">Web Client</a>
 </p>
@@ -85,3 +85,12 @@ $ ts-node cli migrations-prune
 # Run custom migration script
 $ ts-node cli migration-custom --filename <filename> --direction [up|down]
 ```
+
+## Readme Navigation
+
+Further details on each of the systems contained in this project can be found via the following links:
+
+- [Overview](../README.md)
+- [API](../api/README.md)
+- _[CLI](README.md)_
+- [Web Client](../webclient/README.md)

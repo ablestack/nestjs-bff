@@ -4,9 +4,6 @@
     "packages": [
       "api",
       "cli"
-    ],
-    "nohoist": [
-      "*"
     ]
   },
   "name": "nestjs-bff",
@@ -15,8 +12,8 @@
   "author": "ahrnee",
   "license": "MIT",
   "scripts": {
-    "install-all": "yarn install && cd webclient && yarn install && cd '..'",
-    "start-bff-api": "ts-node --project workspaces/api/tsconfig.json -r tsconfig-paths/register ./workspaces/api/src/main.ts",
+    "install-all": "yarn install && cd webclient && yarn install && cd ..",
+    "start-bff-api": "ts-node --project api/tsconfig.json -r tsconfig-paths/register ./api/src/main.ts",
     "db-seed:dev": "ts-node cli migration-custom --filename seed-dev --direction up"
   },
   "dependencies": {},

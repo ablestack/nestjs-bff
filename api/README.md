@@ -3,9 +3,9 @@
 <p align="center">
   <a href="../README.md">Overview</a>
   &nbsp;&nbsp;&nbsp;
-	<a href="README.md">API</a>
+	<i><a href="README.md">API</a></i>
   &nbsp;&nbsp;&nbsp;
-	<a href="../CLI/README.md">CLI</a>
+	<a href="../cli/README.md">CLI</a>
   &nbsp;&nbsp;&nbsp;
 	<a href="../webclient/README.md">Web Client</a>
 </p>
@@ -58,3 +58,12 @@ $ npm run test-bff-api:e2e
     # test coverage
     $ npm run test:cov
 --->
+
+## Readme Navigation
+
+Further details on each of the systems contained in this project can be found via the following links:
+
+- [Overview](../README.md)
+- _[API](README.md)_
+- [CLI](../cli/README.md)
+- [Web Client](../webclient/README.md)
