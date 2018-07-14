@@ -4,13 +4,13 @@
 			"path": "."
 		},
 		{
-			"path": "workspaces\\api"
+			"path": "api"
 		},
 		{
-			"path": "workspaces\\cli"
+			"path": "cli"
 		},
 		{
-			"path": "workspaces\\webclient"
+			"path": "webclient"
 		}
 	],
 	"settings": {

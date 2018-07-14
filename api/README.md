@@ -1,0 +1,60 @@
+# Nestjs-BFF API
+
+<p align="center">
+  <a href="../README.md">Overview</a>
+  &nbsp;&nbsp;&nbsp;
+	<a href="README.md">API</a>
+  &nbsp;&nbsp;&nbsp;
+	<a href="../CLI/README.md">CLI</a>
+  &nbsp;&nbsp;&nbsp;
+	<a href="../webclient/README.md">Web Client</a>
+</p>
+
+## API Overview
+
+Based on the standard Nest CLI generated API, with the following customizations and enhancements:
+
+- **JWT Authentication**
+- **Roles base Authorization**
+- **MongoDB Migration System**: A NestJS based Mongo migrations system. Uses DB to track migration state. As such works well in cloud and container environment where local file-based state is not guaranteed across deployments
+- **Logger Service**: Production grade Logger, leveraging Winston
+- **Configuration Service**: Strongly typed production-grade configuration system. Centralizes configuration and leverages both .env and fast and flexible ts object literal based configuration
+- **e2e Testing**: e2e testing of controllers and services, including exercising of authentication and authorization
+
+## API Installation
+
+```bash
+$ yarn install
+```
+
+## API Configuration
+
+Various self-explanatory configuration options are available via the config folder:
+
+- use the .env file for environment specific and sensitive configuration items
+- use the .ts files for all other configuration needs
+
+## API Usage
+
+```bash
+# development
+$ npm run start-bff-api
+```
+
+View at: http://localhost:3000
+
+## API Test
+
+```bash
+# e2e tests
+$ npm run test-bff-api:e2e
+```
+
+<!---
+    Not avaialable yet:
+    # unit tests
+    $ npm run test
+
+    # test coverage
+    $ npm run test:cov
+--->
