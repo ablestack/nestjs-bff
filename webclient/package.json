@@ -2,10 +2,13 @@
   "private": true,
   "name": "nestjs-bff-webapp-example",
   "version": "0.1.0",
-  "description": "A Nestjs Backend-For-Frontend example web-app client. This is simply the excellent open source core-ui website template, wired up to the nestjs-bff api",
+  "description": "A Nestjs Backend-For-Frontend example angular web-app client",
   "author": "ahrnee",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server --mode development --open"
+  },
   "dependencies": {},
   "devDependencies": {},
   "scripts": {

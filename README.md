@@ -16,6 +16,15 @@ NestJS-BFF is a starter project for those looking to fast-track building a produ
 
 This is a Monorepo project containing an API, companion CLI, and Web Client. Follow the README navigation links for details on each of these.
 
+## Installation
+
+Navigate to the root of Nestjs-Bff repo, the run the following command:
+
+```bash
+# install dependencies for all sub projects (api, cli, webclient)
+$ yarn install-all
+```
+
 ## Background
 
 [NestJS](https://nestjs.com/) is a fantastic project, and a pleasure to develop with. However, it is a framework by design, and not an turnkey web application solution. While this makes it a powerful and flexible toolkit for building web-apps, there are quite a few features missing that are often taken for granted in other web-application systems.
@@ -35,6 +44,12 @@ There are a number of benefits that make NestJs and Angular a very compelling we
 - Backend framework can be leveraged for other execution contexts, including CLI (example included) or even DeskTop
 - Leverages fully open source technology
 - Hosting options are broad, and flexible, with multiple value-options, including broad native cloud hosting support (including Heroku)
+
+# Notes
+
+- The API can run independently from the CLI
+- The CLI requires the API to compile and run, and is connected by Yarn Workspaces
+- The webclient can run independently, but requires the API to be running to complete API requests, including for authentication
 
 # Contributions
 

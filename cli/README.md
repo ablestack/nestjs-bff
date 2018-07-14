@@ -31,6 +31,13 @@ The primary set of services that are currently exposed via the CLI are for datab
 
 ## CLI Installation
 
+1.  Navigate to the root of Nestjs-Bff repo, the run then following command:
+
+```bash
+# install dependencies for all sub projects (api, cli, webclient)
+$ yarn install-all
+```
+
 1.  Make a symlink to the CLI in the tools directory
 
 ```bash
@@ -41,7 +48,7 @@ $ mklink cli.ts workspaces\cli\src\cli.ts
 $ <TODO>
 ```
 
-2.  Install ts-node globally
+3.  Install ts-node globally
 
 ```bash
 # Windows

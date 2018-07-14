@@ -23,6 +23,15 @@ Based on the standard Nest CLI generated API, with the following customizations 
 
 ## API Installation
 
+Navigate to the root of Nestjs-Bff repo, the run then following command:
+
+```bash
+# install dependencies for all sub projects (api, cli, webclient)
+$ yarn install-all
+```
+
+Navigate to /api, then run the following command:
+
 ```bash
 $ yarn install
 ```

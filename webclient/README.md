@@ -19,9 +19,20 @@ The Web Client demonstrates how to integrate with the NextJS BFF API, including:
 
 ## Attribution
 
-The majority of this code in this web client is from the excellent and free [core-ui](https://coreui.io/) website template. If you use in a project of your own, consider providing their team with a donation or buying the core-ui premium admin template. Hop over to the [core-ui github page](https://github.com/coreui/coreui-free-angular-admin-template) to get detailed information on this template, and the latest updates.
+This example heavily leverages the [Jason Watmore tutorial on Angular JWT Authentication](http://jasonwatmore.com/post/2018/05/23/angular-6-jwt-authentication-example-tutorial) and the [companion git repo](https://github.com/cornflourblue/angular-6-jwt-authentication-example).
 
 ## Web Client Installation
+
+Navigate to the root of Nestjs-Bff repo, the run then following command:
+
+```bash
+# install dependencies for all sub projects (api, cli, webclient)
+$ yarn install-all
+```
+
+Or
+
+Navigate to /webclient, then run the following command:
 
 ```bash
 # install dependencies
@@ -35,10 +46,10 @@ $ yarn install
 $ cd workspaces/webclient
 
 # serve with hot reload at localhost:4200.
-$ ng serve
+$ npm start
 
 # build for production with minification
-$ ng build
+$ npm build
 ```
 
 ## Readme Navigation
