@@ -10,7 +10,10 @@
     "url": "https://github.com/ahrnee/nestjs-bff.git"
   },
   "scripts": {
-    "install-all": "yarn install && cd webclient && yarn install && cd ..",
+    "install-all": "yarn install & yarn install-api & yarn install-cli & yarn install-webclient",
+    "install-api": "cd api && yarn install && cd ..",
+    "install-cli": "cd cli && yarn install && cd ..",
+    "install-webclient": "cd webclient && yarn install && cd ..",
     "start-bff-api": "ts-node --project api/tsconfig.json -r tsconfig-paths/register ./api/src/main.ts",
     "db-seed:dev": "ts-node cli migration-custom --filename seed-dev --direction up"
   },
