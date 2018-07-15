@@ -28,5 +28,6 @@ npm-debug.log
 /cli.ts
 
 #logs
-*/logs/*.log
-*/logs/*.audit.json
+**/logs/*.log
+**/logs/*.audit.json
+**/*error.log
