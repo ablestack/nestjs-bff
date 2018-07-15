@@ -8,12 +8,18 @@ import { AuthenticateDto } from '../../src/auth/dto/authenticate-dto';
 describe('Auth', () => {
   let app: INestApplication;
 
+  //
+  // Setup mock data & services
+  //
   const authService = {
     createToken: () => 'tokenString',
     authenticateUser: (authenticateDto: AuthenticateDto) => true,
   };
 
   beforeAll(async () => {
+    //
+    // Instantiate nest application
+    //
     const module = await Test.createTestingModule({
       imports: [AuthModule],
     })

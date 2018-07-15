@@ -9,10 +9,17 @@ import { AccessTokenWithMetadata } from '../../src/auth/interfaces/jwt-accessTok
 describe('Cats', () => {
   let app: INestApplication;
   let authToken: AccessTokenWithMetadata;
+
+  //
+  // Setup mock data & services
+  //
   const jwtPayload = { email: 'test@email.com', roles: ['staff'] };
   const catsService = { findAll: () => ['test'] };
 
   beforeAll(async () => {
+    //
+    // Instantiate nest application
+    //
     const module = await Test.createTestingModule({
       imports: [CatsModule],
     })
@@ -60,6 +67,7 @@ describe('Cats', () => {
         data: catsService.findAll(),
       });
   });
+
   afterAll(async () => {
     await app.close();
   });
