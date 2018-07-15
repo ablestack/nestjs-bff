@@ -28,5 +28,5 @@ npm-debug.log
 /cli.ts
 
 #logs
-workspaces/api/logs/*.log
-workspaces/api/logs/*.audit.json
+*/logs/*.log
+*/logs/*.audit.json

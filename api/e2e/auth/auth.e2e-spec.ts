@@ -28,8 +28,8 @@ describe('Auth', () => {
   it(`/POST auth`, () => {
     return request(app.getHttpServer())
       .post('/auth/authenticate')
-      .set('authenticateDto', `{ username: 'staff@mydomain.com', password:'staff'}`)
-      .expect(200)
+      .send({ authenticateDto: { username: 'staff@mydomain.com', password: 'staff' } })
+      .expect(201)
       .expect({
         data: authService.createToken(),
       });

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Headers, UseGuards, UseInterceptors, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Headers, UseGuards, UseInterceptors, Param, Request } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { LoggingInterceptor } from '../common/interceptors/logging.interceptor';
@@ -6,14 +6,18 @@ import { TransformInterceptor } from '../common/interceptors/transform.intercept
 import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
 import { AuthenticateDto } from './dto/authenticate-dto';
+import { LoggerService } from '../common/services/logger.service';
 
 @Controller('auth')
 @UseInterceptors(LoggingInterceptor, TransformInterceptor)
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService, private loggerService: LoggerService) {}
 
-  @Post()
-  public async authenticate(@Body() authenticateDto: AuthenticateDto): Promise<any> {
+  @Post('authenticate')
+  public async authenticate(@Body('authenticateDto') authenticateDto: AuthenticateDto): Promise<any> {
+    // console.log('auth.controller - authenticate', authenticateDto);
+    this.loggerService.debug('auth.controller - authenticate', authenticateDto);
+
     // validate user
     if (await this.authService.authenticateUser(authenticateDto)) {
       // issue and return JWT token
