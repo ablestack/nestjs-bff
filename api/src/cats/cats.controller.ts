@@ -2,13 +2,13 @@ import { Controller, Get, Post, Body, Headers, UseGuards, UseInterceptors, Param
 import { CreateCatDto } from './dto/create-cat.dto';
 import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
-import { RolesGuard } from 'common/guards/roles.guard';
-import { Roles } from 'common/decorators/roles.decorator';
-import { LoggingInterceptor } from 'common/interceptors/logging.interceptor';
-import { TransformInterceptor } from 'common/interceptors/transform.interceptor';
-import { ParseIntPipe } from 'common/pipes/parse-int.pipe';
+import { RolesGuard } from '../common/guards/roles.guard';
+import { Roles } from '../common/decorators/roles.decorator';
+import { LoggingInterceptor } from '../common/interceptors/logging.interceptor';
+import { TransformInterceptor } from '../common/interceptors/transform.interceptor';
+import { ParseIntPipe } from '../common/pipes/parse-int.pipe';
 import { AuthGuard } from '@nestjs/passport';
-import { LoggerService } from 'common/services/logger.service';
+import { LoggerService } from '../common/services/logger.service';
 
 @Controller('cats')
 @UseInterceptors(LoggingInterceptor, TransformInterceptor)

@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from 'common/services/config.service';
+import { ConfigService } from '../common/services/config.service';
 import * as jwt from 'jsonwebtoken';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
-import { LoggerService } from 'common/services/logger.service';
+import { LoggerService } from '../common/services/logger.service';
 import { AccessTokenWithMetadata } from './interfaces/jwt-accessTokenData.interface';
 import { AuthenticateDto } from './dto/authenticate-dto';
 import { User } from './interfaces/user.interface';
