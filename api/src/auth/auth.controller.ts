@@ -18,8 +18,10 @@ export class AuthController {
     // console.log('auth.controller - authenticate', authenticateDto);
     this.loggerService.debug('auth.controller - authenticate', authenticateDto);
 
+    const user = this.authService.authenticateUser(authenticateDto);
+
     // validate user
-    if (await this.authService.authenticateUser(authenticateDto)) {
+    if (user) {
       // issue and return JWT token
       const jwtPayload = { email: 'staff@mydomain.com', roles: ['staff'] };
       return await this.authService.createToken(jwtPayload);

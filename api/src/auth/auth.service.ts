@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '../common/services/config.service';
+import { ConfigService } from 'common/services/config.service';
 import * as jwt from 'jsonwebtoken';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
-import { LoggerService } from '../common/services/logger.service';
+import { LoggerService } from 'common/services/logger.service';
 import { AccessTokenWithMetadata } from './interfaces/jwt-accessTokenData.interface';
 import { AuthenticateDto } from './dto/authenticate-dto';
+import { User } from './interfaces/user.interface';
 
 @Injectable()
 export class AuthService {
@@ -36,9 +37,15 @@ export class AuthService {
     return payload;
   }
 
-  public async authenticateUser(authenticateDto: AuthenticateDto): Promise<boolean> {
-    if (authenticateDto.username === 'user@mydomain.com' && authenticateDto.password === 'user') return true;
-    if (authenticateDto.username === 'staff@mydomain.com' && authenticateDto.password === 'staff') return true;
-    return false;
+  public async authenticateUser(authenticateDto: AuthenticateDto): Promise<User> {
+    if (authenticateDto.username === 'user@mydomain.com' && authenticateDto.password === 'user') {
+      return { username: '', firstName: '', lastName: '' };
+    }
+
+    if (authenticateDto.username === 'staff@mydomain.com' && authenticateDto.password === 'staff') {
+      return { username: '', firstName: '', lastName: '' };
+    }
+
+    return null;
   }
 }
