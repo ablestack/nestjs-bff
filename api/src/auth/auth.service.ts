@@ -6,6 +6,7 @@ import { LoggerService } from '../common/services/logger.service';
 import { AccessTokenWithMetadata } from './interfaces/jwt-accessTokenData.interface';
 import { AuthenticateDto } from './dto/authenticate-dto';
 import { User } from './interfaces/user.interface';
+import { users } from './users.const';
 
 @Injectable()
 export class AuthService {
@@ -34,18 +35,14 @@ export class AuthService {
     // put some validation logic here
     // no additional validation needed.  We trust the jwt token provided, and just pass it along (TODO: verify this notion is watertight)
     this.loggerService.debug('auth.service - validateUser - payload', payload);
-    return payload;
+    return payload.user;
   }
 
   public async authenticateUser(authenticateDto: AuthenticateDto): Promise<User> {
-    if (authenticateDto.username === 'user@mydomain.com' && authenticateDto.password === 'user') {
-      return { username: '', firstName: '', lastName: '' };
-    }
+    return users.find(user => user.username === authenticateDto.username && user.password === authenticateDto.password);
+  }
 
-    if (authenticateDto.username === 'staff@mydomain.com' && authenticateDto.password === 'staff') {
-      return { username: '', firstName: '', lastName: '' };
-    }
-
-    return null;
+  public async findAll(): Promise<User[]> {
+    return users;
   }
 }

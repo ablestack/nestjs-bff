@@ -9,39 +9,33 @@ import { AuthenticateDto } from './dto/authenticate-dto';
 import { LoggerService } from '../common/services/logger.service';
 
 @Controller('auth')
-@UseInterceptors(LoggingInterceptor, TransformInterceptor)
+@UseInterceptors(TransformInterceptor)
 export class AuthController {
   constructor(private readonly authService: AuthService, private loggerService: LoggerService) {}
 
   @Post('authenticate')
   public async authenticate(@Body('authenticateDto') authenticateDto: AuthenticateDto): Promise<any> {
-    // console.log('auth.controller - authenticate', authenticateDto);
     this.loggerService.debug('auth.controller - authenticate', authenticateDto);
 
-    const user = this.authService.authenticateUser(authenticateDto);
+    const user = await this.authService.authenticateUser(authenticateDto);
 
     // validate user
     if (user) {
+      //remove password, and destructure remaining properties into userDto
+      const { password, ...userDto } = user;
+
       // issue and return JWT token
-      const jwtPayload = { email: 'staff@mydomain.com', roles: ['staff'] };
+      const jwtPayload = { user: userDto };
       return await this.authService.createToken(jwtPayload);
     } else {
       throw new Error('incorrect username or password');
     }
   }
 
-  // @Get('token')
-  // public async createToken(): Promise<any> {
-  //   // TODO: validate user
-  //   // TODO: construct payload
-  //   const jwtPayload = { email: 'test@email.com', roles: ['staff'] };
-  //   return await this.authService.createToken(jwtPayload);
-  // }
-
   @Get('data')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles('staff')
-  public findAll() {
-    // this route is restricted
+  public async findAll() {
+    return await this.authService.findAll();
   }
 }

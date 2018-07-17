@@ -11,7 +11,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { LoggerService } from '../common/services/logger.service';
 
 @Controller('cats')
-@UseInterceptors(LoggingInterceptor, TransformInterceptor)
+@UseInterceptors(TransformInterceptor)
 export class CatsController {
   constructor(private readonly catsService: CatsService, private loggerService: LoggerService) {}
 

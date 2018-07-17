@@ -1,4 +1,5 @@
+import { UserDto } from '../dto/user-dto';
+
 export interface JwtPayload {
-  email: string;
-  roles: string[];
+  user: UserDto;
 }

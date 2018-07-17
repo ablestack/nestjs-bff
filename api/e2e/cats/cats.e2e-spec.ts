@@ -1,19 +1,29 @@
-import request from 'supertest';
+import 'jest';
+import supertest from 'supertest';
 import { Test } from '@nestjs/testing';
 import { CatsModule } from '../../src/cats/cats.module';
 import { CatsService } from '../../src/cats/cats.service';
 import { INestApplication } from '@nestjs/common';
 import { AuthService } from '../../src/auth/auth.service';
 import { AccessTokenWithMetadata } from '../../src/auth/interfaces/jwt-accessTokenData.interface';
+import { users } from '../../src/auth/users.const';
 
 describe('Cats', () => {
   let app: INestApplication;
-  let authToken: AccessTokenWithMetadata;
+  let userAuthToken: AccessTokenWithMetadata;
+  let staffAuthToken: AccessTokenWithMetadata;
 
   //
   // Setup mock data & services
   //
-  const jwtPayload = { email: 'test@email.com', roles: ['staff'] };
+  const userJwtPayload = {
+    user: users.find(user => user.username === 'user@mydomain.com'),
+  };
+
+  const staffJwtPayload = {
+    user: users.find(user => user.username === 'staff@mydomain.com'),
+  };
+
   const catsService = { findAll: () => ['test'] };
 
   beforeAll(async () => {
@@ -30,11 +40,12 @@ describe('Cats', () => {
     app = module.createNestApplication();
     await app.init();
 
-    authToken = await app.get(AuthService).createToken(jwtPayload);
+    userAuthToken = await app.get(AuthService).createToken(userJwtPayload);
+    staffAuthToken = await app.get(AuthService).createToken(staffJwtPayload);
   });
 
   it(`/GET cats`, () => {
-    return request(app.getHttpServer())
+    return supertest(app.getHttpServer())
       .get('/cats')
       .expect(200)
       .expect({
@@ -42,26 +53,33 @@ describe('Cats', () => {
       });
   });
 
-  it(`/GET protected cats`, () => {
-    return request(app.getHttpServer())
+  it(`/GET cats with auth token`, () => {
+    return supertest(app.getHttpServer())
+      .get('/cats')
+      .set('authorization', `Bearer ${userAuthToken}`)
+      .expect(200)
+      .expect({
+        data: catsService.findAll(),
+      });
+  });
+
+  it(`/GET protected cats without auth token`, () => {
+    return supertest(app.getHttpServer())
       .get('/cats/protected')
       .expect(401);
   });
 
-  it(`/GET cats with auth token`, () => {
-    return request(app.getHttpServer())
-      .get('/cats')
-      .set('authorization', `Bearer ${authToken}`)
-      .expect(200)
-      .expect({
-        data: catsService.findAll(),
-      });
+  it(`/GET protected cats with user auth token`, () => {
+    return supertest(app.getHttpServer())
+      .get('/cats/protected')
+      .set('authorization', `Bearer ${userAuthToken.accessToken}`)
+      .expect(403);
   });
 
-  it(`/GET protected cats with auth token`, () => {
-    return request(app.getHttpServer())
+  it(`/GET protected cats with staff auth token`, () => {
+    return supertest(app.getHttpServer())
       .get('/cats/protected')
-      .set('authorization', `Bearer ${authToken.accessToken}`)
+      .set('authorization', `Bearer ${staffAuthToken.accessToken}`)
       .expect(200)
       .expect({
         data: catsService.findAll(),
