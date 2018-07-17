@@ -52,7 +52,7 @@ export class ConfigService {
       MONGO_CONNECTION_URI: Joi.string(),
       JWT_SECRET_KEY: Joi.string(),
       APPNAME: Joi.string(),
-      FAMCLI_MIGRATE_DBURI: Joi.string(),
+      BFFCLI_MIGRATE_DBURI: Joi.string(),
     });
 
     const { error, value: validatedEnvConfig } = Joi.validate(envConfig, envVarsSchema);
