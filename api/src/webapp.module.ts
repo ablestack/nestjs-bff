@@ -4,9 +4,11 @@ import { AuthModule } from './auth/auth.module';
 import { CatsModule } from './cats/cats.module';
 import { WebAppController } from 'webapp.controller';
 import { WebAppHealthCheckService } from 'webAppHealthCheck.service';
+import { ConfigService } from './common/services/config.service';
 
+const configService = new ConfigService();
 @Module({
-  imports: [AuthModule, MongooseModule.forRoot('mongodb://localhost/nestjs-bff'), CatsModule],
+  imports: [AuthModule, MongooseModule.forRoot(configService.mongoConnectionUri), CatsModule],
   controllers: [WebAppController],
   providers: [WebAppHealthCheckService],
 })

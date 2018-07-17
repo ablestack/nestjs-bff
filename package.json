@@ -10,9 +10,9 @@
     "url": "https://github.com/ahrnee/nestjs-bff.git"
   },
   "scripts": {
-    "run-all": "yarn run-api & yarn run-webclient",
-    "run-api": "cd api && yarn start",
-    "run-webapp": "cd webclient && start",
+    "start-all": "yarn start-api & yarn start-webclient",
+    "start-api": "cd api && yarn start",
+    "starg-webapp": "cd webclient && start",
     "install-all": "yarn install & yarn install-api & yarn install-cli & yarn install-webclient",
     "install-api": "cd api && yarn install && cd ..",
     "install-cli": "cd cli && yarn install && cd ..",
