@@ -30,14 +30,14 @@ describe('Auth', () => {
     await app.init();
 
     supertest(app.getHttpServer())
-      .post('/auth/authenticate')
+      .post('/api/auth/authenticate')
       .send({ authenticateDto: { username: regularUser.username, password: regularUser.password } })
       .end(function(err, res) {
         regularUserJWTToken = JSON.parse(res.text).data;
       });
 
     supertest(app.getHttpServer())
-      .post('/auth/authenticate')
+      .post('/api/auth/authenticate')
       .send({ authenticateDto: { username: staffUser.username, password: staffUser.password } })
       .end(function(err, res) {
         staffUserJWTToken = JSON.parse(res.text).data;
@@ -46,27 +46,27 @@ describe('Auth', () => {
 
   it(`/POST auth`, () => {
     return supertest(app.getHttpServer())
-      .post('/auth/authenticate')
+      .post('/api/auth/authenticate')
       .send({ authenticateDto: { username: regularUser.username, password: regularUser.password } })
       .expect(201);
   });
 
   it(`/GET protected data without auth token`, () => {
     return supertest(app.getHttpServer())
-      .get('/auth/data')
+      .get('/api/auth/data')
       .expect(401);
   });
 
   it(`/GET protected data with wrong role`, () => {
     return supertest(app.getHttpServer())
-      .get('/auth/data')
+      .get('/api/auth/data')
       .set('authorization', `Bearer ${regularUserJWTToken.accessToken}`)
       .expect(403);
   });
 
   it(`/GET protected data with correct role`, () => {
     return supertest(app.getHttpServer())
-      .get('/auth/data')
+      .get('/api/auth/data')
       .set('authorization', `Bearer ${staffUserJWTToken.accessToken}`)
       .expect(200);
   });

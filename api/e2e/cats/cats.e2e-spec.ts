@@ -46,7 +46,7 @@ describe('Cats', () => {
 
   it(`/GET cats`, () => {
     return supertest(app.getHttpServer())
-      .get('/cats')
+      .get('/api/cats')
       .expect(200)
       .expect({
         data: catsService.findAll(),
@@ -55,7 +55,7 @@ describe('Cats', () => {
 
   it(`/GET cats with auth token`, () => {
     return supertest(app.getHttpServer())
-      .get('/cats')
+      .get('/api/cats')
       .set('authorization', `Bearer ${userAuthToken}`)
       .expect(200)
       .expect({
@@ -65,20 +65,20 @@ describe('Cats', () => {
 
   it(`/GET protected cats without auth token`, () => {
     return supertest(app.getHttpServer())
-      .get('/cats/protected')
+      .get('/api/cats/protected')
       .expect(401);
   });
 
   it(`/GET protected cats with user auth token`, () => {
     return supertest(app.getHttpServer())
-      .get('/cats/protected')
+      .get('/api/cats/protected')
       .set('authorization', `Bearer ${userAuthToken.accessToken}`)
       .expect(403);
   });
 
   it(`/GET protected cats with staff auth token`, () => {
     return supertest(app.getHttpServer())
-      .get('/cats/protected')
+      .get('/api/cats/protected')
       .set('authorization', `Bearer ${staffAuthToken.accessToken}`)
       .expect(200)
       .expect({

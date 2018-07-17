@@ -10,7 +10,7 @@ import { ParseIntPipe } from '../common/pipes/parse-int.pipe';
 import { AuthGuard } from '@nestjs/passport';
 import { LoggerService } from '../common/services/logger.service';
 
-@Controller('cats')
+@Controller('/api/cats')
 @UseInterceptors(TransformInterceptor)
 export class CatsController {
   constructor(private readonly catsService: CatsService, private loggerService: LoggerService) {}

@@ -39,6 +39,7 @@ export class AuthService {
   }
 
   public async authenticateUser(authenticateDto: AuthenticateDto): Promise<User> {
+    if (!authenticateDto) return null;
     return users.find(user => user.username === authenticateDto.username && user.password === authenticateDto.password);
   }
 

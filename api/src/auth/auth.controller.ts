@@ -8,7 +8,7 @@ import { Roles } from '../common/decorators/roles.decorator';
 import { AuthenticateDto } from './dto/authenticate-dto';
 import { LoggerService } from '../common/services/logger.service';
 
-@Controller('auth')
+@Controller('/api/auth')
 @UseInterceptors(TransformInterceptor)
 export class AuthController {
   constructor(private readonly authService: AuthService, private loggerService: LoggerService) {}
