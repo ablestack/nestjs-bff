@@ -144,8 +144,8 @@
     "@types/through" "*"
 
 "@types/jest@^23.1.0":
-  version "23.1.6"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.1.6.tgz#11c88f738f5b57d1a9dd4970c576a6639b8f0f37"
+  version "23.3.0"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.3.0.tgz#5dd70033b616a6228042244ebd992f6426808810"
 
 "@types/joi@^13.3.0":
   version "13.4.0"
@@ -2840,9 +2840,9 @@ escodegen@^1.6.1, escodegen@^1.9.0:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-scope@^3.7.1:
-  version "3.7.3"
-  resolved "https://registry.yarnpkg.com/eslint-scope/-/eslint-scope-3.7.3.tgz#bb507200d3d17f60247636160b4826284b108535"
+eslint-scope@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-scope/-/eslint-scope-4.0.0.tgz#50bf3071e9338bcdc43331794a0cb533f0136172"
   dependencies:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
@@ -5454,15 +5454,15 @@ mkdirp@0.5.x, mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0:
   dependencies:
     minimist "0.0.8"
 
-mockgoose@^7.3.5:
-  version "7.3.5"
-  resolved "https://registry.yarnpkg.com/mockgoose/-/mockgoose-7.3.5.tgz#f5929b8b4811daf1939d413587fbc84d84cc0282"
+mockgoose-fix@^7.3.6:
+  version "7.3.6"
+  resolved "https://registry.yarnpkg.com/mockgoose-fix/-/mockgoose-fix-7.3.6.tgz#6b65ab4888c5eef4e12aa4aa09efa1c23c11560f"
   dependencies:
     async "2.1.5"
     debug "2.2.0"
     fs-extra "^2.0.0"
     https-proxy-agent "1.0.0"
-    mongodb-prebuilt "^6.3.6"
+    mongodb-prebuilt-https "^6.3.6"
     portfinder "^1.0.13"
     rimraf "^2.6.1"
     uuid "^3.0.1"
@@ -5480,9 +5480,9 @@ mongodb-core@3.1.0:
   optionalDependencies:
     saslprep "^1.0.0"
 
-mongodb-download@^2.2.6:
+mongodb-download-https@^2.2.4:
   version "2.2.6"
-  resolved "https://registry.yarnpkg.com/mongodb-download/-/mongodb-download-2.2.6.tgz#dcdf4a8d49b4058d817c71165c62cd46ff9c5016"
+  resolved "https://registry.yarnpkg.com/mongodb-download-https/-/mongodb-download-https-2.2.6.tgz#2728423249271d45f486a0783943b20fdad6a9b0"
   dependencies:
     debug "^2.2.0"
     decompress "^4.0.0"
@@ -5493,13 +5493,13 @@ mongodb-download@^2.2.6:
     request-promise "^4.1.1"
     yargs "^3.26.0"
 
-mongodb-prebuilt@^6.3.6:
+mongodb-prebuilt-https@^6.3.6:
   version "6.3.6"
-  resolved "https://registry.yarnpkg.com/mongodb-prebuilt/-/mongodb-prebuilt-6.3.6.tgz#4a21ba7a4a77f4f5245147f2ca82388aa03492ab"
+  resolved "https://registry.yarnpkg.com/mongodb-prebuilt-https/-/mongodb-prebuilt-https-6.3.6.tgz#c293394c4b4cf77e81dab1de90ced22021a399e9"
   dependencies:
     debug "^2.2.0"
     glob "^7.1.1"
-    mongodb-download "^2.2.6"
+    mongodb-download-https "^2.2.4"
     spawn-sync "1.0.15"
     yargs "^3.26.0"
 
@@ -5514,8 +5514,8 @@ mongoose-legacy-pluralize@1.0.2:
   resolved "https://registry.yarnpkg.com/mongoose-legacy-pluralize/-/mongoose-legacy-pluralize-1.0.2.tgz#3ba9f91fa507b5186d399fb40854bff18fb563e4"
 
 mongoose@^5.1.2:
-  version "5.2.3"
-  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.2.3.tgz#667b92c394a6aa81c3c9f2f45f3a8f28cea28e9c"
+  version "5.2.4"
+  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.2.4.tgz#52b3385bee9420cf6bbd7e4ebfb211523c37a9e3"
   dependencies:
     async "2.6.1"
     bson "~1.0.5"
@@ -5701,8 +5701,8 @@ node-pre-gyp@^0.10.0:
     tar "^4"
 
 nodemon@^1.14.1:
-  version "1.18.2"
-  resolved "https://registry.yarnpkg.com/nodemon/-/nodemon-1.18.2.tgz#36b89c790da70c4f270e2cc0718723131bc04abb"
+  version "1.18.3"
+  resolved "https://registry.yarnpkg.com/nodemon/-/nodemon-1.18.3.tgz#46e681ee0dd1b590562e03019b4c5df234f906f9"
   dependencies:
     chokidar "^2.0.2"
     debug "^3.1.0"
@@ -8084,8 +8084,8 @@ webpack-sources@^1.0.1, webpack-sources@^1.1.0:
     source-map "~0.6.1"
 
 webpack@^4.2.0:
-  version "4.16.0"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-4.16.0.tgz#660dae90890e55b8ed17c6f9d17bebb01dab5b4c"
+  version "4.16.1"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-4.16.1.tgz#2c4b89ea648125c3e67bcca6adf49ce2c14b2d31"
   dependencies:
     "@webassemblyjs/ast" "1.5.13"
     "@webassemblyjs/helper-module-context" "1.5.13"
@@ -8098,7 +8098,7 @@ webpack@^4.2.0:
     ajv-keywords "^3.1.0"
     chrome-trace-event "^1.0.0"
     enhanced-resolve "^4.1.0"
-    eslint-scope "^3.7.1"
+    eslint-scope "^4.0.0"
     json-parse-better-errors "^1.0.2"
     loader-runner "^2.3.0"
     loader-utils "^1.1.0"

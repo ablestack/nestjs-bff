@@ -59,7 +59,7 @@
     "cross-env": "^5.1.6",
     "inquirer": "^3.2.0",
     "jest": "^23.1.0",
-    "mockgoose": "^7.3.5",
+    "mockgoose-fix": "^7.3.6",
     "nodemon": "^1.14.1",
     "prettier": "^1.11.1",
     "supertest": "^3.1.0",
