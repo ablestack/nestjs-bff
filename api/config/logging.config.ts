@@ -1,7 +1,7 @@
 export const config = {
   logDir: 'logs',
   winston: {
-    level: 'warn',
+    level: 'debug',
     enableMiddleware: true,
     transports: {
       console: {

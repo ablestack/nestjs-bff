@@ -25,6 +25,15 @@ Navigate to the root of Nestjs-Bff repo, the run the following command:
 $ yarn install-all
 ```
 
+## Start
+
+To start the WebClient and API, navigate to the root of Nestjs-Bff repo, the run the following command:
+
+```bash
+# install dependencies for all sub projects (api, cli, webclient)
+$ yarn start-all
+```
+
 ## Background
 
 [NestJS](https://nestjs.com/) is a fantastic project, and a pleasure to develop with. However, it is a framework by design, and not an turnkey web application solution. While this makes it a powerful and flexible toolkit for building web-apps, there are quite a few features missing that are often taken for granted in other web-application systems.
