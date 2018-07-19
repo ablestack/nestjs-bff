@@ -22,16 +22,14 @@ export class CatsController {
   }
 
   @Get()
-  public async findAll(@Headers() headers: string[]): Promise<Cat[]> {
-    this.loggerService.debug(`${__filename} - findAll - headers`, headers);
+  public async findAll(): Promise<Cat[]> {
     return this.catsService.findAll();
   }
 
   @Get('protected')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles('staff')
-  public async findProtected(@Headers() headers: string[]): Promise<Cat[]> {
-    this.loggerService.debug(`${__filename} - findAll - headers`, headers);
+  public async findProtected(): Promise<Cat[]> {
     return this.catsService.findAll();
   }
 
@@ -40,6 +38,6 @@ export class CatsController {
     @Param('id', new ParseIntPipe())
     id,
   ) {
-    // logic
+    return this.catsService.findOne(id);
   }
 }

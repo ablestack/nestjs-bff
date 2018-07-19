@@ -7,11 +7,18 @@ import { INestApplication } from '@nestjs/common';
 import { AuthService } from '../../src/auth/auth.service';
 import { AccessTokenWithMetadata } from '../../src/auth/interfaces/jwt-accessTokenData.interface';
 import { users } from '../../src/auth/users.const';
+import { ConfigService } from '../../src/common/services/config.service';
 
 describe('Cats', () => {
   let app: INestApplication;
   let userAuthToken: AccessTokenWithMetadata;
   let staffAuthToken: AccessTokenWithMetadata;
+  const configService = new ConfigService();
+
+  //
+  // Set configuration flags
+  //
+  configService.nodeEnv = 'test';
 
   //
   // Setup mock data & services

@@ -7,6 +7,9 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 const dotenvRelativePath = '../../../config/.env';
+type NodeEnvType = 'development' | 'test' | 'production';
+const validNodeEnvConfigStrings = ['development', 'test', 'production'];
+
 export interface EnvConfig {
   [prop: string]: string;
 }
@@ -27,8 +30,12 @@ export class ConfigService {
     return this.envConfig.JWT_SECRET_KEY;
   }
 
-  public get nodeEnv(): string {
-    return this.envConfig.NODE_ENV;
+  public get nodeEnv(): NodeEnvType {
+    return this.envConfig.NODE_ENV as NodeEnvType;
+  }
+
+  public set nodeEnv(nodeEnv: NodeEnvType) {
+    this.envConfig.NODE_ENV = this.nodeEnv;
   }
 
   get mongoConnectionUri(): string {
@@ -48,7 +55,7 @@ export class ConfigService {
    */
   private validateInput(envConfig: EnvConfig): EnvConfig {
     const envVarsSchema: Joi.ObjectSchema = Joi.object({
-      NODE_ENV: Joi.string().valid(['development', 'production']),
+      NODE_ENV: Joi.string().valid(validNodeEnvConfigStrings),
       MONGO_CONNECTION_URI: Joi.string(),
       JWT_SECRET_KEY: Joi.string(),
       APPNAME: Joi.string(),
