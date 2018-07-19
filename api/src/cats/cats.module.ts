@@ -7,6 +7,6 @@ import { AuthModule } from '../auth/auth.module';
 @Module({
   imports: [CommonModule, AuthModule],
   controllers: [CatsController],
-  providers: [CatsService],
+  providers: [CatsService, ..catsProviders],
 })
 export class CatsModule {}

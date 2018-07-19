@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-export const CatsSchema = new mongoose.Schema(
+export const CatSchema = new mongoose.Schema(
   {
     name: {
       required: true,

@@ -1,5 +1,5 @@
 import { Connection } from 'mongoose';
-import { CatsSchema } from '../../src/cats/schemas/cat.schema';
+import { CatSchema } from '../../src/cats/schemas/cat.schema';
 import { data } from '../seeddata/seed-data-dev';
 import { LoggerService } from '../../src/common/services/logger.service';
 
@@ -8,7 +8,7 @@ import { LoggerService } from '../../src/common/services/logger.service';
  */
 export async function up(connection: Connection, loggerService: LoggerService) {
   const newCats = data.entities;
-  const cat = connection.model('Cat', CatsSchema);
+  const cat = connection.model('Cat', CatSchema);
   const completed = await cat.collection.insertMany(newCats);
   loggerService.info(`UP script completed. ${completed ? JSON.stringify(completed.result) : 'no results'}`);
 }
@@ -20,7 +20,7 @@ export async function down(connection: Connection, loggerService: LoggerService)
   // Write migration here
   const newCats = data.entities;
   const idsToRemove = newCats.map(item => item._id);
-  const cat = connection.model('Cat', CatsSchema);
+  const cat = connection.model('Cat', CatSchema);
   const completed = await cat.collection.deleteMany({ _id: { $in: idsToRemove } });
   loggerService.info(`DOWN script completed. ${completed ? JSON.stringify(completed.result) : 'no results'}`);
 }

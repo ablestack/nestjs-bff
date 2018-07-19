@@ -5,7 +5,7 @@ import * as inquirer from 'inquirer';
 import { Model, set as mongooseSet } from 'mongoose';
 import * as path from 'path';
 import * as tsnode from 'ts-node';
-import { LoggerService } from '../common/services/logger.service';
+import { LoggerService } from 'common/services/logger.service';
 import { IMigration, MigrationState } from './interfaces/migration.interface';
 
 // mongooseSet('debug', true);
@@ -28,7 +28,7 @@ export class MigrationsService {
 
   constructor(
     private readonly loggerService: LoggerService,
-    @InjectModel('Migration') private readonly migrationModel: Model<IMigration>,
+    @InjectModel('MigrationModelToken') private readonly migrationModel: Model<IMigration>,
   ) {
     // set absolute paths
     this.absolutePaths.migrationScripts = path.resolve(__dirname, this.relativePaths.migrationScripts);
