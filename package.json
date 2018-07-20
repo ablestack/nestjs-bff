@@ -15,10 +15,12 @@
     "start-api": "cd api && yarn start",
     "start-docker-mongodb": "cd api && yarn start-docker-mongodb",
     "start-webclient": "cd webclient && yarn start",
+    "install-all-with-docker": "yarn install-all && yarn install-docker-mongodb",
     "install-all": "yarn install & yarn install-api & yarn install-cli & yarn install-webclient",
     "install-api": "cd api && yarn install && cd ..",
     "install-cli": "cd cli && yarn install && cd ..",
     "install-webclient": "cd webclient && yarn install && cd ..",
+    "install-docker-mongodb": "cd api && yarn install-docker-mongodb && cd ..",
     "start-bff-api": "ts-node --project api/tsconfig.json -r tsconfig-paths/register ./api/src/main.ts",
     "db-seed:dev": "ts-node cli migration-custom --filename seed-dev --direction up"
   },

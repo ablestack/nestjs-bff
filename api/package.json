@@ -13,6 +13,7 @@
     "prestart:prod": "rm -rf dist && tsc",
     "start:prod": "node dist/main.js",
     "start:hmr": "node dist/server",
+    "install-docker-mongodb": "docker-compose pull mongodb",
     "test": "env TEST_VAR=process.argv node -e console.log(process.env)",
     "test:cov": "jest --coverage",
     "test:e2e-with-docker": "concurrently --kill-others \"yarn start-docker-mongodb\" \"yarn test:e2e\"",

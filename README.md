@@ -18,11 +18,13 @@ This is a Monorepo project containing an API, companion CLI, and Web Client. Fol
 
 ## Installation
 
-Navigate to the root of Nestjs-Bff repo, the run the following command:
+1.  Ensure that NodeJS and Docker are installed on your local machine
+
+2.  Navigate to the root of Nestjs-Bff repo, the run the following command:
 
 ```bash
-# install dependencies for all sub projects (api, cli, webclient)
-$ yarn install-all
+# install dependencies for all sub projects (api, cli, webclient), and a Docker MongoDB image
+$ yarn install-all-with-docker
 ```
 
 ## Start
@@ -30,8 +32,8 @@ $ yarn install-all
 To start the WebClient and API, navigate to the root of Nestjs-Bff repo, the run the following command:
 
 ```bash
-# install dependencies for all sub projects (api, cli, webclient)
-$ yarn start-all
+# run api, webclient, and a Docker hosted MongoDB instance
+$ yarn start-all-with-docker
 ```
 
 ## Background
