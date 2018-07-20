@@ -8,6 +8,7 @@ import { AuthService } from '../../src/auth/auth.service';
 import { AccessTokenWithMetadata } from '../../src/auth/interfaces/jwt-accessTokenData.interface';
 import { users } from '../../src/auth/users.const';
 import { ConfigService } from '../../src/common/services/config.service';
+import { DatabaseModule } from '../../src/database/database.module';
 
 describe('Cats', () => {
   let app: INestApplication;
@@ -39,10 +40,7 @@ describe('Cats', () => {
     //
     const module = await Test.createTestingModule({
       imports: [CatsModule],
-    })
-      .overrideProvider(CatsService)
-      .useValue(catsService)
-      .compile();
+    }).compile();
 
     app = module.createNestApplication();
     await app.init();
