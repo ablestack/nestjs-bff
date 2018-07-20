@@ -10,7 +10,8 @@
     "url": "https://github.com/ahrnee/nestjs-bff.git"
   },
   "scripts": {
-    "start-all": "concurrently --kill-others \"yarn start-docker-mongodb\" \"yarn start-api\" \"yarn start-webclient\"",
+    "start-all-with-docker": "concurrently --kill-others \"yarn start-docker-mongodb\" \"yarn start-api\" \"yarn start-webclient\"",
+    "start-all": "concurrently --kill-others \"yarn start-api\" \"yarn start-webclient\"",
     "start-api": "cd api && yarn start",
     "start-docker-mongodb": "cd api && yarn start-docker-mongodb",
     "start-webclient": "cd webclient && yarn start",
