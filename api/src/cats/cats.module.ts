@@ -7,7 +7,7 @@ import { catsProviders } from './cats.provider';
 import { DatabaseModule } from '../database/database.module';
 
 @Module({
-  imports: [DatabaseModule, CommonModule, AuthModule],
+  imports: [CommonModule, AuthModule],
   controllers: [CatsController],
   providers: [CatsService, ...catsProviders],
 })

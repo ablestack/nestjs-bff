@@ -15,6 +15,6 @@
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]
-}
 
-// "allowSyntheticDefaultImports": true,
+  // "allowSyntheticDefaultImports": true,
+}

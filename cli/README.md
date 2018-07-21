@@ -42,7 +42,7 @@ $ yarn install-all
 
 ```bash
 # Windows
-$ mklink cli.ts workspaces\cli\src\cli.ts
+$ mklink cli.ts cli\src\cli.ts
 
 # Linux
 $ <TODO>
@@ -57,7 +57,7 @@ $ npm install -g ts-node
 
 ## CLI Configuration
 
-As the CLI simply initiates the API calls from the command line, the majority of the configuraiton resides with the API. See API Configuration section above. This may get split out at a later point as more CLI functionality is added.
+As the CLI simply initiates the API calls from the command line, the majority of the configuration resides with the API. See API Configuration section above. This may get split out at a later point as more CLI functionality is added.
 
 ## CLI Usage
 

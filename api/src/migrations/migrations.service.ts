@@ -1,12 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
 import * as fs from 'fs';
 import * as inquirer from 'inquirer';
 import { Model, set as mongooseSet } from 'mongoose';
 import * as path from 'path';
 import * as tsnode from 'ts-node';
-import { LoggerService } from 'common/services/logger.service';
-import { IMigration, MigrationState } from './interfaces/migration.interface';
+import { LoggerService } from '../common/services/logger.service';
+import { Migration, MigrationState } from './interfaces/migration.interface';
 
 // mongooseSet('debug', true);
 
@@ -28,7 +27,7 @@ export class MigrationsService {
 
   constructor(
     private readonly loggerService: LoggerService,
-    @InjectModel('MigrationModelToken') private readonly migrationModel: Model<IMigration>,
+    @Inject('MigrationModelToken') private readonly migrationModel: Model<Migration>,
   ) {
     // set absolute paths
     this.absolutePaths.migrationScripts = path.resolve(__dirname, this.relativePaths.migrationScripts);

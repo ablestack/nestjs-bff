@@ -5,7 +5,7 @@ export enum MigrationState {
   Up = 'up',
 }
 
-export interface IMigration extends Document {
+export interface Migration extends Document {
   readonly name: string;
   readonly createdAt: Date;
   readonly state: MigrationState;

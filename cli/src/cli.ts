@@ -13,7 +13,7 @@ const loggerService: LoggerService = new WinstonLoggerService(configService);
 // prettier-ignore
 // tslint:disable-next-line:no-unused-expression
 yargs
-  .env('FAMCLI')
+  .env('BFFCLI')
   .commandDir('commands', {
     extensions: configService.nodeEnv === 'development' ? ['js', 'ts'] : ['js'],
     visit: (commandObject) => {

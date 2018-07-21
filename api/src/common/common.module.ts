@@ -4,7 +4,8 @@ import { DatabaseModule } from '../database/database.module';
 import { loggerServiceProvider } from './loggerservice.provider';
 
 @Module({
-  providers: [DatabaseModule, ConfigService, loggerServiceProvider],
+  imports: [DatabaseModule],
+  providers: [ConfigService, loggerServiceProvider],
   exports: [DatabaseModule, ConfigService, loggerServiceProvider],
 })
 export class CommonModule {}
