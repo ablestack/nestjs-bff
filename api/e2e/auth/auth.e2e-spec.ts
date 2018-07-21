@@ -1,5 +1,5 @@
 import 'jest';
-import supertest from 'supertest';
+import * as supertest from 'supertest';
 import { Test } from '@nestjs/testing';
 import { AuthModule } from '../../src/auth/auth.module';
 import { AuthService } from '../../src/auth/auth.service';
@@ -32,14 +32,14 @@ describe('Auth', () => {
     supertest(app.getHttpServer())
       .post('/api/auth/authenticate')
       .send({ authenticateDto: { username: regularUser.username, password: regularUser.password } })
-      .end(function(err, res) {
+      .end((err, res) => {
         regularUserJWTToken = JSON.parse(res.text).data;
       });
 
     supertest(app.getHttpServer())
       .post('/api/auth/authenticate')
       .send({ authenticateDto: { username: staffUser.username, password: staffUser.password } })
-      .end(function(err, res) {
+      .end((err, res) => {
         staffUserJWTToken = JSON.parse(res.text).data;
       });
   });

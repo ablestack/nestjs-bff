@@ -1,14 +1,13 @@
 import 'jest';
-import supertest from 'supertest';
+import * as supertest from 'supertest';
 import { Test } from '@nestjs/testing';
 import { CatsModule } from '../../src/cats/cats.module';
-import { CatsService } from '../../src/cats/cats.service';
 import { INestApplication } from '@nestjs/common';
 import { AuthService } from '../../src/auth/auth.service';
 import { AccessTokenWithMetadata } from '../../src/auth/interfaces/jwt-accessTokenData.interface';
 import { users } from '../../src/auth/users.const';
 import { ConfigService } from '../../src/common/services/config.service';
-import { DatabaseModule } from '../../src/database/database.module';
+import { CatsService } from '../../src/cats/cats.service';
 
 describe('Cats', () => {
   let app: INestApplication;
@@ -40,7 +39,10 @@ describe('Cats', () => {
     //
     const module = await Test.createTestingModule({
       imports: [CatsModule],
-    }).compile();
+    })
+    .overrideProvider(CatsService)
+    .useValue(catsService)
+    .compile();
 
     app = module.createNestApplication();
     await app.init();

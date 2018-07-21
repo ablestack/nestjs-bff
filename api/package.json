@@ -17,7 +17,7 @@
     "test": "env TEST_VAR=process.argv node -e console.log(process.env)",
     "test:cov": "jest --coverage",
     "e2e-with-docker": "concurrently --kill-others \"yarn start-docker-mongodb\" \"yarn test:e2e\"",
-    "e2e": "jest --config ./e2e/jest-e2e.json  --forceExit",
+    "e2e": "jest --config ./e2e/jest-e2e.json  --detectOpenHandles",
     "webpack": "webpack --config webpack.config.js"
   },
   "dependencies": {
