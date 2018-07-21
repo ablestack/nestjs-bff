@@ -8,6 +8,8 @@
 	<i><a href="README.md">CLI</a></i>
   &nbsp;&nbsp;&nbsp;
 	<a href="../webclient/README.md">Web Client</a>
+  &nbsp;&nbsp;&nbsp;
+	<a href="../../devops/README.md">DevOps</a>
 </p>
 
 ## CLI Overview
@@ -101,3 +103,4 @@ Further details on each of the systems contained in this project can be found vi
 - [API](../api/README.md)
 - _[CLI](README.md)_
 - [Web Client](../webclient/README.md)
+- [DevOps](../../devops/README.md)
