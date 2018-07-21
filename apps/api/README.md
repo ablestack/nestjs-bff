@@ -1,13 +1,15 @@
 # Nestjs-BFF API
 
 <p align="center">
-  <a href="../README.md">Overview</a>
+  <a href="../../README.md">Overview</a>
   &nbsp;&nbsp;&nbsp;
 	<i><a href="README.md">API</a></i>
   &nbsp;&nbsp;&nbsp;
 	<a href="../cli/README.md">CLI</a>
   &nbsp;&nbsp;&nbsp;
 	<a href="../webclient/README.md">Web Client</a>
+  &nbsp;&nbsp;&nbsp;
+	<a href="../../devops/README.md">DevOps</a>
 </p>
 
 ## API Overview
@@ -84,3 +86,4 @@ Further details on each of the systems contained in this project can be found vi
 - _[API](README.md)_
 - [CLI](../cli/README.md)
 - [Web Client](../webclient/README.md)
+- [DevOps](../../devops/README.md)
