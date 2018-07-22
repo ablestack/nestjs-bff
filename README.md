@@ -14,7 +14,7 @@
 
 ## Overview
 
-NestJS-BFF is a starter project for those looking to fast-track building a production-grade [BFF](https://samnewman.io/patterns/architectural/bff/) web application with [NestJS](https://nestjs.com/).
+NestJS-BFF is a starter project for those looking to fast-track building a production-grade web application with [NestJS](https://nestjs.com/). This implementation uses the [BFF](https://samnewman.io/patterns/architectural/bff/) pattern, using NestJS as the backend API for a SPA frontend.
 
 This is a Monorepo project containing an API, companion CLI, and Web Client. Follow the README navigation links for details on each of these.
 
