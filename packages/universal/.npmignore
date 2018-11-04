@@ -1,0 +1,2 @@
+#Safeguard - ignore everything. The package should not be published from this loction. Relevent files are copied to the dist folder for publish
+**/*

@@ -1,0 +1,24 @@
+{
+  "name": "@nestjs-bff/universal",
+  "version": "0.0.9",
+  "description": "A backend and frontend module for nestjs-bff",
+  "author": "ahrnee <ahrndee@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ahrnee/nestjs-bff-universal.git"
+  },
+  "scripts": {
+    "dist": "npm run clean:dist && npm run build && npm run pub",
+    "clean:dist": "rm -rf dist",
+    "build": "tsc && npm run copy:package",
+    "copy:package": "cp -rf package.json README.md LICENSE dist",
+    "pub": "cd dist && npm publish --access public"
+  },
+  "dependencies": {
+    "class-validator": "^0.8.5"
+  },
+  "devDependencies": {
+    "prettier": "^1.14.3",
+    "tslint": "5.3.2"
+  }
+}
