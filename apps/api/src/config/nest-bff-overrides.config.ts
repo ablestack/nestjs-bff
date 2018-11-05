@@ -1,21 +1,7 @@
-import * as _ from 'lodash';
-import { LogLevels } from '../shared/logging/log-levels.const';
-import { extractKey } from '../shared/utils/key.shared.utils';
-import { INestjsBffConfigEnv } from './nestjs.config.env.interface';
-import { NestjsBffConfigEnv } from './nestjs.config.test';
+import { LogLevels } from '@nestjs-bff/backend/shared/logging/log-levels.const';
+import { extractKey } from '@nestjs-bff/backend/shared/utils/key.shared.utils';
 
-const _Env = process.env.NODE_ENV || 'dev';
-
-export const keyFiles = {
-  jwt: {
-    private: `${process.cwd()}\\src\\config\\keys\\jwt.private-key.${_Env}.pem`,
-    public: `${process.cwd()}\\src\\config\\keys\\jwt.public-key.${_Env}.pem`,
-  },
-};
-
-const _NestjsBffConfig = {
-  orgName: 'my-org',
-  appName: 'my-app',
+export const NestBffConfigOverrides = {
   rootPath: process.cwd(),
 
   caching: {
@@ -48,14 +34,10 @@ const _NestjsBffConfig = {
   },
 
   jwt: {
-    jwtPrivateKey: extractKey(
-      `${process.cwd()}\\src\\config\\keys\\jwt.private-key.pem`,
-    ),
+    jwtPrivateKey: extractKey(`${process.cwd()}\\src\\config\\keys\\jwt.private-key.pem`),
     jwtPrivateKeyPemPassphrase: 'D161tal',
-    jwtPublicKey: extractKey(
-      `${process.cwd()}\\src\\config\\keys\\jwt.public-key.pem`,
-    ),
-    issuer: 'entity',
+    jwtPublicKey: extractKey(`${process.cwd()}\\src\\config\\keys\\jwt.public-key.pem`),
+    issuer: 'my org name',
     expiresIn: '18h',
     signingAlgorithm: 'RS256',
   },
@@ -63,13 +45,7 @@ const _NestjsBffConfig = {
   logging: {
     logDir: 'logs',
     console: {
-      levels: [
-        LogLevels.error,
-        LogLevels.warning,
-        LogLevels.info,
-        LogLevels.debug,
-        LogLevels.trace,
-      ],
+      levels: [LogLevels.error, LogLevels.warning, LogLevels.info, LogLevels.debug, LogLevels.trace],
     },
     winston: {
       level: 'info',
@@ -111,9 +87,3 @@ const _NestjsBffConfig = {
     },
   },
 };
-
-export type INestjsBffConfig = typeof _NestjsBffConfig & INestjsBffConfigEnv;
-export const NestjsBffConfig: INestjsBffConfig = _.merge(
-  _NestjsBffConfig,
-  NestjsBffConfigEnv,
-);

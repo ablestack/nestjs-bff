@@ -1,10 +1,6 @@
 {
-  "watch": [
-    "src"
-  ],
+  "watch": ["src"],
   "ext": "ts",
-  "ignore": [
-    "src/**/*.spec.ts"
-  ],
-  "exec": "ts-node -r tsconfig-paths/register src/main.ts"
+  "ignore": ["src/**/*.spec.ts", "src/**/*.e2e-spec.ts"],
+  "exec": "ts-node src/app/host/http/web-app/web-app.ts"
 }

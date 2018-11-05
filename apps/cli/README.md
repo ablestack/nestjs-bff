@@ -40,11 +40,11 @@ The primary set of services that are currently exposed via the CLI are for datab
 $ yarn install-all
 ```
 
-1.  Make a symlink to the CLI in the tools directory
+1.  Make a symlink to the CLI from the CLI root directory
 
 ```bash
 # Windows
-$ mklink cli.ts cli\src\cli.ts
+$ mklink cli.ts src\cli.ts
 
 # Linux
 $ <TODO>

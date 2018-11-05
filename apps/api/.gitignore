@@ -1,0 +1,43 @@
+# dependencies
+node_modules
+
+# IDE
+/.idea
+/.awcache
+
+#environment config
+*.config.prod.ts
+*-key.prod.pem
+
+# IDE - VSCode
+# we want common workspace settings
+#.vscode/*
+#.vscode/settings.json
+#!.vscode/tasks.json
+#!.vscode/launch.json
+#!.vscode/extensions.json
+
+# misc
+npm-debug.log
+
+# example
+/quick-start
+
+# tests
+/test
+/coverage
+/.nyc_output
+
+# dist
+/dist
+/public/lib
+/src/secretKeys.ts
+
+#cli symlink in root
+/cli.ts
+
+#logs
+**/logs/*.log
+**/logs/*.audit.json
+**/*error.log
+

@@ -1,6 +1,6 @@
 import { INestApplication } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { CliAppModule } from '../../api/src/cliapp.module';
+import { CliAppModule } from '../../api/src/app/host/cli/cliapp.module';
 
 export class NestjsBffAppContainer {
   public static appInstance: INestApplication;

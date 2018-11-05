@@ -1,4 +1,4 @@
-version: "3"
+version: '3'
 services:
   api:
     build:
@@ -16,6 +16,10 @@ services:
       - mongodb
   mongodb:
     image: mongo:latest
-    command: --smallfiles
+    ports:
+      - 27017:27017
+  mongodb_e2e:
+    image: mongo:latest
+    tmpfs: /data/db
     ports:
       - 27017:27017
