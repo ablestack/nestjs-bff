@@ -1,0 +1,36 @@
+import { AlwaysTrue } from '@nestjs-bff/backend/domain/authorization/authorization-tests/always-true.authorizationtest';
+import { CheckOrganizationRoles } from '@nestjs-bff/backend/domain/authorization/authorization-tests/check-organization-roles.authtest';
+import { Authorization } from '@nestjs-bff/backend/host/http/core/decorators/authorization.http.decorator';
+import { OrganizationRoles } from '@nestjs-bff/universal/constants/roles.constants';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { CreateCatCommand } from 'app/universal/commands/create-cat.command';
+import { CatEntity } from 'app/universal/entities/cat.entity';
+import { CatRepoCache } from '../../../domain/cats/repo/cat.domain.cache-repo';
+import { CatRepoWrite } from '../../../domain/cats/repo/cat.domain.write-repo';
+@Controller('/api/cats')
+export class CatsHttpController {
+  constructor(private readonly catRepoWrite: CatRepoWrite, private readonly catRepoCache: CatRepoCache) {}
+
+  @Post()
+  public async create(@Body() createCatDto: CreateCatCommand) {
+    this.catRepoWrite.create(createCatDto);
+  }
+
+  @Get()
+  @Authorization([new AlwaysTrue()])
+  public async findAll(): Promise<CatEntity[]> {
+    return this.catRepoCache.findAll();
+  }
+
+  @Get('protected')
+  @Authorization([new CheckOrganizationRoles([OrganizationRoles.admin])])
+  public async findProtected(): Promise<CatEntity[]> {
+    return this.catRepoCache.findAll();
+  }
+
+  @Get(':organizationSlug/residents/:id')
+  @Authorization([new AlwaysTrue()])
+  public findOne(@Param('id') id): Promise<CatEntity | null> {
+    return this.catRepoCache.findById(id);
+  }
+}

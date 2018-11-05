@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
+const tsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
   entry: ['webpack/hot/poll?1000', './src/main.hmr.ts'],
@@ -20,13 +21,12 @@ module.exports = {
       },
     ],
   },
-  mode: "development",
+  mode: 'development',
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
+    plugins: [new TsconfigPathsPlugin({ configFile: './tsconfig.json' })],
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-  ],
+  plugins: [new webpack.HotModuleReplacementPlugin()],
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'server.js',
