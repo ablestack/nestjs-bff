@@ -3,8 +3,8 @@ import { CheckOrganizationRoles } from '@nestjs-bff/backend/domain/authorization
 import { Authorization } from '@nestjs-bff/backend/host/http/core/decorators/authorization.http.decorator';
 import { OrganizationRoles } from '@nestjs-bff/universal/constants/roles.constants';
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { CreateCatCommand } from 'app/universal/commands/create-cat.command';
-import { CatEntity } from 'app/universal/entities/cat.entity';
+import { CreateCatCommand } from '../../../../app/universal/commands/create-cat.command';
+import { CatEntity } from '../../../../app/universal/entities/cat.entity';
 import { CatRepoCache } from '../../../domain/cats/repo/cat.domain.cache-repo';
 import { CatRepoWrite } from '../../../domain/cats/repo/cat.domain.write-repo';
 @Controller('/api/cats')

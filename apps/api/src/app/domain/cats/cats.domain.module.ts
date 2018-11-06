@@ -5,6 +5,7 @@ import { CatProviderTokens } from './cat.domain.constants';
 import { CatSchema } from './model/cat.domain.schema';
 import { CatRepoCache } from './repo/cat.domain.cache-repo';
 import { CatRepoRead } from './repo/cat.domain.read-repo';
+import { CatRepoWrite } from './repo/cat.domain.write-repo';
 
 const CatsModelProvider = {
   provide: CatProviderTokens.Models.Cat,
@@ -14,7 +15,7 @@ const CatsModelProvider = {
 
 @Module({
   imports: [CoreDomainModule],
-  providers: [CatsModelProvider, CatRepoRead, CatRepoCache],
-  exports: [CatRepoRead, CatRepoCache],
+  providers: [CatsModelProvider, CatRepoRead, CatRepoCache, CatRepoWrite],
+  exports: [CatRepoRead, CatRepoCache, CatRepoWrite],
 })
 export class CatsDomainModule {}
