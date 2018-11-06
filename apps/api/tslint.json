@@ -21,7 +21,7 @@
     "interface-over-type-literal": true,
     "label-position": true,
     "max-classes-per-file": false,
-    "max-line-length": [true, 180],
+    "max-line-length": [true, 200],
     "member-access": false,
     "member-ordering": [
       true,

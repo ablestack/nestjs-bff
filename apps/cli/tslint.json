@@ -7,7 +7,7 @@
     "curly": false,
     "eofline": false,
     "quotemark": [true, "single"],
-    "max-line-length": [true, 180],
+    "max-line-length": [true, 200],
     "object-literal-sort-keys": false,
     "arrow-parens": false,
     "no-empty-interface": false,

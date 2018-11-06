@@ -3,5 +3,6 @@
         "Injectable",
         "autosync",
         "virtuals"
-    ]
+    ],
+    "html.format.wrapLineLength": 200
 }

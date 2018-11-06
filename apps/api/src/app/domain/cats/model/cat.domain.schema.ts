@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
-export const CatSchema = new Schema(
+export const CatDomainSchema = new Schema(
   {
     name: {
       required: true,
