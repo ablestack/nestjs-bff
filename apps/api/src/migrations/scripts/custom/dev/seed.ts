@@ -5,7 +5,7 @@ import { UserDomainSchema } from '@nestjs-bff/backend/domain/user/model/user.dom
 import { LoggerSysService } from '@nestjs-bff/backend/shared/logging/logger.shared.service';
 import { Connection } from 'mongoose';
 import { CatDomainSchema } from '../../../../app/domain/cats/model/cat.domain.schema';
-import { data } from './seed-data-dev';
+import { data } from './seed-data';
 
 /**
  * Make any changes you need to make to the database here

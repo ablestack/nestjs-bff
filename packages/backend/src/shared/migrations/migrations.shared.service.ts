@@ -55,29 +55,28 @@ export class MigrationsSysService {
   /**
    *
    * @param direction {string}
-   * @param migrationFilename {string}
+   * @param migrationRelativePath {string}
    */
   public async runCustomMigration(
     direction: string = 'up',
-    migrationFilename: string,
+    migrationRelativePath: string,
   ) {
     tsnode.register({ transpileOnly: true } as tsnode.Options);
-    const migrationFilePath = path.join(
-      this.absolutePaths.customScripts,
-      migrationFilename,
+    const migrationFilePath = this.getCustomMigrationFilePath(
+      migrationRelativePath,
     );
 
     try {
       const directionalMigrationFunction = await this.getDirectionalMigrationFunction(
         migrationFilePath,
         direction,
-        migrationFilename,
+        migrationRelativePath,
       );
       if (!directionalMigrationFunction) return;
 
       await this.runMigrationFunction(directionalMigrationFunction);
       this.bffLoggerService.log(
-        `Migration successfully ran: ${migrationFilename} (${direction.toUpperCase()})`,
+        `Migration successfully ran: ${migrationRelativePath} (${direction.toUpperCase()})`,
       );
     } catch (e) {
       this.bffLoggerService.error(
@@ -89,6 +88,10 @@ export class MigrationsSysService {
       );
       throw e;
     }
+  }
+
+  public getCustomMigrationFilePath(migrationFilename: string) {
+    return path.join(this.absolutePaths.customScripts, migrationFilename);
   }
 
   /**
@@ -478,6 +481,7 @@ export class MigrationsSysService {
     migrationFilename: string,
   ) {
     let migrationFunctions;
+
     // tslint:disable-next-line:whitespace
     migrationFunctions = await import(migrationFilePath);
 

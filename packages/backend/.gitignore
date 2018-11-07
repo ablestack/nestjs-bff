@@ -30,8 +30,7 @@ npm-debug.log
 
 # dist
 /dist
-/public/lib
-/src/secretKeys.ts
+!/dist/.gitkeep
 
 #logs
 **/logs/*.log

@@ -8,11 +8,13 @@
     "url": "https://github.com/ahrnee/nestjs-bff-universal.git"
   },
   "scripts": {
-    "dist": "npm run clean:dist && npm run build && npm run pub",
-    "clean:dist": "rm -rf dist",
-    "build": "tsc && npm run copy:package",
+    "test": "jest --config=jest.json",
+    "test:cov": "jest --coverage",
+    "clean:dist": "cd dist && ls | grep -v node_modules | xargs rm -rf && cd ..",
+    "build-only": "tsc && npm run copy:package",
     "copy:package": "cp -rf package.json README.md LICENSE dist",
-    "pub": "cd dist && npm publish --access public"
+    "build": "npm run clean:dist && npm run build-only",
+    "pub": "npm run build && cd dist && npm publish --access public"
   },
   "dependencies": {
     "class-validator": "^0.8.5"

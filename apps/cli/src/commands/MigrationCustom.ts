@@ -1,6 +1,6 @@
 import { prompt as ask } from 'inquirer';
 import * as yargs from 'yargs'; // eslint-disable-line no-unused-vars
-import { MigrationsService } from '../../../api/src/migrations/migrations.service';
+import { MigrationsService } from '@nestjs-bff/backend/migrations/migrations.service';
 import { NestjsBffAppContainer } from '../NestjsBffAppContainer';
 import { LoggerService } from '../../../api/src/common/services/logger.service';
 
