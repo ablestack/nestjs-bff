@@ -4,7 +4,6 @@ import { MigrationsSysService } from '@nestjs-bff/backend/shared/migrations/migr
 import { INestApplication, INestExpressApplication } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import * as cookieParser from 'cookie-parser';
-import * as fs from 'fs';
 import * as helmet from 'helmet';
 import { AppConfig } from '../../../../config/app.config';
 import { WebAppHttpModule } from './web-app.http.module';
@@ -41,14 +40,13 @@ function setupWebserver(app: INestApplication & INestExpressApplication) {
 }
 
 function seedData(app: INestApplication, bffLogger: LoggerSysService) {
-  const migrationService: MigrationsSysService = app.get(MigrationsSysService);
-
-  // get seed file
-  const seedFilePath = migrationService.getCustomMigrationFilePath(`${AppConfig.nodeEnv}/seed`);
-  if (fs.existsSync(seedFilePath)) {
-    bffLogger.info(`Seed data found. About to run custom migration (${seedFilePath})`);
-    migrationService.runCustomMigration('UP', seedFilePath);
-  } else {
-    bffLogger.info(`Seed data not found (${seedFilePath})`);
+  try {
+    bffLogger.info(`About to run migrations for group: ${AppConfig.nodeEnv}`);
+    const migrationService: MigrationsSysService = app.get(MigrationsSysService);
+    migrationService.sync(AppConfig.nodeEnv);
+    migrationService.runMigration(AppConfig.nodeEnv);
+    bffLogger.info(`Ran migrations for group: ${AppConfig.nodeEnv}`);
+  } catch (error) {
+    bffLogger.error(error);
   }
 }

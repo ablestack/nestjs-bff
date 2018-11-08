@@ -2,6 +2,7 @@ import { AuthHttpModule } from '@nestjs-bff/backend/host/http/auth/auth.http.mod
 import { CoreHttpModule } from '@nestjs-bff/backend/host/http/core/core.http.module';
 import { AuthorizationHttpGuard } from '@nestjs-bff/backend/host/http/core/guards/authorization.http.guard';
 import { JwtHttpMiddleware } from '@nestjs-bff/backend/host/http/core/jwt/jwt.http.middleware';
+import { MigrationsSysModule } from '@nestjs-bff/backend/shared/migrations/migrations.shared.module';
 import {
   CacheInterceptor,
   MiddlewareConsumer,
@@ -42,7 +43,7 @@ const AppPipeProvider = {
 };
 
 @Module({
-  imports: [CoreHttpModule, AuthHttpModule, CatsHttpModule],
+  imports: [CoreHttpModule, AuthHttpModule, CatsHttpModule, MigrationsSysModule],
   controllers: [WebAppController],
   providers: [WebAppHealthCheckService, CacheInterceptorProvider, AppGuardProvider, AppPipeProvider],
   exports: undefined,

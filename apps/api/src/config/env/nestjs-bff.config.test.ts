@@ -1,7 +1,7 @@
 import { INestjsBffConfigEnv } from '@nestjs-bff/backend/config/nestjs.config.env.interface';
 
 export const NestjsConfigEnv: INestjsBffConfigEnv = {
-  nodeEnv: 'dev',
+  nodeEnv: 'test',
   db: {
     mongo: {
       mongoConnectionUri: 'mongodb://localhost',

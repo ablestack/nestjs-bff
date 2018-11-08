@@ -7,9 +7,9 @@ const _EnvConfigs: {
   test: INestjsBffConfigEnv;
   prod: INestjsBffConfigEnv;
 } = {
-  dev: require('./env/nestjs-bff.config.dev').AppConfigEnv,
-  test: require('./env/nestjs-bff.config.test').AppConfigEnv,
-  prod: require('./env/nestjs-bff.config.prod').AppConfigEnv,
+  dev: require('./env/nestjs-bff.config.dev').NestjsConfigEnv,
+  test: require('./env/nestjs-bff.config.test').NestjsConfigEnv,
+  prod: require('./env/nestjs-bff.config.prod').NestjsConfigEnv,
 };
 
 export const AppConfigEnv: INestjsBffConfigEnv = _EnvConfigs[_Env];

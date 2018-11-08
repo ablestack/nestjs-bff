@@ -13,13 +13,13 @@ import { MigrationsProviderTokens } from './migrations.shared.constants';
 @Injectable()
 export class MigrationsSysService {
   private readonly relativePaths = {
-    migrationScripts: '../../migrations/standard',
-    customScripts: '../../migrations/custom',
+    migrationScriptsRoot: 'src/migrations',
+    customScripts: 'src/migrations/custom',
     migrationsTemplate: './templates/migrationTemplate.ts',
   };
 
   private readonly absolutePaths = {
-    migrationScripts: '',
+    migrationScriptsRoot: '',
     customScripts: '',
     migrationsTemplate: '',
   };
@@ -32,12 +32,12 @@ export class MigrationsSysService {
     private readonly migrationModel: Model<IMigration>,
   ) {
     // set absolute paths
-    this.absolutePaths.migrationScripts = path.resolve(
-      __dirname,
-      this.relativePaths.migrationScripts,
+    this.absolutePaths.migrationScriptsRoot = path.resolve(
+      process.cwd(),
+      this.relativePaths.migrationScriptsRoot,
     );
     this.absolutePaths.customScripts = path.resolve(
-      __dirname,
+      process.cwd(),
       this.relativePaths.customScripts,
     );
     this.absolutePaths.migrationsTemplate = path.resolve(
@@ -99,7 +99,7 @@ export class MigrationsSysService {
    * @param {string} migrationName
    * @returns {Promise<Object>} A promise of the Migration created
    */
-  public async create(migrationName: string) {
+  public async create(migrationGroup: string, migrationName: string) {
     // validate migration doesn't already exist
     const existingMigration = await this.migrationModel.findOne({
       name: migrationName,
@@ -114,10 +114,12 @@ export class MigrationsSysService {
 
     // create file system file
     const newMigrationFileName = `${migrationCreatedDate}-${migrationName}.ts`;
-    fs.writeFileSync(
-      path.join(this.absolutePaths.migrationScripts, newMigrationFileName),
-      this.template,
+    const newMigrationFilePath = path.join(
+      this.absolutePaths.migrationScriptsRoot,
+      migrationGroup,
+      newMigrationFileName,
     );
+    fs.writeFileSync(newMigrationFilePath, this.template);
 
     // create instance in db
     const createdMigration = new this.migrationModel({
@@ -127,9 +129,7 @@ export class MigrationsSysService {
 
     await createdMigration.save();
     this.bffLoggerService.log(
-      `Created migration ${migrationName} in ${
-        this.absolutePaths.migrationScripts
-      }.`,
+      `Created migration ${migrationName} in ${newMigrationFilePath}.`,
     );
   }
 
@@ -140,17 +140,24 @@ export class MigrationsSysService {
    * @param migrationName
    * @param direction
    */
-  public async runMigration(direction: string = 'up', migrationName?: string) {
+  public async runMigration(
+    migrationGroup: string,
+    direction: string = 'up',
+    migrationName?: string,
+  ) {
     const untilMigration = migrationName
       ? await this.migrationModel.findOne({ name: migrationName })
       : await this.migrationModel.findOne().sort({ createdAt: -1 });
 
     if (!untilMigration) {
-      if (migrationName)
+      if (migrationName) {
         throw new ReferenceError(
           'Could not find that migration in the database',
         );
-      else throw new Error('There are no pending migrations.');
+      }
+      // no migrations to run
+      this.bffLoggerService.info(`There are no migrations to run`);
+      return;
     }
 
     let query;
@@ -174,7 +181,7 @@ export class MigrationsSysService {
     if (!migrationsToRun.length) {
       this.bffLoggerService.warn('There are no migrations to run');
       this.bffLoggerService.warn(`Current Migrations' Statuses: `);
-      await this.list();
+      await this.list(migrationGroup);
     }
 
     let numMigrationsRun = 0;
@@ -182,7 +189,8 @@ export class MigrationsSysService {
 
     for (const migration of migrationsToRun) {
       const migrationFilePath = path.join(
-        this.absolutePaths.migrationScripts,
+        this.absolutePaths.migrationScriptsRoot,
+        migrationGroup,
         migration.filename,
       );
       try {
@@ -231,9 +239,11 @@ export class MigrationsSysService {
    *
    * This functionality is opposite of prune()
    */
-  public async sync() {
+  public async sync(migrationGroup: string, interactive: boolean) {
     try {
-      const { filesNotInDb } = await this.compareFileSystemWithDB();
+      const { filesNotInDb } = await this.compareFileSystemWithDB(
+        migrationGroup,
+      );
       let migrationsToImport = filesNotInDb;
 
       this.bffLoggerService.log(
@@ -243,17 +253,18 @@ export class MigrationsSysService {
       if (migrationsToImport.length === 0) {
         this.bffLoggerService.log('There are no migrations to synchronize');
       } else {
-        await inquirer
-          .prompt({
-            type: 'checkbox',
-            message:
-              'The following migrations exist in the migrations folder but not in the database. Select the ones you want to import into the database',
-            name: 'migrationsToImport',
-            choices: filesNotInDb,
-          })
-          .then(answers => {
-            migrationsToImport = (answers as any).migrationsToImport;
-          });
+        if (interactive)
+          await inquirer
+            .prompt({
+              type: 'checkbox',
+              message:
+                'The following migrations exist in the migrations folder but not in the database. Select the ones you want to import into the database',
+              name: 'migrationsToImport',
+              choices: filesNotInDb,
+            })
+            .then(answers => {
+              migrationsToImport = (answers as any).migrationsToImport;
+            });
       }
 
       const promises: Array<Promise<any>> = new Array();
@@ -264,7 +275,7 @@ export class MigrationsSysService {
               filePath,
               migrationName,
               timestamp,
-            } = this.getFilenameParts(migrationToImport);
+            } = this.getFilenameParts(migrationGroup, migrationToImport);
 
             this.bffLoggerService.log(
               `Adding migration ${filePath} into database require(file system. State is ` +
@@ -307,9 +318,11 @@ export class MigrationsSysService {
    * Opposite of sync().
    * Removes files in the database which don't exist in the migrations directory.
    */
-  public async prune() {
+  public async prune(migrationGroup: string) {
     try {
-      const { dbMigrationsNotOnFs } = await this.compareFileSystemWithDB();
+      const { dbMigrationsNotOnFs } = await this.compareFileSystemWithDB(
+        migrationGroup,
+      );
       let migrationsToDelete = dbMigrationsNotOnFs.map(m => m.name);
 
       if (migrationsToDelete.length === 0) {
@@ -363,13 +376,13 @@ export class MigrationsSysService {
    *    { name: 'add-cows', filename: '149213223453_add-cows.js', state: 'down' }
    *   ]
    */
-  public async list() {
+  public async list(migrationGroup: string) {
     const {
       migrationsInDatabase,
       migrationsInFolder,
       filesNotInDb,
       dbMigrationsNotOnFs,
-    } = await this.compareFileSystemWithDB();
+    } = await this.compareFileSystemWithDB(migrationGroup);
 
     this.bffLoggerService.log(
       `There are ${
@@ -417,13 +430,20 @@ export class MigrationsSysService {
   /**
    *
    */
-  private async compareFileSystemWithDB() {
+  private async compareFileSystemWithDB(migrationGroup: string) {
     const filesInMigrationFolder = fs.readdirSync(
-      this.absolutePaths.migrationScripts,
+      path.join(this.absolutePaths.migrationScriptsRoot, migrationGroup),
     );
+
     const migrationsInDatabase = await this.migrationModel
       .find({})
       .sort({ createdAt: 1 });
+
+    this.bffLoggerService.debug(
+      'compareFileSystemWithDB.migrationsInDatabase',
+      migrationsInDatabase,
+    );
+
     const migrationsInFolder = filesInMigrationFolder
       .filter(file => /\d{13,}\-.+.(ts)$/.test(file))
       .map(filename => {
@@ -433,6 +453,12 @@ export class MigrationsSysService {
         );
         return { createdAt: fileCreatedAt, filename, existsInDatabase };
       });
+
+    this.bffLoggerService.debug(
+      'compareFileSystemWithDB.migrationsInFolder',
+      filesInMigrationFolder,
+      migrationsInFolder,
+    );
 
     const filesNotInDb = migrationsInFolder
       .filter(migrationInFolder => migrationInFolder.existsInDatabase === false)
@@ -455,9 +481,10 @@ export class MigrationsSysService {
    *
    * @param migrationToImport
    */
-  private getFilenameParts(migrationToImport: string) {
+  private getFilenameParts(migrationGroup: string, migrationToImport: string) {
     const filePath = path.join(
-      this.absolutePaths.migrationScripts,
+      this.absolutePaths.migrationScriptsRoot,
+      migrationGroup,
       migrationToImport,
     );
     const timestampSeparatorIndex = migrationToImport.indexOf('-');

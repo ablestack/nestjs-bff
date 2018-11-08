@@ -8,7 +8,7 @@
     "test:cov": "jest --coverage",
     "clean:dist": "cd dist && ls | grep -v node_modules | xargs rm -rf && cd ..",
     "build-only": "tsc && npm run copy:package",
-    "copy:package": "cp -rf package.json README.md LICENSE dist",
+    "copy:package": "cp -rf package.json README.md LICENSE dist && cp -rf 'src/shared/migrations/templates/migrationTemplate.ts' 'dist/shared/migrations/templates/' ",
     "build": "npm run clean:dist && npm run build-only",
     "pub": "npm run build && cd dist && npm publish --access public"
   },
