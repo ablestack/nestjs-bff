@@ -14,13 +14,18 @@ async function bootstrap() {
   global.nestjs_bff = { AppConfig };
   const bffLogger: LoggerSysService = getLogger();
 
+  //
+  bffLogger.debug(`starting web-app bootstrap`);
+
   // CREATE NESTJS APP
   const app = await NestFactory.create(WebAppHttpModule, { logger: bffLogger });
 
-  seedData(app, bffLogger);
+  // RUN SETUP STEPS
+  bffLogger.debug(`AppConfig.migrations.autoRun: ${AppConfig.migrations.autoRun}`);
+  if (AppConfig.migrations.autoRun) await app.get(MigrationsSysService).autoRunMigrations(AppConfig.nodeEnv);
   setupWebserver(app);
 
-  // Start listening
+  // START LISTENING
   bffLogger.debug(`Nest-BFF: Starting to listen on port ${AppConfig.http.bffPort}`);
   await app.listen(AppConfig.http.bffPort);
 }
@@ -37,16 +42,4 @@ function setupWebserver(app: INestApplication & INestExpressApplication) {
 
   // Other Settings
   // TODO: app.enableCors(); // not sure if this is needed yet
-}
-
-function seedData(app: INestApplication, bffLogger: LoggerSysService) {
-  try {
-    bffLogger.info(`About to run migrations for group: ${AppConfig.nodeEnv}`);
-    const migrationService: MigrationsSysService = app.get(MigrationsSysService);
-    migrationService.sync(AppConfig.nodeEnv);
-    migrationService.runMigration(AppConfig.nodeEnv);
-    bffLogger.info(`Ran migrations for group: ${AppConfig.nodeEnv}`);
-  } catch (error) {
-    bffLogger.error(error);
-  }
 }

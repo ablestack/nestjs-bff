@@ -13,5 +13,6 @@ export const UserDomainSchema: Schema = new Schema(
   },
   {
     timestamps: true,
+    collection: 'user',
   },
 );

@@ -25,6 +25,10 @@ const _NestjsBffConfig = {
     },
   },
 
+  migrations: {
+    autoRun: false,
+  },
+
   db: {
     mongo: {
       options: {

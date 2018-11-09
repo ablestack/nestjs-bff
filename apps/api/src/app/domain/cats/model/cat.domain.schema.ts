@@ -17,5 +17,6 @@ export const CatDomainSchema = new Schema(
   },
   {
     timestamps: true,
+    collection: 'cat',
   },
 );

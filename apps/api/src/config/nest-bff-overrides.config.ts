@@ -11,6 +11,10 @@ export const NestBffConfigOverrides = {
     },
   },
 
+  migrations: {
+    autoRun: true,
+  },
+
   db: {
     mongo: {
       options: {

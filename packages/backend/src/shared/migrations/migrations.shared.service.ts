@@ -133,6 +133,19 @@ export class MigrationsSysService {
     );
   }
 
+  public async autoRunMigrations(migrationGroup: string) {
+    try {
+      this.bffLoggerService.info(
+        `About to run migrations for group: ${migrationGroup}`,
+      );
+      this.sync(migrationGroup, false);
+      this.runMigration(migrationGroup);
+      this.bffLoggerService.info(`Ran migrations for group: ${migrationGroup}`);
+    } catch (error) {
+      this.bffLoggerService.error(error);
+    }
+  }
+
   /**
    * Runs migrations up to or down to a given migration name.
    * If no name given, all migrations are run.
@@ -205,9 +218,13 @@ export class MigrationsSysService {
         await this.runMigrationFunction(directionalMigrationFunction);
 
         // update migrations table
-        const completed = await this.migrationModel
-          .where('', { name: migration.name })
-          .update({ $set: { state: direction } });
+        this.bffLoggerService.debug(
+          `Update migration table for migration: ${migration.name}`,
+        );
+        const completed = await this.migrationModel.updateOne(
+          { name: migration.name },
+          { state: direction },
+        );
         this.bffLoggerService.log(
           `migration models updated: ${JSON.stringify(completed)}`,
         );
@@ -252,19 +269,18 @@ export class MigrationsSysService {
 
       if (migrationsToImport.length === 0) {
         this.bffLoggerService.log('There are no migrations to synchronize');
-      } else {
-        if (interactive)
-          await inquirer
-            .prompt({
-              type: 'checkbox',
-              message:
-                'The following migrations exist in the migrations folder but not in the database. Select the ones you want to import into the database',
-              name: 'migrationsToImport',
-              choices: filesNotInDb,
-            })
-            .then(answers => {
-              migrationsToImport = (answers as any).migrationsToImport;
-            });
+      } else if (interactive) {
+        await inquirer
+          .prompt({
+            type: 'checkbox',
+            message:
+              'The following migrations exist in the migrations folder but not in the database. Select the ones you want to import into the database',
+            name: 'migrationsToImport',
+            choices: filesNotInDb,
+          })
+          .then(answers => {
+            migrationsToImport = (answers as any).migrationsToImport;
+          });
       }
 
       const promises: Array<Promise<any>> = new Array();
@@ -318,7 +334,7 @@ export class MigrationsSysService {
    * Opposite of sync().
    * Removes files in the database which don't exist in the migrations directory.
    */
-  public async prune(migrationGroup: string) {
+  public async prune(migrationGroup: string, interactive: boolean) {
     try {
       const { dbMigrationsNotOnFs } = await this.compareFileSystemWithDB(
         migrationGroup,
@@ -327,7 +343,7 @@ export class MigrationsSysService {
 
       if (migrationsToDelete.length === 0) {
         this.bffLoggerService.log('There are no migrations to prune');
-      } else {
+      } else if (interactive) {
         await inquirer
           .prompt({
             type: 'checkbox',

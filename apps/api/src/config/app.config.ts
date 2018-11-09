@@ -15,4 +15,4 @@ export const _AppConfig = {
 
 // Merge configs and export
 export type IAppConfig = INestjsBffConfigEnv & typeof NestjsBffConfig & typeof _AppConfig;
-export const AppConfig: IAppConfig = _.merge(_AppConfig, NestBffConfigOverrides, NestjsBffConfig, AppConfigEnv);
+export const AppConfig: IAppConfig = _.merge(NestjsBffConfig, NestBffConfigOverrides, _AppConfig, AppConfigEnv);

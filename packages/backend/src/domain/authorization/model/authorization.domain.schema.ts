@@ -38,5 +38,6 @@ export const AuthorizationDomainSchema: Schema = new Schema(
   },
   {
     timestamps: true,
+    collection: 'authorization',
   },
 );

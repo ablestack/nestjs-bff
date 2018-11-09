@@ -13,5 +13,6 @@ export const OrganizationDomainSchema = new Schema(
   },
   {
     timestamps: true,
+    collection: 'organization',
   },
 );
