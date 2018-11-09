@@ -54,6 +54,23 @@ export class MigrationsSysService {
 
   /**
    *
+   * @param migrationGroup
+   */
+  public async autoRunMigrations(migrationGroup: string) {
+    try {
+      this.bffLoggerService.info(
+        `About to run migrations for group: ${migrationGroup}`,
+      );
+      await this.sync(migrationGroup, false);
+      await this.runMigration(migrationGroup);
+      this.bffLoggerService.info(`Ran migrations for group: ${migrationGroup}`);
+    } catch (error) {
+      this.bffLoggerService.error(error);
+    }
+  }
+
+  /**
+   *
    * @param direction {string}
    * @param migrationRelativePath {string}
    */
@@ -131,19 +148,6 @@ export class MigrationsSysService {
     this.bffLoggerService.log(
       `Created migration ${migrationName} in ${newMigrationFilePath}.`,
     );
-  }
-
-  public async autoRunMigrations(migrationGroup: string) {
-    try {
-      this.bffLoggerService.info(
-        `About to run migrations for group: ${migrationGroup}`,
-      );
-      this.sync(migrationGroup, false);
-      this.runMigration(migrationGroup);
-      this.bffLoggerService.info(`Ran migrations for group: ${migrationGroup}`);
-    } catch (error) {
-      this.bffLoggerService.error(error);
-    }
   }
 
   /**
@@ -264,7 +268,7 @@ export class MigrationsSysService {
       let migrationsToImport = filesNotInDb;
 
       this.bffLoggerService.log(
-        'Synchronizing database with file system migrations...',
+        'Synchronizing file system migrations with database...',
       );
 
       if (migrationsToImport.length === 0) {
