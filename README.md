@@ -16,7 +16,7 @@
 
 NestJS-BFF is a starter project for those looking to fast-track building a strongly typed, enterprise-grade, modern NodeJs application, with supporting tooling.
 
-This is a Mono-repo project containing an API, companion CLI, Web Client, and companion NPM packages. Follow the README navigation links for details on each of these. The core infrastructure is contained in NPM packages, so that projects build using this boilerplate can easily benefit from future updates though a simple NPM update command.
+This is a Mono-repo project containing an [API](apps/api/README.md), companion [CLI](apps/cli/README.md), [Web Client](apps/webclient/README.md), and companion NPM packages. Follow the README navigation links for details on each of these. The core infrastructure is contained in NPM packages, so that projects build using this boilerplate can easily benefit from future updates though a simple NPM update command.
 
 This implementation uses the [BFF](https://samnewman.io/patterns/architectural/bff/) pattern, leveraging [NestJS](https://nestjs.com/) as the primary framework for the backend API. The client-side example is in [Angular](https://angular.io/), although any client-side Javascript framework can easily be used, including [React](https://reactjs.org/), or [Vue](https://vuejs.org/) js.
 
