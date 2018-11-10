@@ -1,8 +1,8 @@
-import { AuthenticationDomainModule } from '@nestjs-bff/backend/domain/authentication/authentication.domain.module';
-import { AuthorizationDomainModule } from '@nestjs-bff/backend/domain/authorization/authorization.domain.module';
+import { AuthHttpModule } from '@nestjs-bff/backend/host/http/auth/auth.http.module';
 import { CoreHttpModule } from '@nestjs-bff/backend/host/http/core/core.http.module';
 import { AuthorizationHttpGuard } from '@nestjs-bff/backend/host/http/core/guards/authorization.http.guard';
 import { JwtHttpMiddleware } from '@nestjs-bff/backend/host/http/core/jwt/jwt.http.middleware';
+import { MigrationsSysModule } from '@nestjs-bff/backend/shared/migrations/migrations.shared.module';
 import {
   CacheInterceptor,
   MiddlewareConsumer,
@@ -12,7 +12,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
-import { CatsDomainModule } from '../../../domain/cats/cats.domain.module';
+import { CatsHttpModule } from '../cats/cats.http.module';
 import { WebAppHealthCheckService } from './web-app-health-check.http.service';
 import { WebAppController } from './web-app.http.controller';
 
@@ -43,7 +43,7 @@ const AppPipeProvider = {
 };
 
 @Module({
-  imports: [CoreHttpModule, AuthenticationDomainModule, AuthorizationDomainModule, CatsDomainModule],
+  imports: [CoreHttpModule, AuthHttpModule, CatsHttpModule, MigrationsSysModule],
   controllers: [WebAppController],
   providers: [WebAppHealthCheckService, CacheInterceptorProvider, AppGuardProvider, AppPipeProvider],
   exports: undefined,

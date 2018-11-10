@@ -11,8 +11,13 @@ export const NestBffConfigOverrides = {
     },
   },
 
+  migrations: {
+    autoRun: true,
+  },
+
   db: {
     mongo: {
+      debugLogging: true,
       options: {
         useNewUrlParser: true,
         useCreateIndex: true,

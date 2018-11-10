@@ -28,8 +28,9 @@ npm-debug.log
 /coverage
 /.nyc_output
 
-# dist
+# ignore dist contents, but keep the folder
 /dist
+!/dist/.gitkeep
 
 #logs
 **/logs/*.log

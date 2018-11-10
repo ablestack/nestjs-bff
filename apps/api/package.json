@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "format": "prettier --write \"**/*.ts\"",
-    "start": "ts-node -r tsconfig-paths/register src/app/host/http/web-app/web-app.ts",
+    "start": "ts-node src/app/host/http/web-app/web-app.ts",
     "start:dev": "nodemon",
     "prestart:prod": "rm -rf dist && tsc",
     "start:prod": "node dist/app/host/http/web-app/web-app.js",
@@ -21,7 +21,7 @@
     "webpack": "webpack --config webpack.config.js"
   },
   "dependencies": {
-    "@nestjs-bff/backend": "^0.0.19",
+    "@nestjs-bff/backend": "^0.0.21",
     "@nestjs-bff/universal": "^0.0.9",
     "@nestjs/common": "^5.3.9",
     "@nestjs/core": "^5.3.10",

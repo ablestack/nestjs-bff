@@ -9,9 +9,10 @@
     "db-seed:dev": "ts-node cli migration-custom --filename seed-dev --direction up"
   },
   "dependencies": {
-    "@types/inquirer": "^0.0.41",
+    "@nestjs-bff/backend": "0.0.19",
     "@nestjs/common": "^5.0.0",
     "@nestjs/core": "^5.0.0",
+    "@types/inquirer": "^0.0.41",
     "inquirer": "^3.2.0",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.0.0",
