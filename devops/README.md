@@ -3,11 +3,11 @@
 <p align="center">
   <i><a href="../README.md">Overview</a></i>
   &nbsp;&nbsp;&nbsp;
-	<a href="../apps/api/README.md">API</a>
+	<a href="../api/README.md">API</a>
   &nbsp;&nbsp;&nbsp;
-	<a href="../apps/cli/README.md">CLI</a>
+	<a href="../cli/README.md">CLI</a>
   &nbsp;&nbsp;&nbsp;
-	<a href="../apps/webclient/README.md">Web Client</a>
+	<a href="../webclient/README.md">Web Client</a>
   &nbsp;&nbsp;&nbsp;
 	<a href="README.md">DevOps</a>
 </p>
@@ -27,7 +27,11 @@ This is a Monorepo project containing an API, companion CLI, and Web Client. Fol
 ```bash
 # install dependencies for all sub projects (api, cli, webclient), and a Docker MongoDB image
 
+
+
 $ npm run install-all-with-docker
+
+
 
 ```
 
@@ -38,7 +42,11 @@ To start the WebClient and API, navigate to the devops folder of Nestjs-Bff repo
 ```bash
 # run api, webclient, and a Docker hosted MongoDB instance
 
+
+
 $ npm run start-all-with-docker
+
+
 
 ```
 
