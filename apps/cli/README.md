@@ -37,24 +37,33 @@ The primary set of services that are currently exposed via the CLI are for datab
 
 ```bash
 # install dependencies for all sub projects (api, cli, webclient)
-$ yarn install-all
+
+$ npm run install-all
+
 ```
 
 1.  Make a symlink to the CLI from the CLI root directory
 
 ```bash
 # Windows
+
 $ mklink cli.ts src\cli.ts
 
+
+
 # Linux
+
 $ <TODO>
+
 ```
 
 3.  Install ts-node globally
 
 ```bash
 # Windows
+
 $ npm install -g ts-node
+
 ```
 
 ## CLI Configuration
@@ -65,7 +74,9 @@ As the CLI simply initiates the API calls from the command line, the majority of
 
 ```bash
 # Run cli
+
 $ ts-node cli --help
+
 ```
 
 ### CLI Migrations
@@ -74,25 +85,45 @@ The majority of the migrations functionality is based on a port of [mongoose-mig
 
 ```bash
 # Migration Create
+
 $ ts-node cli migration-create <migration-name>
 
+
+
 # Migration Sync (to DB)
+
 $ ts-node cli migrations-sync
 
+
+
 # Migration List
+
 $ ts-node cli migrations-list
 
+
+
 # Migration Run
+
 $ ts-node cli migrations-up <migration-name>
 
+
+
 # Migration Rollback
+
 $ ts-node cli migrations-down <migration-name>
 
+
+
 # Migration Prune
+
 $ ts-node cli migrations-prune
 
+
+
 # Run custom migration script
+
 $ ts-node cli migration-custom --filename <filename> --direction [up|down]
+
 ```
 
 ## Readme Navigation

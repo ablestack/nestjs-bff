@@ -29,7 +29,7 @@ Based on the standard Nest CLI generated API, with the following customizations 
 
 ```bash
 # install dependencies for all sub projects (api, cli, webclient)
-$ yarn install-all
+$ npm run install-all
 ```
 
 Or
@@ -37,7 +37,7 @@ Or
 1.  Navigate to /api, then run the following command:
 
 ```bash
-$ yarn install
+$ npm run install
 ```
 
 Then

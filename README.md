@@ -14,9 +14,11 @@
 
 ## Overview
 
-NestJS-BFF is a starter project for those looking to fast-track building a production-grade web application with [NestJS](https://nestjs.com/). This implementation uses the [BFF](https://samnewman.io/patterns/architectural/bff/) pattern, using NestJS as the backend API for a SPA frontend.
+NestJS-BFF is a starter project for those looking to fast-track building a strongly typed, enterprise-grade, modern NodeJs application, with supporting tooling.
 
-This is a Monorepo project containing an API, companion CLI, and Web Client. Follow the README navigation links for details on each of these.
+This is a Mono-repo project containing an API, companion CLI, Web Client, and companion NPM packages. Follow the README navigation links for details on each of these. The core infrastructure is contained in NPM packages, so that projects build using this boilerplate can easily benefit from future updates though a simple NPM update command.
+
+This implementation uses the [BFF](https://samnewman.io/patterns/architectural/bff/) pattern, leveraging [NestJS](https://nestjs.com/) as the primary framework for the backend API. The client-side example is in [Angular](https://angular.io/), although any client-side Javascript framework can easily be used, including [React](https://reactjs.org/), or [Vue](https://vuejs.org/) js.
 
 ## Installation & Usage
 
@@ -38,14 +40,14 @@ There are a number of benefits that make NestJs and Angular a very compelling we
   - Strongly type on both the backend and frontend
   - Leverages the Node JavaScript framework for both backend and frontend development
   - Incredibly similar architecture and design patterns
-- Backend framework can be leveraged for other execution contexts, including CLI (example included) or even DeskTop
+- Backend framework can be leveraged for other execution contexts, including CLI (example included) or even Desktop
 - Leverages fully open source technology
 - Hosting options are broad, and flexible, with multiple value-options, including broad native cloud hosting support (including Heroku)
 
 # Notes
 
 - The API can run independently from the CLI
-- The CLI requires the API to compile and run, and is connected by Yarn Workspaces
+- The CLI requires the API to compile and run
 - The webclient can run independently, but requires the API to be running to complete API requests, including for authentication
 
 # Contributions

@@ -26,7 +26,9 @@ This is a Monorepo project containing an API, companion CLI, and Web Client. Fol
 
 ```bash
 # install dependencies for all sub projects (api, cli, webclient), and a Docker MongoDB image
-$ yarn install-all-with-docker
+
+$ npm run install-all-with-docker
+
 ```
 
 ## Start
@@ -35,7 +37,9 @@ To start the WebClient and API, navigate to the devops folder of Nestjs-Bff repo
 
 ```bash
 # run api, webclient, and a Docker hosted MongoDB instance
-$ yarn start-all-with-docker
+
+$ npm run start-all-with-docker
+
 ```
 
 ## Readme Navigation

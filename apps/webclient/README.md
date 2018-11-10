@@ -29,7 +29,9 @@ Navigate to the root of Nestjs-Bff repo, the run then following command:
 
 ```bash
 # install dependencies for all sub projects (api, cli, webclient)
-$ yarn install-all
+
+$ npm run install-all
+
 ```
 
 Or
@@ -38,20 +40,30 @@ Navigate to /webclient, then run the following command:
 
 ```bash
 # install dependencies
-$ yarn install
+
+$ npm run install
+
 ```
 
 ## Web Client Usage
 
 ```bash
 # go into app's directory
+
 $ cd workspaces/webclient
 
+
+
 # serve with hot reload at localhost:4200.
+
 $ npm start
 
+
+
 # build for production with minification
+
 $ npm build
+
 ```
 
 ## Readme Navigation
