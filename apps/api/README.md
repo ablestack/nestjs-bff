@@ -37,7 +37,7 @@ Or
 1.  Navigate to /api, then run the following command:
 
 ```bash
-$ npm run install
+$ npm install
 ```
 
 Then

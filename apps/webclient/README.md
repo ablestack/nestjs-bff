@@ -30,7 +30,11 @@ Navigate to the root of Nestjs-Bff repo, the run then following command:
 ```bash
 # install dependencies for all sub projects (api, cli, webclient)
 
+
+
 $ npm run install-all
+
+
 
 ```
 
@@ -41,7 +45,11 @@ Navigate to /webclient, then run the following command:
 ```bash
 # install dependencies
 
-$ npm run install
+
+
+$ npm install
+
+
 
 ```
 
@@ -50,19 +58,35 @@ $ npm run install
 ```bash
 # go into app's directory
 
+
+
 $ cd workspaces/webclient
+
+
+
+
 
 
 
 # serve with hot reload at localhost:4200.
 
+
+
 $ npm start
+
+
+
+
 
 
 
 # build for production with minification
 
+
+
 $ npm build
+
+
 
 ```
 
