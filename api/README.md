@@ -9,7 +9,7 @@
   &nbsp;&nbsp;&nbsp;
 	<a href="../webclient/README.md">Web Client</a>
   &nbsp;&nbsp;&nbsp;
-	<a href="../../devops/README.md">DevOps</a>
+	<a href="../devops/README.md">DevOps</a>
 </p>
 
 ## API Overview
@@ -86,4 +86,4 @@ Further details on each of the systems contained in this project can be found vi
 - _[API](README.md)_
 - [CLI](../cli/README.md)
 - [Web Client](../webclient/README.md)
-- [DevOps](../../devops/README.md)
+- [DevOps](../devops/README.md)

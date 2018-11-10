@@ -9,7 +9,7 @@
   &nbsp;&nbsp;&nbsp;
 	<a href="../webclient/README.md">Web Client</a>
   &nbsp;&nbsp;&nbsp;
-	<a href="../../devops/README.md">DevOps</a>
+	<a href="../devops/README.md">DevOps</a>
 </p>
 
 ## CLI Overview
@@ -38,7 +38,11 @@ The primary set of services that are currently exposed via the CLI are for datab
 ```bash
 # install dependencies for all sub projects (api, cli, webclient)
 
+
+
 $ npm run install-all
+
+
 
 ```
 
@@ -47,13 +51,23 @@ $ npm run install-all
 ```bash
 # Windows
 
+
+
 $ mklink cli.ts src\cli.ts
+
+
+
+
 
 
 
 # Linux
 
+
+
 $ <TODO>
+
+
 
 ```
 
@@ -62,7 +76,11 @@ $ <TODO>
 ```bash
 # Windows
 
+
+
 $ npm install -g ts-node
+
+
 
 ```
 
@@ -75,7 +93,11 @@ As the CLI simply initiates the API calls from the command line, the majority of
 ```bash
 # Run cli
 
+
+
 $ ts-node cli --help
+
+
 
 ```
 
@@ -86,43 +108,83 @@ The majority of the migrations functionality is based on a port of [mongoose-mig
 ```bash
 # Migration Create
 
+
+
 $ ts-node cli migration-create <migration-name>
+
+
+
+
 
 
 
 # Migration Sync (to DB)
 
+
+
 $ ts-node cli migrations-sync
+
+
+
+
 
 
 
 # Migration List
 
+
+
 $ ts-node cli migrations-list
+
+
+
+
 
 
 
 # Migration Run
 
+
+
 $ ts-node cli migrations-up <migration-name>
+
+
+
+
 
 
 
 # Migration Rollback
 
+
+
 $ ts-node cli migrations-down <migration-name>
+
+
+
+
 
 
 
 # Migration Prune
 
+
+
 $ ts-node cli migrations-prune
+
+
+
+
 
 
 
 # Run custom migration script
 
+
+
 $ ts-node cli migration-custom --filename <filename> --direction [up|down]
+
+
 
 ```
 
@@ -134,4 +196,4 @@ Further details on each of the systems contained in this project can be found vi
 - [API](../api/README.md)
 - _[CLI](README.md)_
 - [Web Client](../webclient/README.md)
-- [DevOps](../../devops/README.md)
+- [DevOps](../devops/README.md)

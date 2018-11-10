@@ -18,8 +18,3 @@ services:
     image: mongo:latest
     ports:
       - 27017:27017
-  mongodb_e2e:
-    image: mongo:latest
-    tmpfs: /data/db
-    ports:
-      - 27017:27017
