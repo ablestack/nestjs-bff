@@ -26,25 +26,47 @@ This is a Mono-repo project containing an [API](api/README.md), companion [CLI](
 
 See the [DevOps](devops/README.md) documentation and folder for instructions and scripts to install, run, and maintain nestjs-bff applications
 
-## Background
+## Key Features
 
-[NestJS](https://nestjs.com/) is a fantastic project, and a pleasure to develop with. However, it is a framework by design, and not a complete production-ready web-application solution. Features such as logging, configuration management, data-base migrations, and even authentication need to be learned, assembled, and configured before they can be used.
+- **DDD style layered architecture** for API, with Application Services and composable Domain objects
+- **Comprehensive authentication and authorization system** in-the-box
+- **Social Login** with Facebook, Google, and Twitter (under development)
+- **JWT Authentication**
+- **Robust API security** with 'allow list' approach
+- **MongoDB Migrations** System
+- **Winston and Console Logger Service** in-the-box
+- **Configuration pattern** simple and strongly types
+- **e2e Testing** pattern leveraging Jest
 
-This project aims to provide an enterprise-ready web-application skeleton, out-of-the-box, and built on top of the nest-js framework.
+## Structure
 
-### Developer Benefits
+- Backend **Hosting Layer** for exposing Application and Domain Services over a multiple transports
+- Backend **Application Services Layer** for composing Domain Services
+- Backend **Domain Services Layer** for encapsulating core domain logic
+- Backend **Infrastructure Layer** packages, for building and supporting the layered architecture
+- Shared **Universal Layer** layer that can be shared between the backend and the client
+- Frontend **Client Layer** example, built with Angular
+
+## Developer Benefits
 
 There are a number of benefits that make NestJs and Angular a very compelling web development stack:
 
-- NestJS and Angular are both versatile and highly compatible frameworks, that provide a great developer experience
-- Significant reduction in context-switching between frontend and backend development
+- Core technologies [NestJS](https://nestjs.com/) and [Angular](https://angular.io/) are both versatile and highly compatible frameworks, that provide a great developer experience
+- Consistent technology and development patterns for both frontend and backend development
+  - Results in significant increase in development efficiency
   - TypeScript language for both the backend and frontend
   - Strongly type on both the backend and frontend
   - Leverages the Node JavaScript framework for both backend and frontend development
   - Incredibly similar architecture and design patterns
 - Backend framework can be leveraged for other execution contexts, including CLI (example included) or even Desktop
 - Leverages fully open source technology
-- Hosting options are broad, and flexible, with multiple value-options, including broad native cloud hosting support (including Heroku)
+- Hosting options are broad, and flexible, with multiple value-options, and broad native cloud hosting support (including Heroku)
+
+## Background
+
+[NestJS](https://nestjs.com/) is a fantastic project, and a pleasure to develop with. However, it is a framework by design, and not a complete production-ready web-application solution. Features such as logging, configuration management, data-base migrations, and even authentication need to be learned, assembled, and configured before they can be used.
+
+This project aims to provide an enterprise-ready web-application skeleton, out-of-the-box, and built on top of the nest-js framework.
 
 # Notes
 
