@@ -9,11 +9,15 @@ const MongooseConnectionProvider = {
   provide: MongoSysProviderTokens.Connections.Mongoose,
   useFactory: async (
     nestjsBffConfig: INestjsBffConfig,
-  ): Promise<typeof mongoose> =>
-    await mongoose.connect(
+  ): Promise<typeof mongoose> => {
+    const con = await mongoose.connect(
       nestjsBffConfig.db.mongo.mongoConnectionUri,
       nestjsBffConfig.db.mongo.options,
-    ),
+    );
+    mongoose.set('debug', nestjsBffConfig.db.mongo.debugLogging);
+    console.log({ con, debugLogging: nestjsBffConfig.db.mongo.debugLogging });
+    return con;
+  },
   inject: [AppSysProviderTokens.Config.App],
 };
 

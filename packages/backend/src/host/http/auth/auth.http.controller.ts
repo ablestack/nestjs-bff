@@ -41,10 +41,11 @@ export class AuthHttpController {
   async localSignIn(
     @Body() localAuthenticateCmd: LocalAuthenticateCommand,
   ): Promise<IAuthenticationToken> {
+    console.log({localAuthenticateCmd});
     const authenticationEntity = await this.userAuthenticationService.signInWithLocal(
       localAuthenticateCmd,
     );
-
+    console.log({authenticationEntity});
     return this.jwtTokenService.createToken(authenticationEntity);
   }
 

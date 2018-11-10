@@ -31,6 +31,7 @@ const _NestjsBffConfig = {
 
   db: {
     mongo: {
+      debugLogging: false,
       options: {
         useNewUrlParser: true,
         useCreateIndex: true,

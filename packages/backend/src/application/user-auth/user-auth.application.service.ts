@@ -55,13 +55,14 @@ export class UserAuthApplicationService {
     if (!validPassword(cmd.password, authenticationEntity.local.hashedPassword))
       throw new AppError('Your login credentials were not correct');
 
-    const authorizationEntity = this.authorizationRepoCache.findByUserId(
+    const authorizationEntity = await this.authorizationRepoCache.findByUserId(
       authenticationEntity.userId,
     );
+
     if (!authorizationEntity)
       throw new AppError('Could not find authorization information for signIn');
 
-    return authorizationEntity as Promise<AuthorizationEntity>;
+    return authorizationEntity;
   }
 
   /**
