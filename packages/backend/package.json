@@ -13,7 +13,7 @@
     "pub": "npm run build && cd dist && npm publish --access public"
   },
   "dependencies": {
-    "@nestjs-bff/universal": "^0.0.9",
+    "@nestjs-bff/universal": "^0.0.10",
     "@nestjs/common": "^5.3.9",
     "@nestjs/core": "^5.3.9",
     "@nestjs/testing": "^5.3.8",
