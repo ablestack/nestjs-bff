@@ -4,13 +4,14 @@
   "description": "A backend module for nestjs-bff",
   "author": "ahrnee",
   "scripts": {
-    "test": "jest --config=jest.json",
-    "test:cov": "jest --coverage",
-    "clean:dist": "cd dist && ls | grep -v node_modules | xargs rm -rf && cd ..",
-    "build-only": "tsc && npm run copy:package",
-    "copy:package": "cp -rf package.json README.md LICENSE dist && cp -rf 'src/shared/migrations/templates/migrationTemplate.ts' 'dist/shared/migrations/templates/' ",
     "build": "npm run clean:dist && npm run build-only",
-    "pub": "npm run build && cd dist && npm publish --access public"
+    "build-and-link": "npm run build && cd dist && npm link",
+    "build-only": "tsc && npm run copy:package",
+    "clean:dist": "cd dist && ls | grep -v node_modules | xargs rm -rf && cd ..",
+    "copy:package": "cp -rf package.json README.md LICENSE dist && cp -rf 'src/shared/migrations/templates/migrationTemplate.ts' 'dist/shared/migrations/templates/' ",
+    "pub": "npm run build && cd dist && npm publish --access public",
+    "test": "jest --config=jest.json",
+    "test:cov": "jest --coverage"
   },
   "dependencies": {
     "@nestjs-bff/universal": "^0.0.10",

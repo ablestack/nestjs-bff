@@ -6,7 +6,8 @@
   "author": "ahrnee",
   "license": "MIT",
   "scripts": {
-    "db-seed:dev": "ts-node cli migration-custom --filename seed-dev --direction up"
+    "db-seed:dev": "ts-node cli migration-custom --filename seed-dev --direction up",
+    "link": "npm link @nestjs-bff/universal"
   },
   "dependencies": {
     "@nestjs-bff/backend": "0.0.19",

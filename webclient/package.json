@@ -7,6 +7,7 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack --mode production",
+    "link": "npm link @nestjs-bff/universal",
     "start": "webpack-dev-server --mode development --open"
   },
   "dependencies": {

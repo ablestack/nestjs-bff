@@ -50,8 +50,27 @@ $ npm run start-all-with-docker
 
 ## Local Package Development
 
-If you would like to make custom updates to code in the packages folder, for your Nestjs-BFF application to consume, you can leverage [NPM local paths](https://docs.npmjs.com/files/package.json#local-paths) to enable this.
-Simply update your package.json files to use [NPM local paths](https://docs.npmjs.com/files/package.json#local-paths) for any packages in the package directory that you wish to customize.
+### Temporary
+
+If you would like to develop and test updates to the companion Nestjs-bff packages, you can run the following commands to create temporary symlinks
+
+```bash
+# Initialize the links. Run when pulling a fresh copy of the repo
+
+$ npm run link-initialize
+
+```
+
+```bash
+# Creates a symlink to the local companion packages in the consuming node_modules folder. Run each time the links need refreshing
+
+$ npm run link-all
+
+```
+
+### Permanent
+
+If you would like to make permanent custom updates to the companion Nestjs-bff packages, for your Nestjs-BFF application to consume, you can leverage [NPM local paths](https://docs.npmjs.com/files/package.json#local-paths) to enable this. Simply update your package.json files to use [NPM local paths](https://docs.npmjs.com/files/package.json#local-paths) for any packages in the package directory that you wish to customize. However, please note, this will mean that you will not longer be able to benefit from future published updates to the companion packages.
 
 ## Readme Navigation
 
