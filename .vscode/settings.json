@@ -3,6 +3,7 @@
         "Injectable",
         "autosync",
         "backend",
+        "nestjs",
         "virtuals"
     ],
     "html.format.wrapLineLength": 200
