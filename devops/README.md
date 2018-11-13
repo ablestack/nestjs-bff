@@ -20,7 +20,10 @@ The NestJS-BFF DevOps directory contains scripts, tooling, and documentation des
 
 1.  Ensure that NodeJS and Docker are installed on your local machine
 
-2.  Navigate to the devops folder of Nestjs-Bff repo, the run the following command:
+2.  Ensure you have a console installed that can run
+    Linux shell commands. [Cmder](http://cmder.net) is an excellent option for Windows machines, and [can be integrated into VS Code](https://github.com/cmderdev/cmder/wiki/Seamless-VS-Code-Integration)
+
+3.  Navigate to the devops folder of Nestjs-Bff repo, the run the following command:
 
 ```bash
 # install dependencies for all sub projects (api, cli, webclient), and a Docker MongoDB image
@@ -28,9 +31,6 @@ The NestJS-BFF DevOps directory contains scripts, tooling, and documentation des
 
 
 $ npm run install-all-with-docker
-
-
-
 ```
 
 ## Start
@@ -43,9 +43,6 @@ To start the WebClient and API, navigate to the devops folder of Nestjs-Bff repo
 
 
 $ npm run start-all-with-docker
-
-
-
 ```
 
 ## Local Package Development
@@ -58,14 +55,12 @@ If you would like to develop and test updates to the companion Nestjs-bff packag
 # Initialize the links. Run when pulling a fresh copy of the repo
 
 $ npm run link-initialize
-
 ```
 
 ```bash
 # Creates a symlink to the local companion packages in the consuming node_modules folder. Run each time the links need refreshing
 
 $ npm run link-all
-
 ```
 
 ### Permanent
