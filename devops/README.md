@@ -14,9 +14,7 @@
 
 ## Overview
 
-NestJS-BFF is a starter project for those looking to fast-track building a production-grade [BFF](https://samnewman.io/patterns/architectural/bff/) web application with [NestJS](https://nestjs.com/).
-
-This is a Monorepo project containing an API, companion CLI, and Web Client. Follow the README navigation links for details on each of these.
+The NestJS-BFF DevOps directory contains scripts, tooling, and documentation designed to automate and simplify the operational aspects of running a NestJS-BFF application.
 
 ## Installation
 
@@ -49,6 +47,11 @@ $ npm run start-all-with-docker
 
 
 ```
+
+## Local Package Development
+
+If you would like to make custom updates to code in the packages folder, for your Nestjs-BFF application to consume, you can leverage [NPM local paths](https://docs.npmjs.com/files/package.json#local-paths) to enable this.
+Simply update your package.json files to use [NPM local paths](https://docs.npmjs.com/files/package.json#local-paths) for any packages in the package directory that you wish to customize.
 
 ## Readme Navigation
 

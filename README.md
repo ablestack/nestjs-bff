@@ -40,12 +40,12 @@ See the [DevOps](devops/README.md) documentation and folder for instructions and
 
 ## Structure
 
+- Frontend **Client Layer** example, built with Angular
+- Universal **Universal Layer** layer that can be shared between the backend and the client
 - Backend **Hosting Layer** for exposing Application and Domain Services over a multiple transports
 - Backend **Application Services Layer** for composing Domain Services
 - Backend **Domain Services Layer** for encapsulating core domain logic
 - Backend **Infrastructure Layer** packages, for building and supporting the layered architecture
-- Shared **Universal Layer** layer that can be shared between the backend and the client
-- Frontend **Client Layer** example, built with Angular
 
 ## Developer Benefits
 
