@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { MongoSysProviderTokens } from '../../shared/database/mongo/mongo.shared.constants';
+import { MongoSharedProviderTokens } from '../../shared/database/mongo/mongo.shared.constants';
 import { CoreDomainModule } from '../core/domain.core.module';
 import { AuthenticationDomainProviderTokens } from './authentication.domain.constants';
 import { AuthenticationDomainSchema } from './model/authentication.domain.schema';
@@ -14,7 +14,7 @@ const AuthenticationDomainModel = {
   provide: AuthenticationDomainProviderTokens.Models.Authentication,
   useFactory: mongoose =>
     mongoose.connection.model('Authentication', AuthenticationDomainSchema),
-  inject: [MongoSysProviderTokens.Connections.Mongoose],
+  inject: [MongoSharedProviderTokens.Connections.Mongoose],
 };
 
 @Module({

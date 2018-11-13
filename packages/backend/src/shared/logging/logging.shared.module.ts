@@ -1,23 +1,23 @@
 import { Module } from '@nestjs/common';
 import { NestjsBffConfig } from '../../config/nestjs-bff.config';
-import { LoggerConsoleSysService } from './console-logger.shared.service';
-import { LoggerWinstonSysService } from './logger-winston.shared.service';
-import { LoggerSysService } from './logger.shared.service';
+import { LoggerConsoleSharedService } from './console-logger.shared.service';
+import { LoggerWinstonSharedService } from './logger-winston.shared.service';
+import { LoggerSharedService } from './logger.shared.service';
 
-export const getLogger = (): LoggerSysService => {
+export const getLogger = (): LoggerSharedService => {
   return NestjsBffConfig.nodeEnv === 'prod'
-    ? new LoggerWinstonSysService(NestjsBffConfig)
-    : new LoggerConsoleSysService(NestjsBffConfig);
+    ? new LoggerWinstonSharedService(NestjsBffConfig)
+    : new LoggerConsoleSharedService(NestjsBffConfig);
 };
 
-const LoggerSysServiceProvider = {
-  provide: LoggerSysService,
+const LoggerSharedServiceProvider = {
+  provide: LoggerSharedService,
   useFactory: getLogger,
 };
 
 @Module({
   imports: [],
-  providers: [LoggerSysServiceProvider],
-  exports: [LoggerSysServiceProvider],
+  providers: [LoggerSharedServiceProvider],
+  exports: [LoggerSharedServiceProvider],
 })
-export class LoggingSysModule {}
+export class LoggingSharedModule {}

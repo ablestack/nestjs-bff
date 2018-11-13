@@ -1,12 +1,12 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { LoggerSysService } from '../../../../shared/logging/logger.shared.service';
+import { LoggerSharedService } from '../../../../shared/logging/logger.shared.service';
 
 @Injectable()
 export class RolesHttpGuard implements CanActivate {
   constructor(
     private readonly reflector: Reflector,
-    private readonly bffLoggerService: LoggerSysService,
+    private readonly bffLoggerService: LoggerSharedService,
   ) {}
 
   public canActivate(context: ExecutionContext): boolean {

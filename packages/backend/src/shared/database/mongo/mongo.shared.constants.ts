@@ -1,4 +1,4 @@
-export const MongoSysProviderTokens = {
+export const MongoSharedProviderTokens = {
   Connections: {
     Mongoose: 'MongooseConnectionToken',
   },

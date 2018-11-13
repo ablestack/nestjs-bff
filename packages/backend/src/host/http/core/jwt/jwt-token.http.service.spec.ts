@@ -3,7 +3,7 @@ import { AuthorizationEntity } from '@nestjs-bff/universal/entities/authorizatio
 import { Test } from '@nestjs/testing';
 import { verify, VerifyOptions } from 'jsonwebtoken';
 import { NestjsBffConfig } from '../../../../config/nestjs-bff.config';
-import { AppSysProviderTokens } from '../../../../shared/app/app.shared.constants';
+import { AppSharedProviderTokens } from '../../../../shared/app/app.shared.constants';
 import { JwtTokenHttpService } from './jwt-token.http.service';
 
 const verifyOptions: VerifyOptions = {
@@ -21,7 +21,7 @@ describe('JwtTokenService', () => {
       providers: [
         JwtTokenHttpService,
         {
-          provide: AppSysProviderTokens.Config.App,
+          provide: AppSharedProviderTokens.Config.App,
           useValue: NestjsBffConfig,
         },
       ],

@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { LoggerSysService } from '../../../shared/logging/logger.shared.service';
+import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { BaseRepoRead } from '../../core/repo/base.repo-read';
 import { AuthenticationDomainProviderTokens } from '../authentication.domain.constants';
 import { IAuthenticationDomainModel } from '../model/authentication.domain.model';
@@ -12,7 +12,7 @@ export class AuthenticationDomainRepoRead extends BaseRepoRead<
   IAuthenticationDomainModel
 > {
   constructor(
-    readonly loggerService: LoggerSysService,
+    readonly loggerService: LoggerSharedService,
     @Inject(AuthenticationDomainProviderTokens.Models.Authentication)
     model: Model<IAuthenticationDomainModel>,
   ) {

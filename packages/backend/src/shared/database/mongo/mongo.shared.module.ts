@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import * as mongoose from 'mongoose';
 import { INestjsBffConfig } from '../../../config/nestjs-bff.config';
-import { AppSysProviderTokens } from '../../app/app.shared.constants';
-import { AppSysModule } from '../../app/app.shared.module';
-import { MongoSysProviderTokens } from './mongo.shared.constants';
+import { AppSharedProviderTokens } from '../../app/app.shared.constants';
+import { AppSharedModule } from '../../app/app.shared.module';
+import { MongoSharedProviderTokens } from './mongo.shared.constants';
 
 const MongooseConnectionProvider = {
-  provide: MongoSysProviderTokens.Connections.Mongoose,
+  provide: MongoSharedProviderTokens.Connections.Mongoose,
   useFactory: async (
     nestjsBffConfig: INestjsBffConfig,
   ): Promise<typeof mongoose> => {
@@ -18,12 +18,12 @@ const MongooseConnectionProvider = {
     console.log({ con, debugLogging: nestjsBffConfig.db.mongo.debugLogging });
     return con;
   },
-  inject: [AppSysProviderTokens.Config.App],
+  inject: [AppSharedProviderTokens.Config.App],
 };
 
 @Module({
-  imports: [AppSysModule],
+  imports: [AppSharedModule],
   providers: [MongooseConnectionProvider],
   exports: [MongooseConnectionProvider],
 })
-export class MongoSysModule {}
+export class MongoSharedModule {}

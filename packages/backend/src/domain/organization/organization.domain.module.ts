@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { CoreDomainModule } from '../../domain/core/domain.core.module';
-import { MongoSysProviderTokens } from '../../shared/database/mongo/mongo.shared.constants';
+import { MongoSharedProviderTokens } from '../../shared/database/mongo/mongo.shared.constants';
 import { OrganizationDomainSchema } from './model/organization.domain.schema';
 import { OrganizationProviderTokens } from './organization.domain.constants';
 import { OrganizationDomainRepoCache } from './repo/organization.domain.repo-cache';
@@ -11,7 +11,7 @@ const OrganizationDomainModel = {
   provide: OrganizationProviderTokens.Models.Organization,
   useFactory: mongoose =>
     mongoose.connection.model('Organization', OrganizationDomainSchema),
-  inject: [MongoSysProviderTokens.Connections.Mongoose],
+  inject: [MongoSharedProviderTokens.Connections.Mongoose],
 };
 
 @Module({

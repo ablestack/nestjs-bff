@@ -1,10 +1,10 @@
 import { AuthorizationEntity } from '@nestjs-bff/universal/entities/authorization.entity';
 import { Inject, Injectable } from '@nestjs/common';
 import { INestjsBffConfig } from '../../../config/nestjs-bff.config';
-import { AppSysProviderTokens } from '../../../shared/app/app.shared.constants';
+import { AppSharedProviderTokens } from '../../../shared/app/app.shared.constants';
 import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { CachingProviderTokens } from '../../../shared/caching/caching.shared.constants';
-import { LoggerSysService } from '../../../shared/logging/logger.shared.service';
+import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { BaseRepoCache } from '../../core/repo/base.repo-cache';
 import { IAuthorizationModel } from '../model/authorization.domain.model';
 import { AuthorizationDomainRepoRead } from './authorization.domain.repo-read';
@@ -15,10 +15,11 @@ export class AuthorizationRepoDomainCache extends BaseRepoCache<
   IAuthorizationModel
 > {
   constructor(
-    loggerService: LoggerSysService,
+    loggerService: LoggerSharedService,
     private _repo: AuthorizationDomainRepoRead,
     @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
-    @Inject(AppSysProviderTokens.Config.App) nestjsBffConfig: INestjsBffConfig,
+    @Inject(AppSharedProviderTokens.Config.App)
+    nestjsBffConfig: INestjsBffConfig,
   ) {
     super({
       loggerService,

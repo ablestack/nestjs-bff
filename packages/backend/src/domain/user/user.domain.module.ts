@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { CoreDomainModule } from '../../domain/core/domain.core.module';
-import { MongoSysProviderTokens } from '../../shared/database/mongo/mongo.shared.constants';
+import { MongoSharedProviderTokens } from '../../shared/database/mongo/mongo.shared.constants';
 import { UserDomainSchema } from './model/user.domain.schema';
 import { UserDomainRepoCache } from './repo/user.domain.repo-cache';
 import { UserDomainRepoRead } from './repo/user.domain.repo-read';
@@ -10,7 +10,7 @@ import { UserProviderTokens } from './user.domain.constants';
 const UserDomainModel = {
   provide: UserProviderTokens.Models.User,
   useFactory: mongoose => mongoose.connection.model('User', UserDomainSchema),
-  inject: [MongoSysProviderTokens.Connections.Mongoose],
+  inject: [MongoSharedProviderTokens.Connections.Mongoose],
 };
 
 @Module({

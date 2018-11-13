@@ -3,7 +3,7 @@ import { IAuthenticationToken } from '@nestjs-bff/universal/interfaces/authentic
 import { Inject, Injectable } from '@nestjs/common';
 import { sign, SignOptions } from 'jsonwebtoken';
 import { INestjsBffConfig } from '../../../../config/nestjs-bff.config';
-import { AppSysProviderTokens } from '../../../../shared/app/app.shared.constants';
+import { AppSharedProviderTokens } from '../../../../shared/app/app.shared.constants';
 import { IJwtPayload } from './i-jwt-payload';
 
 @Injectable()
@@ -11,7 +11,7 @@ export class JwtTokenHttpService {
   private signOptions: SignOptions;
 
   constructor(
-    @Inject(AppSysProviderTokens.Config.App)
+    @Inject(AppSharedProviderTokens.Config.App)
     private readonly nestjsBffConfig: INestjsBffConfig,
   ) {
     this.signOptions = {

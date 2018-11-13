@@ -2,14 +2,14 @@ import { IEntity } from '@nestjs-bff/universal/interfaces/entity.interface';
 import { Document } from 'mongoose';
 import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { AppError } from '../../../shared/exceptions/app.exception';
-import { LoggerSysService } from '../../../shared/logging/logger.shared.service';
+import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { BaseRepoRead } from './base.repo-read';
 
 export interface IBaseRepoCacheOptions<
   TEntity extends object & IEntity,
   TModel extends Document & TEntity
 > {
-  loggerService: LoggerSysService;
+  loggerService: LoggerSharedService;
   repo: BaseRepoRead<TEntity, TModel>;
   cacheStore: CacheStore;
   ttl: number;
@@ -21,7 +21,7 @@ export abstract class BaseRepoCache<
 > {
   private name: string;
   private resourceCacheKey;
-  protected readonly loggerService: LoggerSysService;
+  protected readonly loggerService: LoggerSharedService;
   protected readonly repo: BaseRepoRead<TEntity, TModel>;
   protected readonly cacheStore: CacheStore;
   protected readonly ttl: number;

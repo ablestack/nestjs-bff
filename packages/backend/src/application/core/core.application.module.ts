@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { AppSysModule } from '../../shared/app/app.shared.module';
+import { AppSharedModule } from '../../shared/app/app.shared.module';
 
 @Module({
-  imports: [AppSysModule],
+  imports: [AppSharedModule],
   providers: [],
-  exports: [AppSysModule],
+  exports: [AppSharedModule],
 })
 export class CoreApplicationModule {}

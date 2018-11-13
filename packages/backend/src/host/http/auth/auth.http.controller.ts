@@ -12,14 +12,14 @@ import { INestjsBffConfig } from '../../../config/nestjs-bff.config';
 import { FacebookAuthenticationDomainService } from '../../../domain/authentication/social/facebook-authentication.domain.service';
 import { CheckOrganizationRoles } from '../../../domain/authorization/authorization-tests/check-organization-roles.authtest';
 import { CheckRole } from '../../../domain/authorization/authorization-tests/check-roles.authorizationtest';
-import { AppSysProviderTokens } from '../../../shared/app/app.shared.constants';
+import { AppSharedProviderTokens } from '../../../shared/app/app.shared.constants';
 import { Authorization } from '../core/decorators/authorization.http.decorator';
 import { JwtTokenHttpService } from '../core/jwt/jwt-token.http.service';
 
 @Controller('api/auth')
 export class AuthHttpController {
   constructor(
-    @Inject(AppSysProviderTokens.Config.App)
+    @Inject(AppSharedProviderTokens.Config.App)
     private readonly nestjsBffConfig: INestjsBffConfig,
     private readonly authFacebookService: FacebookAuthenticationDomainService,
     private readonly userAuthenticationService: UserAuthApplicationService,

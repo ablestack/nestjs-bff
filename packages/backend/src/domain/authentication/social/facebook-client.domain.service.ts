@@ -3,15 +3,15 @@ import { Inject, Injectable } from '@nestjs/common';
 import axios from 'axios';
 import { createHmac } from 'crypto';
 import { INestjsBffConfig } from '../../../config/nestjs-bff.config';
-import { AppSysProviderTokens } from '../../../shared/app/app.shared.constants';
-import { LoggerSysService } from '../../../shared/logging/logger.shared.service';
+import { AppSharedProviderTokens } from '../../../shared/app/app.shared.constants';
+import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 
 @Injectable()
 export class FacebookClientDomainService {
   constructor(
-    @Inject(AppSysProviderTokens.Config.App)
+    @Inject(AppSharedProviderTokens.Config.App)
     private readonly nestjsBffConfig: INestjsBffConfig,
-    private readonly bffLoggerService: LoggerSysService,
+    private readonly bffLoggerService: LoggerSharedService,
   ) {}
 
   public async get(

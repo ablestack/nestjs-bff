@@ -1,7 +1,7 @@
 import { UserDomainEntity } from '@nestjs-bff/universal/entities/user.entity';
 import { Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { LoggerSysService } from '../../../shared/logging/logger.shared.service';
+import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { BaseRepoRead } from '../../core/repo/base.repo-read';
 import { IUserDomainModel } from '../model/user.domain.model';
 import { UserProviderTokens } from '../user.domain.constants';
@@ -12,7 +12,7 @@ export class UserDomainRepoRead extends BaseRepoRead<
   IUserDomainModel
 > {
   constructor(
-    readonly loggerService: LoggerSysService,
+    readonly loggerService: LoggerSharedService,
     @Inject(UserProviderTokens.Models.User) model: Model<IUserDomainModel>,
   ) {
     super({ loggerService, model });

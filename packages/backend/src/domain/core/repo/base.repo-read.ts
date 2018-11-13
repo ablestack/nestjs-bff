@@ -1,12 +1,12 @@
 import { IEntity } from '@nestjs-bff/universal/interfaces/entity.interface';
 import { Document, Model } from 'mongoose';
-import { LoggerSysService } from '../../../shared/logging/logger.shared.service';
+import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 
 export interface IBaseRepoReadOptions<
   TEntity extends object & IEntity,
   TModel extends Document & TEntity
 > {
-  loggerService: LoggerSysService;
+  loggerService: LoggerSharedService;
   model: Model<TModel>;
 }
 
@@ -16,7 +16,7 @@ export abstract class BaseRepoRead<
 > {
   private readonly name: string;
   public readonly modelName: string;
-  protected readonly loggerService: LoggerSysService;
+  protected readonly loggerService: LoggerSharedService;
   protected readonly model: Model<TModel>;
 
   constructor(options: IBaseRepoReadOptions<TEntity, TModel>) {

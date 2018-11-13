@@ -7,7 +7,7 @@
 
 // Required imports
 // import { Connection } from 'mongoose';
-// import { LoggerSysService } from '../../src/common/services/logger.service';
+// import { LoggerSharedService } from '../../src/common/services/logger.service';
 // import { CatSchema } from '../../src/<Model>/schemas/cat.schema';
 // import { data } from '../seed-data/<seed-data-filename>';
 
@@ -20,7 +20,7 @@
 /**
  * Make any changes you need to make to the database here
  */
-// export async function up(connection: Connection, bffLoggerService: LoggerSysService) {
+// export async function up(connection: Connection, bffLoggerService: LoggerSharedService) {
 // const new<Model>s = data.entities;
 // const <Model> = connection.model('<Model>', <Model>Schema);
 // const completed = await <Model>.collection.insertMany(new<Model>s);
@@ -30,7 +30,7 @@
 /**
  * Make any changes that UNDO the up function side effects here (if possible)
  */
-// export async function down(connection: Connection, bffLoggerService: LoggerSysService) {
+// export async function down(connection: Connection, bffLoggerService: LoggerSharedService) {
 // const new<Model>s = data.entities;
 // const idsToRemove = new<Model>s.map(item => item._id);
 // const <Model> = connection.model('<Model>', <Model>Schema);

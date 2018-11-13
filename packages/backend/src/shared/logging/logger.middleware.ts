@@ -1,9 +1,9 @@
 import { Injectable, MiddlewareFunction, NestMiddleware } from '@nestjs/common';
-import { LoggerSysService } from '../../shared/logging/logger.shared.service';
+import { LoggerSharedService } from '../../shared/logging/logger.shared.service';
 
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
-  constructor(private readonly logger: LoggerSysService) {}
+  constructor(private readonly logger: LoggerSharedService) {}
 
   resolve(context: string): MiddlewareFunction {
     return (req, res, next) => {

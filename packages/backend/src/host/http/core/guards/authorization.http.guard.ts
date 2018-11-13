@@ -9,10 +9,10 @@ import { Reflector } from '@nestjs/core';
 import { INestjsBffConfig } from '../../../../config/nestjs-bff.config';
 import { AuthorizationTest } from '../../../../domain/authorization/authorization-tests/authorization-test.abstract';
 import { OrganizationDomainRepoCache } from '../../../../domain/organization/repo/organization.domain.repo-cache';
-import { AppSysProviderTokens } from '../../../../shared/app/app.shared.constants';
+import { AppSharedProviderTokens } from '../../../../shared/app/app.shared.constants';
 import { CacheStore } from '../../../../shared/caching/cache-store.shared';
 import { CachingProviderTokens } from '../../../../shared/caching/caching.shared.constants';
-import { LoggerSysService } from '../../../../shared/logging/logger.shared.service';
+import { LoggerSharedService } from '../../../../shared/logging/logger.shared.service';
 import { BadGatewayHttpError } from '../exceptions/server.http.exception';
 import { getReqMetadataLite } from '../utils/core.http.utils';
 
@@ -35,9 +35,9 @@ export class AuthorizationHttpGuard implements CanActivate {
     private readonly organizationCache: OrganizationDomainRepoCache,
     @Inject(CachingProviderTokens.Services.CacheStore)
     private readonly cacheStore: CacheStore,
-    @Inject(AppSysProviderTokens.Config.App)
+    @Inject(AppSharedProviderTokens.Config.App)
     private readonly nestjsBffConfig: INestjsBffConfig,
-    private readonly logger: LoggerSysService,
+    private readonly logger: LoggerSharedService,
   ) {}
 
   public async canActivate(context: ExecutionContext): Promise<boolean> {

@@ -1,4 +1,4 @@
-export abstract class LoggerSysService {
+export abstract class LoggerSharedService {
   public abstract log(msg: string, ...logObjects: any[]): void;
 
   public abstract info(msg: string, ...logObjects: any[]): void;

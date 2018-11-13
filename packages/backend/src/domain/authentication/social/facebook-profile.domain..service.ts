@@ -1,18 +1,18 @@
 import { IAuthenticationToken } from '@nestjs-bff/universal/interfaces/authentication-token.interface';
 import { Inject, Injectable } from '@nestjs/common';
 import { INestjsBffConfig } from '../../../config/nestjs-bff.config';
-import { AppSysProviderTokens } from '../../../shared/app/app.shared.constants';
+import { AppSharedProviderTokens } from '../../../shared/app/app.shared.constants';
 import { AppError } from '../../../shared/exceptions/app.exception';
-import { LoggerSysService } from '../../../shared/logging/logger.shared.service';
+import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { FacebookClientDomainService } from './facebook-client.domain.service';
 import { IFacebookProfile } from './facebook-profile.domain.interface';
 
 @Injectable()
 export class FacebookProfileDomainService {
   constructor(
-    @Inject(AppSysProviderTokens.Config.App)
+    @Inject(AppSharedProviderTokens.Config.App)
     private readonly nestjsBffConfig: INestjsBffConfig,
-    private readonly bffLoggerService: LoggerSysService,
+    private readonly bffLoggerService: LoggerSharedService,
     private readonly facebookClientService: FacebookClientDomainService,
   ) {}
 

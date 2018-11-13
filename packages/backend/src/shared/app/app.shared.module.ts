@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { AppSysProviderTokens } from './app.shared.constants';
+import { AppSharedProviderTokens } from './app.shared.constants';
 
 const NestjsBffConfigProvider = {
-  provide: AppSysProviderTokens.Config.App,
+  provide: AppSharedProviderTokens.Config.App,
   useFactory: () => {
     return global.nestjs_bff.AppConfig;
   },
@@ -13,4 +13,4 @@ const NestjsBffConfigProvider = {
   providers: [NestjsBffConfigProvider],
   exports: [NestjsBffConfigProvider],
 })
-export class AppSysModule {}
+export class AppSharedModule {}

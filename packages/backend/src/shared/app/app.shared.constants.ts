@@ -1,4 +1,4 @@
-export const AppSysProviderTokens = {
+export const AppSharedProviderTokens = {
   Config: {
     App: 'NestjsBffConfigToken',
   },

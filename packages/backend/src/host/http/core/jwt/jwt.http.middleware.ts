@@ -7,8 +7,8 @@ import {
 import { verify, VerifyOptions } from 'jsonwebtoken';
 import { INestjsBffConfig } from '../../../../config/nestjs-bff.config';
 import { AuthorizationRepoDomainCache } from '../../../../domain/authorization/repo/authorization.domain.repo-cache';
-import { AppSysProviderTokens } from '../../../../shared/app/app.shared.constants';
-import { LoggerSysService } from '../../../../shared/logging/logger.shared.service';
+import { AppSharedProviderTokens } from '../../../../shared/app/app.shared.constants';
+import { LoggerSharedService } from '../../../../shared/logging/logger.shared.service';
 import { BadRequestHttpError } from '../exceptions/server.http.exception';
 import { getReqMetadataLite, parseAuthHeader } from '../utils/core.http.utils';
 import { IJwtPayload } from './i-jwt-payload';
@@ -21,8 +21,8 @@ export class JwtHttpMiddleware implements NestMiddleware {
   private verifyOptions: VerifyOptions;
 
   constructor(
-    private readonly bffLoggerService: LoggerSysService,
-    @Inject(AppSysProviderTokens.Config.App)
+    private readonly bffLoggerService: LoggerSharedService,
+    @Inject(AppSharedProviderTokens.Config.App)
     private readonly nestjsBffConfig: INestjsBffConfig,
     private readonly authorizationService: AuthorizationRepoDomainCache,
   ) {

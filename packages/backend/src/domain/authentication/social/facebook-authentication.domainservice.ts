@@ -5,9 +5,9 @@ import {
   Token as OAuthClientToken,
 } from 'simple-oauth2';
 import { INestjsBffConfig } from '../../../config/nestjs-bff.config';
-import { AppSysProviderTokens } from '../../../shared/app/app.shared.constants';
+import { AppSharedProviderTokens } from '../../../shared/app/app.shared.constants';
 import { AppError } from '../../../shared/exceptions/app.exception';
-import { LoggerSysService } from '../../../shared/logging/logger.shared.service';
+import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { IOauthAccessToken } from './i-oauth-access-token';
 
 @Injectable()
@@ -15,9 +15,9 @@ export class FacebookAuthenticationDomainService {
   private oauthClient: OAuthClient;
 
   constructor(
-    @Inject(AppSysProviderTokens.Config.App)
+    @Inject(AppSharedProviderTokens.Config.App)
     private readonly nestjsBffConfig: INestjsBffConfig,
-    private readonly bffLoggerService: LoggerSysService,
+    private readonly bffLoggerService: LoggerSharedService,
   ) {
     const oauthClientConfig = {
       client: {

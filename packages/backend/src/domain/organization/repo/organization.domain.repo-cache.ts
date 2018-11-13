@@ -1,11 +1,11 @@
 import { OrganizationEntity } from '@nestjs-bff/universal/entities/organization.entity';
 import { Inject, Injectable } from '@nestjs/common';
 import { INestjsBffConfig } from '../../../config/nestjs-bff.config';
-import { AppSysProviderTokens } from '../../../shared/app/app.shared.constants';
+import { AppSharedProviderTokens } from '../../../shared/app/app.shared.constants';
 import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { CachingProviderTokens } from '../../../shared/caching/caching.shared.constants';
 import { AppError } from '../../../shared/exceptions/app.exception';
-import { LoggerSysService } from '../../../shared/logging/logger.shared.service';
+import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { BaseRepoCache } from '../../core/repo/base.repo-cache';
 import { IOrganizationDomainModel } from '../model/organization.domain.model';
 import { OrganizationDomainRepoRead } from './organization.domain.repo-read';
@@ -17,9 +17,10 @@ export class OrganizationDomainRepoCache extends BaseRepoCache<
 > {
   constructor(
     private _repo: OrganizationDomainRepoRead,
-    loggerService: LoggerSysService,
+    loggerService: LoggerSharedService,
     @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
-    @Inject(AppSysProviderTokens.Config.App) nestjsBffConfig: INestjsBffConfig,
+    @Inject(AppSharedProviderTokens.Config.App)
+    nestjsBffConfig: INestjsBffConfig,
   ) {
     super({
       loggerService,

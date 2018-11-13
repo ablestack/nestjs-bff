@@ -1,7 +1,7 @@
 import { OrganizationEntity } from '@nestjs-bff/universal/entities/organization.entity';
 import { Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { LoggerSysService } from '../../../shared/logging/logger.shared.service';
+import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { BaseRepoRead } from '../../core/repo/base.repo-read';
 import { IOrganizationDomainModel } from '../model/organization.domain.model';
 import { OrganizationProviderTokens } from '../organization.domain.constants';
@@ -12,7 +12,7 @@ export class OrganizationDomainRepoRead extends BaseRepoRead<
   IOrganizationDomainModel
 > {
   constructor(
-    readonly loggerService: LoggerSysService,
+    readonly loggerService: LoggerSharedService,
     @Inject(OrganizationProviderTokens.Models.Organization)
     model: Model<IOrganizationDomainModel>,
   ) {

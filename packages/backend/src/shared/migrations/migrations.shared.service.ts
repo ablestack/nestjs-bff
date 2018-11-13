@@ -4,14 +4,14 @@ import * as inquirer from 'inquirer';
 import { Model } from 'mongoose';
 import * as path from 'path';
 import * as tsnode from 'ts-node';
-import { LoggerSysService } from '../../shared/logging/logger.shared.service';
+import { LoggerSharedService } from '../../shared/logging/logger.shared.service';
 import { IMigration, MigrationState } from './interfaces/migration.interface';
 import { MigrationsProviderTokens } from './migrations.shared.constants';
 
 // mongooseSet('debug', true);
 
 @Injectable()
-export class MigrationsSysService {
+export class MigrationsSharedService {
   private readonly relativePaths = {
     migrationScriptsRoot: 'src/migrations',
     customScripts: 'src/migrations/custom',
@@ -27,7 +27,7 @@ export class MigrationsSysService {
   private readonly template;
 
   constructor(
-    private readonly bffLoggerService: LoggerSysService,
+    private readonly bffLoggerService: LoggerSharedService,
     @Inject(MigrationsProviderTokens.Models.Migration)
     private readonly migrationModel: Model<IMigration>,
   ) {

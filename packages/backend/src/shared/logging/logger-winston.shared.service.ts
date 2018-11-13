@@ -2,12 +2,12 @@ import { Inject, Injectable } from '@nestjs/common';
 import * as FileSystem from 'fs';
 import * as winston from 'winston';
 import { INestjsBffConfig } from '../../config/nestjs-bff.config';
-import { AppSysProviderTokens } from '../app/app.shared.constants';
-import { LoggerSysService } from './logger.shared.service';
+import { AppSharedProviderTokens } from '../app/app.shared.constants';
+import { LoggerSharedService } from './logger.shared.service';
 
 @Injectable()
-export class LoggerWinstonSysService implements LoggerSysService {
-  public static loggerInstance: LoggerSysService;
+export class LoggerWinstonSharedService implements LoggerSharedService {
+  public static loggerInstance: LoggerSharedService;
   private static readonly TRANSPORT_KEY_CONSOLE: string = 'console';
   private static readonly TRANSPORT_KEY_FILE: string = 'file';
 
@@ -16,7 +16,7 @@ export class LoggerWinstonSysService implements LoggerSysService {
   private transports: winston.TransportInstance[] = [];
 
   constructor(
-    @Inject(AppSysProviderTokens.Config.App)
+    @Inject(AppSharedProviderTokens.Config.App)
     private readonly nestjsBffConfig: INestjsBffConfig,
   ) {
     this.appName = nestjsBffConfig.appName;
@@ -27,9 +27,9 @@ export class LoggerWinstonSysService implements LoggerSysService {
 
     for (const key in logTransport) {
       if (logTransport.hasOwnProperty(key)) {
-        if (key === LoggerWinstonSysService.TRANSPORT_KEY_CONSOLE) {
+        if (key === LoggerWinstonSharedService.TRANSPORT_KEY_CONSOLE) {
           this.configureConsoleTransport(logTransport[key], logLevel);
-        } else if (key === LoggerWinstonSysService.TRANSPORT_KEY_FILE) {
+        } else if (key === LoggerWinstonSharedService.TRANSPORT_KEY_FILE) {
           this.configureFileTransport(logTransport[key]);
         }
       }

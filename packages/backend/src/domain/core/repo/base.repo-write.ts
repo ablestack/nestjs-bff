@@ -2,7 +2,7 @@ import { IEntity } from '@nestjs-bff/universal/interfaces/entity.interface';
 import * as _ from 'lodash';
 import { Document, Model } from 'mongoose';
 import { AppError } from '../../../shared/exceptions/app.exception';
-import { LoggerSysService } from '../../../shared/logging/logger.shared.service';
+import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { BaseRepoCache } from './base.repo-cache';
 import { IValidator } from './validator.interface';
 /**
@@ -18,7 +18,7 @@ export interface IBaseRepoWriteOptions<
   TEntity extends object & IEntity,
   TModel extends Document & TEntity
 > {
-  loggerService: LoggerSysService;
+  loggerService: LoggerSharedService;
   model: Model<TModel>;
   entityRepoCache?: BaseRepoCache<TEntity, TModel>;
   createValidator?: IValidator<TEntity, any>;
@@ -30,7 +30,7 @@ export abstract class BaseRepoWrite<
   TEntity extends object & IEntity,
   TModel extends Document & TEntity
 > {
-  protected readonly _loggerService: LoggerSysService;
+  protected readonly _loggerService: LoggerSharedService;
   protected readonly _model: Model<TModel>;
   protected readonly entityRepoCache?: BaseRepoCache<TEntity, TModel>;
   protected readonly createValidator?: IValidator<TEntity, TModel>;

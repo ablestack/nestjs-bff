@@ -1,12 +1,12 @@
 import { Inject } from '@nestjs/common';
 import { INestjsBffConfig } from '../../config/nestjs-bff.config';
-import { AppSysProviderTokens } from '../app/app.shared.constants';
+import { AppSharedProviderTokens } from '../app/app.shared.constants';
 import { LogLevels } from './log-levels.const';
-import { LoggerSysService } from './logger.shared.service';
+import { LoggerSharedService } from './logger.shared.service';
 
-export class LoggerConsoleSysService implements LoggerSysService {
+export class LoggerConsoleSharedService implements LoggerSharedService {
   constructor(
-    @Inject(AppSysProviderTokens.Config.App)
+    @Inject(AppSharedProviderTokens.Config.App)
     private readonly nestjsBffConfig: INestjsBffConfig,
   ) {}
   private startSeparator = '\n';

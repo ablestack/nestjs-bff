@@ -1,4 +1,9 @@
-import { CACHE_MANAGER, CacheModule as NestCacheModule, CacheStore, Module } from '@nestjs/common';
+import {
+  CACHE_MANAGER,
+  CacheModule as NestCacheModule,
+  CacheStore,
+  Module,
+} from '@nestjs/common';
 import { CachingProviderTokens } from './caching.shared.constants';
 
 const CacheModule = NestCacheModule.register({
@@ -19,4 +24,4 @@ const CacheStoreProvider = {
   providers: [CacheStoreProvider],
   exports: [CacheModule, CacheStoreProvider],
 })
-export class CachingSysModule {}
+export class CachingSharedModule {}
