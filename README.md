@@ -28,15 +28,18 @@ See the [DevOps](devops/README.md) documentation and folder for instructions and
 
 ## Key Features
 
-- **DDD style layered architecture** for API, with Application Services and composable Domain objects
+- **Strongly Typed** backend, leveraging the power of [TypeScript](https://www.typescriptlang.org/), [NestJS](https://nestjs.com/) and [Express](https://expressjs.com/)
+- **DDD style layered architecture** with Application Services and composable Domain objects
 - **Comprehensive authentication and authorization system** in-the-box
-- **Social Login** with Facebook, Google, and Twitter (under development)
-- **JWT Authentication**
-- **Robust API security** with 'allow list' approach
-- **MongoDB Migrations** System
+- **JWT Authentication** for robust and flexible security
+- **Social Login** with Facebook (complete), Google, and Twitter (under development), using the more secure [Authorization Code Grant](https://www.oauth.com/oauth2-servers/server-side-apps/authorization-code/) flow
+- **Secured-by-default** with 'allow list' approach
+- **Flexible Caching** leveraging the powerful [cache-manager](https://www.npmjs.com/package/cache-manager) library
+- **Repository Pattern** in-the-box for simple data-access
+- **MongoDB Migrations** for easy database seeding and management
 - **Winston and Console Logger Service** in-the-box
 - **Configuration pattern** simple and strongly types
-- **e2e Testing** pattern leveraging Jest
+- **e2e Testing** pattern leveraging [Jest](https://jestjs.io/)
 
 ## Structure
 
