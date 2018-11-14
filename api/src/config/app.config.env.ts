@@ -1,15 +1,28 @@
 import { INestjsBffConfigEnv } from '@nestjs-bff/backend/config/nestjs.config.env.interface';
+import { AppError } from '@nestjs-bff/backend/shared/exceptions/app.exception';
 
 const _Env = process.env.NODE_ENV || 'dev';
 
-const _EnvConfigs: {
-  dev: INestjsBffConfigEnv;
-  test: INestjsBffConfigEnv;
-  prod: INestjsBffConfigEnv;
-} = {
-  dev: require('./env/nestjs-bff.config.dev').NestjsConfigEnv,
-  test: require('./env/nestjs-bff.config.test').NestjsConfigEnv,
-  prod: require('./env/nestjs-bff.config.prod').NestjsConfigEnv,
-};
+let _AppConfigEnv: INestjsBffConfigEnv;
 
-export const AppConfigEnv: INestjsBffConfigEnv = _EnvConfigs[_Env];
+//
+// Dynamically load correct env file
+//
+switch (_Env) {
+  case 'dev':
+    // tslint:disable-next-line:no-var-requires
+    _AppConfigEnv = require('./env/nestjs-bff.config.dev').NestjsConfigEnv;
+    break;
+  case 'test':
+    // tslint:disable-next-line:no-var-requires
+    _AppConfigEnv = require('./env/nestjs-bff.config.test').NestjsConfigEnv;
+    break;
+  case 'prod':
+    // tslint:disable-next-line:no-var-requires
+    _AppConfigEnv = require('./env/nestjs-bff.config.prod').NestjsConfigEnv;
+    break;
+  default:
+    throw new AppError('Env config could not be found for environment', { _Env });
+}
+
+export const AppConfigEnv: INestjsBffConfigEnv = _AppConfigEnv;
