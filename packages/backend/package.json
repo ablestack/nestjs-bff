@@ -14,7 +14,7 @@
     "test:cov": "jest --coverage"
   },
   "dependencies": {
-    "@nestjs-bff/universal": "^0.0.10",
+    "@nestjs-bff/universal": "^0.0.11",
     "@nestjs/common": "^5.3.9",
     "@nestjs/core": "^5.3.9",
     "@nestjs/testing": "^5.3.8",
