@@ -3,6 +3,7 @@
   "version": "0.0.11",
   "description": "A backend and frontend module for nestjs-bff",
   "author": "ahrnee <ahrndee@gmail.com>",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/ahrnee/nestjs-bff-universal.git"

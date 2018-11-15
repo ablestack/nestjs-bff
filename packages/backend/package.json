@@ -3,6 +3,7 @@
   "version": "0.0.23",
   "description": "A backend module for nestjs-bff",
   "author": "ahrnee",
+  "license": "MIT",
   "scripts": {
     "build": "npm run clean:dist && npm run build-only",
     "build-and-link": "npm run build && cd dist && npm link",
