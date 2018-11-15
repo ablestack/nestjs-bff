@@ -14,10 +14,8 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "allowJs": false,
-    "outDir": "./dist",
     "target": "es6",
     "lib": ["es7", "dom"],
-    "typeRoots": ["node_modules/@types"],
-    "baseUrl": "./src"
+    "typeRoots": ["node_modules/@types"]
   }
 }

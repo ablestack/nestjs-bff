@@ -1,6 +1,6 @@
 import { getLogger } from '@nestjs-bff/backend/shared/logging/logging.shared.module';
 import * as mongoose from 'mongoose';
-import { AppConfig } from '../../config/app.config';
+import { AppConfig } from '../../src/config/app.config';
 
 const logger = getLogger();
 const DISPOSABLE_DB_MARKER_TABLE_NAME = '-this-is-a-disposable-test-db';

@@ -4,12 +4,13 @@ import { JwtTokenHttpService } from '@nestjs-bff/backend/host/http/core/jwt/jwt-
 import { getLogger } from '@nestjs-bff/backend/shared/logging/logging.shared.module';
 import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import { AppConfig } from 'config/app.config';
 import 'jest';
 import * as supertest from 'supertest';
+import { AppConfig } from '../../src/config/app.config';
 import { AuthE2eModule } from './auth-e2e.module';
 
 // Config
+// @ts-ignore
 global.nestjs_bff = { AppConfig };
 
 describe('Auth', () => {
