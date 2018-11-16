@@ -1,0 +1,85 @@
+.container{
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.background {
+  background: url("../../../assets/img/register_bg.jpg") center center;
+  background-size: cover;
+}
+
+.register-panel{
+  margin-top: 25px;
+}
+
+.card{
+  padding: 40px 0 30px;
+}
+
+.card h2{
+  text-align: center;
+}
+
+.feature{
+  display: flex;
+  /*width: 100%;*/
+  flex: 1;
+  margin-top: 50px;
+}
+
+.feature .icon{
+  width: 40px;
+}
+
+.feature .icon i{
+  font-size: 2.6em;
+}
+
+.feature .desc{
+  flex: 1;
+  margin-left: 10px;
+}
+
+.feature .desc p{
+  margin-top: 17px;
+}
+
+.feature .desc h4{
+  margin-top: 8px;
+}
+
+.form-part{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-left: 25px;
+}
+
+.form-part .row{
+  width: 100%;
+  display: flex;
+  position: relative;
+  margin-top: 17px;
+}
+
+.form-part .row .mat-input-container{
+  width: 100%;
+}
+
+.form-part .row i{
+  margin-right: 13px;
+  position: relative;
+  top: 8px;
+  color: #555;
+}
+
+.form-part .socials{
+  margin-top: 40px;
+  margin-bottom: 25px;
+}
+
+.form-part .row button{
+  margin-top: 15px;
+}

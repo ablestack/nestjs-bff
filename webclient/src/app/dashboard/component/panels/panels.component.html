@@ -1,0 +1,57 @@
+<div class="container">
+  <app-navbar title="Panels"></app-navbar>
+  <div class="row page-title">
+    <div class="col-md-6">
+      <div class="card">
+        <h4>Navigation Pills - <small>Horizontal Tabs</small></h4>
+        <div class="h-tab">
+          <div class="tab">
+            <button mat-raised-button class="btn btn-warning btn-round tab-link default-active" (click)="tabClick($event, 'profile')">PROFILE</button>
+            <button mat-raised-button class="btn btn-warning btn-round tab-link" (click)="tabClick($event, 'settings')">SETTINGS</button>
+            <button mat-raised-button class="btn btn-warning btn-round tab-link" (click)="tabClick($event, 'options')">OPTIONS</button>
+          </div>
+          <div id="profile" class="tab-content">
+            Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits.<br/><br/>
+            Dramatically visualize customer directed convergence without revolutionary ROI. Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits.<br/><br/>
+            This is very nice.
+          </div>
+          <div id="settings" class="tab-content">
+            Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas.<br/><br/>
+            Dramatically maintain clicks-and-mortar solutions without functional solutions.
+          </div>
+          <div id="options" class="tab-content">
+            Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas.<br/><br/>
+            Dynamically innovate resource-leveling customer service for state of the art customer service.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <h4>Navigation Pills - <small>Vertical Tabs</small></h4>
+        <div class="row v-tab page-title">
+          <div class="col-md-4">
+            <button mat-raised-button class="btn btn-info btn-round btn-block tab-link default-active" (click)="vTabClick($event, 'one')">PROFILE</button>
+            <button mat-raised-button class="btn btn-info btn-round btn-block tab-link" (click)="vTabClick($event, 'two')">SETTINGS</button>
+            <button mat-raised-button class="btn btn-info btn-round btn-block tab-link" (click)="vTabClick($event, 'three')">OPTIONS</button>
+          </div>
+          <div class="col-md-8">
+            <div id="one" class="tab-content">
+              Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits.<br/><br/>
+              Dramatically visualize customer directed convergence without revolutionary ROI. Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits.<br/><br/>
+              This is very nice.
+            </div>
+            <div id="two" class="tab-content">
+              Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas.<br/><br/>
+              Dramatically maintain clicks-and-mortar solutions without functional solutions.
+            </div>
+            <div id="three" class="tab-content">
+              Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas.<br/><br/>
+              Dynamically innovate resource-leveling customer service for state of the art customer service.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

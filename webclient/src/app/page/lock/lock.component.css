@@ -1,0 +1,64 @@
+.container{
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.background{
+  background: url("../../../assets/img/lock_bg.jpg") no-repeat center center;
+  background-size: cover;
+}
+
+.card{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  margin-top: 70px;
+  top: -60px;
+  -webkit-animation-name: card;
+  -moz-animation-name: card;
+  -o-animation-name: card;
+  animation-name: card;
+  -webkit-animation-duration: 600ms;
+  -moz-animation-duration: 600ms;
+  -o-animation-duration: 600ms;
+  animation-duration: 600ms;
+  -webkit-animation-fill-mode: forwards;
+  -moz-animation-fill-mode: forwards;
+  -o-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes card {
+  from {top: -40px;}
+  to {top: 0;}
+}
+
+@keyframes card {
+  from {top: -40px;}
+  to {top: 0;}
+}
+
+.card-header img{
+  position: relative;
+  top: -60px;
+  border-radius: 50%;
+  width: 90px;
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+.card h4{
+  margin-top: -30px;
+  margin-bottom: 20px;
+}
+
+.card-body, .card-body .mat-form-field{
+  width: 100%;
+}
+
+.card-footer{
+  margin: 15px 0 5px 0;
+}

@@ -1,149 +1,64 @@
-# Nestjs-BFF Web Client
+# Angular2 Material Dashboard Pro
 
-<p align="center">
-  <a href="../README.md">Overview</a>
-  &nbsp;&nbsp;&nbsp;
-	<a href="../api/README.md">API</a>
-  &nbsp;&nbsp;&nbsp;
-	<a href="../cli/README.md">CLI</a>
-  &nbsp;&nbsp;&nbsp;
-	<i><a href="README.md">Web Client</a></i>
-  &nbsp;&nbsp;&nbsp;
-	<a href="../devops/README.md">DevOps</a>
-</p>
+Material-design Dashboard
 
-## Web Client Overview
+## How to run it
 
-The Web Client demonstrates how to integrate with the NextJS BFF API, including:
+**- please ensure you have installed angular cli, otherwise `npm install -g @angular/cli`**
 
-- **Authentication**
-- **REST API Interactions**
+1. git clone https://github.com/wangdicoder/angular-material-dashboard
+2. cd angular-material-dashboard
+3. npm install
+4. ng serve -o (it will automatically open localhost:4200)
 
-## Attribution
+## Further Plan
+- [x] Add Wizard Component
+- [ ] Responsive Sidebar
+- [ ] Consolidate form elements, like switch
 
-This example heavily leverages the [Jason Watmore tutorial on Angular JWT Authentication](http://jasonwatmore.com/post/2018/05/23/angular-6-jwt-authentication-example-tutorial) and the [companion git repo](https://github.com/cornflourblue/angular-6-jwt-authentication-example).
+## Screenshot
 
-## Web Client Installation
+### Dashboard
 
-Navigate to the root of Nestjs-Bff repo, the run then following command:
+![](https://github.com/wangdicoder/angular2-material-dashboard-pro/raw/master/screenshot/dashboard.png)
 
-```bash
-# install dependencies for all sub projects (api, cli, webclient)
+### Login
 
+![](https://github.com/wangdicoder/angular2-material-dashboard-pro/raw/master/screenshot/login.png)
 
+### Register
+![](https://github.com/wangdicoder/angular2-material-dashboard-pro/raw/master/screenshot/register.png)
 
+### Lock
+![](https://github.com/wangdicoder/angular2-material-dashboard-pro/raw/master/screenshot/lock.png)
 
+### User Profile
+![](https://github.com/wangdicoder/angular2-material-dashboard-pro/raw/master/screenshot/profile.png)
 
+### Sweet Alert
+![](https://github.com/wangdicoder/angular2-material-dashboard-pro/raw/master/screenshot/sweetalert.gif)
 
+### Notification
+![](https://github.com/wangdicoder/angular2-material-dashboard-pro/raw/master/screenshot/notification.gif)
 
-$ npm run install-all
+### Settings
+![](https://github.com/wangdicoder/angular2-material-dashboard-pro/raw/master/screenshot/settings.gif)
 
+### Table
+![](https://github.com/wangdicoder/angular2-material-dashboard-pro/raw/master/screenshot/table.png)
 
+### Price
+![](https://github.com/wangdicoder/angular2-material-dashboard-pro/raw/master/screenshot/price.png)
 
+### Panels
+![](https://github.com/wangdicoder/angular2-material-dashboard-pro/raw/master/screenshot/panel.png)
 
+## Acknowledge 
 
+- [Creative Tim](https://github.com/creativetimofficial)
+- [Sweet Alert 2](https://github.com/limonte/sweetalert2)
+- [Bootstrap Notify](http://bootstrap-notify.remabledesigns.com)
 
+## License
 
-```
-
-Or
-
-Navigate to /webclient, then run the following command:
-
-```bash
-# install dependencies
-
-
-
-
-
-
-
-$ npm install
-
-
-
-
-
-
-
-```
-
-## Web Client Usage
-
-```bash
-# go into app's directory
-
-
-
-
-
-
-
-$ cd workspaces/webclient
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# serve with hot reload at localhost:4200.
-
-
-
-
-
-
-
-$ npm start
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# build for production with minification
-
-
-
-
-
-
-
-$ npm build
-
-
-
-
-
-
-
-```
-
-## Readme Navigation
-
-Further details on each of the systems contained in this project can be found via the following links:
-
-- [Overview](../README.md)
-- [API](../api/README.md)
-- [CLI](../cli/README.md)
-- _[Web Client](README.md)_
-- [DevOps](../devops/README.md)
+MIT

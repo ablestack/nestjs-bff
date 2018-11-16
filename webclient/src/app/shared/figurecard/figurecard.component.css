@@ -1,0 +1,50 @@
+.figure-card{
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  margin: 25px 0;
+}
+
+.card-content{
+  text-align: right;
+  padding: 15px 20px 13px 20px;
+}
+
+.card-header {
+  float: left;
+  text-align: center;
+  /*background: linear-gradient(60deg, #ffa726, #fb8c00);*/
+  /*box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(255, 152, 0, 0.4);*/
+  margin: -20px 15px 0;
+  border-radius: 3px;
+  padding: 15px;
+  position: relative;
+}
+
+.card-header i {
+  font-size: 36px;
+  line-height: 56px;
+  width: 56px;
+  height: 56px;
+  color: #fff;
+}
+
+.category{
+  color: #999;
+}
+
+.card-footer{
+  margin: 0 20px 10px;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+  color: #999;
+  font-size: 12px;
+  position: relative;
+}
+
+.card-footer i {
+  font-size: 16px;
+  position: relative;
+  top: 4px;
+  color: #999;
+}

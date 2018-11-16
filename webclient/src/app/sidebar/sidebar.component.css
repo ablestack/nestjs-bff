@@ -1,0 +1,111 @@
+.logo{
+  padding: 25px 0 20px 0;
+  color: #fff;
+  font-size: 18px;
+  text-align: center;
+  position: relative;
+}
+
+.logo img{
+  width: 42px;
+  position: absolute;
+  top: 16px;
+  left: 13px;
+}
+
+.divider{
+  content: '';
+  position: relative;
+  height: 1px;
+  left: 15px;
+  width: calc(100% - 30px);
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.sidebar-wrapper{
+  overflow-y: auto;
+  padding-bottom: 30px;
+  width: 260px;
+  position: relative;
+  height: 100%;
+}
+
+.nav-container{
+  position: relative;
+}
+
+.nav{
+  padding-top: 15px;
+}
+
+.nav li{
+  margin-bottom: 9px;
+}
+
+.nav li a{
+  display: flex;
+  align-items: center;
+  color: rgba(255,255,255,.8);
+  margin: 0 15px;
+  border-radius: 3px;
+  -webkit-transition: all 400ms;
+  -moz-transition: all 400ms;
+  -ms-transition: all 400ms;
+  -o-transition: all 400ms;
+  transition: all 400ms;
+  height: 50px;
+  text-decoration: none;
+}
+
+.nav li a:hover, .parent-active{
+  background-color: rgba(255,255,255,.1);
+}
+
+.nav li a span{
+  margin-left: 20px;
+}
+
+.active a, .active a:hover{
+  /*color: rgba(0,0,0,.6) !important;*/
+  /*background-color: #fff !important;*/
+  box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(60, 72, 88, 0.4);
+  -webkit-transition: all 400ms;
+  -moz-transition: all 400ms;
+  -ms-transition: all 400ms;
+  -o-transition: all 400ms;
+  transition: all 400ms;
+}
+
+.collapse-a{
+  position: relative;
+}
+
+.collapse-a .caret{
+  position: absolute;
+  right: 21px;
+  top: 23px;
+  color: #fff;
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
+  -webkit-transition: all 200ms;
+  -moz-transition: all 200ms;
+  -ms-transition: all 200ms;
+  -o-transition: all 200ms;
+  transition: all 200ms;
+}
+
+.collapsed .caret{
+  position: absolute;
+  right: 21px;
+  top: 23px;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+}
+
+

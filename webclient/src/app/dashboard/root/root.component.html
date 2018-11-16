@@ -1,0 +1,10 @@
+<div class="wrapper">
+  <div class="sidebar-panel" id="sidebar" [style.background-color]="backgroundColor">
+
+    <div class="sidebar-background" [style.background-image]="'url(../assets/img/sidebar-' + id + '.jpg)'"></div>
+    <app-sidebar></app-sidebar>
+  </div>
+  <div class="main-panel" id="main-panel">
+    <router-outlet></router-outlet>
+  </div>
+</div>

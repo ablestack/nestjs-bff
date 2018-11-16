@@ -1,0 +1,36 @@
+<div class="container">
+  <app-navbar title="Wizard"></app-navbar>
+  <div class="row page-title">
+    <div class="col-md-10 col-md-offset-1">
+      <div class="wizard-panel card">
+        <div class="wizard-header">
+          <h3 class="text-center">Build Your Profile</h3>
+          <h5 class="text-center" style="margin-top: 5px; padding: 0 20px;">This information will let us know more about you.</h5>
+        </div>
+        <div class="wizard-navigation">
+          <ul class="nav nav-pills">
+            <li class="text-uppercase text-center">About</li>
+            <li class="text-uppercase text-center">Account</li>
+            <li class="text-uppercase text-center">Address</li>
+          </ul>
+          <div class="move-tab text-center text-uppercase">About</div>
+        </div>
+        <div class="wizard-body">
+          <div class="wizard-tab">
+            tab 1
+          </div>
+          <div class="wizard-tab">
+            tab 2
+          </div>
+          <div class="wizard-tab">
+            tab 3
+          </div>
+        </div>
+        <div class="wizard-footer">
+          <button id="preBtn" class="btn btn-danger" (click)="preOnClick()">Previous</button>
+          <button id="nextBtn" class="btn btn-success" (click)="nextOnClick()">Next</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

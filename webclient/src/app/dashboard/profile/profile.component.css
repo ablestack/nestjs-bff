@@ -1,0 +1,103 @@
+.right-profile{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px;
+  position: relative;
+  /*margin-top: 60px;*/
+}
+
+.profile{
+  position: absolute;
+  top: -40px;
+}
+
+.profile img{
+  border-radius: 50%;
+  width: 130px;
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+.right-profile h6{
+  margin-top: 100px;
+  margin-bottom: 8px;
+  color: #999;
+}
+
+.right-profile h4{
+  margin-bottom: 5px;
+}
+
+.right-profile p{
+  color: #999;
+}
+
+.right-profile button {
+  margin-top: 15px;
+}
+
+.card{
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  position: relative;
+  margin-top: 40px;
+}
+
+.card-header {
+  position: absolute;
+  text-align: center;
+  background: linear-gradient(60deg, #ec407a, #d81b60);
+  box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(233, 30, 99, 0.4);
+  /*margin: -20px 15px 0;*/
+  border-radius: 3px;
+  padding: 15px;
+  top: -23px;
+}
+
+.card-header i {
+  font-size: 24px;
+  width: 33px;
+  height: 33px;
+  line-height: 33px;
+  color: #fff;
+}
+
+.card-content{
+  position: relative;
+}
+
+.card-title{
+  padding-left: 80px;
+}
+
+.mat-input-container{
+  width: 100%;
+}
+
+.category{
+  font-weight: 300;
+}
+
+form{
+  margin-top: 30px;
+}
+
+.row{
+  margin-top: 15px;
+}
+
+.mat-input-container textarea{
+  height: 90px;
+}
+
+.textarea-label{
+  color: #aaa;
+  margin-bottom: 10px;
+}
+
+.action-btn{
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 15px;
+}

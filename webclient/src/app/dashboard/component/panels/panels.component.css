@@ -1,0 +1,53 @@
+.card{
+  padding: 20px 20px 15px 20px;
+}
+
+.card small{
+  font-weight: 300;
+}
+
+.h-tab{
+  margin-top: 35px;
+}
+
+.tab-content{
+  display: none;
+}
+
+.h-tab .tab-link.active{
+  background-color: #ff9800 !important;
+  color: #FFF !important;
+  box-shadow: 0 14px 26px -12px rgba(255, 152, 0, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(255, 152, 0, 0.2) !important;
+}
+
+.v-tab .tab-link.active{
+  background-color: #00bcd4 !important;
+  color: #FFF !important;
+  box-shadow: 0 14px 26px -12px rgba(0, 188, 212, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 188, 212, 0.2) !important;
+}
+
+.v-tab .tab-link{
+  margin-bottom: 10px;
+}
+
+.h-tab .tab-link, .v-tab .tab-link{
+  box-shadow: none !important;
+  background-color: transparent !important;
+  color: #555 !important;
+}
+
+.h-tab .tab-link:hover, .v-tab .tab-link:hover{
+  background-color: rgba(200, 200, 200, 0.2) !important;
+}
+
+.h-tab .tab-link.active:hover{
+  background-color: #ff9800 !important;
+}
+
+.v-tab .tab-link.active:hover{
+  background-color: #00bcd4 !important;
+}
+
+.h-tab .tab-content{
+  padding-top: 20px;
+}

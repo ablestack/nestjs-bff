@@ -1,0 +1,43 @@
+<div class="container">
+  <app-navbar title="Settings"></app-navbar>
+  <div class="row" style="margin-top: 30px">
+    <div class="col-md-10 col-md-offset-1">
+      <h4 class="text-center text-uppercase">Sidebar Filters</h4>
+      <div class="col-md-12 dot-row">
+        <div class="dot purple btn-hover" (click)="filterChooseClick('#9c27b0')"></div>
+        <div class="dot blue btn-hover" (click)="filterChooseClick('#00bcd4')"></div>
+        <div class="dot green btn-hover" (click)="filterChooseClick('#4caf50')"></div>
+        <div class="dot orange btn-hover" (click)="filterChooseClick('#ff9800')"></div>
+        <div class="dot red btn-hover" (click)="filterChooseClick('#f44336')"></div>
+        <div class="dot white btn-hover" (click)="filterChooseClick('#fff')"></div>
+        <div class="dot rose btn-hover" (click)="filterChooseClick('#e91e63')"></div>
+      </div>
+    </div>
+
+    <div class="col-md-10 col-md-offset-1">
+      <h4 class="text-center text-uppercase">Sidebar Background</h4>
+      <div class="col-md-12 dot-row">
+        <div class="dot red btn-hover" (click)="bgColorChooseClick('#D80B0B')"></div>
+        <div class="dot dodgerblue btn-hover" (click)="bgColorChooseClick('dodgerblue')"></div>
+        <div class="dot white btn-hover" (click)="bgColorChooseClick('#fff')"></div>
+        <div class="dot black btn-hover" (click)="bgColorChooseClick('#000')"></div>
+      </div>
+    </div>
+
+    <div class="col-md-10 col-md-offset-1 background-image">
+      <h4 class="text-uppercase text-center">SideBar Background Image</h4>
+      <div class="col-md-3 col-sm-3 col-xs-6">
+        <img src="../../../assets/img/sidebar-1.jpg" alt="sidebar-bg" class="sidebar-img btn-hover" (click)="bgChooseClick(0)"/>
+      </div>
+      <div class="col-md-3 col-sm-3 col-xs-6">
+        <img src="../../../assets/img/sidebar-2.jpg" alt="sidebar-bg" class="sidebar-img btn-hover" (click)="bgChooseClick(1)"/>
+      </div>
+      <div class="col-md-3 col-sm-3 col-xs-6">
+        <img src="../../../assets/img/sidebar-3.jpg" alt="sidebar-bg" class="sidebar-img btn-hover" (click)="bgChooseClick(2)"/>
+      </div>
+      <div class="col-md-3 col-sm-3 col-xs-6">
+        <img src="../../../assets/img/sidebar-4.jpg" alt="sidebar-bg" class="sidebar-img btn-hover" (click)="bgChooseClick(3)"/>
+      </div>
+    </div>
+  </div>
+</div>

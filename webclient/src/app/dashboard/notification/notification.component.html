@@ -1,0 +1,94 @@
+<div class="container">
+  <app-navbar title="Notification"></app-navbar>
+  <div class="row page-title">
+    <h3 class="text-center">Notifications</h3>
+  </div>
+  <div class="row">
+    <p class="text-center subtitle">Handcrafted by our friend <a href="https://github.com/mouse0270" target="_blank">Robert McIntosh</a>. Please checkout the <a href="http://bootstrap-notify.remabledesigns.com/" target="_blank">full documentation</a>.</p>
+  </div>
+  <div class="row page-title">
+    <div class="col-md-6 col-sm-12 col-xs-12">
+      <div class="card notification-card">
+        <h4>Notifications Style</h4>
+        <div class="alert alert-info">
+          <span>This is a plain notification</span>
+        </div>
+        <div class="alert alert-info">
+          <button class="close" type="button" data-dismiss="alert" aria-label="Close"><i class="material-icons">close</i></button>
+          <span>This is a plain notification</span>
+        </div>
+        <div class="alert alert-info alert-with-icon">
+          <i class="material-icons alert-icon">notifications</i>
+          <button class="close" type="button" data-dismiss="alert" aria-label="Close"><i class="material-icons">close</i></button>
+          <span>This is a notification with close button and icon and have many lines. You can see that the icon and the close button are always vertically aligned. This is a beautiful notification. So you don't have to worry about the style.</span>
+        </div>
+        <div class="alert alert-rose alert-with-icon">
+          <i class="material-icons alert-icon">notifications</i>
+          <button class="close" type="button" data-dismiss="alert" aria-label="Close"><i class="material-icons">close</i></button>
+          <span>This is a notification with close button and icon and have many lines. You can see that the icon and the close button are always vertically aligned. This is a beautiful notification. So you don't have to worry about the style.</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+      <div class="card notification-card">
+        <h4>Notification States</h4>
+        <div class="alert alert-info">
+          <button class="close" type="button" data-dismiss="alert" aria-label="Close"><i class="material-icons">close</i></button>
+          <span>INFO - This is a regular notification made with ".alert-info"</span>
+        </div>
+        <div class="alert alert-success">
+          <button class="close" type="button" data-dismiss="alert" aria-label="Close"><i class="material-icons">close</i></button>
+          <span>SUCCESS - This is a regular notification made with ".alert-success"</span>
+        </div>
+        <div class="alert alert-warning">
+          <button class="close" type="button" data-dismiss="alert" aria-label="Close"><i class="material-icons">close</i></button>
+          <span>WARNING - This is a regular notification made with ".alert-warning"</span>
+        </div>
+        <div class="alert alert-danger">
+          <button class="close" type="button" data-dismiss="alert" aria-label="Close"><i class="material-icons">close</i></button>
+          <span>DANGER - This is a regular notification made with ".alert-danger"</span>
+        </div>
+        <div class="alert alert-primary">
+          <button class="close" type="button" data-dismiss="alert" aria-label="Close"><i class="material-icons">close</i></button>
+          <span>PRIMARY - This is a regular notification made with ".alert-primary"</span>
+        </div>
+        <div class="alert alert-rose">
+          <button class="close" type="button" data-dismiss="alert" aria-label="Close"><i class="material-icons">close</i></button>
+          <span>ROSE - This is a regular notification made with ".alert-rose"</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" style="margin: 35px 0 20px 0;">
+    <div class="card place">
+      <h4 class="text-center">Notifications Places</h4>
+      <p class="text-center">Click to view notifications</p>
+      <div class="row" style="margin-top: 15px">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+          <div class="col-md-4">
+            <button mat-raised-button class="btn btn-primary btn-block" (click)="btnClick('top-left')">TOP LEFT</button>
+          </div>
+          <div class="col-md-4">
+            <button mat-raised-button class="btn btn-primary btn-block" (click)="btnClick('top-center')">TOP CENTER</button>
+          </div>
+          <div class="col-md-4">
+            <button mat-raised-button class="btn btn-primary btn-block" (click)="btnClick('top-right')">TOP RIGHT</button>
+          </div>
+        </div>
+      </div>
+      <div class="row page-title">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+          <div class="col-md-4">
+            <button mat-raised-button class="btn btn-primary btn-block" (click)="btnClick('bottom-left')">BOTTOM LEFT</button>
+          </div>
+          <div class="col-md-4">
+            <button mat-raised-button class="btn btn-primary btn-block" (click)="btnClick('bottom-center')">BOTTOM CENTER</button>
+          </div>
+          <div class="col-md-4">
+            <button mat-raised-button class="btn btn-primary btn-block" (click)="btnClick('bottom-right')">BOTTOM RIGHT</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

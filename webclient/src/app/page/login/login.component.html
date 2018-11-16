@@ -1,0 +1,46 @@
+<div class="background"></div>
+<div class="container">
+  <div class="container">
+    <div class="row">
+      <app-header></app-header>
+    </div>
+   <div class="row">
+     <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+       <div class="card">
+         <div class="card-header">
+            <h4>Login</h4>
+           <div class="social-btns">
+             <button mat-icon-button><i class="fa fa-facebook-square"></i></button>
+             <button mat-icon-button><i class="fa fa-twitter"></i></button>
+             <button mat-icon-button><i class="fa fa-google-plus"></i></button>
+           </div>
+         </div>
+         <p class="tip">Or Be Classical</p>
+         <div class="card-form">
+           <div class="form-row">
+             <i class="material-icons">face</i>
+             <mat-form-field color="accent">
+               <input type="text" matInput placeholder="First Name"/>
+             </mat-form-field>
+           </div>
+           <div class="form-row">
+             <i class="material-icons">email</i>
+             <mat-form-field color="accent">
+               <input type="text" matInput placeholder="Email address"/>
+             </mat-form-field>
+           </div>
+           <div class="form-row">
+             <i class="material-icons">lock_outline</i>
+             <mat-form-field color="accent">
+               <input type="password" matInput placeholder="Password"/>
+             </mat-form-field>
+           </div>
+         </div>
+         <div class="card-footer">
+           <button mat-button (click)="loginBtn()">LET'S GO</button>
+         </div>
+       </div>
+     </div>
+   </div>
+  </div>
+</div>
