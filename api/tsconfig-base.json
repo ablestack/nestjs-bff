@@ -13,7 +13,6 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-    "allowJs": false,
     "target": "es6",
     "lib": ["es7", "dom"],
     "typeRoots": ["node_modules/@types"]

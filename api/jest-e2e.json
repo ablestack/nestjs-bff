@@ -1,9 +1,0 @@
-{
-  "preset": "ts-jest",
-  "testEnvironment": "node",
-  "globalSetup": "./e2e/_core/global-setup-hook.js",
-  "globalTeardown": "./e2e/_core/global-tear-down-hook.js",
-  "testMatch": ["<rootDir>/e2e/**/*.e2e-spec.(ts|tsx|js)"],
-  "modulePaths": ["<rootDir>/src/"],
-  "testURL": "http://localhost/"
-}

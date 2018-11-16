@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "e2e": "concurrently --kill-others \"npm run mongodb-docker\" \"npm run e2e-jest\"",
-    "e2e-jest": "jest --config ./jest-e2e.json --bail --colors",
+    "e2e-jest": "jest --config ./e2e/jest-e2e.json --bail --colors",
     "format": "prettier --write \"**/*.ts\"",
     "install-docker-mongodb": "docker-compose pull mongodb",
     "link": "npm link @nestjs-bff/universal && npm link @nestjs-bff/backend",
@@ -18,7 +18,7 @@
     "start:prod": "node dist/app/host/http/web-app/web-app.js",
     "start:hmr": "node dist/server",
     "start-docker-mongodb": "npm run mongodb-docker && npm run start",
-    "test": "jest --config=jest.json",
+    "test": "jest --config=./src/jest.json",
     "test:cov": "jest --coverage",
     "webpack": "webpack --config webpack.config.js"
   },
