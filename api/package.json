@@ -23,8 +23,8 @@
     "webpack": "webpack --config webpack.config.js"
   },
   "dependencies": {
-    "@nestjs-bff/backend": "^0.0.23",
-    "@nestjs-bff/universal": "^0.0.11",
+    "@nestjs-bff/backend": "^0.0.24",
+    "@nestjs-bff/universal": "^0.0.12",
     "@nestjs/common": "^5.3.9",
     "@nestjs/core": "^5.3.10",
     "@nestjs/microservices": "^5.3.8",
@@ -43,7 +43,7 @@
     "express": "^4.16.3",
     "fastify-formbody": "^2.0.1",
     "helmet": "^3.15.0",
-    "jsonwebtoken": "^8.3.0",
+    "jsonwebtoken": "^8.4.0",
     "pretty-error": "^2.1.1",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.3.3",
@@ -62,7 +62,7 @@
     "@types/helmet": "^0.0.38",
     "@types/jest": "^23.3.2",
     "@types/jsonwebtoken": "^7.2.7",
-    "@types/node": "^9.6.37",
+    "@types/node": "^9.6.39",
     "@types/simple-oauth2": "^2.2.0",
     "@types/supertest": "^2.0.6",
     "@types/yargs": "^11.1.2",
