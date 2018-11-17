@@ -23,7 +23,7 @@
     "webpack": "webpack --config webpack.config.js"
   },
   "dependencies": {
-    "@nestjs-bff/backend": "^0.0.24",
+    "@nestjs-bff/backend": "^0.0.25",
     "@nestjs-bff/universal": "^0.0.12",
     "@nestjs/common": "^5.3.9",
     "@nestjs/core": "^5.3.10",
