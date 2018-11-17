@@ -1,6 +1,6 @@
 import { LoggerSharedService } from '@nestjs-bff/backend/shared/logging/logger.shared.service';
-import { CatDomainSchema } from 'app/domain/cats/model/cat.domain.schema';
 import { Connection } from 'mongoose';
+import { CatDomainSchema } from '../../../../app/domain/cats/model/cat.domain.schema';
 import { data } from './seed-data-dev';
 
 /**

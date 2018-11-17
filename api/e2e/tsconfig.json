@@ -1,0 +1,9 @@
+{
+  "extends": "../tsconfig-base",
+  "compilerOptions": {
+    "outDir": "../dist-e2e",
+    "allowJs": false
+  },
+  "references": [{ "path": "../src" }],
+  "include": ["./**/*"]
+}

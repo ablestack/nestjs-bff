@@ -1,6 +1,6 @@
 import { LoggerWinstonSharedService } from '@nestjs-bff/backend/shared/logging/logger-winston.shared.service';
 import { NestFactory } from '@nestjs/core';
-import { AppConfig } from 'config/app.config';
+import { AppConfig } from '../../../../config/app.config';
 import { WebAppHttpModule } from './web-app.http.module';
 
 declare const module: any;
