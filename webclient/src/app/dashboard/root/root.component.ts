@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { SettingsService } from '../../services/settings.service';
+import { SettingsService } from '../../_services/settings.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './root.component.html',
-  styleUrls: ['./root.component.css']
+  styleUrls: ['./root.component.css'],
 })
 export class RootComponent implements OnInit, OnDestroy {
   public id: number;

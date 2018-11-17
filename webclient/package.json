@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve -o",
+    "start": "ng serve --open --hmr",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

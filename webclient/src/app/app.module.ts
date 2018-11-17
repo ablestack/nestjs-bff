@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { routing } from './app.routes';
@@ -28,8 +28,10 @@ import { SettingsComponent } from './dashboard/settings/settings.component';
 import { PriceTableComponent } from './dashboard/component/pricetable/pricetable.component';
 import { PanelsComponent } from './dashboard/component/panels/panels.component';
 
-import { SettingsService } from './services/settings.service';
+import { SettingsService } from './_services/settings.service';
 import { WizardComponent } from './dashboard/component/wizard/wizard.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { ErrorInterceptor, JwtInterceptor } from './_helpers';
 
 @NgModule({
   declarations: [
@@ -53,21 +55,27 @@ import { WizardComponent } from './dashboard/component/wizard/wizard.component';
     SettingsComponent,
     PriceTableComponent,
     PanelsComponent,
-    WizardComponent
+    WizardComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    HttpClientModule,
     routing,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatRadioModule,
     MatInputModule,
     MatMenuModule,
-    MatCheckboxModule
+    MatCheckboxModule,
   ],
-  providers: [SettingsService],
-  bootstrap: [AppComponent]
+  providers: [
+    SettingsService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

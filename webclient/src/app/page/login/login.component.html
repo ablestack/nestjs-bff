@@ -1,46 +1,63 @@
 <div class="background"></div>
 <div class="container">
   <div class="container">
+    <div class="row"><app-header></app-header></div>
     <div class="row">
-      <app-header></app-header>
-    </div>
-   <div class="row">
-     <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
-       <div class="card">
-         <div class="card-header">
+      <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+        <div class="card">
+          <div class="card-header">
             <h4>Login</h4>
-           <div class="social-btns">
-             <button mat-icon-button><i class="fa fa-facebook-square"></i></button>
-             <button mat-icon-button><i class="fa fa-twitter"></i></button>
-             <button mat-icon-button><i class="fa fa-google-plus"></i></button>
-           </div>
-         </div>
-         <p class="tip">Or Be Classical</p>
-         <div class="card-form">
-           <div class="form-row">
-             <i class="material-icons">face</i>
-             <mat-form-field color="accent">
-               <input type="text" matInput placeholder="First Name"/>
-             </mat-form-field>
-           </div>
-           <div class="form-row">
-             <i class="material-icons">email</i>
-             <mat-form-field color="accent">
-               <input type="text" matInput placeholder="Email address"/>
-             </mat-form-field>
-           </div>
-           <div class="form-row">
-             <i class="material-icons">lock_outline</i>
-             <mat-form-field color="accent">
-               <input type="password" matInput placeholder="Password"/>
-             </mat-form-field>
-           </div>
-         </div>
-         <div class="card-footer">
-           <button mat-button (click)="loginBtn()">LET'S GO</button>
-         </div>
-       </div>
-     </div>
-   </div>
+            <div class="social-btns">
+              <button mat-icon-button><i class="fa fa-facebook-square"></i></button>
+              <button mat-icon-button><i class="fa fa-twitter"></i></button>
+              <button mat-icon-button><i class="fa fa-google-plus"></i></button>
+            </div>
+          </div>
+          <p class="tip">Or Be Classical</p>
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="card-form">
+              <div class="form-row">
+                <i class="material-icons">email</i>
+                <mat-form-field color="accent">
+                  <input
+                    matInput
+                    type="text"
+                    formControlName="username"
+                    placeholder="Username"
+                    [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+                  />
+                </mat-form-field>
+                <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                  <div *ngIf="f.username.errors.required">Username is required</div>
+                </div>
+              </div>
+              <div class="form-row">
+                <i class="material-icons">lock_outline</i>
+                <mat-form-field color="accent">
+                  <input
+                    matInput
+                    type="password"
+                    formControlName="password"
+                    placeholder="Password"
+                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+                  />
+                </mat-form-field>
+                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                  <div *ngIf="f.password.errors.required">Password is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <button mat-button [disabled]="loading" (click)="loginBtn()">LET'S GO</button>
+              <img
+                *ngIf="loading"
+                src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+              />
+            </div>
+            <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
