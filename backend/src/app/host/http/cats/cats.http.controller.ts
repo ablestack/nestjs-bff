@@ -7,7 +7,7 @@ import { CreateCatCommand } from '../../../../app/universal/commands/create-cat.
 import { CatEntity } from '../../../../app/universal/entities/cat.entity';
 import { CatRepoCache } from '../../../domain/cats/repo/cat.domain.cache-repo';
 import { CatRepoWrite } from '../../../domain/cats/repo/cat.domain.write-repo';
-@Controller('/backend/cats')
+@Controller('/cats')
 export class CatsHttpController {
   constructor(private readonly catRepoWrite: CatRepoWrite, private readonly catRepoCache: CatRepoCache) {}
 

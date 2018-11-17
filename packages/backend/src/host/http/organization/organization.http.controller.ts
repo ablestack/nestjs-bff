@@ -5,7 +5,7 @@ import { OrganizationApplicationService } from '../../../application/organizatio
 import { CheckOrganizationRoles } from '../../../domain/authorization/authorization-tests/check-organization-roles.authtest';
 import { Authorization } from '../core/decorators/authorization.http.decorator';
 
-@Controller('api/organization')
+@Controller('organization')
 export class OrganizationHttpController {
   constructor(
     private readonly organizationService: OrganizationApplicationService,

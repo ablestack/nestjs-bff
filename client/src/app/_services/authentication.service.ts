@@ -9,7 +9,7 @@ export class AuthenticationService {
 
   login(username: string, password: string) {
     return this.http
-      .post<any>('/backend/auth/public/local/signin', {
+      .post<any>('/auth/public/local/signin', {
         username: username.trim(),
         password: password.trim(),
       })

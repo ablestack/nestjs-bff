@@ -16,7 +16,7 @@ import { AppSharedProviderTokens } from '../../../shared/app/app.shared.constant
 import { Authorization } from '../core/decorators/authorization.http.decorator';
 import { JwtTokenHttpService } from '../core/jwt/jwt-token.http.service';
 
-@Controller('api/auth')
+@Controller('auth')
 export class AuthHttpController {
   constructor(
     @Inject(AppSharedProviderTokens.Config.App)
