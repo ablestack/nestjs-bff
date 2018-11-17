@@ -9,7 +9,7 @@ export class AuthenticationService {
 
   login(username: string, password: string) {
     return this.http
-      .post<any>('/auth/public/local/signin', {
+      .post<any>('/backend/auth/public/local/signin', {
         username: username.trim(),
         password: password.trim(),
       })
@@ -18,10 +18,7 @@ export class AuthenticationService {
           // login successful if there's a jwt token in the response
           if (res && res.token) {
             // store username and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem(
-              'currentUser',
-              JSON.stringify({ username, token: res.token }),
-            );
+            localStorage.setItem('currentUser', JSON.stringify({ username, token: res.token }));
           }
         }),
       );
