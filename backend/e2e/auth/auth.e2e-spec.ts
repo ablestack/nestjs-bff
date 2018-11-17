@@ -147,7 +147,7 @@ describe('Auth', () => {
         WHEN correct signin data is posted to the signin endpoint
         THEN the user is successfully authenticated and receives a JWT token`, async () => {
     const response = await supertest(app.getHttpServer())
-      .post('/api/auth/public/local/signin')
+      .post('/auth/public/local/signin')
       .send({
         username: data.domainA.regularUser.registration.username,
         password: data.domainA.regularUser.registration.password,
@@ -167,7 +167,7 @@ describe('Auth', () => {
   it(`GIVEN an unauthenticated user with no auth token 
         WHEN a GET request is made for public data 
         THEN the request succeeds`, async () => {
-    const response = await supertest(app.getHttpServer()).get('/api/auth/public/verification');
+    const response = await supertest(app.getHttpServer()).get('/auth/public/verification');
 
     expect(response.status).toEqual(200);
   });
@@ -179,7 +179,7 @@ describe('Auth', () => {
   it(`GIVEN an endpoint without an authorization decorator
         WHEN a request is made
         THEN access is denied`, async () => {
-    const response = await supertest(app.getHttpServer()).get('/api/auth/verification/no-authorization-decorator');
+    const response = await supertest(app.getHttpServer()).get('/auth/verification/no-authorization-decorator');
 
     expect(response.status).toEqual(403);
   });
@@ -191,7 +191,7 @@ describe('Auth', () => {
   it(`GIVEN a role protected endpoint
         WHEN an unauthenticated request is made
         THEN access is denied`, async () => {
-    const response = await supertest(app.getHttpServer()).get('/api/auth/verification/role-protected-group-admin');
+    const response = await supertest(app.getHttpServer()).get('/auth/verification/role-protected-group-admin');
 
     expect(response.status).toEqual(403);
   });
@@ -201,7 +201,7 @@ describe('Auth', () => {
         WHEN get request is made
         THEN access is denied`, async () => {
     const response = await supertest(app.getHttpServer())
-      .get('/api/auth/verification/role-protected-group-admin')
+      .get('/auth/verification/role-protected-group-admin')
       .set('authorization', `Bearer ${data.domainA.regularUser.jwt.token}`);
 
     expect(response.status).toEqual(403);
@@ -212,7 +212,7 @@ describe('Auth', () => {
         WHEN get request is made
         THEN access is denied`, async () => {
     const response = await supertest(app.getHttpServer())
-      .get('/api/auth/verification/role-protected-group-admin')
+      .get('/auth/verification/role-protected-group-admin')
       .set('authorization', `Bearer ${data.domainGroupAdmin.groupAdminUser.jwt.token}`);
 
     expect(response.status).toEqual(200);
@@ -227,7 +227,7 @@ describe('Auth', () => {
         WHEN a get request is made 
         THEN access is denied`, async () => {
     const response = await supertest(app.getHttpServer())
-      .get(`/api/auth/${data.domainA.slug}/verification/organization-protected-member`)
+      .get(`/auth/${data.domainA.slug}/verification/organization-protected-member`)
       .set('authorization', `Bearer ${data.domainB.adminUser.jwt.token}`);
 
     expect(response.status).toEqual(403);
@@ -238,7 +238,7 @@ describe('Auth', () => {
         WHEN a get request is made 
         THEN the request is successful`, async () => {
     const response = await supertest(app.getHttpServer())
-      .get(`/api/auth/${data.domainA.slug}/verification/organization-protected-member`)
+      .get(`/auth/${data.domainA.slug}/verification/organization-protected-member`)
       .set('authorization', `Bearer ${data.domainA.regularUser.jwt.token}`);
 
     expect(response.status).toEqual(200);
@@ -249,7 +249,7 @@ describe('Auth', () => {
         WHEN a get request is made 
         THEN access is denied`, async () => {
     const response = await supertest(app.getHttpServer())
-      .get(`/api/auth/${data.domainA.slug}/verification/organization-protected-admin`)
+      .get(`/auth/${data.domainA.slug}/verification/organization-protected-admin`)
       .set('authorization', `Bearer ${data.domainA.regularUser.jwt.token}`);
 
     expect(response.status).toEqual(403);
@@ -260,7 +260,7 @@ describe('Auth', () => {
         WHEN a get request is made 
         THEN access is denied`, async () => {
     const response = await supertest(app.getHttpServer())
-      .get(`/api/auth/${data.domainA.slug}/verification/organization-protected-admin`)
+      .get(`/auth/${data.domainA.slug}/verification/organization-protected-admin`)
       .set('authorization', `Bearer ${data.domainA.regularUser.jwt.token}`);
 
     expect(response.status).toEqual(403);
@@ -271,7 +271,7 @@ describe('Auth', () => {
         WHEN a get request is made 
         THEN request is successful`, async () => {
     const response = await supertest(app.getHttpServer())
-      .get(`/api/auth/${data.domainA.slug}/verification/organization-protected-admin`)
+      .get(`/auth/${data.domainA.slug}/verification/organization-protected-admin`)
       .set('authorization', `Bearer ${data.domainA.adminUser.jwt.token}`);
 
     expect(response.status).toEqual(200);
