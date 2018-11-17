@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import * as yargs from 'yargs';
-import { AppConfig } from '../../api/src/config/app.config';
+import { AppConfig } from '../../backend/src/config/app.config';
 import { getLogger } from '@nestjs-bff/backend/shared/logging/logging.shared.module';
 
 // global setup

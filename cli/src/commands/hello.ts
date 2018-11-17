@@ -1,7 +1,7 @@
 import { prompt as ask } from 'inquirer';
 import * as yargs from 'yargs'; // eslint-disable-line no-unused-vars
-import { LoggerService } from '../../../api/src/common/services/logger.service';
-import { ConsoleLoggerService } from '../../../api/src/common/services/consolelogger.service';
+import { LoggerService } from '../../../backend/src/common/services/logger.service';
+import { ConsoleLoggerService } from '../../../backend/src/common/services/consolelogger.service';
 
 export let loggerService: LoggerService = null; // This needs to be initialized by the commandLoader
 

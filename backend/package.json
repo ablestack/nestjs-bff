@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "nestjs-bff-api",
+  "name": "nestjs-bff-backend",
   "version": "0.2.0",
   "description": "A Nestjs Backend-For-Frontend with CLI",
   "author": "ahrnee",

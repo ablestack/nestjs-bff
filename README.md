@@ -3,11 +3,11 @@
 <p align="center">
   <i><a href="README.md">Overview</a></i>
   &nbsp;&nbsp;&nbsp;
-	<a href="api/README.md">API</a>
+	<a href="backend/README.md">Backend</a>
   &nbsp;&nbsp;&nbsp;
 	<a href="cli/README.md">CLI</a>
   &nbsp;&nbsp;&nbsp;
-	<a href="webclient/README.md">Web Client</a>
+	<a href="client/README.md">Client</a>
   &nbsp;&nbsp;&nbsp;
 	<a href="devops/README.md">DevOps</a>
 </p>
@@ -16,11 +16,11 @@
 
 NestJS-BFF is a starter project for those looking to fast-track building a strongly typed, enterprise-grade, modern NodeJs application, with supporting tooling.
 
-This implementation uses the [BFF](https://samnewman.io/patterns/architectural/bff/) pattern, leveraging [NestJS](https://nestjs.com/) as the primary framework for the backend API. The client-side example is in [Angular](https://angular.io/), although any client-side Javascript framework can easily be used, including [React](https://reactjs.org/), or [Vue](https://vuejs.org/) js.
+This implementation uses the [BFF](https://samnewman.io/patterns/architectural/bff/) pattern, leveraging [NestJS](https://nestjs.com/) as the primary framework for the backend. The client-side example is in [Angular](https://angular.io/), although any client-side Javascript framework can easily be used, including [React](https://reactjs.org/), or [Vue](https://vuejs.org/) js.
 
 ## Contents
 
-This is a Mono-repo project containing an [API](api/README.md), companion [CLI](cli/README.md), [Web Client](webclient/README.md), and companion NPM packages. Follow the README navigation links for details on each of these. The core infrastructure is contained in NPM packages, so that projects build using this boilerplate can easily benefit from future updates though a simple NPM update command.
+This is a Mono-repo project containing a [Backend](backend/README.md), companion [CLI](cli/README.md), [Client](client/README.md), and companion NPM packages. Follow the README navigation links for details on each of these. The core infrastructure is contained in NPM packages, so that projects build using this boilerplate can easily benefit from future updates though a simple NPM update command.
 
 ## Installation & Usage
 
@@ -73,9 +73,9 @@ This project aims to provide an enterprise-ready web-application skeleton, out-o
 
 # Notes
 
-- The API can run independently from the CLI
-- The CLI requires the API to compile and run
-- The webclient can run independently, but requires the API to be running to complete API requests, including for authentication
+- The Backend can run independently from the CLI
+- The CLI requires the Backend to compile and run
+- The Client can run independently, but requires the Backend to be running to complete requests, including for authentication
 
 # Contributions
 
@@ -90,7 +90,7 @@ See the [Attributions](attributions/ATTRIBUTIONS.md) section.
 Further details on each of the systems contained in this project can be found via the following links:
 
 - _[Overview](README.md)_
-- [API](api/README.md)
+- [Backend](backend/README.md)
 - [CLI](cli/README.md)
-- [Web Client](webclient/README.md)
+- [Client](client/README.md)
 - [DevOps](devops/README.md)

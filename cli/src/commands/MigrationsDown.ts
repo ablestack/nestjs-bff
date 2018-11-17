@@ -1,8 +1,8 @@
 import { prompt as ask } from 'inquirer';
 import * as yargs from 'yargs'; // eslint-disable-line no-unused-vars
-import { MigrationsService } from '../../../api/src/migrations/migrations.service';
+import { MigrationsService } from '../../../backend/src/migrations/migrations.service';
 import { NestjsBffAppContainer } from '../NestjsBffAppContainer';
-import { LoggerService } from '../../../api/src/common/services/logger.service';
+import { LoggerService } from '../../../backend/src/common/services/logger.service';
 
 export let loggerService: LoggerService; // This needs to be initialized by the commandLoader
 export interface IParams {
