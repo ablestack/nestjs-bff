@@ -1,4 +1,7 @@
 {
   "html.format.wrapLineLength": 140,
-  "prettier.printWidth": 140
+  "prettier.printWidth": 140,
+  "cSpell.words": [
+    "backend"
+  ]
 }
