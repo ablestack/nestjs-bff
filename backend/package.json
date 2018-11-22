@@ -23,8 +23,8 @@
     "webpack": "webpack --config webpack.config.js"
   },
   "dependencies": {
-    "@nestjs-bff/backend": "^0.0.25",
-    "@nestjs-bff/universal": "^0.0.12",
+    "@nestjs-bff/backend": "^0.0.26",
+    "@nestjs-bff/universal": "0.0.12",
     "@nestjs/common": "^5.3.9",
     "@nestjs/core": "^5.3.10",
     "@nestjs/microservices": "^5.3.8",
@@ -41,7 +41,7 @@
     "cookie-parser": "^1.4.3",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
-    "fastify-formbody": "^2.0.1",
+    "fastify-formbody": "^2.0.2",
     "helmet": "^3.15.0",
     "jsonwebtoken": "^8.4.0",
     "pretty-error": "^2.1.1",
@@ -72,12 +72,12 @@
     "nodemon": "^1.18.6",
     "prettier": "^1.15.2",
     "supertest": "^3.3.0",
-    "ts-jest": "^23.10.4",
+    "ts-jest": "^23.10.5",
     "ts-loader": "^4.5.0",
     "ts-node": "^7.0.1",
     "tslint": "5.3.2",
     "typescript": "^3.1.6",
-    "webpack": "^4.25.1",
+    "webpack": "^4.26.0",
     "webpack-cli": "^2.0.13",
     "webpack-node-externals": "^1.6.0"
   }
