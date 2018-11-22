@@ -143,6 +143,32 @@ describe('Auth', () => {
     );
   }, 5 * 60 * 1000);
 
+  it.only(`GIVEN an unauthenticated user
+  WHEN incorrect signin data is posted to the signin endpoint
+  THEN the user is not authenticated, and an appropriate error message is returned`, async () => {
+    const response = await supertest(app.getHttpServer())
+      .post('/auth/public/local/signin')
+      .send({
+        username: data.domainA.regularUser.registration.username,
+        password: 'bad-password',
+      });
+
+    console.log(
+      '-------------------------------------------------------------------------------------------------------',
+      {
+        'response.body': response.body,
+      },
+      {
+        'response.error': response.error,
+      },
+    );
+
+    expect(response.status).toEqual(403);
+    expect(response.type).toBe('application/json');
+    expect(response.body).not.toHaveProperty('token');
+    expect(response.error).toBeDefined();
+  });
+
   it(`GIVEN an unauthenticated user
         WHEN correct signin data is posted to the signin endpoint
         THEN the user is successfully authenticated and receives a JWT token`, async () => {

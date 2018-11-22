@@ -5,5 +5,5 @@
     "allowJs": false
   },
   "references": [{ "path": "../src" }],
-  "include": ["./**/*"]
+  "include": ["**/*"]
 }

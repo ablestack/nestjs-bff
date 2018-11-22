@@ -6,8 +6,8 @@
   "author": "ahrnee",
   "license": "MIT",
   "scripts": {
-    "e2e": "concurrently --kill-others \"npm run mongodb-docker\" \"npm run e2e-jest\"",
-    "e2e-jest": "jest --config ./e2e/jest-e2e.json --bail --colors",
+    "e2e-with-docker": "concurrently --kill-others \"npm run mongodb-docker\" \"npm run e2e-jest\"",
+    "e2e": "jest --config ./e2e/jest-e2e.json --bail --colors",
     "format": "prettier --write \"**/*.ts\"",
     "install-docker-mongodb": "docker-compose pull mongodb",
     "link": "npm link @nestjs-bff/universal && npm link @nestjs-bff/backend",

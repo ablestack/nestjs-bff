@@ -1,5 +1,6 @@
 import { AuthHttpModule } from '@nestjs-bff/backend/host/http/auth/auth.http.module';
 import { CoreHttpModule } from '@nestjs-bff/backend/host/http/core/core.http.module';
+import { HttpExceptionFilter } from '@nestjs-bff/backend/host/http/core/exceptions/http-exception.http.filter';
 import { AuthorizationHttpGuard } from '@nestjs-bff/backend/host/http/core/guards/authorization.http.guard';
 import { JwtHttpMiddleware } from '@nestjs-bff/backend/host/http/core/jwt/jwt.http.middleware';
 import { MigrationsSharedModule } from '@nestjs-bff/backend/shared/migrations/migrations.shared.module';
@@ -11,7 +12,7 @@ import {
   RequestMethod,
   ValidationPipe,
 } from '@nestjs/common';
-import { APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { CatsHttpModule } from '../cats/cats.http.module';
 import { WebAppHealthCheckService } from './web-app-health-check.http.service';
 import { WebAppController } from './web-app.http.controller';
@@ -24,16 +25,22 @@ import { WebAppController } from './web-app.http.controller';
 // - Interceptors (after the stream is manipulated)
 // - Exception filters (if any exception is caught)
 
-const CacheInterceptorProvider = {
-  // setting up global caching
-  provide: APP_INTERCEPTOR,
-  useClass: CacheInterceptor,
+const AppFilterProvider = {
+  // setting up global filter
+  provide: APP_FILTER,
+  useClass: HttpExceptionFilter,
 };
 
 const AppGuardProvider = {
   // setting up global guard
   provide: APP_GUARD,
   useClass: AuthorizationHttpGuard,
+};
+
+const CacheInterceptorProvider = {
+  // setting up global caching
+  provide: APP_INTERCEPTOR,
+  useClass: CacheInterceptor,
 };
 
 const AppPipeProvider = {
@@ -45,7 +52,7 @@ const AppPipeProvider = {
 @Module({
   imports: [CoreHttpModule, AuthHttpModule, CatsHttpModule, MigrationsSharedModule],
   controllers: [WebAppController],
-  providers: [WebAppHealthCheckService, CacheInterceptorProvider, AppGuardProvider, AppPipeProvider],
+  providers: [WebAppHealthCheckService, AppFilterProvider, CacheInterceptorProvider, AppGuardProvider, AppPipeProvider],
   exports: undefined,
 })
 export class WebAppHttpModule implements NestModule {

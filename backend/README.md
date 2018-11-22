@@ -25,7 +25,7 @@ Based on the standard Nest CLI generated API, with the following customizations 
 
 ## Backend Installation
 
-1.  Navigate to the root of Nestjs-Bff repo, the run then following command:
+1.  Navigate /devops, the run then following command:
 
 ```bash
 # install dependencies for all sub projects (backend, cli, client)
@@ -37,6 +37,7 @@ Or
 1.  Navigate to /backend, then run the following command:
 
 ```bash
+# install dependencies for backend only
 $ npm install
 ```
 
@@ -49,18 +50,22 @@ Various self-explanatory configuration options are available via the config fold
 
 ## API Usage
 
+1.  Navigate to /backend, then run the following command:
+
 ```bash
 # development
-$ npm run start-bff-backend
+$ npm run start
 ```
 
 View at: http://localhost:3000
 
 ## API Test
 
+1.  Navigate to /backend, then run the following command:
+
 ```bash
 # e2e tests
-$ npm run test-bff-backend:e2e
+$ npm run e2e-with-docker
 ```
 
 <!---

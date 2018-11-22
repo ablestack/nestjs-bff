@@ -21,6 +21,7 @@ import { AuthorizationDomainRepoWrite } from '../../domain/authorization/repo/au
 import { OrganizationDomainRepoWrite } from '../../domain/organization/repo/organization.domain.repo-write';
 import { UserDomainRepoWrite } from '../../domain/user/repo/user.domain.repo-write';
 import { AppError } from '../../shared/exceptions/app.exception';
+import { ValidationError } from '../../shared/exceptions/validation.exception';
 
 @Injectable()
 export class UserAuthApplicationService {
@@ -48,12 +49,14 @@ export class UserAuthApplicationService {
     );
 
     if (!authenticationEntity)
-      throw new AppError('Your login credentials were not correct');
+      throw new ValidationError(['Your login credentials were not correct']);
     if (!authenticationEntity.local)
-      throw new AppError('Your login credentials were not correct');
+      throw new ValidationError([
+        'Your login credentials were not correct or you do not have an account. Perhaps you registered with social login?',
+      ]);
 
     if (!validPassword(cmd.password, authenticationEntity.local.hashedPassword))
-      throw new AppError('Your login credentials were not correct');
+      throw new ValidationError(['Your login credentials were not correct']);
 
     const authorizationEntity = await this.authorizationRepoCache.findByUserId(
       authenticationEntity.userId,

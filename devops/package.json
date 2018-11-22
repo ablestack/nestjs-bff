@@ -20,7 +20,7 @@
     "link-all": "cd ../backend && npm run link && cd ../cli && npm run link && cd ../client && npm run link",
     "link-initialize-all": "cd ../packages/universal && npm run build-and-link && cd ../backend && npm run build-and-link",
     "start-all-with-docker": "concurrently --kill-others \"npm run start-docker-mongodb\" \"npm run start-backend\" \"npm run start-client\"",
-    "start-all": "concurrently --kill-others \"npm run start-backend\" \"npm run start-client\"",
+    "start": "concurrently --kill-others \"npm run start-backend\" \"npm run start-client\"",
     "start-backend": "cd ../backend && npm run start",
     "start-bff-backend": "ts-node --project ../backend/tsconfig.json -r tsconfig-paths/register ../backend/src/main.ts",
     "start-docker-mongodb": "cd ../backend && npm run start-docker-mongodb",
