@@ -153,17 +153,7 @@ describe('Auth', () => {
         password: 'bad-password',
       });
 
-    console.log(
-      '-------------------------------------------------------------------------------------------------------',
-      {
-        'response.body': response.body,
-      },
-      {
-        'response.error': response.error,
-      },
-    );
-
-    expect(response.status).toEqual(403);
+    expect(response.status).toEqual(400);
     expect(response.type).toBe('application/json');
     expect(response.body).not.toHaveProperty('token');
     expect(response.error).toBeDefined();
