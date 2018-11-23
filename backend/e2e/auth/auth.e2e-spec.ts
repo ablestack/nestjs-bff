@@ -143,7 +143,7 @@ describe('Auth', () => {
     );
   }, 5 * 60 * 1000);
 
-  it.only(`GIVEN an unauthenticated user
+  it(`GIVEN an unauthenticated user
   WHEN incorrect signin data is posted to the signin endpoint
   THEN the user is not authenticated, and an appropriate error message is returned`, async () => {
     const response = await supertest(app.getHttpServer())

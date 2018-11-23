@@ -1,6 +1,6 @@
 {
   "name": "@nestjs-bff/backend",
-  "version": "0.0.26",
+  "version": "0.1.0",
   "description": "A backend module for nestjs-bff",
   "author": "ahrnee",
   "license": "MIT",
@@ -15,7 +15,7 @@
     "test:cov": "jest --coverage"
   },
   "dependencies": {
-    "@nestjs-bff/universal": "^0.0.12",
+    "@nestjs-bff/universal": "^0.1.0",
     "@nestjs/common": "^5.4.0",
     "@nestjs/core": "^5.4.0",
     "@nestjs/testing": "^5.4.0",
@@ -55,6 +55,6 @@
     "jest": "^23.6.0",
     "prettier": "^1.15.2",
     "ts-node": "^7.0.1",
-    "tslint": "5.11.0"
+    "tslint": "^5.11.0"
   }
 }

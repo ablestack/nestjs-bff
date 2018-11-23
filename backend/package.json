@@ -23,8 +23,8 @@
     "webpack": "webpack --config webpack.config.js"
   },
   "dependencies": {
-    "@nestjs-bff/backend": "^0.0.26",
-    "@nestjs-bff/universal": "0.0.12",
+    "@nestjs-bff/backend": "^0.1.0",
+    "@nestjs-bff/universal": "0.1.0",
     "@nestjs/common": "^5.3.9",
     "@nestjs/core": "^5.3.10",
     "@nestjs/testing": "^5.3.8",
