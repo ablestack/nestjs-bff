@@ -8,20 +8,26 @@
           <div class="card-header">
             <h4>Login</h4>
             <div class="alert alert-info">
-              Test Username: admin@domain-a.com <br />
+              Test Username: admin@domain.com <br />
               Password: supersecretpassword <br />
               <br />
-              Test Username: user@domain-a.com <br />
+              Test Username: user@domain.com <br />
               Password: supersecretpassword <br />
             </div>
             <div class="social-btns">
-              <button mat-icon-button><i class="fa fa-facebook-square"></i></button>
+              <button mat-icon-button>
+                <i class="fa fa-facebook-square"></i>
+              </button>
               <button mat-icon-button><i class="fa fa-twitter"></i></button>
               <button mat-icon-button><i class="fa fa-google-plus"></i></button>
             </div>
           </div>
           <p class="tip">Or Be Classical</p>
-          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+          <form
+            [formGroup]="loginForm"
+            (ngSubmit)="onSubmit()"
+            class="login-form"
+          >
             <div class="card-form">
               <div class="form-row">
                 <i class="material-icons">email</i>
@@ -34,8 +40,13 @@
                     [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
                   />
                 </mat-form-field>
-                <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-                  <div *ngIf="f.username.errors.required">Username is required</div>
+                <div
+                  *ngIf="submitted && f.username.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.username.errors.required">
+                    Username is required
+                  </div>
                 </div>
               </div>
               <div class="form-row">
@@ -49,8 +60,13 @@
                     [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
                   />
                 </mat-form-field>
-                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                  <div *ngIf="f.password.errors.required">Password is required</div>
+                <div
+                  *ngIf="submitted && f.password.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.password.errors.required">
+                    Password is required
+                  </div>
                 </div>
               </div>
             </div>

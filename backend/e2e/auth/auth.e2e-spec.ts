@@ -22,20 +22,20 @@ describe('Auth', () => {
   //
   const data = {
     domainA: {
-      slug: 'admin@domain-a.com',
+      slug: 'admin@domain.com',
       adminUser: {
         registration: {
-          username: 'admin@domain-a.com',
+          username: 'admin@domain.com',
           displayName: 'first-name last-name',
-          password: 'supersecretpassword',
+          password: 'pa55word',
         },
         jwt: { token: '' },
       },
       regularUser: {
         registration: {
-          username: 'user@domain-a.com',
+          username: 'user@domain.com',
           displayName: 'first-name last-name',
-          password: 'supersecretpassword',
+          password: 'pa55word',
         },
         jwt: { token: '' },
       },
@@ -46,7 +46,7 @@ describe('Auth', () => {
         registration: {
           username: 'admin@domain-b.com',
           displayName: 'regular user',
-          password: 'supersecretpassword',
+          password: 'pa55word',
         },
         jwt: { token: '' },
       },
@@ -57,7 +57,7 @@ describe('Auth', () => {
         registration: {
           username: 'group-admin@group-admin-domain.com',
           displayName: 'first-name last-name',
-          password: 'supersecretpassword',
+          password: 'pa55word',
         },
         jwt: { token: '' },
       },
