@@ -13,7 +13,7 @@
     "db-seed:dev": "ts-node cli migration-custom --filename seed-dev --direction up",
     "install-all-with-docker": "npm run install-all && npm run install-docker-mongodb",
     "install-all": "npm install & npm run install-backend & npm run install-cli & npm run install-client",
-    "install-backend": "cd ../backend && npm install && cd ..",
+    "install-backend": "cd ../backend && npm install && npm run build && cd ..",
     "install-cli": "cd ../cli && npm install && cd ..",
     "install-docker-mongodb": "cd ../backend && npm run install-docker-mongodb && cd ..",
     "install-client": "cd ../client && npm install && cd ..",

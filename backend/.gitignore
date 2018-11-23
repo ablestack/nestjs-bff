@@ -30,6 +30,7 @@ npm-debug.log
 
 # dist
 /dist
+/dist-e2e
 /public/lib
 /src/secretKeys.ts
 
