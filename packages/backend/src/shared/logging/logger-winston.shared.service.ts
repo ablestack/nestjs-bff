@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import * as FileSystem from 'fs';
 import * as winston from 'winston';
+import * as Transport from 'winston-transport';
 import { INestjsBffConfig } from '../../config/nestjs-bff.config';
 import { AppSharedProviderTokens } from '../app/app.shared.constants';
 import { LoggerSharedService } from './logger.shared.service';
@@ -12,8 +13,8 @@ export class LoggerWinstonSharedService implements LoggerSharedService {
   private static readonly TRANSPORT_KEY_FILE: string = 'file';
 
   private readonly appName: string;
-  private logger: winston.LoggerInstance;
-  private transports: winston.TransportInstance[] = [];
+  private logger: winston.Logger;
+  private transports: Transport[] = [];
 
   constructor(
     @Inject(AppSharedProviderTokens.Config.App)
@@ -34,7 +35,7 @@ export class LoggerWinstonSharedService implements LoggerSharedService {
         }
       }
     }
-    this.logger = new winston.Logger({
+    this.logger = winston.createLogger({
       transports: this.transports,
     });
   }
