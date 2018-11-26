@@ -1,6 +1,6 @@
-import { browser, by, element } from 'protractor';
+import { browser, element, by } from 'protractor';
 
-export class Angular2MaterialDashboardProPage {
+export class MaterialDashboardAngularPage {
   navigateTo() {
     return browser.get('/');
   }

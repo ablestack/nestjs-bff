@@ -1,10 +1,10 @@
-import { Angular2MaterialDashboardProPage } from './app.po';
+import { MaterialDashboardAngularPage } from './app.po';
 
-describe('angular2-material-dashboard-pro App', () => {
-  let page: Angular2MaterialDashboardProPage;
+describe('material-dashboard-angular App', () => {
+  let page: MaterialDashboardAngularPage;
 
   beforeEach(() => {
-    page = new Angular2MaterialDashboardProPage();
+    page = new MaterialDashboardAngularPage();
   });
 
   it('should display message saying app works', () => {

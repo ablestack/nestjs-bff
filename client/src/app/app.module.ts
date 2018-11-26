@@ -1,78 +1,63 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
+
 import { routing } from './app.routes';
-import { MatButtonModule, MatRadioModule, MatInputModule, MatMenuModule, MatCheckboxModule } from '@angular/material';
+import {
+  MatButtonModule,
+  MatRadioModule,
+  MatInputModule,
+  MatMenuModule,
+  MatCheckboxModule,
+} from '@angular/material';
+import { AppRoutingModule } from './app.routing';
+import { ComponentsModule } from './components/components.module';
 
 import { AppComponent } from './app.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { HomeComponent } from './dashboard/home/home.component';
-import { ProfileComponent } from './dashboard/profile/profile.component';
-import 'hammerjs';
-import { NavbarComponent } from './shared/navbar/navbar.component';
-import { FigurecardComponent } from './shared/figurecard/figurecard.component';
-import { ImagecardComponent } from './shared/imagecard/imagecard.component';
-import { TableComponent } from './dashboard/table/table.component';
-import { NotificationComponent } from './dashboard/notification/notification.component';
-import { MsgIconBtnComponent } from './shared/msgiconbtn/msgiconbtn.component';
-import { SweetAlertComponent } from './dashboard/sweetalert/sweetalert.component';
-import { LoginComponent } from './page/login/login.component';
-import { RootComponent } from './dashboard/root/root.component';
-import { RegisterComponent } from './page/register/register.component';
-import { LockComponent } from './page/lock/lock.component';
-import { HeaderComponent } from './shared/header/header.component';
-import { FooterComponent } from './shared/footer/footer.component';
-import { SettingsComponent } from './dashboard/settings/settings.component';
-import { PriceTableComponent } from './dashboard/component/pricetable/pricetable.component';
-import { PanelsComponent } from './dashboard/component/panels/panels.component';
 
-import { SettingsService } from './_services/settings.service';
-import { WizardComponent } from './dashboard/component/wizard/wizard.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { TableListComponent } from './table-list/table-list.component';
+import { LoginComponent } from './page/login/login.component';
+import { TypographyComponent } from './typography/typography.component';
+import { RegisterComponent } from './page/register/register.component';
+import { IconsComponent } from './icons/icons.component';
+import { MapsComponent } from './maps/maps.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { UpgradeComponent } from './upgrade/upgrade.component';
+import { AgmCoreModule } from '@agm/core';
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ErrorInterceptor, JwtInterceptor } from './_helpers';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SidebarComponent,
-    HomeComponent,
-    ProfileComponent,
-    NavbarComponent,
-    FigurecardComponent,
-    ImagecardComponent,
-    TableComponent,
-    NotificationComponent,
-    MsgIconBtnComponent,
-    SweetAlertComponent,
-    LoginComponent,
-    RootComponent,
-    RegisterComponent,
-    LockComponent,
-    HeaderComponent,
-    FooterComponent,
-    SettingsComponent,
-    PriceTableComponent,
-    PanelsComponent,
-    WizardComponent,
-  ],
   imports: [
-    BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpModule,
     HttpClientModule,
     routing,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
     MatButtonModule,
-    MatRadioModule,
     MatInputModule,
-    MatMenuModule,
-    MatCheckboxModule,
+    ComponentsModule,
+    RouterModule,
+    AppRoutingModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'YOUR_GOOGLE_MAPS_API_KEY',
+    }),
+  ],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    AdminLayoutComponent,
+
+    RegisterComponent,
   ],
   providers: [
-    SettingsService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
