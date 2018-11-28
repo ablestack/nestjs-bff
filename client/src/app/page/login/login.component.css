@@ -4,7 +4,7 @@
   z-index: 1;
 }
 .background {
-  background: url('../../../assets/img/lock_bg.jpg') no-repeat center center;
+  background: url('../../../assets/img/login_bg.jpg') no-repeat center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

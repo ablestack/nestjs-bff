@@ -1,64 +1,69 @@
-# Angular2 Material Dashboard Pro
+# Nestjs-BFF
 
-Material-design Dashboard
+<p align="center">
+  <i><a href="README.md">Overview</a></i>
+  &nbsp;&nbsp;&nbsp;
+	<a href="api/README.md">API</a>
+  &nbsp;&nbsp;&nbsp;
+	<a href="cli/README.md">CLI</a>
+  &nbsp;&nbsp;&nbsp;
+	<a href="webclient/README.md">Web Client</a>
+  &nbsp;&nbsp;&nbsp;
+	<a href="devops/README.md">DevOps</a>
+</p>
 
-## How to run it
+## Overview
 
-**- please ensure you have installed angular cli, otherwise `npm install -g @angular/cli`**
+NestJS-BFF is a starter project for those looking to fast-track building a strongly typed, enterprise-grade, modern NodeJs application, with supporting tooling.
 
-1. git clone https://github.com/wangdicoder/angular-material-dashboard
-2. cd angular-material-dashboard
-3. npm install
-4. ng serve -o (it will automatically open localhost:4200)
+This is a Mono-repo project containing an [API](api/README.md), companion [CLI](cli/README.md), [Web Client](webclient/README.md), and companion NPM packages. Follow the README navigation links for details on each of these. The core infrastructure is contained in NPM packages, so that projects build using this boilerplate can easily benefit from future updates though a simple NPM update command.
 
-## Further Plan
-- [x] Add Wizard Component
-- [ ] Responsive Sidebar
-- [ ] Consolidate form elements, like switch
+This implementation uses the [BFF](https://samnewman.io/patterns/architectural/bff/) pattern, leveraging [NestJS](https://nestjs.com/) as the primary framework for the backend API. The client-side example is in [Angular](https://angular.io/), although any client-side Javascript framework can easily be used, including [React](https://reactjs.org/), or [Vue](https://vuejs.org/) js.
 
-## Screenshot
+## Installation & Usage
 
-### Dashboard
+See the [DevOps](devops/README.md) documentation and folder for instructions and scripts to install, run, and maintain nestjs-bff applications
 
-![](https://github.com/wangdicoder/angular2-material-dashboard-pro/raw/master/screenshot/dashboard.png)
+## Background
 
-### Login
+[NestJS](https://nestjs.com/) is a fantastic project, and a pleasure to develop with. However, it is a framework by design, and not a complete production-ready web-application solution. Features such as logging, configuration management, data-base migrations, and even authentication need to be learned, assembled, and configured before they can be used.
 
-![](https://github.com/wangdicoder/angular2-material-dashboard-pro/raw/master/screenshot/login.png)
+This project aims to provide an enterprise-ready web-application skeleton, out-of-the-box, and built on top of the nest-js framework.
 
-### Register
-![](https://github.com/wangdicoder/angular2-material-dashboard-pro/raw/master/screenshot/register.png)
+### Developer Benefits
 
-### Lock
-![](https://github.com/wangdicoder/angular2-material-dashboard-pro/raw/master/screenshot/lock.png)
+There are a number of benefits that make NestJs and Angular a very compelling web development stack:
 
-### User Profile
-![](https://github.com/wangdicoder/angular2-material-dashboard-pro/raw/master/screenshot/profile.png)
+- NestJS and Angular are both versatile and highly compatible frameworks, that provide a great developer experience
+- Significant reduction in context-switching between frontend and backend development
+  - TypeScript language for both the backend and frontend
+  - Strongly type on both the backend and frontend
+  - Leverages the Node JavaScript framework for both backend and frontend development
+  - Incredibly similar architecture and design patterns
+- Backend framework can be leveraged for other execution contexts, including CLI (example included) or even Desktop
+- Leverages fully open source technology
+- Hosting options are broad, and flexible, with multiple value-options, including broad native cloud hosting support (including Heroku)
 
-### Sweet Alert
-![](https://github.com/wangdicoder/angular2-material-dashboard-pro/raw/master/screenshot/sweetalert.gif)
+# Notes
 
-### Notification
-![](https://github.com/wangdicoder/angular2-material-dashboard-pro/raw/master/screenshot/notification.gif)
+- The API can run independently from the CLI
+- The CLI requires the API to compile and run
+- The webclient can run independently, but requires the API to be running to complete API requests, including for authentication
 
-### Settings
-![](https://github.com/wangdicoder/angular2-material-dashboard-pro/raw/master/screenshot/settings.gif)
+# Contributions
 
-### Table
-![](https://github.com/wangdicoder/angular2-material-dashboard-pro/raw/master/screenshot/table.png)
+Contributions are not only welcome, but encouraged. Please help make this better! See the [Contributions Guide](CONTRIBUTIONS.md) for details.
 
-### Price
-![](https://github.com/wangdicoder/angular2-material-dashboard-pro/raw/master/screenshot/price.png)
+# Attributions
 
-### Panels
-![](https://github.com/wangdicoder/angular2-material-dashboard-pro/raw/master/screenshot/panel.png)
+See the [Attributions](attributions/ATTRIBUTIONS.md) section.
 
-## Acknowledge 
+## Readme Navigation
 
-- [Creative Tim](https://github.com/creativetimofficial)
-- [Sweet Alert 2](https://github.com/limonte/sweetalert2)
-- [Bootstrap Notify](http://bootstrap-notify.remabledesigns.com)
+Further details on each of the systems contained in this project can be found via the following links:
 
-## License
-
-MIT
+- _[Overview](README.md)_
+- [API](api/README.md)
+- [CLI](cli/README.md)
+- [Web Client](webclient/README.md)
+- [DevOps](devops/README.md)
