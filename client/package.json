@@ -7,7 +7,7 @@
   "homepage": "https://github.com/ahrnee/nestjs-bff",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --open --hmr --proxy-config proxy.conf.json",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
