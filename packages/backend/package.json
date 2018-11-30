@@ -4,6 +4,7 @@
   "description": "A backend module for nestjs-bff",
   "author": "ahrnee",
   "license": "MIT",
+  "homepage": "https://github.com/ahrnee/nestjs-bff",
   "scripts": {
     "build": "npm run clean:dist && npm run build-only",
     "build-and-link": "npm run build && cd dist && npm link",

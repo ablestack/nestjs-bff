@@ -5,6 +5,7 @@
   "description": "A Nestjs Backend-For-Frontend with CLI",
   "author": "ahrnee",
   "license": "MIT",
+  "homepage": "https://github.com/ahrnee/nestjs-bff",
   "scripts": {
     "build": "rm -rf dist && tsc --build",
     "e2e-with-docker": "concurrently --kill-others \"npm run mongodb-docker\" \"npm run e2e\"",

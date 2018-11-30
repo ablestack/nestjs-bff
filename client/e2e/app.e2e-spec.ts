@@ -1,14 +1,14 @@
-import { Angular2MaterialDashboardProPage } from './app.po';
+import { CoreUIPage } from './app.po';
 
-describe('angular2-material-dashboard-pro App', () => {
-  let page: Angular2MaterialDashboardProPage;
+describe('core-ui App', function() {
+  let page: CoreUIPage;
 
   beforeEach(() => {
-    page = new Angular2MaterialDashboardProPage();
+    page = new CoreUIPage();
   });
 
-  it('should display message saying app works', () => {
+  it('should display footer containing creativeLabs', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    expect(page.getParagraphText()).toContain('creativeLabs');
   });
 });
