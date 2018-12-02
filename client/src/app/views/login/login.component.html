@@ -3,17 +3,20 @@
     <div class="container">
       <div class="row">
         <div class="col-md-8 mx-auto">
-          <div class="card-group">
-            <div class="card p-4">
-              <div class="card-header">Test Login Credentials</div>
-              <div class="card-body">
-                Test Username: admin@domain.com <br />
-                Password: supersecretpassword <br />
-                <br />
-                Test Username: user@domain.com <br />
-                Password: supersecretpassword <br />
-              </div>
+          <div class="card p-4">
+            <div class="card-header">Test Login Credentials</div>
+            <div class="card-body">
+              <button type="button" class="btn btn-link px-0" (click)="fillAdminCredentials()">Admin</button>: admin@domain.com
+              (supersecretpassword)<br />
+              <button type="button" class="btn btn-link px-0" (click)="fillUserCredentials()">User</button>: user@domain.com
+              (supersecretpassword)<br />
             </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <div class="card-group">
             <div class="card p-4">
               <div class="card-body">
                 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
@@ -32,6 +35,9 @@
                       required
                     />
                   </div>
+                  <div *ngIf="f.username.invalid && (f.username.dirty || f.username.touched)" class="mb-4 alert alert-danger">
+                    Username not valid
+                  </div>
                   <div class="input-group mb-4">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="icon-lock"></i></span>
@@ -45,6 +51,9 @@
                       required
                     />
                   </div>
+                  <div *ngIf="f.password.invalid && (f.password.dirty || f.password.touched)" class="mb-4 alert alert-danger">
+                    Password not valid
+                  </div>
                   <div class="row">
                     <div class="col-6">
                       <button type="submit" [disabled]="!loginForm.valid || loading" class="btn btn-primary px-4">
@@ -56,6 +65,11 @@
                       </button>
                     </div>
                     <div class="col-6 text-right"><button type="button" class="btn btn-link px-0">Forgot password?</button></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12" style="margin-top:5px">
+                      <div *ngIf="error" class="mb-4 alert alert-danger">{{ error }}</div>
+                    </div>
                   </div>
                 </form>
               </div>
