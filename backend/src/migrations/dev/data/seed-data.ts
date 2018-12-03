@@ -40,7 +40,7 @@ export const data = {
       _id: new ObjectId('5be02a02be151604dc7e8b69'),
       local: {
         email: 'admin@domain.com',
-        hashedPassword: '$2a$08$zkHxwJYfAFx6.gS.t.JkXO9E4xnxUo9Z/uWUO.xU17mRyyAsN4tYq',
+        hashedPassword: '$2a$08$q9rfQYDBcIghPXMT3oeLIeCbB5l5SNbUnynDsKhqrCjWEEbrlQDfW',
       },
       userId: new ObjectId('5be02a02be151604dc7e8b68'),
       createdAt: new Date('2018-11-05T11:31:14.834+0000'),
@@ -51,7 +51,7 @@ export const data = {
       _id: new ObjectId('5be02a02be151604dc7e8b6e'),
       local: {
         email: 'user@domain.com',
-        hashedPassword: '$2a$08$GrA2swp/INR5qx5FN.5A2engU8t4NvIlwed/ngxNhTcXgA7uBE9y.',
+        hashedPassword: '$2a$08$PlLJMrM/LtfoW8JdCyT3zemEybdaHLh/ErimQffxoE4LiLDw0CUkq',
       },
       userId: new ObjectId('5be02a02be151604dc7e8b6d'),
       createdAt: new Date('2018-11-05T11:31:14.920+0000'),

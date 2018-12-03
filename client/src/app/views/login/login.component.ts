@@ -6,7 +6,7 @@ import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
-  templateUrl: 'login.component.html'
+  templateUrl: 'login.component.html',
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
@@ -19,13 +19,13 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
   ) {}
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
     });
 
     // reset login status
@@ -62,17 +62,17 @@ export class LoginComponent implements OnInit {
           console.log('login-error', error);
           this.error = error;
           this.loading = false;
-        }
+        },
       );
   }
 
   fillAdminCredentials() {
     this.f.username.setValue('admin@domain.com');
-    this.f.password.setValue('supersecretpassword');
+    this.f.password.setValue('pa55word');
   }
 
   fillUserCredentials() {
     this.f.username.setValue('user@domain.com');
-    this.f.password.setValue('supersecretpassword');
+    this.f.password.setValue('pa55word');
   }
 }
