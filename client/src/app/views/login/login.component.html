@@ -96,8 +96,9 @@
           <div class="card mx-4">
             <div class="card-body p-4">
               <h2>Social Login</h2>
-              <button class="btn btn-block btn-facebook mt-2" type="button"><span>facebook</span></button>
-              <button class="btn btn-block btn-twitter mt-2" type="button"><span>twitter</span></button>
+              <button class="btn btn-block btn-facebook mt-2" type="button" (click)="onFacebookLogin()"><span>facebook</span></button>
+              <button class="btn btn-block btn-twitter mt-2" type="button" (click)="onTwitterLogin()"><span>twitter</span></button>
+              <button class="btn btn-block btn-google-plus mt-2" type="button" (click)="onGoogleLogin()"><span>google</span></button>
             </div>
           </div>
         </div>

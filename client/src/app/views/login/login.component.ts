@@ -75,4 +75,16 @@ export class LoginComponent implements OnInit {
     this.f.username.setValue('user@domain.com');
     this.f.password.setValue('pa55word');
   }
+
+  onFacebookLogin() {
+    alert('Work In Progress');
+  }
+
+  onTwitterLogin() {
+    alert('Work In Progress');
+  }
+
+  onGoogleLogin() {
+    alert('Work In Progress');
+  }
 }
