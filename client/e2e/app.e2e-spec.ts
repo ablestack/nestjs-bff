@@ -1,14 +1,14 @@
-import { CoreUIPage } from './app.po';
+import { NestJSBFFPage } from './app.po';
 
-describe('core-ui App', function() {
-  let page: CoreUIPage;
+describe('NestJS-BFF App', function() {
+  let page: NestJSBFFPage;
 
   beforeEach(() => {
-    page = new CoreUIPage();
+    page = new NestJSBFFPage();
   });
 
-  it('should display footer containing creativeLabs', () => {
+  it('should display footer containing NestJS-BFF', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toContain('creativeLabs');
+    expect(page.getParagraphText()).toContain('NestJS-BFF');
   });
 });

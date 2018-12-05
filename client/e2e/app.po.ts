@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class CoreUIPage {
+export class NestJSBFFPage {
   navigateTo() {
     return browser.get('/');
   }

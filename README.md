@@ -14,9 +14,15 @@
 
 ## Overview
 
-NestJS-BFF is a starter project for those looking to fast-track building a strongly typed, enterprise-grade, modern NodeJs application, with supporting tooling.
+NestJS-BFF is a full-stack TypeScript solution, and starter project. It is intended for developers who are looking to fast-track building a strongly typed, enterprise-grade, modern NodeJs application, with supporting tooling.
 
 This implementation uses the [BFF](https://samnewman.io/patterns/architectural/bff/) pattern, leveraging [NestJS](https://nestjs.com/) as the primary framework for the backend. The client-side example is in [Angular](https://angular.io/), although any client-side Javascript framework can easily be used, including [React](https://reactjs.org/), or [Vue](https://vuejs.org/) js.
+
+## Screenshots
+
+![Login - includes local and social auth](docs/images/login.jpg 'Login')
+
+![Dashboard - leverages CoreUI template](docs/images/dashboard.jpg 'Dashboard')
 
 ## Contents
 
