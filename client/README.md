@@ -5,9 +5,9 @@
   &nbsp;&nbsp;&nbsp;
 	<a href="../api/README.md">API</a>
   &nbsp;&nbsp;&nbsp;
-	<i><a href="README.md">CLI</a></i>
+	<i><a href="../cli/README.md">CLI</a></i>
   &nbsp;&nbsp;&nbsp;
-	<a href="../webclient/README.md">Web Client</a>
+	<a href="README.md">Client</a>
   &nbsp;&nbsp;&nbsp;
 	<a href="../devops/README.md">DevOps</a>
 </p>
