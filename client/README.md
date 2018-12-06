@@ -5,7 +5,7 @@
   &nbsp;&nbsp;&nbsp;
 	<i><a href="README.md">Client</a></i>
   &nbsp;&nbsp;&nbsp;
-	<a href="../api/README.md">API</a>
+	<a href="../backend/README.md">Backend</a>
   &nbsp;&nbsp;&nbsp;
 	<a href="../cli/README.md">CLI</a>
   &nbsp;&nbsp;&nbsp;
@@ -65,6 +65,6 @@ Further details on each of the systems contained in this project can be found vi
 
 - [Overview](../README.md)
 - _[Client](README.md)_
-- [API](../api/README.md)
+- [Backend](../backend/README.md)
 - [CLI](../cli/README.md)
 - [DevOps](../devops/README.md)
