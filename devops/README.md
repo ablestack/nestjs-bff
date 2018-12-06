@@ -1,7 +1,7 @@
 # Nestjs-BFF
 
 <p align="center">
-  <i><a href="../README.md">Overview</a></i>
+  <a href="../README.md">Overview</a>
   &nbsp;&nbsp;&nbsp;
 	<a href="../client/README.md">Client</a>
   &nbsp;&nbsp;&nbsp;
@@ -9,7 +9,7 @@
   &nbsp;&nbsp;&nbsp;
 	<a href="../cli/README.md">CLI</a>
   &nbsp;&nbsp;&nbsp;
-	<a href="README.md">DevOps</a>
+	<i><a href="README.md">DevOps</a></i>
 </p>
 
 ## Overview
