@@ -3,11 +3,11 @@
 <p align="center">
   <i><a href="../README.md">Overview</a></i>
   &nbsp;&nbsp;&nbsp;
+	<a href="../client/README.md">Client</a>
+  &nbsp;&nbsp;&nbsp;
 	<a href="../backend/README.md">Backend</a>
   &nbsp;&nbsp;&nbsp;
 	<a href="../cli/README.md">CLI</a>
-  &nbsp;&nbsp;&nbsp;
-	<a href="../client/README.md">Client</a>
   &nbsp;&nbsp;&nbsp;
 	<a href="README.md">DevOps</a>
 </p>
@@ -39,10 +39,8 @@ To start the Client and Backend, navigate to the devops folder of Nestjs-Bff rep
 
 ```bash
 # run backend, client, and a Docker hosted MongoDB instance
-
-
-
 $ npm run start-all-with-docker
+
 ```
 
 ## Local Package Development
@@ -72,7 +70,7 @@ If you would like to make permanent custom updates to the companion Nestjs-bff p
 Further details on each of the systems contained in this project can be found via the following links:
 
 - [Overview](../README.md)
+- [Client](../client/README.md)
 - [API](../backend/README.md)
 - [CLI](../cli/README.md)
-- [Client](../README.md)
 - _[DevOps](devops/README.md)_

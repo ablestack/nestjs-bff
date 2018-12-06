@@ -3,11 +3,11 @@
 <p align="center">
   <i><a href="README.md">Overview</a></i>
   &nbsp;&nbsp;&nbsp;
+	<a href="client/README.md">Client</a>
+  &nbsp;&nbsp;&nbsp;
 	<a href="backend/README.md">Backend</a>
   &nbsp;&nbsp;&nbsp;
 	<a href="cli/README.md">CLI</a>
-  &nbsp;&nbsp;&nbsp;
-	<a href="client/README.md">Client</a>
   &nbsp;&nbsp;&nbsp;
 	<a href="devops/README.md">DevOps</a>
 </p>
@@ -98,7 +98,7 @@ See the [Attributions](attributions/ATTRIBUTIONS.md) section.
 Further details on each of the systems contained in this project can be found via the following links:
 
 - _[Overview](README.md)_
+- [Client](client/README.md)
 - [Backend](backend/README.md)
 - [CLI](cli/README.md)
-- [Client](client/README.md)
 - [DevOps](devops/README.md)

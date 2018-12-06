@@ -3,11 +3,11 @@
 <p align="center">
   <a href="../../README.md">Overview</a>
   &nbsp;&nbsp;&nbsp;
+	<a href="../client/README.md">Client</a>
+  &nbsp;&nbsp;&nbsp;
 	<i><a href="README.md">Backend</a></i>
   &nbsp;&nbsp;&nbsp;
 	<a href="../cli/README.md">CLI</a>
-  &nbsp;&nbsp;&nbsp;
-	<a href="../client/README.md">Client</a>
   &nbsp;&nbsp;&nbsp;
 	<a href="../devops/README.md">DevOps</a>
 </p>
@@ -82,7 +82,7 @@ $ npm run e2e-with-docker
 Further details on each of the systems contained in this project can be found via the following links:
 
 - [Overview](../README.md)
+- [Client](../client/README.md)
 - _[Backend](README.md)_
 - [CLI](../cli/README.md)
-- [Client](../client/README.md)
 - [DevOps](../devops/README.md)

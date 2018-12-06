@@ -3,11 +3,11 @@
 <p align="center">
   <a href="../README.md">Overview</a>
   &nbsp;&nbsp;&nbsp;
+	<i><a href="README.md">Client</a></i>
+  &nbsp;&nbsp;&nbsp;
 	<a href="../api/README.md">API</a>
   &nbsp;&nbsp;&nbsp;
 	<a href="../cli/README.md">CLI</a>
-  &nbsp;&nbsp;&nbsp;
-	<i><a href="README.md">Client</a></i>
   &nbsp;&nbsp;&nbsp;
 	<a href="../devops/README.md">DevOps</a>
 </p>
@@ -64,7 +64,7 @@ $ npm build
 Further details on each of the systems contained in this project can be found via the following links:
 
 - [Overview](../README.md)
+- _[Client](README.md)_
 - [API](../api/README.md)
 - [CLI](../cli/README.md)
-- _[Web Client](README.md)_
 - [DevOps](../devops/README.md)
