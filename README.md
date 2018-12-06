@@ -18,9 +18,11 @@ NestJS-BFF is a full-stack TypeScript solution, and starter project. It is inten
 
 This implementation uses the [BFF](https://samnewman.io/patterns/architectural/bff/) pattern, leveraging [NestJS](https://nestjs.com/) as the primary framework for the backend. The client-side example is in [Angular](https://angular.io/), although any client-side Javascript framework can easily be used, including [React](https://reactjs.org/), or [Vue](https://vuejs.org/) js.
 
-## Screenshots
+## Architecture Overview
 
-![Login - includes local and social auth](docs/images/login.jpg 'Login')
+![NestJS-BFF Architecture Overview](docs/images/NestJS-BFF-ArchitectureOverview.png 'NestJS-BFF Architecture Overview')
+
+## Client Screenshot
 
 ![Dashboard - leverages CoreUI template](docs/images/dashboard.jpg 'Dashboard')
 
@@ -50,7 +52,7 @@ See the [DevOps](devops/README.md) documentation and folder for instructions and
 ## Structure
 
 - Frontend **Client Layer** example, built with Angular
-- Universal **Universal Layer** layer that can be shared between the backend and the client
+- Global **Global Layer** layer that can be shared between the backend and the client
 - Backend **Hosting Layer** for exposing Application and Domain Services over a multiple transports
 - Backend **Application Services Layer** for composing Domain Services
 - Backend **Domain Services Layer** for encapsulating core domain logic
