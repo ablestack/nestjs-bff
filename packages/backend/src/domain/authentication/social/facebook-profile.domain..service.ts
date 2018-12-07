@@ -1,4 +1,4 @@
-import { IAuthenticationToken } from '@nestjs-bff/universal/interfaces/authentication-token.interface';
+import { IAuthenticationToken } from '@nestjs-bff/global/interfaces/authentication-token.interface';
 import { Inject, Injectable } from '@nestjs/common';
 import { INestjsBffConfig } from '../../../config/nestjs-bff.config';
 import { AppSharedProviderTokens } from '../../../shared/app/app.shared.constants';

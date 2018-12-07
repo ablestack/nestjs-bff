@@ -18,7 +18,7 @@
     "install-docker-mongodb": "cd ../backend && npm run install-docker-mongodb && cd ..",
     "install-client": "cd ../client && npm install && cd ..",
     "link-all": "cd ../backend && npm run link && cd ../cli && npm run link && cd ../client && npm run link",
-    "link-initialize-all": "cd ../packages/universal && npm run build-and-link && cd ../backend && npm run build-and-link",
+    "link-initialize-all": "cd ../packages/global && npm run build-and-link && cd ../backend && npm run build-and-link",
     "start-all-with-docker": "concurrently --kill-others \"npm run start-docker-mongodb\" \"npm run start-backend\" \"npm run start-client\"",
     "start": "concurrently --kill-others \"npm run start-backend\" \"npm run start-client\"",
     "start-backend": "cd ../backend && npm run start",

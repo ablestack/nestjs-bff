@@ -1,10 +1,10 @@
 import { AlwaysTrue } from '@nestjs-bff/backend/domain/authorization/authorization-tests/always-true.authorizationtest';
 import { CheckOrganizationRoles } from '@nestjs-bff/backend/domain/authorization/authorization-tests/check-organization-roles.authtest';
 import { Authorization } from '@nestjs-bff/backend/host/http/core/decorators/authorization.http.decorator';
-import { OrganizationRoles } from '@nestjs-bff/universal/constants/roles.constants';
+import { OrganizationRoles } from '@nestjs-bff/global/constants/roles.constants';
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { CreateCatCommand } from '../../../../app/universal/commands/create-cat.command';
-import { CatEntity } from '../../../../app/universal/entities/cat.entity';
+import { CreateCatCommand } from '../../../../app/global/commands/create-cat.command';
+import { CatEntity } from '../../../../app/global/entities/cat.entity';
 import { CatRepoCache } from '../../../domain/cats/repo/cat.domain.cache-repo';
 import { CatRepoWrite } from '../../../domain/cats/repo/cat.domain.write-repo';
 @Controller('/cats')

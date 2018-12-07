@@ -2,7 +2,7 @@ import { BaseRepoRead } from '@nestjs-bff/backend/domain/core/repo/base.repo-rea
 import { LoggerSharedService } from '@nestjs-bff/backend/shared/logging/logger.shared.service';
 import { Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { CatEntity } from '../../../universal/entities/cat.entity';
+import { CatEntity } from '../../../global/entities/cat.entity';
 import { CatProviderTokens } from '../cat.domain.constants';
 import { ICatModel } from '../model/cat.domain.model';
 

@@ -1,9 +1,9 @@
-import { CreateOrganizationMemberCommand } from '@nestjs-bff/universal/commands/auth/create-organization-member.command';
+import { CreateOrganizationMemberCommand } from '@nestjs-bff/global/commands/auth/create-organization-member.command';
 import {
   OrganizationRoles,
   Roles,
-} from '@nestjs-bff/universal/constants/roles.constants';
-import { AuthorizationEntity } from '@nestjs-bff/universal/entities/authorization.entity';
+} from '@nestjs-bff/global/constants/roles.constants';
+import { AuthorizationEntity } from '@nestjs-bff/global/entities/authorization.entity';
 import { Injectable } from '@nestjs/common';
 import { AuthenticationDomainRepoWrite } from '../../domain/authentication/repo/authentication.domain.repo-write';
 import { generateHashedPassword } from '../../domain/authentication/utils/encryption.domain.util';

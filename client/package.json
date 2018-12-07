@@ -12,7 +12,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "link": "npm link @nestjs-bff/universal"
+    "link": "npm link @nestjs-bff/global"
   },
   "private": true,
   "dependencies": {

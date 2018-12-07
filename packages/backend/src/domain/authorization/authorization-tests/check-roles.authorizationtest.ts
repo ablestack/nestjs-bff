@@ -1,5 +1,5 @@
-import { Roles } from '@nestjs-bff/universal/constants/roles.constants';
-import { AuthorizationEntity } from '@nestjs-bff/universal/entities/authorization.entity';
+import { Roles } from '@nestjs-bff/global/constants/roles.constants';
+import { AuthorizationEntity } from '@nestjs-bff/global/entities/authorization.entity';
 import { AuthorizationTest } from './authorization-test.abstract';
 import { hasRole } from './authorization-test.utils';
 

@@ -1,6 +1,6 @@
-# nestjs-bff-universal
+# nestjs-bff-global
 
-This is a companion package for [nestjs-bff](https://github.com/ahrnee/nestjs-bff). This package contains the universal code that is shared between the backend api and the client. Typically, this is contracts and DTOs, but it can also contain universal logic.
+This is a companion package for [nestjs-bff](https://github.com/ahrnee/nestjs-bff). This package contains the global code that is shared between the backend api and the client. Typically, this is contracts and DTOs, but it can also contain global logic.
 
 ## Overview
 

@@ -1,4 +1,4 @@
-import { AuthorizationEntity } from '@nestjs-bff/universal/entities/authorization.entity';
+import { AuthorizationEntity } from '@nestjs-bff/global/entities/authorization.entity';
 
 export abstract class AuthorizationTest {
   abstract isAuthorized(

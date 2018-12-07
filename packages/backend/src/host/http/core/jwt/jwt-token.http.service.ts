@@ -1,5 +1,5 @@
-import { AuthorizationEntity } from '@nestjs-bff/universal/entities/authorization.entity';
-import { IAuthenticationToken } from '@nestjs-bff/universal/interfaces/authentication-token.interface';
+import { AuthorizationEntity } from '@nestjs-bff/global/entities/authorization.entity';
+import { IAuthenticationToken } from '@nestjs-bff/global/interfaces/authentication-token.interface';
 import { Inject, Injectable } from '@nestjs/common';
 import { sign, SignOptions } from 'jsonwebtoken';
 import { INestjsBffConfig } from '../../../../config/nestjs-bff.config';
