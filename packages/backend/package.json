@@ -5,18 +5,27 @@
   "author": "ahrnee",
   "license": "MIT",
   "homepage": "https://github.com/ahrnee/nestjs-bff",
+  "directories": {
+    "src": "src",
+    "test": "__tests__"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahrnee/nestjs-bff.git"
+  },
   "scripts": {
-    "build": "npm run clean:dist && npm run build-only",
-    "build-and-link": "npm run build && cd dist && npm link",
-    "build-only": "npm install && tsc && npm run copy:package",
-    "clean:dist": "cd dist && ls | grep -v node_modules | xargs rm -rf && cd ..",
-    "copy:package": "cp -rf package.json README.md LICENSE dist && cp -rf 'src/shared/migrations/templates/migrationTemplate.ts' 'dist/shared/migrations/templates/' ",
-    "pub": "npm run build && cd dist && npm publish --access public",
-    "test": "jest --config=jest.json",
-    "test:cov": "jest --coverage"
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/ahrnee/nestjs-bff/issues"
   },
   "dependencies": {
-    "@nestjs-bff/universal": "^0.1.0",
+    "@nestjs-bff/global": "^0.1.0",
     "@nestjs/common": "^5.4.0",
     "@nestjs/core": "^5.4.0",
     "@nestjs/testing": "^5.4.0",
