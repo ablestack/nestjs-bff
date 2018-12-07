@@ -1,5 +1,6 @@
 # dependencies
 node_modules
+packages/*/lib
 
 # IDE
 /.idea
@@ -10,6 +11,7 @@ node_modules
 
 # misc
 npm-debug.log
+lerna-debug.log
 
 # example
 /quick-start
