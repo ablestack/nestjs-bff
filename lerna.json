@@ -1,4 +1,14 @@
 {
+  "version": "0.3.0",
   "packages": ["packages/*"],
-  "version": "0.2.0"
+  "npmClient": "npm",
+  "command": {
+    "publish": {
+      "ignoreChanges": ["*.md"]
+    },
+    "bootstrap": {
+      "ignore": "component-*",
+      "npmClientArgs": ["--no-package-lock"]
+    }
+  }
 }
