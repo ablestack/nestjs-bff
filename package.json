@@ -1,6 +1,9 @@
 {
   "name": "root",
   "private": true,
+  "scripts": {
+    "publish": "lerna run tsc && lerna publish"
+  },
   "devDependencies": {
     "@types/node": "^10.12.12",
     "lerna": "^3.5.1",

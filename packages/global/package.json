@@ -19,6 +19,7 @@
     "url": "git+https://github.com/ahrnee/nestjs-bff.git"
   },
   "scripts": {
+    "tsc": "tsc",
     "prepublishOnly": "tsc -b .",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
