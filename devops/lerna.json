@@ -1,13 +1,23 @@
 {
-  "version": "0.4.0-alpha.0",
-  "packages": [".", "../backend", "../cli", "../client", "../packages/*"],
+  "version": "0.4.0",
+  "packages": [
+    ".",
+    "../backend",
+    "../cli",
+    "../client",
+    "../packages/*"
+  ],
   "npmClient": "npm",
   "command": {
     "publish": {
-      "ignoreChanges": ["*.md"]
+      "ignoreChanges": [
+        "*.md"
+      ]
     },
     "bootstrap": {
-      "npmClientArgs": ["--no-package-lock"]
+      "npmClientArgs": [
+        "--no-package-lock"
+      ]
     }
   }
 }

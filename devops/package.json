@@ -26,11 +26,10 @@
     "packages:link": "tsc --build ../packages && lerna bootstrap",
     "packages:publish": "tsc --build ../packages && lerna publish"
   },
-  "dependencies": {},
   "devDependencies": {
     "concurrently": "^3.6.0",
-    "ts-node": "^4.1.0",
     "lerna": "^3.5.1",
+    "ts-node": "^4.1.0",
     "typescript": "^3.2.2"
   }
 }
