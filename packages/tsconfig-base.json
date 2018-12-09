@@ -11,7 +11,7 @@
     "noUnusedLocals": true,
     "module": "commonjs",
     "noImplicitAny": false,
-    "removeComments": true,
+    "removeComments": false,
     "noLib": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,

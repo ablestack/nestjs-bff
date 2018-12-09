@@ -15,7 +15,7 @@ export class MigrationsSharedService {
   private readonly relativePaths = {
     migrationScriptsRoot: 'src/migrations',
     customScripts: 'src/migrations/custom',
-    migrationsTemplate: './templates/migrationTemplate.ts',
+    migrationsTemplate: '../../../templates/migrationTemplate.ts',
   };
 
   private readonly absolutePaths = {
@@ -32,24 +32,12 @@ export class MigrationsSharedService {
     private readonly migrationModel: Model<IMigration>,
   ) {
     // set absolute paths
-    this.absolutePaths.migrationScriptsRoot = path.resolve(
-      process.cwd(),
-      this.relativePaths.migrationScriptsRoot,
-    );
-    this.absolutePaths.customScripts = path.resolve(
-      process.cwd(),
-      this.relativePaths.customScripts,
-    );
-    this.absolutePaths.migrationsTemplate = path.resolve(
-      __dirname,
-      this.relativePaths.migrationsTemplate,
-    );
+    this.absolutePaths.migrationScriptsRoot = path.resolve(process.cwd(), this.relativePaths.migrationScriptsRoot);
+    this.absolutePaths.customScripts = path.resolve(process.cwd(), this.relativePaths.customScripts);
+    this.absolutePaths.migrationsTemplate = path.resolve(__dirname, this.relativePaths.migrationsTemplate);
 
     // initialize objects
-    this.template = fs.readFileSync(
-      this.absolutePaths.migrationsTemplate,
-      'utf-8',
-    );
+    this.template = fs.readFileSync(this.absolutePaths.migrationsTemplate, 'utf-8');
   }
 
   /**
@@ -58,9 +46,7 @@ export class MigrationsSharedService {
    */
   public async autoRunMigrations(migrationGroup: string) {
     try {
-      this.bffLoggerService.info(
-        `About to run migrations for group: ${migrationGroup}`,
-      );
+      this.bffLoggerService.info(`About to run migrations for group: ${migrationGroup}`);
       await this.sync(migrationGroup, false);
       await this.runMigration(migrationGroup);
       this.bffLoggerService.info(`Ran migrations for group: ${migrationGroup}`);
@@ -74,35 +60,19 @@ export class MigrationsSharedService {
    * @param direction {string}
    * @param migrationRelativePath {string}
    */
-  public async runCustomMigration(
-    direction: string = 'up',
-    migrationRelativePath: string,
-  ) {
+  public async runCustomMigration(direction: string = 'up', migrationRelativePath: string) {
     tsnode.register({ transpileOnly: true } as tsnode.Options);
-    const migrationFilePath = this.getCustomMigrationFilePath(
-      migrationRelativePath,
-    );
+    const migrationFilePath = this.getCustomMigrationFilePath(migrationRelativePath);
 
     try {
-      const directionalMigrationFunction = await this.getDirectionalMigrationFunction(
-        migrationFilePath,
-        direction,
-        migrationRelativePath,
-      );
+      const directionalMigrationFunction = await this.getDirectionalMigrationFunction(migrationFilePath, direction, migrationRelativePath);
       if (!directionalMigrationFunction) return;
 
       await this.runMigrationFunction(directionalMigrationFunction);
-      this.bffLoggerService.log(
-        `Migration successfully ran: ${migrationRelativePath} (${direction.toUpperCase()})`,
-      );
+      this.bffLoggerService.log(`Migration successfully ran: ${migrationRelativePath} (${direction.toUpperCase()})`);
     } catch (e) {
-      this.bffLoggerService.error(
-        `Failed to run migration ${migrationFilePath} due to an error.`,
-        e,
-      );
-      this.bffLoggerService.warn(
-        `Not continuing. Make sure your data is in consistent state`,
-      );
+      this.bffLoggerService.error(`Failed to run migration ${migrationFilePath} due to an error.`, e);
+      this.bffLoggerService.warn(`Not continuing. Make sure your data is in consistent state`);
       throw e;
     }
   }
@@ -122,20 +92,14 @@ export class MigrationsSharedService {
       name: migrationName,
     });
     if (!!existingMigration) {
-      throw new Error(
-        `There is already a migration with name '${migrationName}' in the database`,
-      );
+      throw new Error(`There is already a migration with name '${migrationName}' in the database`);
     }
 
     const migrationCreatedDate = Date.now();
 
     // create file system file
     const newMigrationFileName = `${migrationCreatedDate}-${migrationName}.ts`;
-    const newMigrationFilePath = path.join(
-      this.absolutePaths.migrationScriptsRoot,
-      migrationGroup,
-      newMigrationFileName,
-    );
+    const newMigrationFilePath = path.join(this.absolutePaths.migrationScriptsRoot, migrationGroup, newMigrationFileName);
     fs.writeFileSync(newMigrationFilePath, this.template);
 
     // create instance in db
@@ -145,9 +109,7 @@ export class MigrationsSharedService {
     });
 
     await createdMigration.save();
-    this.bffLoggerService.log(
-      `Created migration ${migrationName} in ${newMigrationFilePath}.`,
-    );
+    this.bffLoggerService.log(`Created migration ${migrationName} in ${newMigrationFilePath}.`);
   }
 
   /**
@@ -157,20 +119,14 @@ export class MigrationsSharedService {
    * @param migrationName
    * @param direction
    */
-  public async runMigration(
-    migrationGroup: string,
-    direction: string = 'up',
-    migrationName?: string,
-  ) {
+  public async runMigration(migrationGroup: string, direction: string = 'up', migrationName?: string) {
     const untilMigration = migrationName
       ? await this.migrationModel.findOne({ name: migrationName })
       : await this.migrationModel.findOne().sort({ createdAt: -1 });
 
     if (!untilMigration) {
       if (migrationName) {
-        throw new ReferenceError(
-          'Could not find that migration in the database',
-        );
+        throw new ReferenceError('Could not find that migration in the database');
       }
       // no migrations to run
       this.bffLoggerService.info(`There are no migrations to run`);
@@ -191,9 +147,7 @@ export class MigrationsSharedService {
     }
 
     const sortDirection = direction === 'up' ? 1 : -1;
-    const migrationsToRun = await this.migrationModel
-      .find(query)
-      .sort({ createdAt: sortDirection });
+    const migrationsToRun = await this.migrationModel.find(query).sort({ createdAt: sortDirection });
 
     if (!migrationsToRun.length) {
       this.bffLoggerService.warn('There are no migrations to run');
@@ -205,48 +159,26 @@ export class MigrationsSharedService {
     tsnode.register({ transpileOnly: true } as tsnode.Options);
 
     for (const migration of migrationsToRun) {
-      const migrationFilePath = path.join(
-        this.absolutePaths.migrationScriptsRoot,
-        migrationGroup,
-        migration.filename,
-      );
+      const migrationFilePath = path.join(this.absolutePaths.migrationScriptsRoot, migrationGroup, migration.filename);
       try {
-        const directionalMigrationFunction = await this.getDirectionalMigrationFunction(
-          migrationFilePath,
-          direction,
-          migration.filename,
-        );
+        const directionalMigrationFunction = await this.getDirectionalMigrationFunction(migrationFilePath, direction, migration.filename);
         if (!directionalMigrationFunction) return;
 
         // run migration
         await this.runMigrationFunction(directionalMigrationFunction);
 
         // update migrations table
-        this.bffLoggerService.debug(
-          `Update migration table for migration: ${migration.name}`,
-        );
-        const completed = await this.migrationModel.updateOne(
-          { name: migration.name },
-          { state: direction },
-        );
-        this.bffLoggerService.log(
-          `migration models updated: ${JSON.stringify(completed)}`,
-        );
+        this.bffLoggerService.debug(`Update migration table for migration: ${migration.name}`);
+        const completed = await this.migrationModel.updateOne({ name: migration.name }, { state: direction });
+        this.bffLoggerService.log(`migration models updated: ${JSON.stringify(completed)}`);
 
         // log completed
-        this.bffLoggerService.log(
-          `${migration.filename} (${direction.toUpperCase()})`,
-        );
+        this.bffLoggerService.log(`${migration.filename} (${direction.toUpperCase()})`);
 
         numMigrationsRun++;
       } catch (err) {
-        this.bffLoggerService.error(
-          `Failed to run migration ${migrationFilePath} due to an error.`,
-          err.stack,
-        );
-        this.bffLoggerService.warn(
-          `Not continuing. Make sure your data is in consistent state`,
-        );
+        this.bffLoggerService.error(`Failed to run migration ${migrationFilePath} due to an error.`, err.stack);
+        this.bffLoggerService.warn(`Not continuing. Make sure your data is in consistent state`);
         throw err;
       }
     }
@@ -262,14 +194,10 @@ export class MigrationsSharedService {
    */
   public async sync(migrationGroup: string, interactive: boolean) {
     try {
-      const { filesNotInDb } = await this.compareFileSystemWithDB(
-        migrationGroup,
-      );
+      const { filesNotInDb } = await this.compareFileSystemWithDB(migrationGroup);
       let migrationsToImport = filesNotInDb;
 
-      this.bffLoggerService.log(
-        'Synchronizing file system migrations with database...',
-      );
+      this.bffLoggerService.log('Synchronizing file system migrations with database...');
 
       if (migrationsToImport.length === 0) {
         this.bffLoggerService.log('There are no migrations to synchronize');
@@ -291,16 +219,9 @@ export class MigrationsSharedService {
       for (const migrationToImport of migrationsToImport) {
         promises.push(
           new Promise((resolve, reject) => {
-            const {
-              filePath,
-              migrationName,
-              timestamp,
-            } = this.getFilenameParts(migrationGroup, migrationToImport);
+            const { filePath, migrationName, timestamp } = this.getFilenameParts(migrationGroup, migrationToImport);
 
-            this.bffLoggerService.log(
-              `Adding migration ${filePath} into database require(file system. State is ` +
-                `DOWN`,
-            );
+            this.bffLoggerService.log(`Adding migration ${filePath} into database require(file system. State is ` + `DOWN`);
 
             this.migrationModel
               .create({
@@ -308,28 +229,18 @@ export class MigrationsSharedService {
                 createdAt: timestamp,
               })
               .then(createdMigration => {
-                this.bffLoggerService.log(
-                  `Migration created: ${JSON.stringify(
-                    createdMigration.toJSON(),
-                  )}`,
-                );
+                this.bffLoggerService.log(`Migration created: ${JSON.stringify(createdMigration.toJSON())}`);
                 resolve(createdMigration);
               });
           }),
         );
 
         await Promise.all(promises).catch(reason =>
-          this.bffLoggerService.error(
-            `Could not synchronize migrations in the migrations folder up to the database`,
-            reason,
-          ),
+          this.bffLoggerService.error(`Could not synchronize migrations in the migrations folder up to the database`, reason),
         );
       }
     } catch (error) {
-      this.bffLoggerService.error(
-        `Could not synchronize migrations in the migrations folder up to the database.`,
-        error.stack,
-      );
+      this.bffLoggerService.error(`Could not synchronize migrations in the migrations folder up to the database.`, error.stack);
       throw error;
     }
   }
@@ -340,9 +251,7 @@ export class MigrationsSharedService {
    */
   public async prune(migrationGroup: string, interactive: boolean) {
     try {
-      const { dbMigrationsNotOnFs } = await this.compareFileSystemWithDB(
-        migrationGroup,
-      );
+      const { dbMigrationsNotOnFs } = await this.compareFileSystemWithDB(migrationGroup);
       let migrationsToDelete = dbMigrationsNotOnFs.map(m => m.name);
 
       if (migrationsToDelete.length === 0) {
@@ -368,11 +277,7 @@ export class MigrationsSharedService {
         .lean();
 
       if (migrationsToDelete.length) {
-        this.bffLoggerService.log(
-          `Removing migration(s) ${migrationsToDelete.join(
-            ', ',
-          )} from database`,
-        );
+        this.bffLoggerService.log(`Removing migration(s) ${migrationsToDelete.join(', ')} from database`);
         await this.migrationModel.remove({
           name: { $in: migrationsToDelete },
         });
@@ -380,9 +285,7 @@ export class MigrationsSharedService {
 
       return migrationsToDeleteDocs;
     } catch (error) {
-      this.bffLoggerService.error(
-        `Could not prune extraneous migrations from database.`,
-      );
+      this.bffLoggerService.error(`Could not prune extraneous migrations from database.`);
       throw error;
     }
   }
@@ -397,30 +300,21 @@ export class MigrationsSharedService {
    *   ]
    */
   public async list(migrationGroup: string) {
-    const {
-      migrationsInDatabase,
-      migrationsInFolder,
-      filesNotInDb,
-      dbMigrationsNotOnFs,
-    } = await this.compareFileSystemWithDB(migrationGroup);
+    const { migrationsInDatabase, migrationsInFolder, filesNotInDb, dbMigrationsNotOnFs } = await this.compareFileSystemWithDB(
+      migrationGroup,
+    );
 
     this.bffLoggerService.log(
-      `There are ${
-        migrationsInDatabase.length
-      } migration documents in the database, and ${
+      `There are ${migrationsInDatabase.length} migration documents in the database, and ${
         migrationsInFolder.length
       } migration files on the file system.`,
     );
 
     if (migrationsInDatabase.length > 0) {
       this.bffLoggerService.log('\n');
-      this.bffLoggerService.log(
-        `The following migrations are in the database:`,
-      );
+      this.bffLoggerService.log(`The following migrations are in the database:`);
       migrationsInDatabase.map(m => {
-        this.bffLoggerService.log(
-          `${m.filename} (${m.state === MigrationState.Up ? 'UP:' : 'DOWN'})`,
-        );
+        this.bffLoggerService.log(`${m.filename} (${m.state === MigrationState.Up ? 'UP:' : 'DOWN'})`);
       });
     }
 
@@ -430,9 +324,7 @@ export class MigrationsSharedService {
         `The following migrations exist in the database, but not the filesystem. (Run the migrations-prune command to remove these from the database): `,
       );
       dbMigrationsNotOnFs.map(m => {
-        this.bffLoggerService.log(
-          `${m.filename} (${m.state === MigrationState.Up ? 'UP' : 'DOWN'})`,
-        );
+        this.bffLoggerService.log(`${m.filename} (${m.state === MigrationState.Up ? 'UP' : 'DOWN'})`);
       });
     }
 
@@ -451,43 +343,25 @@ export class MigrationsSharedService {
    *
    */
   private async compareFileSystemWithDB(migrationGroup: string) {
-    const filesInMigrationFolder = fs.readdirSync(
-      path.join(this.absolutePaths.migrationScriptsRoot, migrationGroup),
-    );
+    const filesInMigrationFolder = fs.readdirSync(path.join(this.absolutePaths.migrationScriptsRoot, migrationGroup));
 
-    const migrationsInDatabase = await this.migrationModel
-      .find({})
-      .sort({ createdAt: 1 });
+    const migrationsInDatabase = await this.migrationModel.find({}).sort({ createdAt: 1 });
 
-    this.bffLoggerService.debug(
-      'compareFileSystemWithDB.migrationsInDatabase',
-      migrationsInDatabase,
-    );
+    this.bffLoggerService.debug('compareFileSystemWithDB.migrationsInDatabase', migrationsInDatabase);
 
     const migrationsInFolder = filesInMigrationFolder
       .filter(file => /\d{13,}\-.+.(ts)$/.test(file))
       .map(filename => {
         const fileCreatedAt = +filename.split('-')[0];
-        const existsInDatabase = migrationsInDatabase.some(
-          m => filename === m.filename,
-        );
+        const existsInDatabase = migrationsInDatabase.some(m => filename === m.filename);
         return { createdAt: fileCreatedAt, filename, existsInDatabase };
       });
 
-    this.bffLoggerService.debug(
-      'compareFileSystemWithDB.migrationsInFolder',
-      filesInMigrationFolder,
-      migrationsInFolder,
-    );
+    this.bffLoggerService.debug('compareFileSystemWithDB.migrationsInFolder', filesInMigrationFolder, migrationsInFolder);
 
-    const filesNotInDb = migrationsInFolder
-      .filter(migrationInFolder => migrationInFolder.existsInDatabase === false)
-      .map(f => f.filename);
+    const filesNotInDb = migrationsInFolder.filter(migrationInFolder => migrationInFolder.existsInDatabase === false).map(f => f.filename);
     const dbMigrationsNotOnFs = migrationsInDatabase.filter(migrationInDB => {
-      return !migrationsInFolder.find(
-        migrationInFolder =>
-          migrationInFolder.filename === migrationInDB.filename,
-      );
+      return !migrationsInFolder.find(migrationInFolder => migrationInFolder.filename === migrationInDB.filename);
     });
     return {
       migrationsInDatabase,
@@ -502,17 +376,10 @@ export class MigrationsSharedService {
    * @param migrationToImport
    */
   private getFilenameParts(migrationGroup: string, migrationToImport: string) {
-    const filePath = path.join(
-      this.absolutePaths.migrationScriptsRoot,
-      migrationGroup,
-      migrationToImport,
-    );
+    const filePath = path.join(this.absolutePaths.migrationScriptsRoot, migrationGroup, migrationToImport);
     const timestampSeparatorIndex = migrationToImport.indexOf('-');
     const timestamp = migrationToImport.slice(0, timestampSeparatorIndex);
-    const migrationName = migrationToImport.slice(
-      timestampSeparatorIndex + 1,
-      migrationToImport.lastIndexOf('.'),
-    );
+    const migrationName = migrationToImport.slice(timestampSeparatorIndex + 1, migrationToImport.lastIndexOf('.'));
     return { filePath, migrationName, timestamp };
   }
 
@@ -522,11 +389,7 @@ export class MigrationsSharedService {
    * @param direction
    * @param migrationFilename
    */
-  private async getDirectionalMigrationFunction(
-    migrationFilePath: string,
-    direction: string,
-    migrationFilename: string,
-  ) {
+  private async getDirectionalMigrationFunction(migrationFilePath: string, direction: string, migrationFilename: string) {
     let migrationFunctions;
 
     // tslint:disable-next-line:whitespace
@@ -535,17 +398,13 @@ export class MigrationsSharedService {
     this.bffLoggerService.debug(migrationFunctions);
 
     if (!migrationFunctions) {
-      this.bffLoggerService.error(
-        `The migration file '${migrationFilePath}' could not be loaded.`,
-      );
+      this.bffLoggerService.error(`The migration file '${migrationFilePath}' could not be loaded.`);
       return null;
     }
 
     const directionalMigrationFunction = migrationFunctions[direction];
     if (!directionalMigrationFunction) {
-      this.bffLoggerService.error(
-        `The ${direction} export is not defined in ${migrationFilename}.`,
-      );
+      this.bffLoggerService.error(`The ${direction} export is not defined in ${migrationFilename}.`);
       return null;
     }
     return directionalMigrationFunction;

@@ -11,6 +11,7 @@
   },
   "files": [
     "lib",
+    "templates",
     "README.md",
     "LICENSE.md"
   ],
@@ -20,7 +21,8 @@
   },
   "scripts": {
     "tsc": "tsc",
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "copy:template": "cp -rf 'src/shared/migrations/templates/migrationTemplate.ts' 'lib/shared/migrations/templates/' "
   },
   "publishConfig": {
     "access": "public"
