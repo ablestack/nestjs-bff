@@ -1,11 +1,11 @@
-import { LocalAuthenticateCommand } from '@nestjs-bff/global/commands/auth/local-authenticate.command';
-import { LocalRegisterCommand } from '@nestjs-bff/global/commands/auth/local-register.command';
+import { LocalAuthenticateCommand } from '@nestjs-bff/global/lib/commands/auth/local-authenticate.command';
+import { LocalRegisterCommand } from '@nestjs-bff/global/lib/commands/auth/local-register.command';
 import {
   OrganizationRoles,
   Roles,
-} from '@nestjs-bff/global/constants/roles.constants';
-import { AuthorizationEntity } from '@nestjs-bff/global/entities/authorization.entity';
-import { IAuthenticationToken } from '@nestjs-bff/global/interfaces/authentication-token.interface';
+} from '@nestjs-bff/global/lib/constants/roles.constants';
+import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
+import { IAuthenticationToken } from '@nestjs-bff/global/lib/interfaces/authentication-token.interface';
 import { Body, Controller, Get, Inject, Post, Req } from '@nestjs/common';
 import { UserAuthApplicationService } from '../../../application/user-auth/user-auth.application.service';
 import { INestjsBffConfig } from '../../../config/nestjs-bff.config';

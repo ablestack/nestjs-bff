@@ -1,4 +1,4 @@
-import { OrganizationEntity } from '@nestjs-bff/global/entities/organization.entity';
+import { OrganizationEntity } from '@nestjs-bff/global/lib/entities/organization.entity';
 import { Inject, Injectable } from '@nestjs/common';
 import { INestjsBffConfig } from '../../../config/nestjs-bff.config';
 import { AppSharedProviderTokens } from '../../../shared/app/app.shared.constants';

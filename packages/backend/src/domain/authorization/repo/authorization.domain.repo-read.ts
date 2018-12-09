@@ -1,4 +1,4 @@
-import { AuthorizationEntity } from '@nestjs-bff/global/entities/authorization.entity';
+import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
 import { Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';

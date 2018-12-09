@@ -1,7 +1,7 @@
 import {
   OrganizationRoles,
   Roles,
-} from '@nestjs-bff/global/constants/roles.constants';
+} from '@nestjs-bff/global/lib/constants/roles.constants';
 import { Schema } from 'mongoose';
 
 const OrganizationAuthorizationDomainSchema: Schema = new Schema({

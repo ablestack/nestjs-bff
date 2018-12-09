@@ -1,4 +1,4 @@
-import { IEntity } from '@nestjs-bff/global/interfaces/entity.interface';
+import { IEntity } from '@nestjs-bff/global/lib/interfaces/entity.interface';
 import { Document, Model } from 'mongoose';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 

@@ -2,8 +2,7 @@
   "extends": "../tsconfig-base",
   "compilerOptions": {
     "outDir": "lib",
-    "rootDir": "src",
-    "paths": {}
+    "rootDir": "src"
   },
   "include": ["src"],
   "references": [{ "path": "../global" }]

@@ -1,4 +1,4 @@
-import { IEntity } from '@nestjs-bff/global/interfaces/entity.interface';
+import { IEntity } from '@nestjs-bff/global/lib/interfaces/entity.interface';
 import { Document } from 'mongoose';
 import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { AppError } from '../../../shared/exceptions/app.exception';

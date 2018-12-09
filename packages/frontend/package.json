@@ -10,7 +10,7 @@
     "test": "__tests__"
   },
   "files": [
-    "dist",
+    "lib",
     "README.md",
     "LICENSE.md"
   ],
@@ -20,8 +20,10 @@
   },
   "scripts": {
     "tsc": "tsc",
-    "prepublishOnly": "tsc -b .",
     "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "bugs": {
     "url": "https://github.com/ahrnee/nestjs-bff/issues"

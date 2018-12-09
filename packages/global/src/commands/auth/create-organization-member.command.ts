@@ -1,5 +1,4 @@
 import { IsEmail, IsMongoId, IsString, Length } from 'class-validator';
-
 export class CreateOrganizationMemberCommand {
   @IsMongoId()
   public readonly organizationId: string = '';
