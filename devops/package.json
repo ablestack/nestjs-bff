@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "nestjs-bff",
+  "name": "nestjs-bff-devops",
   "version": "0.1.0",
   "description": "A Nestjs Backend-For-Frontend with CLI",
   "author": "ahrnee",
@@ -29,6 +29,8 @@
   "dependencies": {},
   "devDependencies": {
     "concurrently": "^3.6.0",
-    "ts-node": "^4.1.0"
+    "ts-node": "^4.1.0",
+    "lerna": "^3.5.1",
+    "typescript": "^3.2.2"
   }
 }

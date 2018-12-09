@@ -1,13 +1,12 @@
 {
   "version": "0.3.0",
-  "packages": ["packages/*"],
+  "packages": ["../packages/*", "../backend", "../cli", "../client"],
   "npmClient": "npm",
   "command": {
     "publish": {
       "ignoreChanges": ["*.md"]
     },
     "bootstrap": {
-      "ignore": "component-*",
       "npmClientArgs": ["--no-package-lock"]
     }
   }
