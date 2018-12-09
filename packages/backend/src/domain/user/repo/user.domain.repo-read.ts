@@ -1,4 +1,4 @@
-import { UserDomainEntity } from '@nestjs-bff/global/lib/entities/user.entity';
+import { UserDomainEntity } from '@nestjs-bff/global/lib/lib/entities/user.entity';
 import { Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';

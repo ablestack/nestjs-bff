@@ -1,4 +1,4 @@
-import { IEntity } from '@nestjs-bff/global/lib/interfaces/entity.interface';
+import { IEntity } from '@nestjs-bff/global/lib/lib/interfaces/entity.interface';
 import * as _ from 'lodash';
 import { Document, Model } from 'mongoose';
 import { AppError } from '../../../shared/exceptions/app.exception';

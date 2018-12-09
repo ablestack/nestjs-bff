@@ -1,4 +1,4 @@
-import { MigrationsSharedModule } from '@nestjs-bff/backend/shared/migrations/migrations.shared.module';
+import { MigrationsSharedModule } from '@nestjs-bff/backend/lib/shared/migrations/migrations.shared.module';
 import { Module } from '@nestjs/common';
 
 @Module({

@@ -1,6 +1,6 @@
-import { LoggerSharedService } from '@nestjs-bff/backend/shared/logging/logger.shared.service';
-import { getLogger } from '@nestjs-bff/backend/shared/logging/logging.shared.module';
-import { MigrationsSharedService } from '@nestjs-bff/backend/shared/migrations/migrations.shared.service';
+import { LoggerSharedService } from '@nestjs-bff/backend/lib/shared/logging/logger.shared.service';
+import { getLogger } from '@nestjs-bff/backend/lib/shared/logging/logging.shared.module';
+import { MigrationsSharedService } from '@nestjs-bff/backend/lib/shared/migrations/migrations.shared.service';
 import { INestApplication, INestExpressApplication } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import * as cookieParser from 'cookie-parser';

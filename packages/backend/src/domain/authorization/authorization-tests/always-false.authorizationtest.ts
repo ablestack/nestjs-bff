@@ -1,4 +1,4 @@
-import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
+import { AuthorizationEntity } from '@nestjs-bff/global/lib/lib/entities/authorization.entity';
 import { AuthorizationTest } from './authorization-test.abstract';
 
 export class AlwaysFalse extends AuthorizationTest {

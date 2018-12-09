@@ -1,4 +1,4 @@
-import { getLogger } from '@nestjs-bff/backend/shared/logging/logging.shared.module';
+import { getLogger } from '@nestjs-bff/backend/lib/shared/logging/logging.shared.module';
 
 const logger = getLogger();
 

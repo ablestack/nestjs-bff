@@ -1,4 +1,4 @@
-import { INestjsBffConfigEnv } from '@nestjs-bff/backend/config/nestjs.config.env.interface';
+import { INestjsBffConfigEnv } from '@nestjs-bff/backend/lib/config/nestjs.config.env.interface';
 
 export const NestjsConfigEnv: INestjsBffConfigEnv = {
   nodeEnv: 'test',

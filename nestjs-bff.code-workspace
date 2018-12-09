@@ -6,6 +6,9 @@
   ],
   "settings": {
     "editor.formatOnSave": true,
-    "prettier.printWidth": 140
+    "prettier.printWidth": 140,
+    "cSpell.words": [
+      "Repo"
+    ]
   }
 }

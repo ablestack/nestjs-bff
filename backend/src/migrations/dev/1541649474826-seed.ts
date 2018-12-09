@@ -1,8 +1,8 @@
-import { AuthenticationDomainSchema } from '@nestjs-bff/backend/domain/authentication/model/authentication.domain.schema';
-import { AuthorizationDomainSchema } from '@nestjs-bff/backend/domain/authorization/model/authorization.domain.schema';
-import { OrganizationDomainSchema } from '@nestjs-bff/backend/domain/organization/model/organization.domain.schema';
-import { UserDomainSchema } from '@nestjs-bff/backend/domain/user/model/user.domain.schema';
-import { LoggerSharedService } from '@nestjs-bff/backend/shared/logging/logger.shared.service';
+import { AuthenticationDomainSchema } from '@nestjs-bff/backend/lib/domain/authentication/model/authentication.domain.schema';
+import { AuthorizationDomainSchema } from '@nestjs-bff/backend/lib/domain/authorization/model/authorization.domain.schema';
+import { OrganizationDomainSchema } from '@nestjs-bff/backend/lib/domain/organization/model/organization.domain.schema';
+import { UserDomainSchema } from '@nestjs-bff/backend/lib/domain/user/model/user.domain.schema';
+import { LoggerSharedService } from '@nestjs-bff/backend/lib/shared/logging/logger.shared.service';
 import { Connection } from 'mongoose';
 import { CatDomainSchema } from '../../app/domain/cats/model/cat.domain.schema';
 import { data } from './data/seed-data';

@@ -1,7 +1,7 @@
-import { OrganizationApplicationService } from '@nestjs-bff/backend/application/organization/organization.application.service';
-import { UserAuthApplicationService } from '@nestjs-bff/backend/application/user-auth/user-auth.application.service';
-import { JwtTokenHttpService } from '@nestjs-bff/backend/host/http/core/jwt/jwt-token.http.service';
-import { getLogger } from '@nestjs-bff/backend/shared/logging/logging.shared.module';
+import { OrganizationApplicationService } from '@nestjs-bff/backend/lib/application/organization/organization.application.service';
+import { UserAuthApplicationService } from '@nestjs-bff/backend/lib/application/user-auth/user-auth.application.service';
+import { JwtTokenHttpService } from '@nestjs-bff/backend/lib/host/http/core/jwt/jwt-token.http.service';
+import { getLogger } from '@nestjs-bff/backend/lib/shared/logging/logging.shared.module';
 import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import 'jest';

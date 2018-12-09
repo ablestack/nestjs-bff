@@ -1,4 +1,4 @@
-import { OrganizationEntity } from '@nestjs-bff/global/lib/entities/organization.entity';
+import { OrganizationEntity } from '@nestjs-bff/global/lib/lib/entities/organization.entity';
 import { Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';

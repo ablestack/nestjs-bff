@@ -1,4 +1,4 @@
-import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
+import { AuthorizationEntity } from '@nestjs-bff/global/lib/lib/entities/authorization.entity';
 import { Inject, Injectable } from '@nestjs/common';
 import { INestjsBffConfig } from '../../../config/nestjs-bff.config';
 import { AppSharedProviderTokens } from '../../../shared/app/app.shared.constants';
