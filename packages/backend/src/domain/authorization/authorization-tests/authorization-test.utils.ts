@@ -1,5 +1,5 @@
-import { Roles } from '@nestjs-bff/global/lib/lib/constants/roles.constants';
-import { AuthorizationEntity } from '@nestjs-bff/global/lib/lib/entities/authorization.entity';
+import { Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
+import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
 
 function hasRole(
   requestingEntity: AuthorizationEntity,

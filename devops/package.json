@@ -24,7 +24,8 @@
     "start-backend": "cd ../backend && npm run start",
     "start-bff-backend": "ts-node --project ../backend/tsconfig.json -r tsconfig-paths/register ../backend/src/main.ts",
     "start-docker-mongodb": "cd ../backend && npm run start-docker-mongodb",
-    "start-client": "cd ../client && npm run start"
+    "start-client": "cd ../client && npm run start",
+    "packages:publish": "tsc --build ../packages"
   },
   "dependencies": {},
   "devDependencies": {

@@ -1,8 +1,8 @@
-import { LocalAuthenticateCommand } from '@nestjs-bff/global/lib/lib/commands/auth/local-authenticate.command';
-import { LocalRegisterCommand } from '@nestjs-bff/global/lib/lib/commands/auth/local-register.command';
-import { PromoteToGroupAdminCommand } from '@nestjs-bff/global/lib/lib/commands/auth/promote-to-group-admin.command';
-import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/lib/constants/roles.constants';
-import { AuthorizationEntity } from '@nestjs-bff/global/lib/lib/entities/authorization.entity';
+import { LocalAuthenticateCommand } from '@nestjs-bff/global/lib/commands/auth/local-authenticate.command';
+import { LocalRegisterCommand } from '@nestjs-bff/global/lib/commands/auth/local-register.command';
+import { PromoteToGroupAdminCommand } from '@nestjs-bff/global/lib/commands/auth/promote-to-group-admin.command';
+import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
+import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
 import { Injectable } from '@nestjs/common';
 import { AuthenticationDomainRepoRead } from '../../domain/authentication/repo/authentication.domain.repo-read';
 import { AuthenticationDomainRepoWrite } from '../../domain/authentication/repo/authentication.domain.repo-write';
