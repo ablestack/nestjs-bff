@@ -1,4 +1,4 @@
-import { IAuthenticationToken } from '@nestjs-bff/universal/interfaces/authentication-token.interface';
+import { IAuthenticationToken } from '@nestjs-bff/global/lib/interfaces/authentication-token.interface';
 import { Inject, Injectable } from '@nestjs/common';
 import axios from 'axios';
 import { createHmac } from 'crypto';

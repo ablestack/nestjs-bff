@@ -1,5 +1,5 @@
-import { INestjsBffConfigEnv } from '@nestjs-bff/backend/config/nestjs.config.env.interface';
-import { AppError } from '@nestjs-bff/backend/shared/exceptions/app.exception';
+import { INestjsBffConfigEnv } from '@nestjs-bff/backend/lib/config/nestjs.config.env.interface';
+import { AppError } from '@nestjs-bff/backend/lib/shared/exceptions/app.exception';
 
 const _Env = process.env.NODE_ENV || 'dev';
 

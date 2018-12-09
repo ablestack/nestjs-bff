@@ -1,5 +1,5 @@
-import { CreateOrganizationMemberCommand } from '@nestjs-bff/universal/commands/auth/create-organization-member.command';
-import { OrganizationRoles } from '@nestjs-bff/universal/constants/roles.constants';
+import { CreateOrganizationMemberCommand } from '@nestjs-bff/global/lib/commands/auth/create-organization-member.command';
+import { OrganizationRoles } from '@nestjs-bff/global/lib/constants/roles.constants';
 import { Body, Controller, Post } from '@nestjs/common';
 import { OrganizationApplicationService } from '../../../application/organization/organization.application.service';
 import { CheckOrganizationRoles } from '../../../domain/authorization/authorization-tests/check-organization-roles.authtest';

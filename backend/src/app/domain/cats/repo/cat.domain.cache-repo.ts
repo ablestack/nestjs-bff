@@ -1,11 +1,11 @@
-import { BaseRepoCache } from '@nestjs-bff/backend/domain/core/repo/base.repo-cache';
-import { AppSharedProviderTokens } from '@nestjs-bff/backend/shared/app/app.shared.constants';
-import { CacheStore } from '@nestjs-bff/backend/shared/caching/cache-store.shared';
-import { CachingProviderTokens } from '@nestjs-bff/backend/shared/caching/caching.shared.constants';
-import { LoggerSharedService } from '@nestjs-bff/backend/shared/logging/logger.shared.service';
+import { BaseRepoCache } from '@nestjs-bff/backend/lib/domain/core/repo/base.repo-cache';
+import { AppSharedProviderTokens } from '@nestjs-bff/backend/lib/shared/app/app.shared.constants';
+import { CacheStore } from '@nestjs-bff/backend/lib/shared/caching/cache-store.shared';
+import { CachingProviderTokens } from '@nestjs-bff/backend/lib/shared/caching/caching.shared.constants';
+import { LoggerSharedService } from '@nestjs-bff/backend/lib/shared/logging/logger.shared.service';
 import { Inject, Injectable } from '@nestjs/common';
 import { IAppConfig } from '../../../../config/app.config';
-import { CatEntity } from '../../../universal/entities/cat.entity';
+import { CatEntity } from '../../../global/entities/cat.entity';
 import { ICatModel } from '../model/cat.domain.model';
 import { CatRepoRead } from './cat.domain.read-repo';
 

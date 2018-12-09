@@ -1,5 +1,5 @@
-import { CoreDomainModule } from '@nestjs-bff/backend/domain/core/domain.core.module';
-import { MongoSharedProviderTokens } from '@nestjs-bff/backend/shared/database/mongo/mongo.shared.constants';
+import { CoreDomainModule } from '@nestjs-bff/backend/lib/domain/core/domain.core.module';
+import { MongoSharedProviderTokens } from '@nestjs-bff/backend/lib/shared/database/mongo/mongo.shared.constants';
 import { Module } from '@nestjs/common';
 import { CatProviderTokens } from './cat.domain.constants';
 import { CatDomainSchema } from './model/cat.domain.schema';

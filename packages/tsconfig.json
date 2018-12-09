@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig-base",
+  "files": [],
+  "include": [],
+  "references": [{ "path": "./global" }, { "path": "./backend" }, { "path": "./frontend" }]
+}

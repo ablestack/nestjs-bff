@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "nestjs-bff-backend",
-  "version": "0.2.0",
+  "version": "0.4.1",
   "description": "A Nestjs Backend-For-Frontend with CLI",
   "author": "ahrnee",
   "license": "MIT",
@@ -12,7 +12,7 @@
     "e2e": "jest --config ./e2e/jest-e2e.json --bail --colors",
     "format": "prettier --write \"**/*.ts\"",
     "install-docker-mongodb": "docker-compose pull mongodb",
-    "link": "npm link @nestjs-bff/universal && npm link @nestjs-bff/backend",
+    "link": "npm link @nestjs-bff/global && npm link @nestjs-bff/backend",
     "mongodb-docker": "docker-compose up mongodb",
     "prestart:prod": "npm run build",
     "start": "ts-node src/app/host/http/web-app/web-app.ts",
@@ -25,8 +25,8 @@
     "webpack": "webpack --config webpack.config.js"
   },
   "dependencies": {
-    "@nestjs-bff/backend": "^0.1.0",
-    "@nestjs-bff/universal": "0.1.0",
+    "@nestjs-bff/backend": "^0.4.1",
+    "@nestjs-bff/global": "^0.4.0",
     "@nestjs/common": "^5.3.9",
     "@nestjs/core": "^5.3.10",
     "@nestjs/testing": "^5.3.8",

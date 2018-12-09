@@ -1,20 +1,14 @@
-import { LocalAuthenticateCommand } from '@nestjs-bff/universal/commands/auth/local-authenticate.command';
-import { LocalRegisterCommand } from '@nestjs-bff/universal/commands/auth/local-register.command';
-import { PromoteToGroupAdminCommand } from '@nestjs-bff/universal/commands/auth/promote-to-group-admin.command';
-import {
-  OrganizationRoles,
-  Roles,
-} from '@nestjs-bff/universal/constants/roles.constants';
-import { AuthorizationEntity } from '@nestjs-bff/universal/entities/authorization.entity';
+import { LocalAuthenticateCommand } from '@nestjs-bff/global/lib/commands/auth/local-authenticate.command';
+import { LocalRegisterCommand } from '@nestjs-bff/global/lib/commands/auth/local-register.command';
+import { PromoteToGroupAdminCommand } from '@nestjs-bff/global/lib/commands/auth/promote-to-group-admin.command';
+import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
+import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
 import { Injectable } from '@nestjs/common';
 import { AuthenticationDomainRepoRead } from '../../domain/authentication/repo/authentication.domain.repo-read';
 import { AuthenticationDomainRepoWrite } from '../../domain/authentication/repo/authentication.domain.repo-write';
 import { FacebookAuthenticationDomainService } from '../../domain/authentication/social/facebook-authentication.domain.service';
 import { FacebookProfileDomainService } from '../../domain/authentication/social/facebook-profile.domain..service';
-import {
-  generateHashedPassword,
-  validPassword,
-} from '../../domain/authentication/utils/encryption.domain.util';
+import { generateHashedPassword, validPassword } from '../../domain/authentication/utils/encryption.domain.util';
 import { AuthenticationCreateValidator } from '../../domain/authentication/validators/authentication-create.validator';
 import { AuthorizationRepoDomainCache } from '../../domain/authorization/repo/authorization.domain.repo-cache';
 import { AuthorizationDomainRepoWrite } from '../../domain/authorization/repo/authorization.domain.repo-write';
@@ -41,15 +35,10 @@ export class UserAuthApplicationService {
    *
    * @param cmd
    */
-  public async signInWithLocal(
-    cmd: LocalAuthenticateCommand,
-  ): Promise<AuthorizationEntity> {
-    const authenticationEntity = await this.authenticationRepoRead.findByLocalEmail(
-      cmd.username,
-    );
+  public async signInWithLocal(cmd: LocalAuthenticateCommand): Promise<AuthorizationEntity> {
+    const authenticationEntity = await this.authenticationRepoRead.findByLocalEmail(cmd.username);
 
-    if (!authenticationEntity)
-      throw new ValidationError(['Your login credentials were not correct']);
+    if (!authenticationEntity) throw new ValidationError(['Your login credentials were not correct']);
     if (!authenticationEntity.local)
       throw new ValidationError([
         'Your login credentials were not correct or you do not have an account. Perhaps you registered with social login?',
@@ -58,12 +47,9 @@ export class UserAuthApplicationService {
     if (!validPassword(cmd.password, authenticationEntity.local.hashedPassword))
       throw new ValidationError(['Your login credentials were not correct']);
 
-    const authorizationEntity = await this.authorizationRepoCache.findByUserId(
-      authenticationEntity.userId,
-    );
+    const authorizationEntity = await this.authorizationRepoCache.findByUserId(authenticationEntity.userId);
 
-    if (!authorizationEntity)
-      throw new AppError('Could not find authorization information for signIn');
+    if (!authorizationEntity) throw new AppError('Could not find authorization information for signIn');
 
     return authorizationEntity;
   }
@@ -72,9 +58,7 @@ export class UserAuthApplicationService {
    *
    * @param cmd
    */
-  public async signUpWithLocal(
-    cmd: LocalRegisterCommand,
-  ): Promise<AuthorizationEntity> {
+  public async signUpWithLocal(cmd: LocalRegisterCommand): Promise<AuthorizationEntity> {
     //
     // setup commands
     //
@@ -121,10 +105,7 @@ export class UserAuthApplicationService {
         {
           primary: true,
           organizationId: organization.id,
-          organizationRoles: [
-            OrganizationRoles.member,
-            OrganizationRoles.admin,
-          ],
+          organizationRoles: [OrganizationRoles.member, OrganizationRoles.admin],
         },
       ],
     });
@@ -136,20 +117,12 @@ export class UserAuthApplicationService {
    *
    * @param cmd
    */
-  public async promoteToGroupAdmin(
-    cmd: PromoteToGroupAdminCommand,
-  ): Promise<AuthorizationEntity> {
-    const authorizationEntity = await this.authorizationRepoCache.findByUserId(
-      cmd.userId,
-    );
+  public async promoteToGroupAdmin(cmd: PromoteToGroupAdminCommand): Promise<AuthorizationEntity> {
+    const authorizationEntity = await this.authorizationRepoCache.findByUserId(cmd.userId);
 
     // Validate
-    if (!authorizationEntity)
-      throw new AppError(
-        `Could not find authorizationEntity for userId ${cmd.userId}`,
-      );
-    if (authorizationEntity.roles.includes(Roles.groupAdmin))
-      throw new AppError(`User already GroupAdmin (userId ${cmd.userId})`);
+    if (!authorizationEntity) throw new AppError(`Could not find authorizationEntity for userId ${cmd.userId}`);
+    if (authorizationEntity.roles.includes(Roles.groupAdmin)) throw new AppError(`User already GroupAdmin (userId ${cmd.userId})`);
 
     // Update
     authorizationEntity.roles.push(Roles.groupAdmin);
@@ -163,27 +136,16 @@ export class UserAuthApplicationService {
    * @param fbAuthorizationCode
    * @param spaRootUrl
    */
-  public async signUpWithFacebook(
-    fbAuthorizationCode: string,
-    spaRootUrl: string,
-  ): Promise<AuthorizationEntity> {
+  public async signUpWithFacebook(fbAuthorizationCode: string, spaRootUrl: string): Promise<AuthorizationEntity> {
     // get fb auth token using fb access token
-    const fbAuthorizationToken = await this.fbAuthenticationService.getOauthAccessToken(
-      fbAuthorizationCode,
-      spaRootUrl,
-    );
+    const fbAuthorizationToken = await this.fbAuthenticationService.getOauthAccessToken(fbAuthorizationCode, spaRootUrl);
 
     // get fb profile
-    const fbProfile = await this.fbProfileService.getProfile(
-      fbAuthorizationToken,
-    );
+    const fbProfile = await this.fbProfileService.getProfile(fbAuthorizationToken);
 
     // find Authentication Entity
-    const authenticationEntity = await this.authenticationRepoRead.findByFacebookId(
-      fbProfile.id,
-    );
-    if (authenticationEntity)
-      throw new AppError('Could not find authorization information for signIn');
+    const authenticationEntity = await this.authenticationRepoRead.findByFacebookId(fbProfile.id);
+    if (authenticationEntity) throw new AppError('Could not find authorization information for signIn');
 
     // create new user
     const user = await this.userRepoWrite.create({
@@ -216,35 +178,19 @@ export class UserAuthApplicationService {
    * @param fbAuthorizationCode
    * @param spaRootUrl
    */
-  public async signInWithFacebook(
-    fbAuthorizationCode: string,
-    spaRootUrl: string,
-  ): Promise<AuthorizationEntity> {
+  public async signInWithFacebook(fbAuthorizationCode: string, spaRootUrl: string): Promise<AuthorizationEntity> {
     // get fb auth token using fb access token
-    const fbAuthorizationToken = await this.fbAuthenticationService.getOauthAccessToken(
-      fbAuthorizationCode,
-      spaRootUrl,
-    );
+    const fbAuthorizationToken = await this.fbAuthenticationService.getOauthAccessToken(fbAuthorizationCode, spaRootUrl);
 
     // get fb profile
-    const fbProfile = await this.fbProfileService.getProfile(
-      fbAuthorizationToken,
-    );
+    const fbProfile = await this.fbProfileService.getProfile(fbAuthorizationToken);
 
     // find Authentication Entity
-    const authenticationEntity = await this.authenticationRepoRead.findByFacebookId(
-      fbProfile.id,
-    );
-    if (!authenticationEntity)
-      throw new AppError(
-        'Could not find authentication information for signIn',
-      );
+    const authenticationEntity = await this.authenticationRepoRead.findByFacebookId(fbProfile.id);
+    if (!authenticationEntity) throw new AppError('Could not find authentication information for signIn');
 
-    const authorizationEntity = await this.authorizationRepoCache.findByUserId(
-      authenticationEntity.userId,
-    );
-    if (!authorizationEntity)
-      throw new AppError('Could not find authorization information for signIn');
+    const authorizationEntity = await this.authorizationRepoCache.findByUserId(authenticationEntity.userId);
+    if (!authorizationEntity) throw new AppError('Could not find authorization information for signIn');
 
     return authorizationEntity;
   }

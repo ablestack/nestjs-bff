@@ -1,5 +1,5 @@
-import { NestjsBffConfig } from '@nestjs-bff/backend/config/nestjs-bff.config';
-import { INestjsBffConfigEnv } from '@nestjs-bff/backend/config/nestjs.config.env.interface';
+import { NestjsBffConfig } from '@nestjs-bff/backend/lib/config/nestjs-bff.config';
+import { INestjsBffConfigEnv } from '@nestjs-bff/backend/lib/config/nestjs.config.env.interface';
 import * as _ from 'lodash';
 import { AppConfigEnv } from './app.config.env';
 import { NestBffConfigOverrides } from './nest-bff-overrides.config';

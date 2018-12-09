@@ -1,9 +1,6 @@
-import { CreateOrganizationMemberCommand } from '@nestjs-bff/universal/commands/auth/create-organization-member.command';
-import {
-  OrganizationRoles,
-  Roles,
-} from '@nestjs-bff/universal/constants/roles.constants';
-import { AuthorizationEntity } from '@nestjs-bff/universal/entities/authorization.entity';
+import { CreateOrganizationMemberCommand } from '@nestjs-bff/global/lib/commands/auth/create-organization-member.command';
+import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
+import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
 import { Injectable } from '@nestjs/common';
 import { AuthenticationDomainRepoWrite } from '../../domain/authentication/repo/authentication.domain.repo-write';
 import { generateHashedPassword } from '../../domain/authentication/utils/encryption.domain.util';
@@ -23,9 +20,7 @@ export class OrganizationApplicationService {
     private readonly authenticationCreateValidator: AuthenticationCreateValidator,
   ) {}
 
-  public async createMember(
-    cmd: CreateOrganizationMemberCommand,
-  ): Promise<AuthorizationEntity> {
+  public async createMember(cmd: CreateOrganizationMemberCommand): Promise<AuthorizationEntity> {
     // setup commands
     const newAuthenticationEntity = {
       userId: '',
@@ -42,9 +37,7 @@ export class OrganizationApplicationService {
 
     // validate organization exists
     if (!(await this.organizationRepoCache.findById(cmd.organizationId))) {
-      throw new AppError(
-        `Could not find organization for Id ${cmd.organizationId}`,
-      );
+      throw new AppError(`Could not find organization for Id ${cmd.organizationId}`);
     }
 
     // create new user

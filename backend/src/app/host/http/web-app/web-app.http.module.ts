@@ -1,9 +1,9 @@
-import { AuthHttpModule } from '@nestjs-bff/backend/host/http/auth/auth.http.module';
-import { CoreHttpModule } from '@nestjs-bff/backend/host/http/core/core.http.module';
-import { HttpExceptionFilter } from '@nestjs-bff/backend/host/http/core/exceptions/http-exception.http.filter';
-import { AuthorizationHttpGuard } from '@nestjs-bff/backend/host/http/core/guards/authorization.http.guard';
-import { JwtHttpMiddleware } from '@nestjs-bff/backend/host/http/core/jwt/jwt.http.middleware';
-import { MigrationsSharedModule } from '@nestjs-bff/backend/shared/migrations/migrations.shared.module';
+import { AuthHttpModule } from '@nestjs-bff/backend/lib/host/http/auth/auth.http.module';
+import { CoreHttpModule } from '@nestjs-bff/backend/lib/host/http/core/core.http.module';
+import { HttpExceptionFilter } from '@nestjs-bff/backend/lib/host/http/core/exceptions/http-exception.http.filter';
+import { AuthorizationHttpGuard } from '@nestjs-bff/backend/lib/host/http/core/guards/authorization.http.guard';
+import { JwtHttpMiddleware } from '@nestjs-bff/backend/lib/host/http/core/jwt/jwt.http.middleware';
+import { MigrationsSharedModule } from '@nestjs-bff/backend/lib/shared/migrations/migrations.shared.module';
 import {
   CacheInterceptor,
   MiddlewareConsumer,

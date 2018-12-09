@@ -1,6 +1,7 @@
 {
+  "private": true,
   "name": "nestjs-bff-webapp-example",
-  "version": "0.1.0",
+  "version": "0.4.0",
   "description": "A Nestjs Backend-For-Frontend example angular web-app client",
   "author": "ahrnee",
   "license": "MIT",
@@ -12,9 +13,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "link": "npm link @nestjs-bff/universal"
+    "link": "npm link @nestjs-bff/global"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "^6.1.10",
     "@angular/common": "^6.1.10",
