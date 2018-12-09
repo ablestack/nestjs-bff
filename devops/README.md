@@ -27,9 +27,6 @@ The NestJS-BFF DevOps directory contains scripts, tooling, and documentation des
 
 ```bash
 # install dependencies for all sub projects (backend, cli, client), and a Docker MongoDB image
-
-
-
 $ npm run install-all-with-docker
 ```
 
@@ -47,18 +44,12 @@ $ npm run start-all-with-docker
 
 ### Temporary
 
-If you would like to develop and test updates to the companion Nestjs-bff packages, you can run the following commands to create temporary symlinks
+If you would like to develop and test updates to the companion Nestjs-bff packages, you can run the following commands to create symlinks
 
 ```bash
-# Initialize the links. Run when pulling a fresh copy of the repo
+# Symlink the packages for local development
 
-$ npm run link-initialize
-```
-
-```bash
-# Creates a symlink to the local companion packages in the consuming node_modules folder. Run each time the links need refreshing
-
-$ npm run link-all
+$ npm run packages:link
 ```
 
 ### Permanent

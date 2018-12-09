@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "nestjs-bff-devops",
-  "version": "0.1.0",
+  "version": "0.4.0",
   "description": "A Nestjs Backend-For-Frontend with CLI",
   "author": "ahrnee",
   "license": "MIT",
@@ -17,15 +17,14 @@
     "install-cli": "cd ../cli && npm install && cd ..",
     "install-docker-mongodb": "cd ../backend && npm run install-docker-mongodb && cd ..",
     "install-client": "cd ../client && npm install && cd ..",
-    "link-all": "cd ../backend && npm run link && cd ../cli && npm run link && cd ../client && npm run link",
-    "link-initialize-all": "cd ../packages/global && npm run build-and-link && cd ../backend && npm run build-and-link",
     "start-all-with-docker": "concurrently --kill-others \"npm run start-docker-mongodb\" \"npm run start-backend\" \"npm run start-client\"",
     "start": "concurrently --kill-others \"npm run start-backend\" \"npm run start-client\"",
     "start-backend": "cd ../backend && npm run start",
-    "start-bff-backend": "ts-node --project ../backend/tsconfig.json -r tsconfig-paths/register ../backend/src/main.ts",
+    "start-bff-backend": "ts-node --project ../backend -r tsconfig-paths/register ../backend/src/main.ts",
     "start-docker-mongodb": "cd ../backend && npm run start-docker-mongodb",
     "start-client": "cd ../client && npm run start",
-    "packages:publish": "tsc --build ../packages"
+    "packages:link": "tsc --build ../packages && lerna bootstrap",
+    "packages:publish": "tsc --build ../packages && lerna publish"
   },
   "dependencies": {},
   "devDependencies": {

@@ -12,6 +12,6 @@ export class CreateOrganizationMemberCommand {
   public readonly displayName: string = '';
 
   @IsString()
-  @Length(8, 32)
+  @Length(8, 64)
   public readonly password: string = '';
 }
