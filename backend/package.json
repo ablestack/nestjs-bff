@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "nestjs-bff-backend",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "A Nestjs Backend-For-Frontend with CLI",
   "author": "ahrnee",
   "license": "MIT",
@@ -25,7 +25,7 @@
     "webpack": "webpack --config webpack.config.js"
   },
   "dependencies": {
-    "@nestjs-bff/backend": "^0.4.0",
+    "@nestjs-bff/backend": "^0.4.1",
     "@nestjs-bff/global": "^0.4.0",
     "@nestjs/common": "^5.3.9",
     "@nestjs/core": "^5.3.10",

@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "nestjs-bff-cli",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "A Nestjs Backend-For-Frontend CLI",
   "author": "ahrnee",
   "license": "MIT",
@@ -10,7 +10,7 @@
     "link": "npm link @nestjs-bff/global"
   },
   "dependencies": {
-    "@nestjs-bff/backend": "^0.4.0",
+    "@nestjs-bff/backend": "^0.4.1",
     "@nestjs/common": "^5.0.0",
     "@nestjs/core": "^5.0.0",
     "@types/inquirer": "^0.0.41",
