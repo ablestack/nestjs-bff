@@ -3,7 +3,7 @@
 <p align="center">
   <a href="../../README.md">Overview</a>
   &nbsp;&nbsp;&nbsp;
-	<a href="../client/README.md">Client</a>
+	<a href="../frontend/README.md">Frontend</a>
   &nbsp;&nbsp;&nbsp;
 	<i><a href="README.md">Backend</a></i>
   &nbsp;&nbsp;&nbsp;
@@ -28,7 +28,7 @@ Based on the standard Nest CLI generated API, with the following customizations 
 1.  Navigate /devops, the run then following command:
 
 ```bash
-# install dependencies for all sub projects (backend, cli, client)
+# install dependencies for all sub projects (backend, cli, frontend)
 $ npm run install-all
 ```
 
@@ -82,7 +82,7 @@ $ npm run e2e-with-docker
 Further details on each of the systems contained in this project can be found via the following links:
 
 - [Overview](../README.md)
-- [Client](../client/README.md)
+- [Frontend](../frontend/README.md)
 - _[Backend](README.md)_
 - [CLI](../cli/README.md)
 - [DevOps](../devops/README.md)

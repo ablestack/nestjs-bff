@@ -1,8 +1,8 @@
 {
   "private": true,
-  "name": "nestjs-bff-webapp-example",
+  "name": "nestjs-bff-frontend",
   "version": "0.4.0",
-  "description": "A Nestjs Backend-For-Frontend example angular web-app client",
+  "description": "A working example of a Nestjs-BFF angular web-app frontend",
   "author": "ahrnee",
   "license": "MIT",
   "homepage": "https://github.com/ahrnee/nestjs-bff",

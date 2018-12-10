@@ -3,7 +3,7 @@
 <p align="center">
   <i><a href="README.md">Overview</a></i>
   &nbsp;&nbsp;&nbsp;
-	<a href="client/README.md">Client</a>
+	<a href="frontend/README.md">Frontend</a>
   &nbsp;&nbsp;&nbsp;
 	<a href="backend/README.md">Backend</a>
   &nbsp;&nbsp;&nbsp;
@@ -16,11 +16,11 @@
 
 NestJS-BFF is a full-stack TypeScript solution, and starter project. It is intended for developers who are looking to fast-track building a strongly typed, enterprise-grade, modern NodeJs application, with supporting tooling.
 
-This implementation uses the [BFF](https://samnewman.io/patterns/architectural/bff/) pattern, leveraging [NestJS](https://nestjs.com/) as the primary framework for the backend. The client-side example is in [Angular](https://angular.io/), although any client-side Javascript framework can easily be used, including [React](https://reactjs.org/), or [Vue](https://vuejs.org/) js.
+This implementation uses the [BFF](https://samnewman.io/patterns/architectural/bff/) pattern, leveraging [NestJS](https://nestjs.com/) as the primary framework for the backend. The frontend example is in [Angular](https://angular.io/), although any client-side Javascript framework can easily be used, including [React](https://reactjs.org/), or [Vue](https://vuejs.org/) js.
 
 ## Contents
 
-This is a Mono-repo project containing a [Backend](backend/README.md), companion [CLI](cli/README.md), [Client](client/README.md), and companion NPM packages. Follow the README navigation links for details on each of these. The core infrastructure is contained in NPM packages, so that projects build using this boilerplate can easily benefit from future updates though a simple NPM update command.
+This is a Mono-repo project containing a [Backend](backend/README.md), companion [CLI](cli/README.md), [Frontend](frontend/README.md), and companion NPM packages. Follow the README navigation links for details on each of these. The core infrastructure is contained in NPM packages, so that projects build using this boilerplate can easily benefit from future updates though a simple NPM update command.
 
 ## Installation & Usage
 
@@ -43,8 +43,8 @@ See the [DevOps](devops/README.md) documentation and folder for instructions and
 
 ## Structure
 
-- Frontend **Client Layer** example, built with Angular
-- Global **Global Layer** layer that can be shared between the backend and the client
+- Frontend **Frontend Layer** example, built with Angular
+- Global **Global Layer** layer that can be shared between the backend and the frontend
 - Backend **Hosting Layer** for exposing Application and Domain Services over a multiple transports
 - Backend **Application Services Layer** for composing Domain Services
 - Backend **Domain Services Layer** for encapsulating core domain logic
@@ -79,7 +79,7 @@ This project aims to provide an enterprise-ready web-application skeleton, out-o
 
 - The Backend can run independently from the CLI
 - The CLI requires the Backend to compile and run
-- The Client can run independently, but requires the Backend to be running to complete requests, including for authentication
+- The Frontend can run independently, but requires the Backend to be running to complete requests, including for authentication
 
 # Contributions
 
@@ -94,7 +94,7 @@ See the [Attributions](attributions/ATTRIBUTIONS.md) section.
 Further details on each of the systems contained in this project can be found via the following links:
 
 - _[Overview](README.md)_
-- [Client](client/README.md)
+- [Frontend](frontend/README.md)
 - [Backend](backend/README.md)
 - [CLI](cli/README.md)
 - [DevOps](devops/README.md)

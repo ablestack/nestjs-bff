@@ -3,7 +3,7 @@
 <p align="center">
   <a href="../README.md">Overview</a>
   &nbsp;&nbsp;&nbsp;
-	<a href="README.md">Client</a>
+	<a href="README.md">Frontend</a>
   &nbsp;&nbsp;&nbsp;
 	<a href="../backend/README.md">Backend</a>
   &nbsp;&nbsp;&nbsp;
@@ -36,7 +36,7 @@ The primary set of services that are currently exposed via the CLI are for datab
 1.  Navigate to the root of Nestjs-Bff repo, the run then following command:
 
 ```bash
-# install dependencies for all sub projects (api, cli, webclient)
+# install dependencies for all sub projects (api, cli, webfrontend)
 $ npm run install-all
 
 ```
@@ -105,7 +105,7 @@ $ ts-node cli migration-custom --filename <filename> --direction [up|down]
 Further details on each of the systems contained in this project can be found via the following links:
 
 - [Overview](../README.md)
-- [Client](../client/README.md)
+- [Frontend](../frontend/README.md)
 - [Backend](../backend/README.md)
 - _[CLI](README.md)_
 - [DevOps](../devops/README.md)

@@ -3,7 +3,7 @@
 <p align="center">
   <a href="../README.md">Overview</a>
   &nbsp;&nbsp;&nbsp;
-	<a href="../client/README.md">Client</a>
+	<a href="../frontend/README.md">Frontend</a>
   &nbsp;&nbsp;&nbsp;
 	<a href="../backend/README.md">Backend</a>
   &nbsp;&nbsp;&nbsp;
@@ -26,16 +26,16 @@ The NestJS-BFF DevOps directory contains scripts, tooling, and documentation des
 3.  Navigate to the devops folder of Nestjs-Bff repo, the run the following command:
 
 ```bash
-# install dependencies for all sub projects (backend, cli, client), and a Docker MongoDB image
+# install dependencies for all sub projects (backend, cli, frontend), and a Docker MongoDB image
 $ npm run install-all-with-docker
 ```
 
 ## Start
 
-To start the Client and Backend, navigate to the devops folder of Nestjs-Bff repo, the run the following command:
+To start the Frontend and Backend, navigate to the devops folder of Nestjs-Bff repo, the run the following command:
 
 ```bash
-# run backend, client, and a Docker hosted MongoDB instance
+# run backend, frontend, and a Docker hosted MongoDB instance
 $ npm run start-all-with-docker
 
 ```
@@ -61,7 +61,7 @@ If you would like to make permanent custom updates to the companion Nestjs-bff p
 Further details on each of the systems contained in this project can be found via the following links:
 
 - [Overview](../README.md)
-- [Client](../client/README.md)
+- [Frontend](../frontend/README.md)
 - [API](../backend/README.md)
 - [CLI](../cli/README.md)
 - _[DevOps](devops/README.md)_
