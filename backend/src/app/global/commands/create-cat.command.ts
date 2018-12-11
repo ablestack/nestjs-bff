@@ -1,10 +1,8 @@
-import { IsInt, IsString } from 'class-validator';
+import { IsBoolean, IsString } from 'class-validator';
 
-export class CreateCatCommand {
+export class AddTodoItemCommand {
   @IsString()
-  public readonly name: string = '';
-  @IsInt()
-  public readonly age: number = -1;
-  @IsString()
-  public readonly breed: string = '';
+  public readonly title: string = '';
+  @IsBoolean()
+  public readonly complete: boolean = false;
 }

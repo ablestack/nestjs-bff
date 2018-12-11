@@ -5,18 +5,18 @@ import { CachingProviderTokens } from '@nestjs-bff/backend/lib/shared/caching/ca
 import { LoggerSharedService } from '@nestjs-bff/backend/lib/shared/logging/logger.shared.service';
 import { Inject, Injectable } from '@nestjs/common';
 import { IAppConfig } from '../../../../config/app.config';
-import { CatEntity } from '../../../global/entities/cat.entity';
-import { ICatModel } from '../model/cat.domain.model';
-import { CatRepoRead } from './cat.domain.read-repo';
+import { TodoEntity } from '../../../global/entities/todo.entity';
+import { ITodoModel } from '../model/todo.domain.model';
+import { TodoDomainRepoRead } from './todo.domain.read-repo';
 
 @Injectable()
-export class CatRepoCache extends BaseRepoCache<CatEntity, ICatModel> {
+export class TodoDomainRepoCache extends BaseRepoCache<TodoEntity, ITodoModel> {
   constructor(
-    repo: CatRepoRead,
+    repo: TodoDomainRepoRead,
     loggerService: LoggerSharedService,
     @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
     @Inject(AppSharedProviderTokens.Config.App) appConfig: IAppConfig,
   ) {
-    super({ loggerService, repo, cacheStore, ttl: appConfig.caching.entities.cat });
+    super({ loggerService, repo, cacheStore, ttl: appConfig.caching.entities.todo });
   }
 }

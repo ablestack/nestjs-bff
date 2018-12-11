@@ -2,15 +2,15 @@ import { BaseRepoRead } from '@nestjs-bff/backend/lib/domain/core/repo/base.repo
 import { LoggerSharedService } from '@nestjs-bff/backend/lib/shared/logging/logger.shared.service';
 import { Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { CatEntity } from '../../../global/entities/cat.entity';
-import { CatProviderTokens } from '../cat.domain.constants';
-import { ICatModel } from '../model/cat.domain.model';
+import { TodoEntity } from '../../../global/entities/todo.entity';
+import { ITodoModel } from '../model/todo.domain.model';
+import { TodoProviderTokens } from '../todo.domain.constants';
 
 @Injectable()
-export class CatRepoRead extends BaseRepoRead<CatEntity, ICatModel> {
+export class TodoDomainRepoRead extends BaseRepoRead<TodoEntity, ITodoModel> {
   constructor(
     readonly loggerService: LoggerSharedService,
-    @Inject(CatProviderTokens.Models.Cat) model: Model<ICatModel>,
+    @Inject(TodoProviderTokens.Models.Todo) model: Model<ITodoModel>,
   ) {
     super({ loggerService, model });
   }
