@@ -12,11 +12,21 @@ import { TodoDomainRepoRead } from './todo.domain.read-repo';
 @Injectable()
 export class TodoDomainRepoCache extends BaseRepoCache<TodoEntity, ITodoModel> {
   constructor(
-    repo: TodoDomainRepoRead,
+    private _repo: TodoDomainRepoRead,
     loggerService: LoggerSharedService,
     @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
     @Inject(AppSharedProviderTokens.Config.App) appConfig: IAppConfig,
   ) {
-    super({ loggerService, repo, cacheStore, ttl: appConfig.caching.entities.todo });
+    super({ loggerService, repo: _repo, cacheStore, ttl: appConfig.caching.entities.todo });
+  }
+
+  public async findByUserId(userId: string): Promise<TodoEntity[]> {
+    return this.cacheStore.wrap(
+      this.makeCacheKeyFromIdentifier(userId, 'userId'),
+      () => this._repo.findByUserId(userId),
+      {
+        ttl: this.ttl,
+      },
+    );
   }
 }

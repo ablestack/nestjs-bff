@@ -7,10 +7,7 @@ import { IOrganizationDomainModel } from '../model/organization.domain.model';
 import { OrganizationProviderTokens } from '../organization.domain.constants';
 
 @Injectable()
-export class OrganizationDomainRepoRead extends BaseRepoRead<
-  OrganizationEntity,
-  IOrganizationDomainModel
-> {
+export class OrganizationDomainRepoRead extends BaseRepoRead<OrganizationEntity, IOrganizationDomainModel> {
   constructor(
     readonly loggerService: LoggerSharedService,
     @Inject(OrganizationProviderTokens.Models.Organization)

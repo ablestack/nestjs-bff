@@ -1,6 +1,6 @@
 import { IsBoolean, IsString } from 'class-validator';
 
-export class AddTodoItemCommand {
+export class CreateTodoCommand {
   @IsString()
   public readonly title: string = '';
   @IsBoolean()

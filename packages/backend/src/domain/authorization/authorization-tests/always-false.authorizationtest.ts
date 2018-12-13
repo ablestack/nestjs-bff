@@ -7,10 +7,7 @@ export class AlwaysFalse extends AuthorizationTest {
   public static get singleton(): AuthorizationTest {
     return AlwaysFalse._singleton;
   }
-  public async isAuthorized(
-    requestingEntity?: AuthorizationEntity,
-    organizationIdForRequestedResource?: string,
-  ): Promise<boolean> {
+  public async isAuthorized(requestingEntity?: AuthorizationEntity, organizationIdForTargetResource?: string): Promise<boolean> {
     return false;
   }
 }

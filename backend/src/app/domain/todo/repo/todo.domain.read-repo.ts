@@ -14,4 +14,8 @@ export class TodoDomainRepoRead extends BaseRepoRead<TodoEntity, ITodoModel> {
   ) {
     super({ loggerService, model });
   }
+
+  public async findByUserId(userId: string): Promise<TodoEntity[]> {
+    return this.model.find({ userId });
+  }
 }

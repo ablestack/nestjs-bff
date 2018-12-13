@@ -1,0 +1,27 @@
+import { Test } from '@nestjs/testing';
+import { TodoController } from './todo.controller';
+import { TodoService } from './todo.service';
+
+describe('TodoController', () => {
+  let todoController: TodoController;
+  let todoService: TodoService;
+
+  beforeEach(async () => {
+    const module = await Test.createTestingModule({
+      controllers: [TodoController],
+      providers: [TodoService],
+    }).compile();
+
+    todoService = module.get<TodoService>(TodoService);
+    todoController = module.get<TodoController>(TodoController);
+  });
+
+  describe('findAll', () => {
+    it('should return an array of todo', async () => {
+      const result = ['test'];
+      jest.spyOn(todoService, 'findAll').mockImplementation(() => result);
+
+      expect(await todoController.findAll()).toBe(result);
+    });
+  });
+});

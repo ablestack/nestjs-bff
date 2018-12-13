@@ -5,20 +5,14 @@ import { AppError } from '../../../shared/exceptions/app.exception';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { BaseRepoRead } from './base.repo-read';
 
-export interface IBaseRepoCacheOptions<
-  TEntity extends object & IEntity,
-  TModel extends Document & TEntity
-> {
+export interface IBaseRepoCacheOptions<TEntity extends object & IEntity, TModel extends Document & TEntity> {
   loggerService: LoggerSharedService;
   repo: BaseRepoRead<TEntity, TModel>;
   cacheStore: CacheStore;
   ttl: number;
 }
 
-export abstract class BaseRepoCache<
-  TEntity extends object & IEntity,
-  TModel extends Document & TEntity
-> {
+export abstract class BaseRepoCache<TEntity extends object & IEntity, TModel extends Document & TEntity> {
   private name: string;
   private resourceCacheKey;
   protected readonly loggerService: LoggerSharedService;
@@ -38,13 +32,21 @@ export abstract class BaseRepoCache<
 
   public async findById(id: string): Promise<TEntity | null> {
     this.loggerService.trace(`${this.name}.findById`, { id });
-    return this.cacheStore.wrap(
-      this.makeCacheKeyFromIdentifier(id),
-      () => this.repo.findById(id),
-      {
+    return this.cacheStore.wrap(this.makeCacheKeyFromIdentifier(id), () => this.repo.findById(id), {
+      ttl: this.ttl,
+    });
+  }
+
+  public async findOneById(id: string): Promise<TEntity> {
+    this.loggerService.trace(`${this.name}.findOneById`, { id });
+    return this.cacheStore
+      .wrap(this.makeCacheKeyFromIdentifier(id), () => this.repo.findOneById(id), {
         ttl: this.ttl,
-      },
-    );
+      })
+      .then(result => {
+        if (result == null) throw new AppError(`Could not find entity ${this.name} with id ${id}`);
+        return result;
+      });
   }
 
   public async findAll(): Promise<TEntity[]> {
@@ -57,10 +59,7 @@ export abstract class BaseRepoCache<
     return this.makeCacheKeyFromIdentifier(resource.id);
   }
 
-  protected makeCacheKeyFromIdentifier(
-    identifier: string,
-    identifierType: string = 'id',
-  ): string {
+  protected makeCacheKeyFromIdentifier(identifier: string, identifierType: string = 'id'): string {
     return `${this.resourceCacheKey}-${identifierType}-${identifier}`;
   }
 

@@ -7,10 +7,7 @@ export class AlwaysTrue extends AuthorizationTest {
     return AlwaysTrue._singleton;
   }
 
-  public async isAuthorized(
-    requestingEntity?: AuthorizationEntity,
-    organizationIdForRequestedResource?: string,
-  ): Promise<boolean> {
+  public async isAuthorized(requestingEntity?: AuthorizationEntity, organizationIdForTargetResource?: string): Promise<boolean> {
     return true;
   }
 }

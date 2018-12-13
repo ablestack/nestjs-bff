@@ -12,10 +12,7 @@ export class CheckRole extends AuthorizationTest {
     }
   }
 
-  public async isAuthorized(
-    requestingEntity?: AuthorizationEntity,
-    organizationIdForRequestedResource?: string,
-  ): Promise<boolean> {
+  public async isAuthorized(requestingEntity?: AuthorizationEntity, organizationIdForTargetResource?: string): Promise<boolean> {
     if (!requestingEntity) throw Error('No authenticatedEntity found');
 
     return hasRole(requestingEntity, this.qualifyingRole);
