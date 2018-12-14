@@ -13,7 +13,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
-import { CatsHttpModule } from '../cats/cats.http.module';
+import { TodoHttpModule } from '../todo/todo.http.module';
 import { WebAppHealthCheckService } from './web-app-health-check.http.service';
 import { WebAppController } from './web-app.http.controller';
 
@@ -50,7 +50,7 @@ const AppPipeProvider = {
 };
 
 @Module({
-  imports: [CoreHttpModule, AuthHttpModule, CatsHttpModule, MigrationsSharedModule],
+  imports: [CoreHttpModule, AuthHttpModule, TodoHttpModule, MigrationsSharedModule],
   controllers: [WebAppController],
   providers: [WebAppHealthCheckService, AppFilterProvider, CacheInterceptorProvider, AppGuardProvider, AppPipeProvider],
   exports: undefined,

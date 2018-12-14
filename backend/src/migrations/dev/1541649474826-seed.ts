@@ -4,7 +4,6 @@ import { OrganizationDomainSchema } from '@nestjs-bff/backend/lib/domain/organiz
 import { UserDomainSchema } from '@nestjs-bff/backend/lib/domain/user/model/user.domain.schema';
 import { LoggerSharedService } from '@nestjs-bff/backend/lib/shared/logging/logger.shared.service';
 import { Connection } from 'mongoose';
-import { CatDomainSchema } from '../../app/domain/cats/model/cat.domain.schema';
 import { data } from './data/seed-data';
 
 /**
@@ -19,7 +18,6 @@ export async function up(connection: Connection, bffLoggerService: LoggerSharedS
     .model('IOrganizationDomainModel', OrganizationDomainSchema)
     .collection.insertMany(data.organizations);
   await connection.model('IAuthorizationModel', AuthorizationDomainSchema).collection.insertMany(data.authorizations);
-  await connection.model('ICatModel', CatDomainSchema).collection.insertMany(data.cats);
 
   bffLoggerService.info(`UP script completed.`);
 }
@@ -43,10 +41,6 @@ export async function down(connection: Connection, bffLoggerService: LoggerShare
   await connection
     .model('IAuthorizationModel', AuthorizationDomainSchema)
     .collection.deleteMany({ _id: { $in: data.authorizations.map(item => item._id) } });
-
-  await connection
-    .model('Cat', CatDomainSchema)
-    .collection.deleteMany({ _id: { $in: data.cats.map(item => item._id) } });
 
   bffLoggerService.info(`DOWN script completed.`);
 }

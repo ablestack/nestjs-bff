@@ -173,24 +173,4 @@ export const data = {
       __v: 0,
     },
   ],
-  cats: [
-    {
-      _id: new ObjectId('5b12aa6d93c31f1860b6f584'),
-      name: 'kitty',
-      age: 5,
-      breed: 'mixed',
-      createdAt: new Date('2018-11-05T11:31:15.063+0000'),
-      updatedAt: new Date('2018-11-05T11:31:15.075+0000'),
-      __v: 0,
-    },
-    {
-      _id: '5b12ab4e0787689504ec417e',
-      name: 'catty',
-      age: 2,
-      breed: 'tabby',
-      createdAt: new Date('2018-11-05T11:31:15.063+0000'),
-      updatedAt: new Date('2018-11-05T11:31:15.075+0000'),
-      __v: 0,
-    },
-  ],
 };

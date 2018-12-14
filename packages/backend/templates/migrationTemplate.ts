@@ -8,13 +8,13 @@
 // Required imports
 // import { Connection } from 'mongoose';
 // import { LoggerSharedService } from '../../src/common/services/logger.service';
-// import { CatSchema } from '../../src/<Model>/schemas/cat.schema';
+// import { MyEntitySchema } from '../../src/<Model>/schemas/myEntity.schema';
 // import { data } from '../seed-data/<seed-data-filename>';
 
 /**
  * Add custom imports here
  */
-// import { CatSchema } from '../../../Cats/schemas/Cat.schema'; // Import model schema as needed
+// import { MyEntitySchema } from '../../../MyEntitys/schemas/MyEntity.schema'; // Import model schema as needed
 // import { data } from '../seed-data/seed-data-dev'; // Import seed data as needed
 
 /**
