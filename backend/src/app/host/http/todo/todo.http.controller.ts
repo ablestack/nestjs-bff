@@ -1,7 +1,7 @@
 import { CheckUserOwnership } from '@nestjs-bff/backend/lib/domain/authorization/authorization-tests/check-user-ownership.authtest';
 import { Authorization } from '@nestjs-bff/backend/lib/host/http/core/decorators/authorization.http.decorator';
 import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
-import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req } from '@nestjs/common';
 import { CreateTodoCommand } from '../../../../app/global/commands/create-todo.command';
 import { TodoEntity } from '../../../../app/global/entities/todo.entity';
 import { UserTodosApplicationService } from '../../../application/user-lists/user-todos.application.service';
