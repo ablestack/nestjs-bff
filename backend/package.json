@@ -9,7 +9,7 @@
   "scripts": {
     "build": "rm -rf dist && tsc --build",
     "e2e-with-docker": "concurrently --kill-others \"npm run mongodb-docker\" \"npm run e2e\"",
-    "e2e": "jest --config ./e2e/jest-e2e.json --bail --colors",
+    "e2e": "jest --config ./e2e/jest-e2e.json --bail --colors --detectOpenHandles --forceExit",
     "format": "prettier --write \"**/*.ts\"",
     "install-docker-mongodb": "docker-compose pull mongodb",
     "mongodb-docker": "docker-compose up mongodb",
