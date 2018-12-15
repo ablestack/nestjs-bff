@@ -1,15 +1,40 @@
+import { UserAuthApplicationService } from '@nestjs-bff/backend/lib/application/user-auth/user-auth.application.service';
+import { JwtTokenHttpService } from '@nestjs-bff/backend/lib/host/http/core/jwt/jwt-token.http.service';
 import { getLogger } from '@nestjs-bff/backend/lib/shared/logging/logging.shared.module';
 import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import 'jest';
 import * as supertest from 'supertest';
 import { AppConfig } from '../../src/config/app.config';
-import { authData } from '../_core/global-setup-auth';
+import { orgData } from '../shared/org-data';
+import { userData } from '../shared/user-data';
 import { AuthE2eModule } from './auth-e2e.module';
 
 // Config
 // @ts-ignore
 global.nestjs_bff = { AppConfig };
+
+// Data
+export const authData = {
+  domainA: {
+    adminUser: {
+      jwt: { token: '' },
+    },
+    regularUser: {
+      jwt: { token: '' },
+    },
+  },
+  domainB: {
+    adminUser: {
+      jwt: { token: '' },
+    },
+  },
+  domainGroupAdmin: {
+    groupAdminUser: {
+      jwt: { token: '' },
+    },
+  },
+};
 
 describe('Auth', () => {
   let app: INestApplication;
@@ -28,19 +53,40 @@ describe('Auth', () => {
     app = module.createNestApplication();
     await app.init();
 
-    logger.log('Auth - authData', authData);
+    const authService = await app.get(UserAuthApplicationService);
+    const jwtTokenService = await app.get(JwtTokenHttpService);
+
+    //
+    // authenticate for required users
+    //
+
+    authData.domainA.adminUser.jwt = await jwtTokenService.createToken(
+      await authService.signInWithLocal(userData.domainA.adminUser),
+    );
+
+    authData.domainA.regularUser.jwt = await jwtTokenService.createToken(
+      await authService.signInWithLocal(userData.domainA.regularUser),
+    );
+
+    authData.domainB.adminUser.jwt = await jwtTokenService.createToken(
+      await authService.signInWithLocal(userData.domainB.adminUser),
+    );
+
+    authData.domainGroupAdmin.groupAdminUser.jwt = await jwtTokenService.createToken(
+      await authService.signInWithLocal(userData.domainGroupAdmin.groupAdminUser),
+    );
   }, 5 * 60 * 1000);
 
   //
   // Run tests
   //
-  it(`GIVEN an unauthenticated user
+  it.only(`GIVEN an unauthenticated user
   WHEN incorrect signin data is posted to the signin endpoint
   THEN the user is not authenticated, and an appropriate error message is returned`, async () => {
     const response = await supertest(app.getHttpServer())
       .post('/auth/public/local/signin')
       .send({
-        username: authData.domainA.regularUser.registration.username,
+        username: userData.domainA.regularUser.username,
         password: 'bad-password',
       });
 
@@ -56,8 +102,8 @@ describe('Auth', () => {
     const response = await supertest(app.getHttpServer())
       .post('/auth/public/local/signin')
       .send({
-        username: authData.domainA.regularUser.registration.username,
-        password: authData.domainA.regularUser.registration.password,
+        username: userData.domainA.regularUser.username,
+        password: userData.domainA.regularUser.password,
       });
 
     expect(response.status).toEqual(201);
@@ -134,7 +180,7 @@ describe('Auth', () => {
         WHEN a get request is made 
         THEN access is denied`, async () => {
     const response = await supertest(app.getHttpServer())
-      .get(`/auth/${authData.domainA.slug}/verification/organization-protected-member`)
+      .get(`/auth/${orgData.domainA.slug}/verification/organization-protected-member`)
       .set('authorization', `Bearer ${authData.domainB.adminUser.jwt.token}`);
 
     expect(response.status).toEqual(403);
@@ -145,7 +191,7 @@ describe('Auth', () => {
         WHEN a get request is made 
         THEN the request is successful`, async () => {
     const response = await supertest(app.getHttpServer())
-      .get(`/auth/${authData.domainA.slug}/verification/organization-protected-member`)
+      .get(`/auth/${orgData.domainA.slug}/verification/organization-protected-member`)
       .set('authorization', `Bearer ${authData.domainA.regularUser.jwt.token}`);
 
     expect(response.status).toEqual(200);
@@ -156,7 +202,7 @@ describe('Auth', () => {
         WHEN a get request is made 
         THEN access is denied`, async () => {
     const response = await supertest(app.getHttpServer())
-      .get(`/auth/${authData.domainA.slug}/verification/organization-protected-admin`)
+      .get(`/auth/${orgData.domainA.slug}/verification/organization-protected-admin`)
       .set('authorization', `Bearer ${authData.domainA.regularUser.jwt.token}`);
 
     expect(response.status).toEqual(403);
@@ -167,7 +213,7 @@ describe('Auth', () => {
         WHEN a get request is made 
         THEN access is denied`, async () => {
     const response = await supertest(app.getHttpServer())
-      .get(`/auth/${authData.domainA.slug}/verification/organization-protected-admin`)
+      .get(`/auth/${orgData.domainA.slug}/verification/organization-protected-admin`)
       .set('authorization', `Bearer ${authData.domainA.regularUser.jwt.token}`);
 
     expect(response.status).toEqual(403);
@@ -178,7 +224,7 @@ describe('Auth', () => {
         WHEN a get request is made 
         THEN request is successful`, async () => {
     const response = await supertest(app.getHttpServer())
-      .get(`/auth/${authData.domainA.slug}/verification/organization-protected-admin`)
+      .get(`/auth/${orgData.domainA.slug}/verification/organization-protected-admin`)
       .set('authorization', `Bearer ${authData.domainA.adminUser.jwt.token}`);
 
     expect(response.status).toEqual(200);

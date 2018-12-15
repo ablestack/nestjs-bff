@@ -1,15 +1,33 @@
+import { UserAuthApplicationService } from '@nestjs-bff/backend/lib/application/user-auth/user-auth.application.service';
+import { JwtTokenHttpService } from '@nestjs-bff/backend/lib/host/http/core/jwt/jwt-token.http.service';
 import { getLogger } from '@nestjs-bff/backend/lib/shared/logging/logging.shared.module';
+import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
 import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import 'jest';
 import * as supertest from 'supertest';
 import { AppConfig } from '../../src/config/app.config';
-import { authData } from '../_core/global-setup-auth';
+import { orgData } from '../shared/org-data';
+import { userData } from '../shared/user-data';
 import { TodoE2eModule } from './todo-e2e.module';
 
 // Config
 // @ts-ignore
 global.nestjs_bff = { AppConfig };
+
+// Data
+export const authData = {
+  domainA: {
+    adminUser: {
+      auth: new AuthorizationEntity(),
+      jwt: { token: '' },
+    },
+    regularUser: {
+      auth: new AuthorizationEntity(),
+      jwt: { token: '' },
+    },
+  },
+};
 
 describe('Todo', () => {
   let app: INestApplication;
@@ -31,7 +49,17 @@ describe('Todo', () => {
     app = module.createNestApplication();
     await app.init();
 
-    logger.log('Todo - authData', authData);
+    const authService = await app.get(UserAuthApplicationService);
+    const jwtTokenService = await app.get(JwtTokenHttpService);
+
+    //
+    // authenticate for required users
+    //
+    authData.domainA.adminUser.auth = await authService.signInWithLocal(userData.domainA.adminUser);
+    authData.domainA.adminUser.jwt = await jwtTokenService.createToken(authData.domainA.adminUser.auth);
+
+    authData.domainA.regularUser.auth = await authService.signInWithLocal(userData.domainA.regularUser);
+    authData.domainA.regularUser.jwt = await jwtTokenService.createToken(authData.domainA.regularUser.auth);
   }, 5 * 60 * 1000);
 
   //
@@ -44,7 +72,7 @@ describe('Todo', () => {
         WHEN a get request is made
         THEN access is denied`, async () => {
     const response = await supertest(app.getHttpServer()).get(
-      `/todo/${authData.domainA.slug}/${authData.domainA.regularUser.auth.userId}`,
+      `/todo/${orgData.domainA.slug}/${authData.domainA.regularUser.auth.userId}`,
     );
 
     expect(response.status).toEqual(403);

@@ -16,8 +16,8 @@ const logger = getLogger();
 export const globalSetup = async globalConfig => {
   logger.trace('-- Global Setup Start -- ', Date.now().toLocaleString());
 
-  await setupDB();
-  await setupAuth();
+  await setupDB(globalConfig);
+  await setupAuth(globalConfig);
 
   logger.trace('-- Global Setup End -- ');
 };

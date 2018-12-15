@@ -6,49 +6,27 @@ import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorizati
 import { INestApplication } from '@nestjs/common/interfaces';
 import { Test } from '@nestjs/testing';
 import { AuthE2eModule } from '../auth/auth-e2e.module';
+import { userData } from '../shared/user-data';
 
-export const authData = {
+const authData = {
   domainA: {
-    slug: 'admin@domain.com',
     adminUser: {
-      registration: {
-        username: 'admin@domain.com',
-        displayName: 'first-name last-name',
-        password: 'pa55word',
-      },
       auth: new AuthorizationEntity(),
       jwt: { token: '' },
     },
     regularUser: {
-      registration: {
-        username: 'user@domain.com',
-        displayName: 'first-name last-name',
-        password: 'pa55word',
-      },
       auth: new AuthorizationEntity(),
       jwt: { token: '' },
     },
   },
   domainB: {
-    slug: 'admin@domain-b.com',
     adminUser: {
-      registration: {
-        username: 'admin@domain-b.com',
-        displayName: 'regular user',
-        password: 'pa55word',
-      },
       auth: new AuthorizationEntity(),
       jwt: { token: '' },
     },
   },
   domainGroupAdmin: {
-    slug: 'group-admin@group-admin-domain.com',
     groupAdminUser: {
-      registration: {
-        username: 'group-admin@group-admin-domain.com',
-        displayName: 'first-name last-name',
-        password: 'pa55word',
-      },
       auth: new AuthorizationEntity(),
       jwt: { token: '' },
     },
@@ -57,7 +35,7 @@ export const authData = {
 
 const logger = getLogger();
 
-export const setupAuth = async () => {
+export const setupAuth = async globalConfig => {
   const module = await Test.createTestingModule({
     imports: [AuthE2eModule],
   }).compile();
@@ -69,14 +47,19 @@ export const setupAuth = async () => {
   const jwtTokenService = await app.get(JwtTokenHttpService);
   const organizationAppService = await app.get(OrganizationApplicationService);
 
+  // Test
+  console.log('----------------------- globalConfig ----------------------------');
+  console.log(globalConfig);
+  globalConfig.json.authData = { a: 1 };
+
   //
   // create domainA admin user
   //
 
   authData.domainA.adminUser.auth = await authService.signUpWithLocal({
-    username: authData.domainA.adminUser.registration.username,
-    displayName: authData.domainA.adminUser.registration.displayName,
-    password: authData.domainA.adminUser.registration.password,
+    username: userData.domainA.adminUser.username,
+    displayName: userData.domainA.adminUser.displayName,
+    password: userData.domainA.adminUser.password,
   });
   authData.domainA.adminUser.jwt = await jwtTokenService.createToken(authData.domainA.adminUser.auth);
 
@@ -90,9 +73,9 @@ export const setupAuth = async () => {
   //
   authData.domainA.regularUser.auth = await organizationAppService.createMember({
     organizationId: authData.domainA.adminUser.auth.organizations[0].organizationId,
-    username: authData.domainA.regularUser.registration.username,
-    displayName: authData.domainA.regularUser.registration.displayName,
-    password: authData.domainA.regularUser.registration.password,
+    username: userData.domainA.regularUser.username,
+    displayName: userData.domainA.regularUser.displayName,
+    password: userData.domainA.regularUser.password,
   });
   authData.domainA.regularUser.jwt = await jwtTokenService.createToken(authData.domainA.regularUser.auth);
 
@@ -105,9 +88,9 @@ export const setupAuth = async () => {
   // create domainB admin user
   //
   authData.domainB.adminUser.auth = await authService.signUpWithLocal({
-    username: authData.domainB.adminUser.registration.username,
-    displayName: authData.domainB.adminUser.registration.displayName,
-    password: authData.domainB.adminUser.registration.password,
+    username: userData.domainB.adminUser.username,
+    displayName: userData.domainB.adminUser.displayName,
+    password: userData.domainB.adminUser.password,
   });
   authData.domainB.adminUser.jwt = await jwtTokenService.createToken(authData.domainB.adminUser.auth);
 
@@ -120,9 +103,9 @@ export const setupAuth = async () => {
   // create groupAdmin user (create then promote)
   //
   authData.domainGroupAdmin.groupAdminUser.auth = await authService.signUpWithLocal({
-    username: authData.domainGroupAdmin.groupAdminUser.registration.username,
-    displayName: authData.domainGroupAdmin.groupAdminUser.registration.displayName,
-    password: authData.domainGroupAdmin.groupAdminUser.registration.password,
+    username: userData.domainGroupAdmin.groupAdminUser.username,
+    displayName: userData.domainGroupAdmin.groupAdminUser.displayName,
+    password: userData.domainGroupAdmin.groupAdminUser.password,
   });
 
   logger.debug(

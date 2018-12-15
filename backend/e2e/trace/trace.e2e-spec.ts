@@ -1,7 +1,5 @@
 import { getLogger } from '@nestjs-bff/backend/lib/shared/logging/logging.shared.module';
 
-// import 'jest';
-
 describe('Auth', () => {
   const logger = getLogger();
 

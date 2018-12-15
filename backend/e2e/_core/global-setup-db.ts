@@ -5,7 +5,7 @@ import { AppConfig } from '../../src/config/app.config';
 const logger = getLogger();
 const DISPOSABLE_DB_MARKER_TABLE_NAME = '-this-is-a-disposable-test-db';
 
-export const setupDB = async () => {
+export const setupDB = async globalConfig => {
   // Database
   await mongoose.connect(
     AppConfig.db.mongo.mongoConnectionUri,
