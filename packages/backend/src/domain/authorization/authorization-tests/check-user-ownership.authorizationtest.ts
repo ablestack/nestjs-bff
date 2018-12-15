@@ -12,6 +12,9 @@ export class CheckUserOwnership extends AuthorizationTest {
     if (!requestingEntity) throw Error('No authenticated User found');
     if (!userIdForTargetResource) throw Error('userIdForTargetResource can not be null');
 
+    console.log('--------------------------------------------------------');
+    console.log({ requestingEntity, userIdForTargetResource });
+
     // if self, then true
     if (requestingEntity.userId === userIdForTargetResource) return true;
 

@@ -39,7 +39,7 @@
       "args": [
         "${relativeFile}",
         "--config",
-        "${workspaceRoot}/jest-e2e.json",
+        "${workspaceRoot}/e2e/jest-e2e.json",
         "--runInBand",
         "--no-cache",
         "--detectOpenHandles",

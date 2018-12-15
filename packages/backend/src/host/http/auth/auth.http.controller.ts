@@ -7,7 +7,7 @@ import { Body, Controller, Get, Inject, Post, Req } from '@nestjs/common';
 import { UserAuthApplicationService } from '../../../application/user-auth/user-auth.application.service';
 import { INestjsBffConfig } from '../../../config/nestjs-bff.config';
 import { FacebookAuthenticationDomainService } from '../../../domain/authentication/social/facebook-authentication.domain.service';
-import { CheckOrgRoles } from '../../../domain/authorization/authorization-tests/check-org-roles.authtest';
+import { CheckOrgRoles } from '../../../domain/authorization/authorization-tests/check-org-roles.authorizationtest';
 import { CheckRole } from '../../../domain/authorization/authorization-tests/check-roles.authorizationtest';
 import { AppSharedProviderTokens } from '../../../shared/app/app.shared.constants';
 import { Authorization } from '../core/decorators/authorization.http.decorator';

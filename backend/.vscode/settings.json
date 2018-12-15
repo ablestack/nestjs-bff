@@ -27,7 +27,7 @@
     "alwaystrue",
     "appsecret",
     "authorizationtest",
-    "authtest",
+    "authorizationtest",
     "backend",
     "fastify",
     "formbody",

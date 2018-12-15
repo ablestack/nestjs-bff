@@ -66,8 +66,8 @@ describe('Todo', () => {
   // Run tests
   //
 
-  // Organization Role Authorization
-  it(`GIVEN a user protected endpoint
+  // Authorization Test - RED
+  it(`GIVEN a todo endpoint
         AND no authorization
         WHEN a get request is made
         THEN access is denied`, async () => {
@@ -76,6 +76,18 @@ describe('Todo', () => {
     );
 
     expect(response.status).toEqual(403);
+  });
+
+  // Authorization Test - GREEN
+  it(`GIVEN a todo endpoint
+        AND an authorized user
+        WHEN a get request is made
+        THEN a successful response is returned`, async () => {
+    const response = await supertest(app.getHttpServer())
+      .get(`/todo/${orgData.domainA.slug}/${authData.domainA.regularUser.auth.userId}`)
+      .set('authorization', `Bearer ${authData.domainA.regularUser.jwt.token}`);
+
+    expect(response.status).toEqual(200);
   });
 
   afterAll(async () => {

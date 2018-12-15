@@ -1,15 +1,15 @@
 {
-    "cSpell.words": [
-        "CSRF",
-        "Repo",
-        "ahrnee",
-        "appsecret",
-        "authorizationtest",
-        "authtest",
-        "backend",
-        "maxfile",
-        "maxsize",
-        "signin",
-        "signup"
-    ]
+  "cSpell.words": [
+    "CSRF",
+    "Repo",
+    "ahrnee",
+    "appsecret",
+    "authorizationtest",
+    "authorizationtest",
+    "backend",
+    "maxfile",
+    "maxsize",
+    "signin",
+    "signup"
+  ]
 }

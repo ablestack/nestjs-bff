@@ -1,10 +1,5 @@
 import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
-import {
-  CanActivate,
-  ExecutionContext,
-  Inject,
-  Injectable,
-} from '@nestjs/common';
+import { CanActivate, ExecutionContext, Inject, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { INestjsBffConfig } from '../../../../config/nestjs-bff.config';
 import { AuthorizationTest } from '../../../../domain/authorization/authorization-tests/authorization-test.abstract';
@@ -20,9 +15,9 @@ import { getReqMetadataLite } from '../utils/core.http.utils';
  *
  *
  * @summary
- *  Checks authorization against a configured AuthorizationTest
- *  Defaults false: no AuthorizationTest found means no authorization
- *  Looks for AuthorizationTest from handler - first on handler method, then on controller
+ *  Checks authorization against a configured authorizationtest
+ *  Defaults false: no authorizationtest found means no authorization
+ *  Looks for authorizationtest from handler - first on handler method, then on controller
  *
  * @export
  * @class ResourceGuard
@@ -72,15 +67,11 @@ export class AuthorizationHttpGuard implements CanActivate {
       });
 
       // get key date for auth tests
-      const organizationId = await this.getOrganizationIdFromSlug(
-        req.params['organizationSlug'],
-      );
-      const authorizationTests = await this.getAuthorizationTestsFromCache(
-        context,
-      );
+      const organizationId = await this.getOrganizationIdFromSlug(req.params['organizationSlug']);
+      const authorizationtests = await this.getauthorizationtestsFromCache(context);
 
-      // Default false. No AuthorizationTest configured, not authorization
-      if (!authorizationTests || authorizationTests.length === 0) {
+      // Default false. No authorizationtest configured, not authorization
+      if (!authorizationtests || authorizationtests.length === 0) {
         this.logger.warn('Request not authorized', {
           request: getReqMetadataLite(req),
           authorization,
@@ -89,11 +80,9 @@ export class AuthorizationHttpGuard implements CanActivate {
       }
 
       // run tests
-      for (const authorizationTest of authorizationTests) {
-        if (
-          !(await authorizationTest.isAuthorized(authorization, organizationId))
-        ) {
-          this.logger.warn(`AuthorizationTest failed`, {
+      for (const authorizationtest of authorizationtests) {
+        if (!(await authorizationtest.isAuthorized(authorization, organizationId))) {
+          this.logger.warn(`authorizationtest failed`, {
             authorization,
             organizationId,
           });
@@ -102,7 +91,7 @@ export class AuthorizationHttpGuard implements CanActivate {
       }
 
       // if we made it here we passed all the tests.  return true
-      this.logger.debug(`AuthorizationTest passed`, {
+      this.logger.debug(`authorizationtest passed`, {
         authorization,
         organizationId,
       });
@@ -117,9 +106,7 @@ export class AuthorizationHttpGuard implements CanActivate {
    *
    * @param organizationSlug
    */
-  private async getOrganizationIdFromSlug(
-    organizationSlug: string,
-  ): Promise<string | undefined> {
+  private async getOrganizationIdFromSlug(organizationSlug: string): Promise<string | undefined> {
     if (!organizationSlug) {
       this.logger.debug('organizationSlug not found');
       return undefined;
@@ -127,9 +114,7 @@ export class AuthorizationHttpGuard implements CanActivate {
 
     this.logger.debug('organizationSlug found', organizationSlug);
 
-    const organization = await this.organizationCache.findBySlug(
-      organizationSlug,
-    );
+    const organization = await this.organizationCache.findBySlug(organizationSlug);
     if (!organization) {
       this.logger.debug('organizationId not found for slug', organizationSlug);
       return undefined;
@@ -142,32 +127,22 @@ export class AuthorizationHttpGuard implements CanActivate {
     return organization.id;
   }
 
-  private async getAuthorizationTestsFromCache(
-    context: ExecutionContext,
-  ): Promise<AuthorizationTest[]> {
-    const authorizationTestCacheKey = `AuthorizationGuard-AuthorizationTest?class=${context.getClass()}&handler=${context.getHandler()})`;
+  private async getauthorizationtestsFromCache(context: ExecutionContext): Promise<AuthorizationTest[]> {
+    const authorizationtestCacheKey = `AuthorizationGuard-authorizationtest?class=${context.getClass()}&handler=${context.getHandler()})`;
 
     return this.cacheStore.wrap<AuthorizationTest | AuthorizationTest[] | null>(
-      authorizationTestCacheKey,
-      () => this.getAuthorizationTest(context),
+      authorizationtestCacheKey,
+      () => this.getauthorizationtest(context),
       // This configuration does not change dynamically.  Cache for a week
       { ttl: 60 * 60 * 24 * 7 },
     );
   }
 
-  private async getAuthorizationTest(
-    context: ExecutionContext,
-  ): Promise<AuthorizationTest[]> {
-    let authorizationTests = this.reflector.get<AuthorizationTest[]>(
-      'authorization',
-      context.getHandler(),
-    );
-    if (!authorizationTests) {
-      authorizationTests = this.reflector.get<AuthorizationTest[]>(
-        'authorization',
-        context.getClass(),
-      );
+  private async getauthorizationtest(context: ExecutionContext): Promise<AuthorizationTest[]> {
+    let authorizationtests = this.reflector.get<AuthorizationTest[]>('authorization', context.getHandler());
+    if (!authorizationtests) {
+      authorizationtests = this.reflector.get<AuthorizationTest[]>('authorization', context.getClass());
     }
-    return authorizationTests;
+    return authorizationtests;
   }
 }
