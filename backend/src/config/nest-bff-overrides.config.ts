@@ -17,7 +17,7 @@ export const NestBffConfigOverrides = {
 
   db: {
     mongo: {
-      debugLogging: true,
+      debugLogging: false,
       options: {
         useNewUrlParser: true,
         useCreateIndex: true,

@@ -1,3 +1,4 @@
+import { getLogger } from '@nestjs-bff/backend/lib/shared/logging/logging.shared.module';
 import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import 'jest';
@@ -12,17 +13,22 @@ global.nestjs_bff = { AppConfig };
 
 describe('Auth', () => {
   let app: INestApplication;
+  const logger = getLogger();
 
   //
   // Setup mock data & services
   //
   beforeAll(async () => {
+    logger.trace('---- Starting Auth e2e ----');
+
     const module = await Test.createTestingModule({
       imports: [AuthE2eModule],
     }).compile();
 
     app = module.createNestApplication();
     await app.init();
+
+    logger.log('Auth - authData', authData);
   }, 5 * 60 * 1000);
 
   //
@@ -179,6 +185,7 @@ describe('Auth', () => {
   });
 
   afterAll(async () => {
+    logger.trace('---- Ending Auth e2e ----');
     if (app) await app.close();
   });
 });

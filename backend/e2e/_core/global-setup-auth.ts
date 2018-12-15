@@ -55,9 +55,9 @@ export const authData = {
   },
 };
 
-export const setupAuth = async () => {
-  const logger = getLogger();
+const logger = getLogger();
 
+export const setupAuth = async () => {
   const module = await Test.createTestingModule({
     imports: [AuthE2eModule],
   }).compile();
@@ -80,7 +80,10 @@ export const setupAuth = async () => {
   });
   authData.domainA.adminUser.jwt = await jwtTokenService.createToken(authData.domainA.adminUser.auth);
 
-  logger.debug('authData.adminUser.jwt', authData.domainA.adminUser.jwt ? authData.domainA.adminUser.jwt : 'null');
+  logger.log(
+    'authData.domainA.adminUser ------------------------------------------------------------------',
+    authData.domainA.adminUser,
+  );
 
   //
   // create domainA regular user
@@ -94,11 +97,9 @@ export const setupAuth = async () => {
   authData.domainA.regularUser.jwt = await jwtTokenService.createToken(authData.domainA.regularUser.auth);
 
   logger.debug(
-    'authData.domainA.regularUser.jwt',
-    authData.domainA.regularUser.jwt ? authData.domainA.regularUser.jwt : 'null',
+    'authData.domainA.regularUser -----------------------------------------------------------------',
+    authData.domainA.regularUser,
   );
-  console.log('authData.domainA.regularUser ------------------------------------------------------------------');
-  console.log(authData.domainA.regularUser);
 
   //
   // create domainB admin user
@@ -111,8 +112,8 @@ export const setupAuth = async () => {
   authData.domainB.adminUser.jwt = await jwtTokenService.createToken(authData.domainB.adminUser.auth);
 
   logger.debug(
-    'authData.domainB.adminUser.jwt',
-    authData.domainB.adminUser.jwt ? authData.domainB.adminUser.jwt : 'null',
+    'authData.domainB.adminUser ---------------------------------------------------------------------',
+    authData.domainB.adminUser,
   );
 
   //
@@ -124,15 +125,20 @@ export const setupAuth = async () => {
     password: authData.domainGroupAdmin.groupAdminUser.registration.password,
   });
 
+  logger.debug(
+    'authData.domainGroupAdmin.groupAdminUser (pre-promoted)------------------------------------------',
+    authData.domainGroupAdmin.groupAdminUser,
+  );
+
   authData.domainGroupAdmin.groupAdminUser.jwt = await jwtTokenService.createToken(
     await authService.promoteToGroupAdmin({
       // tslint:disable-next-line:no-non-null-assertion
-      userId: authData.domainGroupAdmin.groupAdminUser.auth.id!,
+      userId: authData.domainGroupAdmin.groupAdminUser.auth.userId!,
     }),
   );
 
   logger.debug(
-    'authData.groupAdminUser.jwt',
-    authData.domainGroupAdmin.groupAdminUser.jwt ? authData.domainGroupAdmin.groupAdminUser.jwt : 'null',
+    'authData.domainGroupAdmin.groupAdminUser (promoted) ----------------------------------------------',
+    authData.domainGroupAdmin.groupAdminUser,
   );
 };

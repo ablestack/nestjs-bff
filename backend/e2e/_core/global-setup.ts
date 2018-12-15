@@ -1,7 +1,13 @@
 import { getLogger } from '@nestjs-bff/backend/lib/shared/logging/logging.shared.module';
+import { AppConfig } from '../../src/config/app.config';
 import { setupAuth } from './global-setup-auth';
 import { setupDB } from './global-setup-db';
 
+// Config
+// @ts-ignore
+global.nestjs_bff = { AppConfig };
+
+// Setup
 const logger = getLogger();
 
 //

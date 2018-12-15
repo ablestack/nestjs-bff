@@ -12,13 +12,15 @@ import { TodoE2eModule } from './todo-e2e.module';
 global.nestjs_bff = { AppConfig };
 
 describe('Todo', () => {
-  const logger = getLogger();
   let app: INestApplication;
+  const logger = getLogger();
 
   //
   // Setup mock data & services
   //
   beforeAll(async () => {
+    logger.trace('---- Starting Todo e2e ----');
+
     //
     // Instantiate nest application
     //
@@ -37,9 +39,9 @@ describe('Todo', () => {
   //
 
   // Organization Role Authorization
-  it(`GIVEN a user protected endpoint 
+  it(`GIVEN a user protected endpoint
         AND no authorization
-        WHEN a get request is made 
+        WHEN a get request is made
         THEN access is denied`, async () => {
     const response = await supertest(app.getHttpServer()).get(
       `/todo/${authData.domainA.slug}/${authData.domainA.regularUser.auth.userId}`,
@@ -49,6 +51,7 @@ describe('Todo', () => {
   });
 
   afterAll(async () => {
+    logger.trace('---- Starting Todo e2e ----');
     if (app) await app.close();
   });
 });
