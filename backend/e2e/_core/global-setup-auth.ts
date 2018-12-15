@@ -47,11 +47,6 @@ export const setupAuth = async globalConfig => {
   const jwtTokenService = await app.get(JwtTokenHttpService);
   const organizationAppService = await app.get(OrganizationApplicationService);
 
-  // Test
-  console.log('----------------------- globalConfig ----------------------------');
-  console.log(globalConfig);
-  globalConfig.json.authData = { a: 1 };
-
   //
   // create domainA admin user
   //
