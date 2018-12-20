@@ -12,11 +12,14 @@ export class CheckUserOwnership extends AuthorizationTest {
     if (!data.requestingEntity) throw Error('No authenticated User found');
     if (!data.userIdForTargetResource) throw Error('userIdForTargetResource can not be null');
 
-    console.log('--------------------------------------------------------');
-    console.log({ requestingEntity: data.requestingEntity, userIdForTargetResource: data.userIdForTargetResource });
+    console.log({
+      'data.requestingEntity.userId': data.requestingEntity.userId,
+      'data.userIdForTargetResource': data.userIdForTargetResource,
+    });
 
     // if self, then true
-    if (data.requestingEntity.userId === data.userIdForTargetResource) return true;
+    // tslint:disable-next-line:triple-equals
+    if (data.requestingEntity.userId == data.userIdForTargetResource) return true;
 
     // if system admin, then true
     if (isSystemAdmin(data.requestingEntity)) return true;

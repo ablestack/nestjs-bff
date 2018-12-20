@@ -92,6 +92,7 @@ export class AuthorizationHttpGuard implements CanActivate {
           this.logger.warn(`authorizationtest failed for authorizationtest ${authorizationtest.constructor.name}`, {
             authorization,
             organizationId,
+            userId,
           });
           return false;
         }
