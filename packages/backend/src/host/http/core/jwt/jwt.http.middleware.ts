@@ -1,9 +1,4 @@
-import {
-  Inject,
-  Injectable,
-  MiddlewareFunction,
-  NestMiddleware,
-} from '@nestjs/common';
+import { Inject, Injectable, MiddlewareFunction, NestMiddleware } from '@nestjs/common';
 import { verify, VerifyOptions } from 'jsonwebtoken';
 import { INestjsBffConfig } from '../../../../config/nestjs-bff.config';
 import { AuthorizationRepoDomainCache } from '../../../../domain/authorization/repo/authorization.domain.repo-cache';
@@ -51,10 +46,7 @@ export class JwtHttpMiddleware implements NestMiddleware {
 
   private async process(req: any): Promise<void> {
     if (!req || !req.originalUrl) {
-      this.bffLoggerService.debug(
-        'req.originalUrl is null',
-        getReqMetadataLite(req),
-      );
+      this.bffLoggerService.debug('req.originalUrl is null', getReqMetadataLite(req));
       return;
     }
 
@@ -78,29 +70,18 @@ export class JwtHttpMiddleware implements NestMiddleware {
     const jwtToken = this.getJwtBearerTokenFromRequestHeader(req);
     if (!jwtToken) return;
 
-    const jwtPayload = verify(
-      jwtToken,
-      this.nestjsBffConfig.jwt.jwtPublicKey,
-      this.verifyOptions,
-    ) as IJwtPayload;
-    if (!jwtPayload)
-      throw new BadRequestHttpError(
-        'Invalid JWT token',
-        getReqMetadataLite(req),
-      );
+    const jwtPayload = verify(jwtToken, this.nestjsBffConfig.jwt.jwtPublicKey, this.verifyOptions) as IJwtPayload;
+    if (!jwtPayload) throw new BadRequestHttpError('Invalid JWT token', getReqMetadataLite(req));
 
-    const authorizationEntity = await this.authorizationService.findById(
-      jwtPayload.sub,
-    );
+    const authorizationEntity = await this.authorizationService.findById(jwtPayload.sub);
     if (!authorizationEntity) {
-      throw new BadRequestHttpError(
-        `No authentication data found for request: ${req.originalUrl}`,
-      );
+      throw new BadRequestHttpError(`No authentication data found for request: ${req.originalUrl}`);
     }
 
     this.bffLoggerService.debug(`Attaching authorization to request`, {
       'req.originalUrl': req.originalUrl,
       authorizationEntity,
+      "org": authorizationEntity.organizations,
     });
     req.authorization = authorizationEntity;
   }
@@ -118,36 +99,24 @@ export class JwtHttpMiddleware implements NestMiddleware {
 
     if (!authHdr) {
       // log if authHdr not found
-      this.bffLoggerService.debug(
-        `No auth header found for request: ${req.originalUrl}`,
-      );
+      this.bffLoggerService.debug(`No auth header found for request: ${req.originalUrl}`);
       return;
     }
 
     const parsedAuthHdr = parseAuthHeader(authHdr);
     if (!parsedAuthHdr) {
       throw new BadRequestHttpError(
-        `Malformed auth header found for request: ${
-          req.originalUrl
-        } with authHdr ${authHdr}`,
+        `Malformed auth header found for request: ${req.originalUrl} with authHdr ${authHdr}`,
         getReqMetadataLite(req),
       );
     }
 
     if (parsedAuthHdr.scheme !== JwtHttpMiddleware.BEARER_AUTH_SCHEME) {
-      throw new BadRequestHttpError(
-        `Incorrect auth scheme. Bearer expected.  Found ${
-          parsedAuthHdr.scheme
-        }`,
-        getReqMetadataLite(req),
-      );
+      throw new BadRequestHttpError(`Incorrect auth scheme. Bearer expected.  Found ${parsedAuthHdr.scheme}`, getReqMetadataLite(req));
     }
 
     if (!parsedAuthHdr.value) {
-      throw new BadRequestHttpError(
-        'No auth header value found',
-        getReqMetadataLite(req),
-      );
+      throw new BadRequestHttpError('No auth header value found', getReqMetadataLite(req));
     }
 
     return parsedAuthHdr.value;

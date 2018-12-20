@@ -67,7 +67,8 @@ export class AuthorizationHttpGuard implements CanActivate {
       });
 
       // get key date for auth tests
-      const organizationId = await this.getOrganizationIdFromSlug(req.params['organizationSlug']);
+      const organizationId: string | undefined = await this.getOrganizationIdFromSlug(req.params['organizationSlug']);
+      const userId: string | undefined = req.params['userId'];
       const authorizationtests = await this.getauthorizationtestsFromCache(context);
 
       // Default false. No authorizationtest configured, not authorization
@@ -81,8 +82,14 @@ export class AuthorizationHttpGuard implements CanActivate {
 
       // run tests
       for (const authorizationtest of authorizationtests) {
-        if (!(await authorizationtest.isAuthorized(authorization, organizationId))) {
-          this.logger.warn(`authorizationtest failed`, {
+        if (
+          !(await authorizationtest.isAuthorized({
+            requestingEntity: authorization,
+            organizationIdForTargetResource: organizationId,
+            userIdForTargetResource: userId,
+          }))
+        ) {
+          this.logger.warn(`authorizationtest failed for authorizationtest ${authorizationtest.constructor.name}`, {
             authorization,
             organizationId,
           });

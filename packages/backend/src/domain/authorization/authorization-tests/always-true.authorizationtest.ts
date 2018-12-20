@@ -1,5 +1,5 @@
-import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
 import { AuthorizationTest } from './authorization-test.abstract';
+import { IAuthorizationTestData } from './authorizationTestData.interface';
 
 export class AlwaysTrue extends AuthorizationTest {
   private static _singleton: AuthorizationTest = new AlwaysTrue();
@@ -7,7 +7,7 @@ export class AlwaysTrue extends AuthorizationTest {
     return AlwaysTrue._singleton;
   }
 
-  public async isAuthorized(requestingEntity?: AuthorizationEntity, organizationIdForTargetResource?: string): Promise<boolean> {
+  public async isAuthorized(data: IAuthorizationTestData): Promise<boolean> {
     return true;
   }
 }

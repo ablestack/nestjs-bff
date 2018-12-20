@@ -1,5 +1,5 @@
-import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
+import { IAuthorizationTestData } from './authorizationTestData.interface';
 
 export abstract class AuthorizationTest {
-  abstract isAuthorized(requestingEntity?: AuthorizationEntity, organizationIdForTargetResource?: string): Promise<boolean>;
+  abstract isAuthorized(data: IAuthorizationTestData): Promise<boolean>;
 }

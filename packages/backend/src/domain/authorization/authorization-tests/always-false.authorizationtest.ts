@@ -1,5 +1,5 @@
-import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
 import { AuthorizationTest } from './authorization-test.abstract';
+import { IAuthorizationTestData } from './authorizationTestData.interface';
 
 export class AlwaysFalse extends AuthorizationTest {
   // tslint:disable-next-line:variable-name
@@ -7,7 +7,7 @@ export class AlwaysFalse extends AuthorizationTest {
   public static get singleton(): AuthorizationTest {
     return AlwaysFalse._singleton;
   }
-  public async isAuthorized(requestingEntity?: AuthorizationEntity, organizationIdForTargetResource?: string): Promise<boolean> {
+  public async isAuthorized(data: IAuthorizationTestData): Promise<boolean> {
     return false;
   }
 }
