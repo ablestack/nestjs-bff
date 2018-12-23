@@ -5,22 +5,22 @@ import { CachingProviderTokens } from '@nestjs-bff/backend/lib/shared/caching/ca
 import { LoggerSharedService } from '@nestjs-bff/backend/lib/shared/logging/logger.shared.service';
 import { Inject, Injectable } from '@nestjs/common';
 import { IAppConfig } from '../../../../config/app.config';
-import { TodoEntity } from '../../../global/entities/todo.entity';
-import { ITodoModel } from '../model/todo.domain.model';
-import { TodoDomainRepoRead } from './todo.domain.read-repo';
+import { ReminderArchiveEntity } from '../../../global/entities/reminder-archive.entity';
+import { IReminderArchiveModel } from '../model/reminder-archive.domain.model';
+import { ReminderArchiveDomainRepoRead } from './reminder-archive.domain.read-repo';
 
 @Injectable()
-export class TodoDomainRepoCache extends BaseRepoCache<TodoEntity, ITodoModel> {
+export class ReminderArchiveDomainRepoCache extends BaseRepoCache<ReminderArchiveEntity, IReminderArchiveModel> {
   constructor(
-    private _repo: TodoDomainRepoRead,
+    private _repo: ReminderArchiveDomainRepoRead,
     loggerService: LoggerSharedService,
     @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
     @Inject(AppSharedProviderTokens.Config.App) appConfig: IAppConfig,
   ) {
-    super({ loggerService, repo: _repo, cacheStore, ttl: appConfig.caching.entities.todo });
+    super({ loggerService, repo: _repo, cacheStore, ttl: appConfig.caching.entities.reminderArchive });
   }
 
-  public async findByUserId(userId: string): Promise<TodoEntity[]> {
+  public async findByUserId(userId: string): Promise<ReminderArchiveEntity[]> {
     return this.cacheStore.wrap(
       this.makeCacheKeyFromIdentifier(userId, 'userId'),
       () => this._repo.findByUserId(userId),

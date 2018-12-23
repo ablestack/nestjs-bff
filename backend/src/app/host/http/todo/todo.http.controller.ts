@@ -4,15 +4,15 @@ import { Authorization } from '@nestjs-bff/backend/lib/host/http/core/decorators
 import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
 import { Body, Controller, Get, Post, Req } from '@nestjs/common';
 import { CreateTodoCommand } from '../../../../app/global/commands/create-todo.command';
-import { TodoEntity } from '../../../../app/global/entities/todo.entity';
+import { ReminderEntity } from '../../../global/entities/reminder.entity';
 import { UserTodosApplicationService } from '../../../application/user-lists/user-todos.application.service';
-import { TodoDomainRepoCache } from '../../../domain/todo/repo/todo.domain.cache-repo';
+import { ReminderDomainRepoCache } from '../../../domain/todo/repo/todo.domain.cache-repo';
 
 @Controller('/todo/:organizationSlug')
 export class TodoHttpController {
   constructor(
     private readonly userTodosApplicationService: UserTodosApplicationService,
-    private readonly todoRepoCache: TodoDomainRepoCache,
+    private readonly todoRepoCache: ReminderDomainRepoCache,
   ) {}
 
   @Post(':userId')
@@ -25,7 +25,7 @@ export class TodoHttpController {
 
   @Get(':userId')
   @Authorization([new CheckUserOwnership()])
-  public async findAll(): Promise<TodoEntity[]> {
+  public async findAll(): Promise<ReminderEntity[]> {
     return this.todoRepoCache.findAll();
   }
 }

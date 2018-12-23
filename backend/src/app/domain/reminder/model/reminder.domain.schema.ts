@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
-export const TodoDomainSchema = new Schema(
+export const ReminderDomainSchema = new Schema(
   {
     title: {
       required: true,
@@ -14,13 +14,9 @@ export const TodoDomainSchema = new Schema(
       type: Schema.Types.ObjectId,
       required: true,
     },
-    userName: {
-      type: Schema.Types.String,
-      required: true,
-    },
   },
   {
     timestamps: true,
-    collection: 'todo',
+    collection: 'reminder',
   },
 );

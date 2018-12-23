@@ -9,7 +9,7 @@ import * as supertest from 'supertest';
 import { AppConfig } from '../../src/config/app.config';
 import { orgData } from '../shared/org-data';
 import { userData } from '../shared/user-data';
-import { TodoE2eModule } from './todo-e2e.module';
+import { ReminderE2eModule } from './reminder-e2e.module';
 
 // Config
 // @ts-ignore
@@ -29,7 +29,7 @@ export const authData = {
   },
 };
 
-describe('Todo', () => {
+describe('Reminder', () => {
   let app: INestApplication;
   const logger = getLogger();
 
@@ -37,13 +37,13 @@ describe('Todo', () => {
   // Setup mock data & services
   //
   beforeAll(async () => {
-    logger.trace('---- Starting Todo e2e ----');
+    logger.trace('---- Starting Reminder e2e ----');
 
     //
     // Instantiate nest application
     //
     const module = await Test.createTestingModule({
-      imports: [TodoE2eModule],
+      imports: [ReminderE2eModule],
     }).compile();
 
     app = module.createNestApplication();
@@ -67,31 +67,31 @@ describe('Todo', () => {
   //
 
   // Authorization Test - RED
-  it(`GIVEN a todo endpoint
+  it(`GIVEN a Reminder endpoint
         AND no authorization
         WHEN a get request is made
         THEN access is denied`, async () => {
     const response = await supertest(app.getHttpServer()).get(
-      `/todo/${orgData.domainA.slug}/${authData.domainA.regularUser.auth.userId}`,
+      `/Reminder/${orgData.domainA.slug}/${authData.domainA.regularUser.auth.userId}`,
     );
 
     expect(response.status).toEqual(403);
   });
 
   // Authorization Test - GREEN
-  it(`GIVEN a todo endpoint
+  it(`GIVEN a Reminder endpoint
         AND an authorized user
         WHEN a get request is made
         THEN a successful response is returned`, async () => {
     const response = await supertest(app.getHttpServer())
-      .get(`/todo/${orgData.domainA.slug}/${authData.domainA.regularUser.auth.userId}`)
+      .get(`/Reminder/${orgData.domainA.slug}/${authData.domainA.regularUser.auth.userId}`)
       .set('authorization', `Bearer ${authData.domainA.regularUser.jwt.token}`);
 
     expect(response.status).toEqual(200);
   });
 
   afterAll(async () => {
-    logger.trace('---- Starting Todo e2e ----');
+    logger.trace('---- Starting Reminder e2e ----');
     if (app) await app.close();
   });
 });

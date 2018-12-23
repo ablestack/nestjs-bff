@@ -18,7 +18,7 @@ export class CheckUserOwnership extends AuthorizationTest {
     });
 
     // if self, then true
-    // tslint:disable-next-line:triple-equals
+    // tslint:disable-next-line:triple-equals - necessary because requestingEntity.userId is actually an mongoId that evaluates to a string
     if (data.requestingEntity.userId == data.userIdForTargetResource) return true;
 
     // if system admin, then true
