@@ -2,7 +2,7 @@ import { CreateOrganizationMemberCommand } from '@nestjs-bff/global/lib/commands
 import { OrganizationRoles } from '@nestjs-bff/global/lib/constants/roles.constants';
 import { Body, Controller, Post } from '@nestjs/common';
 import { OrganizationApplicationService } from '../../../application/organization/organization.application.service';
-import { CheckOrgRoles } from '../../../domain/authorization/authorization-tests/check-org-roles.authorizationtest';
+import { CheckOrgRoles } from '../../../domain/authorization/authorizationchecks/check-org-roles.authorizationcheck';
 import { Authorization } from '../core/decorators/authorization.http.decorator';
 
 @Controller('organization')

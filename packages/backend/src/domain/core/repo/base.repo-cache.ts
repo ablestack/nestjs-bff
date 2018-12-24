@@ -4,6 +4,7 @@ import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { AppError } from '../../../shared/exceptions/app.exception';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { BaseRepoRead } from './base.repo-read';
+import { RepoAuthorizationFilters } from './repo-authorization-filters';
 
 export interface IBaseRepoCacheOptions<TEntity extends object & IEntity, TModel extends Document & TEntity> {
   loggerService: LoggerSharedService;
@@ -30,7 +31,7 @@ export abstract class BaseRepoCache<TEntity extends object & IEntity, TModel ext
     this.resourceCacheKey = `${this.name}?id=`;
   }
 
-  public async findById(id: string): Promise<TEntity | null> {
+  public async findById(id: string, authFilters: RepoAuthorizationFilters): Promise<TEntity | null> {
     this.loggerService.trace(`${this.name}.findById`, { id });
     return this.cacheStore.wrap(this.makeCacheKeyFromIdentifier(id), () => this.repo.findById(id), {
       ttl: this.ttl,

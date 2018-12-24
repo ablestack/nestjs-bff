@@ -1,8 +1,6 @@
-import { AlwaysTrue } from '@nestjs-bff/backend/lib/domain/authorization/authorization-tests/always-true.authorizationtest';
-import { CheckUserOwnership } from '@nestjs-bff/backend/lib/domain/authorization/authorization-tests/check-user-ownership.authorizationtest';
+import { CheckOrgAndUserParam } from '@nestjs-bff/backend/lib/domain/authorization/authorizationchecks/check-org-and-user-param.authorizationcheck';
 import { Authorization } from '@nestjs-bff/backend/lib/host/http/core/decorators/authorization.http.decorator';
-import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
-import { Body, Controller, Get, Post, Req } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Patch, Post, Put, Req } from '@nestjs/common';
 import { ReminderDomainRepoCache } from '../../../../domain/reminder/repo/reminder.domain.cache-repo';
 import { ReminderDomainRepoWrite } from '../../../../domain/reminder/repo/reminder.domain.write-repo';
 import { ReminderEntity } from '../../../../global/entities/reminder.entity';
@@ -27,22 +25,42 @@ export class ReminderHttpController {
   ) {}
 
   @Get()
-  @Authorization([new CheckUserOwnership()])
-  public async findAll(userId: string): Promise<ReminderEntity[]> {
+  @Authorization([new CheckOrgAndUserParam()])
+  public async getItems(userId: string): Promise<ReminderEntity[]> {
     return this.reminderRepoCache.findByUserId(userId);
   }
 
   @Get(':id')
-  @Authorization([new CheckUserOwnership()])
-  public async findById(userId: string, id: string): Promise<ReminderEntity> {
-    return this.reminderRepoCache.findOneById(id);
+  @Authorization([new CheckOrgAndUserParam()])
+  public async getItem(
+    @Param('orgId') orgId: string,
+    @Param('userId') userId: string,
+    id: string,
+  ): Promise<ReminderEntity> {
+    return this.reminderRepoCache.findOneById(id, { orgId, userId });
   }
 
-  @Post(':userId')
-  @Authorization([new AlwaysTrue()])
-  public async create(@Req() req, @Body() cmd: CreateReminderCommand) {
-    const authorization: AuthorizationEntity = req.authorization;
-    // tslint:disable-next-line:no-non-null-assertion (will have userId due to Authorization check)
-    this.userRemindersApplicationService.createMember(authorization.userId!, cmd);
-  }
+  @Post()
+  @Authorization([new CheckOrgAndUserParam()])
+  public async create() {}
+
+  @Put()
+  @Authorization([new CheckOrgAndUserParam()])
+  public async update() {}
+
+  @Patch()
+  @Authorization([new CheckOrgAndUserParam()])
+  public async partialUpdate() {}
+
+  @Delete()
+  @Authorization([new CheckOrgAndUserParam()])
+  public async delete() {}
+
+  // @Post()
+  // @Authorization([new CheckOrgAndUserParam()])
+  // public async create() {
+  //   // const authorization: AuthorizationEntity = req.authorization;
+  //   // tslint:disable-next-line:no-non-null-assertion (will have userId due to Authorization check)
+  //   // this.userRemindersApplicationService.createMember(authorization.userId!, cmd);
+  // }
 }

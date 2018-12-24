@@ -11,10 +11,7 @@ import { IOrganizationDomainModel } from '../model/organization.domain.model';
 import { OrganizationDomainRepoRead } from './organization.domain.repo-read';
 
 @Injectable()
-export class OrganizationDomainRepoCache extends BaseRepoCache<
-  OrganizationEntity,
-  IOrganizationDomainModel
-> {
+export class OrganizationDomainRepoCache extends BaseRepoCache<OrganizationEntity, IOrganizationDomainModel> {
   constructor(
     private _repo: OrganizationDomainRepoRead,
     loggerService: LoggerSharedService,
@@ -31,13 +28,9 @@ export class OrganizationDomainRepoCache extends BaseRepoCache<
   }
 
   public async findBySlug(slug: string): Promise<OrganizationEntity | null> {
-    return this.cacheStore.wrap(
-      this.makeCacheKeyFromIdentifier(slug, 'slug'),
-      () => this._repo.findBySlug(slug),
-      {
-        ttl: this.ttl,
-      },
-    );
+    return this.cacheStore.wrap(this.makeCacheKeyFromIdentifier(slug, 'slug'), () => this._repo.findBySlug(slug), {
+      ttl: this.ttl,
+    });
   }
 
   protected removeFromCacheBySlug(result: OrganizationEntity) {

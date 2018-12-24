@@ -1,14 +1,14 @@
 import { OrganizationRoles } from '@nestjs-bff/global/lib/constants/roles.constants';
-import { AuthorizationTest } from './authorization-test.abstract';
-import { hasOrganizationRole, isSystemAdmin } from './authorization-test.utils';
-import { IAuthorizationTestData } from './authorizationTestData.interface';
+import { AuthorizationCheck } from './authorizationcheck.abstract';
+import { hasOrganizationRole, isSystemAdmin } from './authorizationcheck.utils';
+import { IAuthorizationCheckData } from './authorizationcheckData.interface';
 
-export class CheckUserOwnership extends AuthorizationTest {
+export class CheckUserParam extends AuthorizationCheck {
   constructor() {
     super();
   }
 
-  public async isAuthorized(data: IAuthorizationTestData): Promise<boolean> {
+  public async isAuthorized(data: IAuthorizationCheckData): Promise<boolean> {
     if (!data.requestingEntity) throw Error('No authenticated User found');
     if (!data.userIdForTargetResource) throw Error('userIdForTargetResource can not be null');
 

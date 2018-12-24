@@ -21,7 +21,8 @@
     "start-docker-mongodb": "cd ../backend && npm run start-docker-mongodb",
     "start-frontend": "cd ../frontend && npm run start",
     "packages:link": "tsc --build ../packages && lerna bootstrap",
-    "packages:publish": "tsc --build ../packages && lerna publish"
+    "packages:publish": "npm run packages:build && lerna publish",
+    "packages:build": "tsc --build ../packages"
   },
   "devDependencies": {
     "concurrently": "^3.6.0",

@@ -1,13 +1,13 @@
-import { AuthorizationTest } from './authorization-test.abstract';
-import { hasOrganization, isSystemAdmin } from './authorization-test.utils';
-import { IAuthorizationTestData } from './authorizationTestData.interface';
+import { AuthorizationCheck } from './authorizationcheck.abstract';
+import { hasOrganization, isSystemAdmin } from './authorizationcheck.utils';
+import { IAuthorizationCheckData } from './authorizationcheckData.interface';
 
-export class CheckOrgMembership extends AuthorizationTest {
+export class CheckOrgParam extends AuthorizationCheck {
   constructor() {
     super();
   }
 
-  public async isAuthorized(data: IAuthorizationTestData): Promise<boolean> {
+  public async isAuthorized(data: IAuthorizationCheckData): Promise<boolean> {
     if (!data.requestingEntity) throw Error('No authenticated User found');
     if (!data.organizationIdForTargetResource) throw Error('organizationSlugForRequestedResource can not be null');
 

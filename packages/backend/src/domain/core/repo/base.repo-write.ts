@@ -4,7 +4,7 @@ import { Document, Model } from 'mongoose';
 import { AppError } from '../../../shared/exceptions/app.exception';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { BaseRepoCache } from './base.repo-cache';
-import { IValidator } from './validator.interface';
+import { IRepoValidator } from './validators/repo-validator.interface';
 /**
  *
  * @property loggerService
@@ -14,28 +14,22 @@ import { IValidator } from './validator.interface';
  * @property updateValidator optional. Provide with entity-update validation logic
  * @property deleteValidator optional. Provide with entity-delete validation logic
  */
-export interface IBaseRepoWriteOptions<
-  TEntity extends object & IEntity,
-  TModel extends Document & TEntity
-> {
+export interface IBaseRepoWriteOptions<TEntity extends object & IEntity, TModel extends Document & TEntity> {
   loggerService: LoggerSharedService;
   model: Model<TModel>;
   entityRepoCache?: BaseRepoCache<TEntity, TModel>;
-  createValidator?: IValidator<TEntity, any>;
-  updateValidator?: IValidator<Partial<TEntity>, any>;
-  deleteValidator?: IValidator<TEntity, any>;
+  createValidator?: IRepoValidator<TEntity, any>;
+  updateValidator?: IRepoValidator<Partial<TEntity>, any>;
+  deleteValidator?: IRepoValidator<TEntity, any>;
 }
 
-export abstract class BaseRepoWrite<
-  TEntity extends object & IEntity,
-  TModel extends Document & TEntity
-> {
+export abstract class BaseRepoWrite<TEntity extends object & IEntity, TModel extends Document & TEntity> {
   protected readonly _loggerService: LoggerSharedService;
   protected readonly _model: Model<TModel>;
   protected readonly entityRepoCache?: BaseRepoCache<TEntity, TModel>;
-  protected readonly createValidator?: IValidator<TEntity, TModel>;
-  protected readonly updateValidator?: IValidator<Partial<TEntity>, TModel>;
-  protected readonly deleteValidator?: IValidator<TEntity, TModel>;
+  protected readonly createValidator?: IRepoValidator<TEntity, TModel>;
+  protected readonly updateValidator?: IRepoValidator<Partial<TEntity>, TModel>;
+  protected readonly deleteValidator?: IRepoValidator<TEntity, TModel>;
   public readonly modelName: string;
 
   constructor(repoOptions: IBaseRepoWriteOptions<TEntity, TModel>) {
@@ -49,7 +43,6 @@ export abstract class BaseRepoWrite<
   }
 
   public async create(newEntity: TEntity): Promise<TEntity> {
-    // entity validation
     if (this.createValidator) this.createValidator.validate(newEntity);
 
     const createModel: TModel = new this._model();
@@ -59,18 +52,14 @@ export abstract class BaseRepoWrite<
 
   public async update(updateEntity: Partial<TEntity>): Promise<TEntity> {
     // field validation
-    if (!updateEntity.id)
-      throw new AppError(`${this.modelName} id can not be null`);
+    if (!updateEntity.id) throw new AppError(`${this.modelName} id can not be null`);
 
     // entity validation
     if (this.updateValidator) this.updateValidator.validate(updateEntity);
 
     // get current entity from DB
     const updateModel = await this._model.findById(updateEntity.id);
-    if (!updateModel)
-      throw new AppError(
-        `No ${this.modelName} found with id ${updateEntity.id}`,
-      );
+    if (!updateModel) throw new AppError(`No ${this.modelName} found with id ${updateEntity.id}`);
 
     // update values
     const updatedModel = _.merge(updateModel, updateEntity);
@@ -86,8 +75,7 @@ export abstract class BaseRepoWrite<
   public async delete(entityId: string): Promise<TEntity> {
     // get current entity from DB
     const deleteModel = await this._model.findById(entityId);
-    if (!deleteModel)
-      throw new AppError(`No ${this.modelName} found with id ${entityId}`);
+    if (!deleteModel) throw new AppError(`No ${this.modelName} found with id ${entityId}`);
 
     // entity validation
     if (this.deleteValidator) this.deleteValidator.validate(deleteModel);

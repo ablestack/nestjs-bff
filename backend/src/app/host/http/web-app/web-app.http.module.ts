@@ -2,7 +2,7 @@ import { AuthHttpModule } from '@nestjs-bff/backend/lib/host/http/auth/auth.http
 import { CoreHttpModule } from '@nestjs-bff/backend/lib/host/http/core/core.http.module';
 import { HttpExceptionFilter } from '@nestjs-bff/backend/lib/host/http/core/exceptions/http-exception.http.filter';
 import { AuthorizationHttpGuard } from '@nestjs-bff/backend/lib/host/http/core/guards/authorization.http.guard';
-import { JwtHttpMiddleware } from '@nestjs-bff/backend/lib/host/http/core/jwt/jwt.http.middleware';
+import { AttachAuthenticationHttpMiddleware } from '@nestjs-bff/backend/lib/host/http/core/middleware/attach-authentication.http.middleware';
 import { MigrationsSharedModule } from '@nestjs-bff/backend/lib/shared/migrations/migrations.shared.module';
 import {
   CacheInterceptor,
@@ -57,6 +57,6 @@ const AppPipeProvider = {
 })
 export class WebAppHttpModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(JwtHttpMiddleware).forRoutes({ path: '*', method: RequestMethod.ALL });
+    consumer.apply(AttachAuthenticationHttpMiddleware).forRoutes({ path: '*', method: RequestMethod.ALL });
   }
 }

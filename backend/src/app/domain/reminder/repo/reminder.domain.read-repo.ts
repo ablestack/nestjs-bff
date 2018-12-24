@@ -19,7 +19,7 @@ export class ReminderDomainRepoRead extends BaseRepoRead<ReminderEntity, IRemind
     return this.model.find({ userId });
   }
 
-  public async findOneById(id: string, userId: string): Promise<ReminderEntity> {
+  public async findOne(by: { id: string; userId: string }): Promise<ReminderEntity> {
     return this.model.find({ id, userId });
   }
 }

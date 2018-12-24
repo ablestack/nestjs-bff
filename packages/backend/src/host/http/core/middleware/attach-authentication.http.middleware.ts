@@ -5,11 +5,11 @@ import { AuthorizationRepoDomainCache } from '../../../../domain/authorization/r
 import { AppSharedProviderTokens } from '../../../../shared/app/app.shared.constants';
 import { LoggerSharedService } from '../../../../shared/logging/logger.shared.service';
 import { BadRequestHttpError } from '../exceptions/server.http.exception';
+import { IJwtPayload } from '../jwt/i-jwt-payload';
 import { getReqMetadataLite, parseAuthHeader } from '../utils/core.http.utils';
-import { IJwtPayload } from './i-jwt-payload';
 
 @Injectable()
-export class JwtHttpMiddleware implements NestMiddleware {
+export class AttachAuthenticationHttpMiddleware implements NestMiddleware {
   private static BEARER_AUTH_SCHEME = 'bearer';
   private static AUTH_HEADER = 'authorization';
 
@@ -81,7 +81,7 @@ export class JwtHttpMiddleware implements NestMiddleware {
     this.bffLoggerService.debug(`Attaching authorization to request`, {
       'req.originalUrl': req.originalUrl,
       authorizationEntity,
-      "org": authorizationEntity.organizations,
+      org: authorizationEntity.organizations,
     });
     req.authorization = authorizationEntity;
   }
@@ -95,7 +95,7 @@ export class JwtHttpMiddleware implements NestMiddleware {
    * @memberof JwtMiddleware
    */
   private getJwtBearerTokenFromRequestHeader(req): string | undefined {
-    const authHdr = req.headers[JwtHttpMiddleware.AUTH_HEADER];
+    const authHdr = req.headers[AttachAuthenticationHttpMiddleware.AUTH_HEADER];
 
     if (!authHdr) {
       // log if authHdr not found
@@ -111,7 +111,7 @@ export class JwtHttpMiddleware implements NestMiddleware {
       );
     }
 
-    if (parsedAuthHdr.scheme !== JwtHttpMiddleware.BEARER_AUTH_SCHEME) {
+    if (parsedAuthHdr.scheme !== AttachAuthenticationHttpMiddleware.BEARER_AUTH_SCHEME) {
       throw new BadRequestHttpError(`Incorrect auth scheme. Bearer expected.  Found ${parsedAuthHdr.scheme}`, getReqMetadataLite(req));
     }
 

@@ -1,4 +1,4 @@
-import { JwtHttpMiddleware } from '@nestjs-bff/backend/lib/host/http/core/jwt/jwt.http.middleware';
+import { AttachAuthenticationHttpMiddleware } from '@nestjs-bff/backend/lib/host/http/core/middleware/attach-authentication.http.middleware';
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { WebAppHttpModule } from '../../src/app/host/http/web-app/web-app.http.module';
 
@@ -10,6 +10,6 @@ import { WebAppHttpModule } from '../../src/app/host/http/web-app/web-app.http.m
 })
 export class ReminderE2eModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(JwtHttpMiddleware).forRoutes({ path: '*', method: RequestMethod.ALL });
+    consumer.apply(AttachAuthenticationHttpMiddleware).forRoutes({ path: '*', method: RequestMethod.ALL });
   }
 }
