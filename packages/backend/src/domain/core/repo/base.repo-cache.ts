@@ -1,71 +1,105 @@
 import { IEntity } from '@nestjs-bff/global/lib/interfaces/entity.interface';
+import { Validator } from 'class-validator';
 import { Document } from 'mongoose';
+import * as hash from 'object-hash';
 import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { AppError } from '../../../shared/exceptions/app.exception';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { BaseRepoRead } from './base.repo-read';
-import { RepoAuthorizationFilters } from './repo-authorization-filters';
+import { BaseQueryConditions } from './query-conditions/base-query-conditions';
 
-export interface IBaseRepoCacheOptions<TEntity extends object & IEntity, TModel extends Document & TEntity> {
+export interface IBaseRepoCacheOptions<
+  TEntity extends object & IEntity,
+  TModel extends Document & TEntity,
+  TQueryConditions extends BaseQueryConditions
+> {
   loggerService: LoggerSharedService;
-  repo: BaseRepoRead<TEntity, TModel>;
+  repo: BaseRepoRead<TEntity, TModel, TQueryConditions>;
   cacheStore: CacheStore;
   ttl: number;
 }
 
-export abstract class BaseRepoCache<TEntity extends object & IEntity, TModel extends Document & TEntity> {
+export abstract class BaseRepoCache<
+  TEntity extends object & IEntity,
+  TModel extends Document & TEntity,
+  TQueryConditions extends BaseQueryConditions
+> {
   private name: string;
-  private resourceCacheKey;
+  private cacheKeyBase;
   protected readonly loggerService: LoggerSharedService;
-  protected readonly repo: BaseRepoRead<TEntity, TModel>;
+  protected readonly repo: BaseRepoRead<TEntity, TModel, TQueryConditions>;
   protected readonly cacheStore: CacheStore;
   protected readonly ttl: number;
+  protected readonly validator: Validator;
 
-  constructor(options: IBaseRepoCacheOptions<TEntity, TModel>) {
+  constructor(options: IBaseRepoCacheOptions<TEntity, TModel, TQueryConditions>) {
     this.loggerService = options.loggerService;
     this.repo = options.repo;
     this.cacheStore = options.cacheStore;
     this.ttl = options.ttl;
 
     this.name = `CachedRepo<${this.repo.modelName}>`;
-    this.resourceCacheKey = `${this.name}?id=`;
+    this.cacheKeyBase = `${this.name}-cacheKey-`;
+    this.validator = new Validator();
   }
 
-  public async findById(id: string, authFilters: RepoAuthorizationFilters): Promise<TEntity | null> {
-    this.loggerService.trace(`${this.name}.findById`, { id });
-    return this.cacheStore.wrap(this.makeCacheKeyFromIdentifier(id), () => this.repo.findById(id), {
-      ttl: this.ttl,
-    });
+  public async findOne(conditions: TQueryConditions): Promise<TEntity | null> {
+    this.loggerService.trace(`${this.name}.findOne`, conditions);
+
+    this.repo.validate(conditions);
+
+    const key = this.makeCacheKeyFromObject(conditions);
+    const cachedResult = await this.cacheStore.get<TEntity>(key);
+    if (cachedResult) return cachedResult;
+    const result = await this.repo.findOne(conditions);
+    this.cacheStore.set(key, result, { ttl: this.ttl });
+
+    return result;
   }
 
-  public async findOneById(id: string): Promise<TEntity> {
-    this.loggerService.trace(`${this.name}.findOneById`, { id });
-    return this.cacheStore
-      .wrap(this.makeCacheKeyFromIdentifier(id), () => this.repo.findOneById(id), {
-        ttl: this.ttl,
-      })
-      .then(result => {
-        if (result == null) throw new AppError(`Could not find entity ${this.name} with id ${id}`);
-        return result;
-      });
+  public async find(conditions: TQueryConditions): Promise<TEntity[]> {
+    this.loggerService.trace(`${this.name}.find`, conditions);
+
+    this.repo.validate(conditions);
+
+    const key = this.makeCacheKeyFromObject(conditions);
+    const cachedResult = await this.cacheStore.get<TEntity[]>(key);
+    if (cachedResult) return cachedResult;
+    const result = await this.repo.find(conditions);
+    this.cacheStore.set(key, result, { ttl: this.ttl });
+
+    return result;
   }
 
-  public async findAll(): Promise<TEntity[]> {
-    // straight pass-through.  Don't cache find-all
-    return this.repo.findAll();
+  protected makeCacheKeyFromId(entityId: string): string {
+    this.validator.isMongoId(entityId);
+    return this.makeCacheKeyFromProperty(entityId, 'id');
   }
 
-  protected makeCacheKeyFromResource(resource: Partial<TEntity>): string {
-    if (!resource.id) throw new AppError('Id can not be null');
-    return this.makeCacheKeyFromIdentifier(resource.id);
+  protected makeCacheKeyFromProperty(propertyValue: string, propertyName: string): string {
+    this.validator.isNotEmpty(propertyValue);
+    this.validator.isNotEmpty(propertyName);
+    return `${this.cacheKeyBase}-${propertyName}-${propertyValue}`;
   }
 
-  protected makeCacheKeyFromIdentifier(identifier: string, identifierType: string = 'id'): string {
-    return `${this.resourceCacheKey}-${identifierType}-${identifier}`;
+  protected makeCacheKeyFromObject(object: object): string {
+    return hash(object);
   }
 
-  public clear(result: TEntity) {
-    if (!result.id) throw new AppError('Id can not be null');
-    return this.cacheStore.del(this.makeCacheKeyFromResource(result));
+  public clearCacheById(entityId: string) {
+    return this.cacheStore.del(this.makeCacheKeyFromId(entityId));
+  }
+
+  public clearCacheByProperty(propertyValue: string, propertyName: string) {
+    return this.cacheStore.del(this.makeCacheKeyFromProperty(propertyValue, propertyName));
+  }
+
+  public clearCacheByObject(object: object) {
+    return this.cacheStore.del(this.makeCacheKeyFromObject(object));
+  }
+
+  public clearCacheByKey(cacheKey: string) {
+    if (cacheKey.trim.length > 0) throw new AppError('cacheKey can not be null or whitespace');
+    return this.cacheStore.del(cacheKey);
   }
 }

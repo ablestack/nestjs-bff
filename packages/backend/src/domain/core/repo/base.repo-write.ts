@@ -5,14 +5,19 @@ import { Document, Model } from 'mongoose';
 import { AppError } from '../../../shared/exceptions/app.exception';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { BaseRepoCache } from './base.repo-cache';
+import { BaseQueryConditions } from './query-conditions/base-query-conditions';
 
-export abstract class BaseRepoWrite<TEntity extends object & IEntity, TModel extends Document & TEntity> {
+export abstract class BaseRepoWrite<
+  TEntity extends object & IEntity,
+  TModel extends Document & TEntity,
+  TQueryConditions extends BaseQueryConditions
+> {
   private readonly name: string;
   public readonly modelName: string;
   protected readonly loggerService: LoggerSharedService;
   protected readonly model: Model<TModel>;
 
-  protected readonly entityRepoCache?: BaseRepoCache<TEntity, TModel>;
+  protected readonly entityRepoCache?: BaseRepoCache<TEntity, TModel, TQueryConditions>;
 
   constructor(loggerService: LoggerSharedService, model: Model<TModel>) {
     this.loggerService = loggerService;
@@ -34,72 +39,53 @@ export abstract class BaseRepoWrite<TEntity extends object & IEntity, TModel ext
     validate(entity, { skipMissingProperties, groups: validationGroups });
   }
 
+  /**
+   *
+   * @param newEntity
+   */
   public async create(newEntity: TEntity): Promise<TEntity> {
     const createModel: TModel = new this.model();
     Object.assign(createModel, newEntity);
     return createModel.save();
   }
 
-  public async patch(entity: Partial<TEntity>): Promise<TEntity> {
-    // validate
+  /**
+   *
+   * @param entity
+   */
+  public async patch(entity: Partial<TEntity>): Promise<void> {
     this.validate(entity, true);
 
-    // get current entity from DB
-    const updateModel = await this.model.findById(entity.id);
-    if (!updateModel) throw new AppError(`No ${this.modelName} found with id ${entity.id}`);
+    await this.model.findByIdAndUpdate(entity.id, entity, {}).exec();
 
-    // update values
-    const updatedModel = _.merge(updateModel, entity);
-
-    // Persist
-    const result = await updatedModel.save();
-
-    this.triggerCacheClear(result);
-
-    return result;
+    this.triggerCacheClearById(entity.id);
   }
 
-  public async update(entity: TEntity): Promise<TEntity> {
-    // validate
+  /**
+   *
+   * @param entity
+   */
+  public async update(entity: TEntity): Promise<void> {
     this.validate(entity, false);
 
-    IN; progress;...
-
     // update. (at some point in the future, consider changing to findOneAndReplace... wasn't in typescript definitions for some reason)
-    this.model.findOneAndUpdate({ _id: entity.id }, entity, { new: true });
+    await this.model.findByIdAndUpdate(entity.id, entity, {}).exec();
 
-    // get current entity from DB
-    const updateModel = await this.model.findById(entity.id);
-    if (!updateModel) throw new AppError(`No ${this.modelName} found with id ${entity.id}`);
-
-    // update values
-    updateModel.set(entity);
-
-    // Persist
-    const result = await updatedModel.save();
-
-    this.triggerCacheClear(result);
-
-    return result;
+    this.triggerCacheClearById(entity.id);
   }
 
-  public async delete(entityId: string): Promise<TEntity> {
-    // get current entity from DB
-    const deleteModel = await this.model.findById(entityId);
-    if (!deleteModel) throw new AppError(`No ${this.modelName} found with id ${entityId}`);
+  /**
+   *
+   * @param entityId
+   */
+  public async delete(entityId: string): Promise<void> {
+    await this.model.findByIdAndDelete(entityId).exec();
 
-    // entity validation
-    if (this.deleteValidator) this.deleteValidator.validate(deleteModel);
-
-    const result = await deleteModel.remove();
-
-    this.triggerCacheClear(result);
-
-    return result;
+    this.triggerCacheClearById(entityId);
   }
 
-  protected async triggerCacheClear(entity: TEntity) {
-    if (this.entityRepoCache) return this.entityRepoCache.clear(entity);
-    return null;
+  protected async triggerCacheClearById(entityId?: string) {
+    if (!entityId) throw new AppError('entityId can not be null');
+    if (this.entityRepoCache) this.entityRepoCache.clearCacheById(entityId);
   }
 }

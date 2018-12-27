@@ -10,34 +10,25 @@ import { IAuthorizationModel } from '../model/authorization.domain.model';
 import { AuthorizationDomainRepoRead } from './authorization.domain.repo-read';
 
 @Injectable()
-export class AuthorizationRepoDomainCache extends BaseRepoCache<
-  AuthorizationEntity,
-  IAuthorizationModel
-> {
+export class AuthorizationRepoDomainCache extends BaseRepoCache<AuthorizationEntity, IAuthorizationModel> {
   constructor(
     loggerService: LoggerSharedService,
     private _repo: AuthorizationDomainRepoRead,
     @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
     @Inject(AppSharedProviderTokens.Config.App)
-    nestjsBffConfig: INestjsBffConfig,
+    nestjsBffConfig: INestjsBffConfig
   ) {
     super({
       loggerService,
       repo: _repo,
       cacheStore,
-      ttl: nestjsBffConfig.caching.entities.user,
+      ttl: nestjsBffConfig.caching.entities.user
     });
   }
 
-  public async findByUserId(
-    userId: string,
-  ): Promise<AuthorizationEntity | null> {
-    return this.cacheStore.wrap(
-      this.makeCacheKeyFromIdentifier(userId, 'userId'),
-      () => this._repo.findByUserId(userId),
-      {
-        ttl: this.ttl,
-      },
-    );
+  public async findByUserId(userId: string): Promise<AuthorizationEntity | null> {
+    return this.cacheStore.wrap(this.makeCacheKeyFromProperty(userId, 'userId'), () => this._repo.findByUserId(userId), {
+      ttl: this.ttl
+    });
   }
 }

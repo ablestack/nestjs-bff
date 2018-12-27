@@ -22,7 +22,7 @@ export class ReminderArchiveDomainRepoCache extends BaseRepoCache<ReminderArchiv
 
   public async findByUserId(userId: string): Promise<ReminderArchiveEntity[]> {
     return this.cacheStore.wrap(
-      this.makeCacheKeyFromIdentifier(userId, 'userId'),
+      this.makeCacheKeyFromProperty(userId, 'userId'),
       () => this._repo.findByUserId(userId),
       {
         ttl: this.ttl,
