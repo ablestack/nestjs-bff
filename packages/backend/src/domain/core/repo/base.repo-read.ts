@@ -1,45 +1,34 @@
 import { IEntity } from '@nestjs-bff/global/lib/interfaces/entity.interface';
+import { validate } from 'class-validator';
 import { Document, Model } from 'mongoose';
 import { AppError } from '../../../shared/exceptions/app.exception';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
-import { OrgAuthorizationQueryValidator } from './validators/org-authorization-query-validator.interface.1';
-import { IRepoValidator, IValidatorOptions } from './validators/repo-validator.interface';
-import { UserAuthorizationQueryValidator } from './validators/user-authorization-query-validator.interface';
-
-export interface IBaseRepoReadOptions<TEntity extends object & IEntity, TModel extends Document & TEntity> {
-  loggerService: LoggerSharedService;
-  model: Model<TModel>;
-  queryValidator?: Array<IRepoValidator<any, any>>;
-}
+import { BaseQueryConditions } from './query-conditions/base-query-conditions';
 
 /**
  * Base repo query repository
  *
  * Notes:
- *  - By default will try to validate that org and user filtering in in place, unless overridden with options
+ *  - By default will try to validate that org and user filtering in in place, unless overridden with params
  *  - FindAll can be achieved with find, passing no conditions
  */
-export abstract class BaseRepoRead<TEntity extends object & IEntity, TModel extends Document & TEntity> {
+export abstract class BaseRepoRead<
+  TEntity extends object & IEntity,
+  TModel extends Document & TEntity,
+  TQueryConditions extends BaseQueryConditions
+> {
   private readonly name: string;
   public readonly modelName: string;
   protected readonly loggerService: LoggerSharedService;
   protected readonly model: Model<TModel>;
-  protected readonly queryValidator?: Array<IRepoValidator<any, any>>;
 
   /**
    *
    * @param options
    */
-  constructor(options: IBaseRepoReadOptions<TEntity, TModel>) {
-    this.loggerService = options.loggerService;
-    this.model = options.model;
-
-    // Defaults to authorization validator, unless overridden
-    if (options.queryValidator !== undefined) {
-      this.queryValidator = options.queryValidator;
-    } else {
-      this.queryValidator = [new OrgAuthorizationQueryValidator(), new UserAuthorizationQueryValidator()];
-    }
+  constructor(loggerService: LoggerSharedService, model: Model<TModel>) {
+    this.loggerService = loggerService;
+    this.model = model;
 
     this.name = `RepoBase<${this.model.modelName}>`;
     this.modelName = this.model.modelName;
@@ -47,18 +36,26 @@ export abstract class BaseRepoRead<TEntity extends object & IEntity, TModel exte
 
   /**
    *
+   *
+   * @param {TQueryConditions} queryConditions
+   * @param {string[]} [validationGroups=[]]
+   * @memberof BaseRepoRead
+   * @description Validates query conditions.  Defaults to all validation groups
+   */
+  public validate(queryConditions: TQueryConditions, validationGroups: string[] = []) {
+    validate(queryConditions, { skipMissingProperties: true, groups: validationGroups });
+  }
+
+  /**
+   *
    * @param conditions
    * @param validatorOptions
    */
-  public async findOne(conditions: Partial<TEntity>, validatorOptions?: IValidatorOptions): Promise<TEntity | null> {
+  public async findOne(conditions: TQueryConditions): Promise<TEntity | null> {
     this.loggerService.trace(`${this.name}.findOne`, conditions);
 
     // validate
-    if (this.queryValidator) {
-      this.queryValidator.forEach(element => {
-        element.validate(conditions, validatorOptions);
-      });
-    }
+    this.validate(conditions);
 
     // execute
     return this.model.findOne(conditions).then(result => {
@@ -71,15 +68,11 @@ export abstract class BaseRepoRead<TEntity extends object & IEntity, TModel exte
    *
    * @param conditions
    * @param validatorOptions
-   */ public async find(conditions: Partial<TEntity>, validatorOptions?: IValidatorOptions): Promise<TEntity[]> {
+   */ public async find(conditions: TQueryConditions): Promise<TEntity[]> {
     this.loggerService.trace(`${this.name}.find`, conditions);
 
     // validate
-    if (this.queryValidator) {
-      this.queryValidator.forEach(element => {
-        element.validate(conditions, validatorOptions);
-      });
-    }
+    this.validate(conditions);
 
     // execute
     return this.model.find(conditions);

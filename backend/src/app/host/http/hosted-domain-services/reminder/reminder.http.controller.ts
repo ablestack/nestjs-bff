@@ -1,8 +1,8 @@
 import { CheckOrgAndUserParam } from '@nestjs-bff/backend/lib/domain/authorization/authorizationchecks/check-org-and-user-param.authorizationcheck';
 import { Authorization } from '@nestjs-bff/backend/lib/host/http/core/decorators/authorization.http.decorator';
 import { Controller, Delete, Get, Param, Patch, Post, Put, Req } from '@nestjs/common';
-import { ReminderDomainRepoCache } from '../../../../domain/reminder/repo/reminder.domain.cache-repo';
-import { ReminderDomainRepoWrite } from '../../../../domain/reminder/repo/reminder.domain.write-repo';
+import { ReminderDomainRepoCache } from '../../../../domain/reminder/repo/reminder.cache-repo';
+import { ReminderDomainRepoWrite } from '../../../../domain/reminder/repo/reminder.write-repo';
 import { ReminderEntity } from '../../../../global/entities/reminder.entity';
 
 /*

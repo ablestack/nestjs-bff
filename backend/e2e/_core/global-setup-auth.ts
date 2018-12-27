@@ -67,7 +67,7 @@ export const setupAuth = async globalConfig => {
   // create domainA regular user
   //
   authData.domainA.regularUser.auth = await organizationAppService.createMember({
-    organizationId: authData.domainA.adminUser.auth.organizations[0].organizationId,
+    orgId: authData.domainA.adminUser.auth.organizations[0].orgId,
     username: userData.domainA.regularUser.username,
     displayName: userData.domainA.regularUser.displayName,
     password: userData.domainA.regularUser.password,

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ReminderArchiveDomainRepoWrite } from '../../domain/reminder-archive/repo/reminder-archive.domain.write-repo';
-import { ReminderDomainRepoRead } from '../../domain/reminder/repo/reminder.domain.read-repo';
-import { ReminderDomainRepoWrite } from '../../domain/reminder/repo/reminder.domain.write-repo';
+import { ReminderDomainRepoRead } from '../../domain/reminder/repo/reminder.read-repo';
+import { ReminderDomainRepoWrite } from '../../domain/reminder/repo/reminder.write-repo';
 import { SendReminderToArchiveCommand } from '../../global/commands/send-reminder-to-archive.command';
 
 @Injectable()

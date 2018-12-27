@@ -10,6 +10,6 @@ export class AuthorizationEntity implements IEntity {
 
 export class OrganizationAuthorization {
   primary: boolean = false;
-  organizationId: string = '';
+  orgId: string = '';
   organizationRoles: string[] = [];
 }

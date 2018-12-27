@@ -11,7 +11,7 @@ function isSystemAdmin(authorization: AuthorizationEntity): boolean {
 
 function hasOrganization(authorization: AuthorizationEntity, organizationIDForResource: string): boolean {
   return !!authorization.organizations.find(organizationAuth => {
-    return organizationAuth.organizationId === organizationIDForResource;
+    return organizationAuth.orgId === organizationIDForResource;
   });
 }
 
@@ -19,8 +19,7 @@ function hasOrganizationRole(authorization: AuthorizationEntity, organizationIDF
   return !!authorization.organizations.find(organizationAuth => {
     return (
       // tslint:disable-next-line:triple-equals
-      organizationAuth.organizationId == organizationIDForResource &&
-      qualifyingRoles.some(role => organizationAuth.organizationRoles.includes(role))
+      organizationAuth.orgId == organizationIDForResource && qualifyingRoles.some(role => organizationAuth.organizationRoles.includes(role))
     );
   });
 }

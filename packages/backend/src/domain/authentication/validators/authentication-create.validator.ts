@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ValidationError } from '../../../shared/exceptions/validation.exception';
-import { IRepoValidator } from '../../core/repo/validators/repo-validator.interface';
+import { IEntityValidator } from '../../core/repo/validators/repo-validator.interface';
 import { IAuthenticationDomainEntity } from '../model/i-authentication.domain.entity';
 import { AuthenticationDomainRepoRead } from '../repo/authentication.domain.repo-read';
 import { Messages } from './messages.constants';
@@ -9,7 +9,7 @@ export interface IAuthenticationCreateValidatorOptions {
   skipUserIdValidation: boolean;
 }
 @Injectable()
-export class AuthenticationCreateValidator implements IRepoValidator<IAuthenticationDomainEntity, IAuthenticationCreateValidatorOptions> {
+export class AuthenticationCreateValidator implements IEntityValidator<IAuthenticationDomainEntity, IAuthenticationCreateValidatorOptions> {
   constructor(private readonly authenticationRepo: AuthenticationDomainRepoRead) {}
 
   public async validate(authenticationEntity: IAuthenticationDomainEntity, options?: IAuthenticationCreateValidatorOptions) {

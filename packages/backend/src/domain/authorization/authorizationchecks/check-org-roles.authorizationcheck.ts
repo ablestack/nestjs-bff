@@ -9,9 +9,9 @@ export class CheckOrgRoles extends AuthorizationCheck {
 
   public async isAuthorized(data: IAuthorizationCheckData): Promise<boolean> {
     if (!data.requestingEntity) throw Error('No authenticated User found');
-    if (!data.organizationIdForTargetResource) throw Error('organizationIdForTargetResource can not be null');
+    if (!data.orgIdForTargetResource) throw Error('orgIdForTargetResource can not be null');
 
     if (isSystemAdmin(data.requestingEntity)) return true;
-    return hasOrganizationRole(data.requestingEntity, data.organizationIdForTargetResource, this.qualifyingRoles);
+    return hasOrganizationRole(data.requestingEntity, data.orgIdForTargetResource, this.qualifyingRoles);
   }
 }

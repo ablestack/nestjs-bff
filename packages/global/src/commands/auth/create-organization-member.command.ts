@@ -1,7 +1,7 @@
 import { IsEmail, IsMongoId, IsString, Length } from 'class-validator';
 export class CreateOrganizationMemberCommand {
   @IsMongoId()
-  public readonly organizationId: string = '';
+  public readonly orgId: string = '';
 
   @IsEmail()
   @Length(6, 64)

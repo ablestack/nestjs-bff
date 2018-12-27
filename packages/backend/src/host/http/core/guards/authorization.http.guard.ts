@@ -67,7 +67,7 @@ export class AuthorizationHttpGuard implements CanActivate {
       });
 
       // get key date for auth tests
-      const organizationId: string | undefined = await this.getOrganizationIdFromSlug(req.params['organizationSlug']);
+      const orgId: string | undefined = await this.getOrgIdFromSlug(req.params['organizationSlug']);
       const userId: string | undefined = req.params['userId'];
       const authorizationchecks = await this.getauthorizationchecksFromCache(context);
 
@@ -85,13 +85,13 @@ export class AuthorizationHttpGuard implements CanActivate {
         if (
           !(await authorizationcheck.isAuthorized({
             requestingEntity: authorization,
-            organizationIdForTargetResource: organizationId,
+            orgIdForTargetResource: orgId,
             userIdForTargetResource: userId,
           }))
         ) {
           this.logger.warn(`authorizationcheck failed for authorizationcheck ${authorizationcheck.constructor.name}`, {
             authorization,
-            organizationId,
+            orgId,
             userId,
           });
           return false;
@@ -101,7 +101,7 @@ export class AuthorizationHttpGuard implements CanActivate {
       // if we made it here we passed all the tests.  return true
       this.logger.debug(`authorizationcheck passed`, {
         authorization,
-        organizationId,
+        orgId,
       });
       return true;
     } catch (error) {
@@ -114,7 +114,7 @@ export class AuthorizationHttpGuard implements CanActivate {
    *
    * @param organizationSlug
    */
-  private async getOrganizationIdFromSlug(organizationSlug: string): Promise<string | undefined> {
+  private async getOrgIdFromSlug(organizationSlug: string): Promise<string | undefined> {
     if (!organizationSlug) {
       this.logger.debug('organizationSlug not found');
       return undefined;
@@ -124,13 +124,13 @@ export class AuthorizationHttpGuard implements CanActivate {
 
     const organization = await this.organizationCache.findBySlug(organizationSlug);
     if (!organization) {
-      this.logger.debug('organizationId not found for slug', organizationSlug);
+      this.logger.debug('orgId not found for slug', organizationSlug);
       return undefined;
     }
 
-    this.logger.debug('organizationId found for slug', {
+    this.logger.debug('orgId found for slug', {
       organizationSlug,
-      organizationId: organization.id,
+      orgId: organization.id,
     });
     return organization.id;
   }

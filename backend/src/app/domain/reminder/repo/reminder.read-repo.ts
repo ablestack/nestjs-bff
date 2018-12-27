@@ -1,19 +1,28 @@
-import { BaseRepoWrite } from '@nestjs-bff/backend/lib/domain/core/repo/base.repo-write';
+///
+
+import { BaseRepoRead } from '@nestjs-bff/backend/lib/domain/core/repo/base.repo-read';
 import { LoggerSharedService } from '@nestjs-bff/backend/lib/shared/logging/logger.shared.service';
 import { Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { ReminderEntity } from '../../../global/entities/reminder.entity';
 import { IReminderModel } from '../model/reminder.domain.model';
 import { ReminderProviderTokens } from '../reminder.domain.constants';
-import { ReminderDomainRepoCache } from './reminder.domain.cache-repo';
+import { ReminderQueryConditions } from './reminder-query-conditions';
 
 @Injectable()
-export class ReminderDomainRepoWrite extends BaseRepoWrite<ReminderEntity, IReminderModel> {
+export class ReminderRepoRead extends BaseRepoRead<ReminderEntity, IReminderModel> {
   constructor(
     readonly loggerService: LoggerSharedService,
     @Inject(ReminderProviderTokens.Models.Reminder) model: Model<IReminderModel>,
-    reminderRepoCache: ReminderDomainRepoCache,
   ) {
-    super({ loggerService, model, entityRepoCache: reminderRepoCache });
+    super({ loggerService, model });
+  }
+
+  public async find(conditions: ReminderQueryConditions): Promise<ReminderEntity[]> {
+    return super.find(conditions);
+  }
+
+  public async findOne(conditions: ReminderQueryConditions): Promise<ReminderEntity> {
+    return super.find(conditions);
   }
 }

@@ -104,7 +104,7 @@ export class UserAuthApplicationService {
       organizations: [
         {
           primary: true,
-          organizationId: organization.id,
+          orgId: organization.id,
           organizationRoles: [OrganizationRoles.member, OrganizationRoles.admin],
         },
       ],

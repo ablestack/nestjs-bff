@@ -1,65 +1,71 @@
 import { IEntity } from '@nestjs-bff/global/lib/interfaces/entity.interface';
+import { validate } from 'class-validator';
 import * as _ from 'lodash';
 import { Document, Model } from 'mongoose';
 import { AppError } from '../../../shared/exceptions/app.exception';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { BaseRepoCache } from './base.repo-cache';
-import { IRepoValidator } from './validators/repo-validator.interface';
-/**
- *
- * @property loggerService
- * @property model
- * @property entityCache optional. Provide for automatic cache clears
- * @property createValidator optional. Provide with entity-create validation logic
- * @property updateValidator optional. Provide with entity-update validation logic
- * @property deleteValidator optional. Provide with entity-delete validation logic
- */
-export interface IBaseRepoWriteOptions<TEntity extends object & IEntity, TModel extends Document & TEntity> {
-  loggerService: LoggerSharedService;
-  model: Model<TModel>;
-  entityRepoCache?: BaseRepoCache<TEntity, TModel>;
-  createValidator?: IRepoValidator<TEntity, any>;
-  updateValidator?: IRepoValidator<Partial<TEntity>, any>;
-  deleteValidator?: IRepoValidator<TEntity, any>;
-}
 
 export abstract class BaseRepoWrite<TEntity extends object & IEntity, TModel extends Document & TEntity> {
-  protected readonly _loggerService: LoggerSharedService;
-  protected readonly _model: Model<TModel>;
-  protected readonly entityRepoCache?: BaseRepoCache<TEntity, TModel>;
-  protected readonly createValidator?: IRepoValidator<TEntity, TModel>;
-  protected readonly updateValidator?: IRepoValidator<Partial<TEntity>, TModel>;
-  protected readonly deleteValidator?: IRepoValidator<TEntity, TModel>;
+  private readonly name: string;
   public readonly modelName: string;
+  protected readonly loggerService: LoggerSharedService;
+  protected readonly model: Model<TModel>;
 
-  constructor(repoOptions: IBaseRepoWriteOptions<TEntity, TModel>) {
-    this._loggerService = repoOptions.loggerService;
-    this._model = repoOptions.model;
-    this.entityRepoCache = repoOptions.entityRepoCache;
-    this.updateValidator = repoOptions.updateValidator;
-    this.deleteValidator = repoOptions.deleteValidator;
+  protected readonly entityRepoCache?: BaseRepoCache<TEntity, TModel>;
 
-    this.modelName = this._model.modelName;
+  constructor(loggerService: LoggerSharedService, model: Model<TModel>) {
+    this.loggerService = loggerService;
+    this.model = model;
+
+    this.name = `RepoBase<${this.model.modelName}>`;
+    this.modelName = this.model.modelName;
+  }
+
+  /**
+   *
+   *
+   * @param {TQueryConditions} queryConditions
+   * @param {string[]} [validationGroups=[]]
+   * @memberof BaseRepoRead
+   * @description Validates query conditions.  Defaults to all validation groups
+   */
+  public validate(entity: Partial<TEntity>, skipMissingProperties: boolean = false, validationGroups: string[] = []) {
+    validate(entity, { skipMissingProperties, groups: validationGroups });
   }
 
   public async create(newEntity: TEntity): Promise<TEntity> {
-    if (this.createValidator) this.createValidator.validate(newEntity);
-
-    const createModel: TModel = new this._model();
+    const createModel: TModel = new this.model();
     Object.assign(createModel, newEntity);
     return createModel.save();
   }
 
-  public async update(updateEntity: Partial<TEntity>): Promise<TEntity> {
-    // field validation
-    if (!updateEntity.id) throw new AppError(`${this.modelName} id can not be null`);
-
-    // entity validation
-    if (this.updateValidator) this.updateValidator.validate(updateEntity);
+  public async patch(entity: Partial<TEntity>): Promise<TEntity> {
+    // validate
+    this.validate(entity, true);
 
     // get current entity from DB
-    const updateModel = await this._model.findById(updateEntity.id);
-    if (!updateModel) throw new AppError(`No ${this.modelName} found with id ${updateEntity.id}`);
+    const updateModel = await this.model.findById(entity.id);
+    if (!updateModel) throw new AppError(`No ${this.modelName} found with id ${entity.id}`);
+
+    // update values
+    const updatedModel = _.merge(updateModel, entity);
+
+    // Persist
+    const result = await updatedModel.save();
+
+    this.triggerCacheClear(result);
+
+    return result;
+  }
+
+  public async update(entity: TEntity): Promise<TEntity> {
+    // validate
+    this.validate(entity, false);
+
+    // get current entity from DB
+    const updateModel = await this.model.findById(entity.id);
+    if (!updateModel) throw new AppError(`No ${this.modelName} found with id ${entity.id}`);
 
     // update values
     const updatedModel = _.merge(updateModel, updateEntity);
@@ -74,7 +80,7 @@ export abstract class BaseRepoWrite<TEntity extends object & IEntity, TModel ext
 
   public async delete(entityId: string): Promise<TEntity> {
     // get current entity from DB
-    const deleteModel = await this._model.findById(entityId);
+    const deleteModel = await this.model.findById(entityId);
     if (!deleteModel) throw new AppError(`No ${this.modelName} found with id ${entityId}`);
 
     // entity validation

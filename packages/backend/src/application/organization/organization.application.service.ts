@@ -36,8 +36,8 @@ export class OrganizationApplicationService {
     });
 
     // validate organization exists
-    if (!(await this.organizationRepoCache.findById(cmd.organizationId))) {
-      throw new AppError(`Could not find organization for Id ${cmd.organizationId}`);
+    if (!(await this.organizationRepoCache.findById(cmd.orgId))) {
+      throw new AppError(`Could not find organization for Id ${cmd.orgId}`);
     }
 
     // create new user
@@ -57,7 +57,7 @@ export class OrganizationApplicationService {
       organizations: [
         {
           primary: true,
-          organizationId: cmd.organizationId,
+          orgId: cmd.orgId,
           organizationRoles: [OrganizationRoles.member],
         },
       ],

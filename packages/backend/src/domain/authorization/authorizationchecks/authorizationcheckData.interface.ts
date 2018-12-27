@@ -2,6 +2,6 @@ import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorizati
 
 export interface IAuthorizationCheckData {
   requestingEntity?: AuthorizationEntity;
-  organizationIdForTargetResource?: string;
+  orgIdForTargetResource?: string;
   userIdForTargetResource?: string;
 }
