@@ -63,12 +63,17 @@ export abstract class BaseRepoWrite<TEntity extends object & IEntity, TModel ext
     // validate
     this.validate(entity, false);
 
+    IN; progress;...
+
+    // update. (at some point in the future, consider changing to findOneAndReplace... wasn't in typescript definitions for some reason)
+    this.model.findOneAndUpdate({ _id: entity.id }, entity, { new: true });
+
     // get current entity from DB
     const updateModel = await this.model.findById(entity.id);
     if (!updateModel) throw new AppError(`No ${this.modelName} found with id ${entity.id}`);
 
     // update values
-    const updatedModel = _.merge(updateModel, updateEntity);
+    updateModel.set(entity);
 
     // Persist
     const result = await updatedModel.save();
