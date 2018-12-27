@@ -8,9 +8,10 @@ import { LoggerSharedService } from '../../../shared/logging/logger.shared.servi
 import { BaseRepoCache } from '../../core/repo/base.repo-cache';
 import { IAuthorizationModel } from '../model/authorization.domain.model';
 import { AuthorizationDomainRepoRead } from './authorization.domain.repo-read';
+import { AuthorizationQueryConditions } from './authorization.query-conditions';
 
 @Injectable()
-export class AuthorizationRepoDomainCache extends BaseRepoCache<AuthorizationEntity, IAuthorizationModel> {
+export class AuthorizationRepoDomainCache extends BaseRepoCache<AuthorizationEntity, IAuthorizationModel, AuthorizationQueryConditions> {
   constructor(
     loggerService: LoggerSharedService,
     private _repo: AuthorizationDomainRepoRead,
@@ -23,12 +24,6 @@ export class AuthorizationRepoDomainCache extends BaseRepoCache<AuthorizationEnt
       repo: _repo,
       cacheStore,
       ttl: nestjsBffConfig.caching.entities.user
-    });
-  }
-
-  public async findByUserId(userId: string): Promise<AuthorizationEntity | null> {
-    return this.cacheStore.wrap(this.makeCacheKeyFromProperty(userId, 'userId'), () => this._repo.findByUserId(userId), {
-      ttl: this.ttl
     });
   }
 }

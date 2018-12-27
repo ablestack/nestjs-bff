@@ -27,7 +27,7 @@ export class ReminderHttpController {
   @Get()
   @Authorization([new CheckOrgAndUserParam()])
   public async getItems(userId: string): Promise<ReminderEntity[]> {
-    return this.reminderRepoCache.findByUserId(userId);
+    return this.reminderRepoCache.findOne({ userId });
   }
 
   @Get(':id')

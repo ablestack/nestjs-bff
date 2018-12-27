@@ -4,9 +4,17 @@ import * as _ from 'lodash';
 import { Document, Model } from 'mongoose';
 import { AppError } from '../../../shared/exceptions/app.exception';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
+import { BaseQueryConditions } from './base.query-conditions';
 import { BaseRepoCache } from './base.repo-cache';
-import { BaseQueryConditions } from './query-conditions/base-query-conditions';
 
+export interface IBaseRepoWriteParams<
+  TEntity extends object & IEntity,
+  TModel extends Document & TEntity,
+  TQueryConditions extends BaseQueryConditions
+> {
+  loggerService: LoggerSharedService;
+  model: Model<TModel>;
+}
 export abstract class BaseRepoWrite<
   TEntity extends object & IEntity,
   TModel extends Document & TEntity,
@@ -19,9 +27,9 @@ export abstract class BaseRepoWrite<
 
   protected readonly entityRepoCache?: BaseRepoCache<TEntity, TModel, TQueryConditions>;
 
-  constructor(loggerService: LoggerSharedService, model: Model<TModel>) {
-    this.loggerService = loggerService;
-    this.model = model;
+  constructor(params: IBaseRepoWriteParams<TEntity, TModel, TQueryConditions>) {
+    this.loggerService = params.loggerService;
+    this.model = params.model;
 
     this.name = `RepoBase<${this.model.modelName}>`;
     this.modelName = this.model.modelName;

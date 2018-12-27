@@ -5,16 +5,11 @@ import { LoggerSharedService } from '../../../shared/logging/logger.shared.servi
 import { BaseRepoRead } from '../../core/repo/base.repo-read';
 import { IUserDomainModel } from '../model/user.domain.model';
 import { UserProviderTokens } from '../user.domain.constants';
+import { UserQueryConditions } from './user.query-conditions';
 
 @Injectable()
-export class UserDomainRepoRead extends BaseRepoRead<
-  UserDomainEntity,
-  IUserDomainModel
-> {
-  constructor(
-    readonly loggerService: LoggerSharedService,
-    @Inject(UserProviderTokens.Models.User) model: Model<IUserDomainModel>,
-  ) {
+export class UserDomainRepoRead extends BaseRepoRead<UserDomainEntity, IUserDomainModel, UserQueryConditions> {
+  constructor(readonly loggerService: LoggerSharedService, @Inject(UserProviderTokens.Models.User) model: Model<IUserDomainModel>) {
     super({ loggerService, model });
   }
 }

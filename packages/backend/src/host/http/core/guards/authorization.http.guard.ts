@@ -32,7 +32,7 @@ export class AuthorizationHttpGuard implements CanActivate {
     private readonly cacheStore: CacheStore,
     @Inject(AppSharedProviderTokens.Config.App)
     private readonly nestjsBffConfig: INestjsBffConfig,
-    private readonly logger: LoggerSharedService,
+    private readonly logger: LoggerSharedService
   ) {}
 
   public async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -41,7 +41,7 @@ export class AuthorizationHttpGuard implements CanActivate {
       if (!req) throw new BadGatewayHttpError('request can not be null');
 
       this.logger.trace('AuthorizationGuard.canActivate', {
-        'req.originalUrl': req.originalUrl,
+        'req.originalUrl': req.originalUrl
       });
 
       // test to see if public route
@@ -54,7 +54,7 @@ export class AuthorizationHttpGuard implements CanActivate {
       const authorization = req.authorization as AuthorizationEntity;
       if (!authorization) {
         this.logger.warn('Route not public, but no authorization found. ', {
-          request: getReqMetadataLite(req),
+          request: getReqMetadataLite(req)
         });
         return false;
       }
@@ -63,7 +63,7 @@ export class AuthorizationHttpGuard implements CanActivate {
       this.logger.debug('AuthorizationGuard', {
         'req.params': req.params,
         'req.route': req.route,
-        authorization,
+        authorization
       });
 
       // get key date for auth tests
@@ -75,7 +75,7 @@ export class AuthorizationHttpGuard implements CanActivate {
       if (!authorizationchecks || authorizationchecks.length === 0) {
         this.logger.warn('Request not authorized', {
           request: getReqMetadataLite(req),
-          authorization,
+          authorization
         });
         return false;
       }
@@ -86,13 +86,13 @@ export class AuthorizationHttpGuard implements CanActivate {
           !(await authorizationcheck.isAuthorized({
             requestingEntity: authorization,
             orgIdForTargetResource: orgId,
-            userIdForTargetResource: userId,
+            userIdForTargetResource: userId
           }))
         ) {
           this.logger.warn(`authorizationcheck failed for authorizationcheck ${authorizationcheck.constructor.name}`, {
             authorization,
             orgId,
-            userId,
+            userId
           });
           return false;
         }
@@ -101,7 +101,7 @@ export class AuthorizationHttpGuard implements CanActivate {
       // if we made it here we passed all the tests.  return true
       this.logger.debug(`authorizationcheck passed`, {
         authorization,
-        orgId,
+        orgId
       });
       return true;
     } catch (error) {
@@ -122,7 +122,7 @@ export class AuthorizationHttpGuard implements CanActivate {
 
     this.logger.debug('organizationSlug found', organizationSlug);
 
-    const organization = await this.organizationCache.findBySlug(organizationSlug);
+    const organization = await this.organizationCache.findOne({ slug: organizationSlug });
     if (!organization) {
       this.logger.debug('orgId not found for slug', organizationSlug);
       return undefined;
@@ -130,7 +130,7 @@ export class AuthorizationHttpGuard implements CanActivate {
 
     this.logger.debug('orgId found for slug', {
       organizationSlug,
-      orgId: organization.id,
+      orgId: organization.id
     });
     return organization.id;
   }
@@ -142,7 +142,7 @@ export class AuthorizationHttpGuard implements CanActivate {
       authorizationcheckCacheKey,
       () => this.getauthorizationcheck(context),
       // This configuration does not change dynamically.  Cache for a week
-      { ttl: 60 * 60 * 24 * 7 },
+      { ttl: 60 * 60 * 24 * 7 }
     );
   }
 

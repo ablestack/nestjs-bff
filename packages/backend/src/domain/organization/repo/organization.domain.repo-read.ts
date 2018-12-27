@@ -5,18 +5,15 @@ import { LoggerSharedService } from '../../../shared/logging/logger.shared.servi
 import { BaseRepoRead } from '../../core/repo/base.repo-read';
 import { IOrganizationDomainModel } from '../model/organization.domain.model';
 import { OrganizationProviderTokens } from '../organization.domain.constants';
+import { OrganizationQueryConditions } from './organization.query-conditions';
 
 @Injectable()
-export class OrganizationDomainRepoRead extends BaseRepoRead<OrganizationEntity, IOrganizationDomainModel> {
+export class OrganizationDomainRepoRead extends BaseRepoRead<OrganizationEntity, IOrganizationDomainModel, OrganizationQueryConditions> {
   constructor(
     readonly loggerService: LoggerSharedService,
     @Inject(OrganizationProviderTokens.Models.Organization)
-    model: Model<IOrganizationDomainModel>,
+    model: Model<IOrganizationDomainModel>
   ) {
     super({ loggerService, model });
-  }
-
-  public async findBySlug(slug: string): Promise<OrganizationEntity | null> {
-    return this.model.findOne({ slug });
   }
 }

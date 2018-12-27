@@ -8,24 +8,22 @@ import { LoggerSharedService } from '../../../shared/logging/logger.shared.servi
 import { BaseRepoCache } from '../../core/repo/base.repo-cache';
 import { IUserDomainModel } from '../model/user.domain.model';
 import { UserDomainRepoRead } from './user.domain.repo-read';
+import { UserQueryConditions } from './user.query-conditions';
 
 @Injectable()
-export class UserDomainRepoCache extends BaseRepoCache<
-  UserDomainEntity,
-  IUserDomainModel
-> {
+export class UserDomainRepoCache extends BaseRepoCache<UserDomainEntity, IUserDomainModel, UserQueryConditions> {
   constructor(
     loggerService: LoggerSharedService,
     repo: UserDomainRepoRead,
     @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
     @Inject(AppSharedProviderTokens.Config.App)
-    nestjsBffConfig: INestjsBffConfig,
+    nestjsBffConfig: INestjsBffConfig
   ) {
     super({
       loggerService,
       repo,
       cacheStore,
-      ttl: nestjsBffConfig.caching.entities.user,
+      ttl: nestjsBffConfig.caching.entities.user
     });
   }
 }

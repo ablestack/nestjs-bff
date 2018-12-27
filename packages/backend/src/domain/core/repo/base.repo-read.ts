@@ -3,7 +3,16 @@ import { validate } from 'class-validator';
 import { Document, Model } from 'mongoose';
 import { AppError } from '../../../shared/exceptions/app.exception';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
-import { BaseQueryConditions } from './query-conditions/base-query-conditions';
+import { BaseQueryConditions } from './base.query-conditions';
+
+export interface IBaseRepoReadParams<
+  TEntity extends object & IEntity,
+  TModel extends Document & TEntity,
+  TQueryConditions extends BaseQueryConditions
+> {
+  loggerService: LoggerSharedService;
+  model: Model<TModel>;
+}
 
 /**
  * Base repo query repository
@@ -26,9 +35,9 @@ export abstract class BaseRepoRead<
    *
    * @param options
    */
-  constructor(loggerService: LoggerSharedService, model: Model<TModel>) {
-    this.loggerService = loggerService;
-    this.model = model;
+  constructor(params: IBaseRepoReadParams<TEntity, TModel, TQueryConditions>) {
+    this.loggerService = params.loggerService;
+    this.model = params.model;
 
     this.name = `RepoBase<${this.model.modelName}>`;
     this.modelName = this.model.modelName;
@@ -42,7 +51,7 @@ export abstract class BaseRepoRead<
    * @memberof BaseRepoRead
    * @description Validates query conditions.  Defaults to all validation groups
    */
-  public validate(queryConditions: TQueryConditions, validationGroups: string[] = []) {
+  public validate(queryConditions: Partial<TQueryConditions>, validationGroups: string[] = []) {
     validate(queryConditions, { skipMissingProperties: true, groups: validationGroups });
   }
 
@@ -51,7 +60,7 @@ export abstract class BaseRepoRead<
    * @param conditions
    * @param validatorOptions
    */
-  public async findOne(conditions: TQueryConditions): Promise<TEntity | null> {
+  public async findOne(conditions: Partial<TQueryConditions>): Promise<TEntity | null> {
     this.loggerService.trace(`${this.name}.findOne`, conditions);
 
     // validate
@@ -68,7 +77,7 @@ export abstract class BaseRepoRead<
    *
    * @param conditions
    * @param validatorOptions
-   */ public async find(conditions: TQueryConditions): Promise<TEntity[]> {
+   */ public async find(conditions: Partial<TQueryConditions>): Promise<TEntity[]> {
     this.loggerService.trace(`${this.name}.find`, conditions);
 
     // validate

@@ -9,9 +9,10 @@ import { LoggerSharedService } from '../../../shared/logging/logger.shared.servi
 import { BaseRepoCache } from '../../core/repo/base.repo-cache';
 import { IOrganizationDomainModel } from '../model/organization.domain.model';
 import { OrganizationDomainRepoRead } from './organization.domain.repo-read';
+import { OrganizationQueryConditions } from './organization.query-conditions';
 
 @Injectable()
-export class OrganizationDomainRepoCache extends BaseRepoCache<OrganizationEntity, IOrganizationDomainModel> {
+export class OrganizationDomainRepoCache extends BaseRepoCache<OrganizationEntity, IOrganizationDomainModel, OrganizationQueryConditions> {
   constructor(
     private _repo: OrganizationDomainRepoRead,
     loggerService: LoggerSharedService,
@@ -25,17 +26,5 @@ export class OrganizationDomainRepoCache extends BaseRepoCache<OrganizationEntit
       cacheStore,
       ttl: nestjsBffConfig.caching.entities.organization
     });
-  }
-
-  public async findBySlug(slug: string): Promise<OrganizationEntity | null> {
-    return this.cacheStore.wrap(this.makeCacheKeyFromProperty(slug, 'slug'), () => this._repo.findBySlug(slug), {
-      ttl: this.ttl
-    });
-  }
-
-  protected removeFromCacheBySlug(result: OrganizationEntity) {
-    if (!result.slug) throw new AppError('Slug can not be null');
-    this.cacheStore.del(this.makeCacheKeyFromProperty(result.slug, 'slug'));
-    return result;
   }
 }

@@ -14,8 +14,4 @@ export class ReminderArchiveDomainRepoRead extends BaseRepoRead<ReminderArchiveE
   ) {
     super({ loggerService, model });
   }
-
-  public async findByUserId(userId: string): Promise<ReminderArchiveEntity[]> {
-    return this.model.find({ userId });
-  }
 }

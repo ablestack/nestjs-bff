@@ -1,9 +1,6 @@
 import { IsMongoId } from 'class-validator';
 
-export class AuthenticatedQueryConditions {
-  @IsMongoId()
-  public userId: string = '';
-
+export class OrgScopedQueryConditions {
   @IsMongoId()
   public readonly orgId: string = '';
 }

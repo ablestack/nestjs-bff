@@ -19,12 +19,12 @@ export class AttachAuthenticationHttpMiddleware implements NestMiddleware {
     private readonly bffLoggerService: LoggerSharedService,
     @Inject(AppSharedProviderTokens.Config.App)
     private readonly nestjsBffConfig: INestjsBffConfig,
-    private readonly authorizationService: AuthorizationRepoDomainCache,
+    private readonly authorizationService: AuthorizationRepoDomainCache
   ) {
     this.verifyOptions = {
       issuer: nestjsBffConfig.jwt.issuer,
       audience: nestjsBffConfig.http.bffRootUrl,
-      algorithms: [nestjsBffConfig.jwt.signingAlgorithm],
+      algorithms: [nestjsBffConfig.jwt.signingAlgorithm]
     };
   }
 
@@ -32,7 +32,7 @@ export class AttachAuthenticationHttpMiddleware implements NestMiddleware {
     return async (req, res, next) => {
       try {
         this.bffLoggerService.trace('-- JwtMiddleware.resolve', {
-          'req.originalUrl': req ? req.originalUrl : 'null',
+          'req.originalUrl': req ? req.originalUrl : 'null'
         });
         await this.process(req);
       } catch (error) {
@@ -73,7 +73,7 @@ export class AttachAuthenticationHttpMiddleware implements NestMiddleware {
     const jwtPayload = verify(jwtToken, this.nestjsBffConfig.jwt.jwtPublicKey, this.verifyOptions) as IJwtPayload;
     if (!jwtPayload) throw new BadRequestHttpError('Invalid JWT token', getReqMetadataLite(req));
 
-    const authorizationEntity = await this.authorizationService.findById(jwtPayload.sub);
+    const authorizationEntity = await this.authorizationService.findOne({ _id: jwtPayload.sub });
     if (!authorizationEntity) {
       throw new BadRequestHttpError(`No authentication data found for request: ${req.originalUrl}`);
     }
@@ -81,7 +81,7 @@ export class AttachAuthenticationHttpMiddleware implements NestMiddleware {
     this.bffLoggerService.debug(`Attaching authorization to request`, {
       'req.originalUrl': req.originalUrl,
       authorizationEntity,
-      org: authorizationEntity.organizations,
+      org: authorizationEntity.organizations
     });
     req.authorization = authorizationEntity;
   }
@@ -107,7 +107,7 @@ export class AttachAuthenticationHttpMiddleware implements NestMiddleware {
     if (!parsedAuthHdr) {
       throw new BadRequestHttpError(
         `Malformed auth header found for request: ${req.originalUrl} with authHdr ${authHdr}`,
-        getReqMetadataLite(req),
+        getReqMetadataLite(req)
       );
     }
 

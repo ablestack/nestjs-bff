@@ -19,14 +19,4 @@ export class ReminderRepoCache extends BaseRepoCache<ReminderEntity, IReminderMo
   ) {
     super({ loggerService, repo: _repo, cacheStore, ttl: appConfig.caching.entities.reminder });
   }
-
-  public async findByUserId(userId: string): Promise<ReminderEntity[]> {
-    return this.cacheStore.wrap(
-      this.makeCacheKeyFromProperty(userId, 'userId'),
-      () => this._repo.findByUserId(userId),
-      {
-        ttl: this.ttl,
-      },
-    );
-  }
 }

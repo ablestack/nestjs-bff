@@ -5,10 +5,10 @@ import * as hash from 'object-hash';
 import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { AppError } from '../../../shared/exceptions/app.exception';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
+import { BaseQueryConditions } from './base.query-conditions';
 import { BaseRepoRead } from './base.repo-read';
-import { BaseQueryConditions } from './query-conditions/base-query-conditions';
 
-export interface IBaseRepoCacheOptions<
+export interface IBaseRepoCacheParams<
   TEntity extends object & IEntity,
   TModel extends Document & TEntity,
   TQueryConditions extends BaseQueryConditions
@@ -32,18 +32,18 @@ export abstract class BaseRepoCache<
   protected readonly ttl: number;
   protected readonly validator: Validator;
 
-  constructor(options: IBaseRepoCacheOptions<TEntity, TModel, TQueryConditions>) {
-    this.loggerService = options.loggerService;
-    this.repo = options.repo;
-    this.cacheStore = options.cacheStore;
-    this.ttl = options.ttl;
+  constructor(params: IBaseRepoCacheParams<TEntity, TModel, TQueryConditions>) {
+    this.loggerService = params.loggerService;
+    this.repo = params.repo;
+    this.cacheStore = params.cacheStore;
+    this.ttl = params.ttl;
 
     this.name = `CachedRepo<${this.repo.modelName}>`;
     this.cacheKeyBase = `${this.name}-cacheKey-`;
     this.validator = new Validator();
   }
 
-  public async findOne(conditions: TQueryConditions): Promise<TEntity | null> {
+  public async findOne(conditions: Partial<TQueryConditions>): Promise<TEntity | null> {
     this.loggerService.trace(`${this.name}.findOne`, conditions);
 
     this.repo.validate(conditions);
@@ -57,7 +57,7 @@ export abstract class BaseRepoCache<
     return result;
   }
 
-  public async find(conditions: TQueryConditions): Promise<TEntity[]> {
+  public async find(conditions: Partial<TQueryConditions>): Promise<TEntity[]> {
     this.loggerService.trace(`${this.name}.find`, conditions);
 
     this.repo.validate(conditions);

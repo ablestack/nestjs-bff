@@ -6,18 +6,19 @@ import { AuthenticationDomainProviderTokens } from '../authentication.domain.con
 import { IAuthenticationDomainModel } from '../model/authentication.domain.model';
 import { IAuthenticationDomainEntity } from '../model/i-authentication.domain.entity';
 import { AuthenticationCreateValidator } from '../validators/authentication-create.validator';
+import { AuthenticationQueryConditions } from './authentication.query-conditions';
 
 @Injectable()
 export class AuthenticationDomainRepoWrite extends BaseRepoWrite<
   IAuthenticationDomainEntity,
-  IAuthenticationDomainModel
+  IAuthenticationDomainModel,
+  AuthenticationQueryConditions
 > {
   constructor(
     loggerService: LoggerSharedService,
     @Inject(AuthenticationDomainProviderTokens.Models.Authentication)
-    model: Model<IAuthenticationDomainModel>,
-    createValidator: AuthenticationCreateValidator,
+    model: Model<IAuthenticationDomainModel>
   ) {
-    super({ loggerService, model, createValidator });
+    super({ loggerService, model });
   }
 }
