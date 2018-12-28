@@ -4,7 +4,7 @@ import { Module } from '@nestjs/common';
 import { ReminderArchiveDomainSchema } from './model/reminder-archive.domain.schema';
 import { ReminderArchiveProviderTokens } from './reminder-archive.domain.constants';
 import { ReminderArchiveDomainRepoCache } from './repo/reminder-archive.domain.cache-repo';
-import { ReminderArchiveDomainRepoRead } from './repo/reminder-archive.domain.read-repo';
+import { ReminderArchiveDomainRepo } from './repo/reminder-archive.domain.repo';
 import { ReminderArchiveDomainRepoWrite } from './repo/reminder-archive.domain.write-repo';
 
 const ReminderArchiveModelProvider = {
@@ -17,10 +17,10 @@ const ReminderArchiveModelProvider = {
   imports: [CoreDomainModule],
   providers: [
     ReminderArchiveModelProvider,
-    ReminderArchiveDomainRepoRead,
+    ReminderArchiveDomainRepo,
     ReminderArchiveDomainRepoCache,
     ReminderArchiveDomainRepoWrite,
   ],
-  exports: [ReminderArchiveDomainRepoRead, ReminderArchiveDomainRepoCache, ReminderArchiveDomainRepoWrite],
+  exports: [ReminderArchiveDomainRepo, ReminderArchiveDomainRepoCache, ReminderArchiveDomainRepoWrite],
 })
 export class ReminderArchiveDomainModule {}

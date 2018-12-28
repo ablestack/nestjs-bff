@@ -9,13 +9,13 @@ export class CachingUtils {
     return this.makeCacheKeyFromProperty(entityId, 'id');
   }
 
-  protected static makeCacheKeyFromProperty(propertyValue: string, propertyName: string): string {
+  public static makeCacheKeyFromProperty(propertyValue: string, propertyName: string): string {
     this.validator.isNotEmpty(propertyValue);
     this.validator.isNotEmpty(propertyName);
     return `CacheKey-${propertyName}-${propertyValue}`;
   }
 
-  protected static makeCacheKeyFromObject(object: object): string {
+  public static makeCacheKeyFromObject(object: object): string {
     return hash(object);
   }
 }

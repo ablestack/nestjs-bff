@@ -4,7 +4,7 @@ import { Module } from '@nestjs/common';
 import { ReminderDomainSchema } from './model/reminder.domain.schema';
 import { ReminderProviderTokens } from './reminder.domain.constants';
 import { ReminderDomainRepoCache } from './repo/reminder.cache-repo';
-import { ReminderDomainRepoRead } from './repo/reminder.read-repo';
+import { ReminderDomainRepo } from './repo/reminder.repo';
 import { ReminderDomainRepoWrite } from './repo/reminder.write-repo';
 
 const ReminderModelProvider = {
@@ -15,7 +15,7 @@ const ReminderModelProvider = {
 
 @Module({
   imports: [CoreDomainModule],
-  providers: [ReminderModelProvider, ReminderDomainRepoRead, ReminderDomainRepoCache, ReminderDomainRepoWrite],
-  exports: [ReminderDomainRepoRead, ReminderDomainRepoCache, ReminderDomainRepoWrite],
+  providers: [ReminderModelProvider, ReminderDomainRepo, ReminderDomainRepoCache, ReminderDomainRepoWrite],
+  exports: [ReminderDomainRepo, ReminderDomainRepoCache, ReminderDomainRepoWrite],
 })
 export class ReminderDomainModule {}

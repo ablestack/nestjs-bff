@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ValidationError } from '../../../shared/exceptions/validation.exception';
-import { AuthenticationDomainEntity } from '../model/authentication.domain.entity';
-import { AuthenticationDomainRepoRead } from '../repo/authentication.domain.repo-read';
+import { AuthenticationEntity } from '../model/authentication.entity';
+import { AuthenticationDomainRepo } from '../repo/authentication.domain.repo';
 import { Messages } from './messages.constants';
 
 export interface IAuthenticationCreateValidatorOptions {
@@ -9,9 +9,9 @@ export interface IAuthenticationCreateValidatorOptions {
 }
 @Injectable()
 export class DeprecatedAuthenticationCreateValidator {
-  constructor(private readonly authenticationRepo: AuthenticationDomainRepoRead) {}
+  constructor(private readonly authenticationRepo: AuthenticationDomainRepo) {}
 
-  public async validate(authenticationEntity: AuthenticationDomainEntity, options?: IAuthenticationCreateValidatorOptions) {
+  public async validate(authenticationEntity: AuthenticationEntity, options?: IAuthenticationCreateValidatorOptions) {
     const messages: string[] = [];
 
     if (!options || !options.skipUserIdValidation) {

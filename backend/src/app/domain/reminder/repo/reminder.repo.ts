@@ -1,23 +1,27 @@
-import { BaseRepoCache } from '@nestjs-bff/backend/lib/domain/core/repo/base.repo-cache';
 import { AppSharedProviderTokens } from '@nestjs-bff/backend/lib/shared/app/app.shared.constants';
 import { CacheStore } from '@nestjs-bff/backend/lib/shared/caching/cache-store.shared';
 import { CachingProviderTokens } from '@nestjs-bff/backend/lib/shared/caching/caching.shared.constants';
 import { LoggerSharedService } from '@nestjs-bff/backend/lib/shared/logging/logger.shared.service';
 import { Inject, Injectable } from '@nestjs/common';
+import { Model } from 'mongoose';
 import { IAppConfig } from '../../../../config/app.config';
 import { ReminderEntity } from '../../../global/entities/reminder.entity';
 import { IReminderModel } from '../model/reminder.domain.model';
+import { ReminderProviderTokens } from '../reminder.domain.constants';
 import { ReminderQueryConditions } from './reminder-query-conditions';
-import { ReminderRepoRead } from './reminder.read-repo';
 
 @Injectable()
-export class ReminderRepoCache extends BaseRepoCache<ReminderEntity, IReminderModel, ReminderQueryConditions> {
+export class ReminderDomainRepo extends BaseRepo<ReminderEntity, IReminderModel, ReminderQueryConditions> {
   constructor(
-    repo: ReminderRepoRead,
-    loggerService: LoggerSharedService,
+    readonly loggerService: LoggerSharedService,
+    @Inject(ReminderProviderTokens.Models.Reminder) model: Model<IReminderModel>,
     @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
     @Inject(AppSharedProviderTokens.Config.App) appConfig: IAppConfig,
   ) {
-    super({ loggerService, repo, cacheStore, ttl: appConfig.caching.entities.reminder });
+    super({ loggerService, model, cacheStore, defaultTTL: appConfig.caching.entities.reminder });
+  }
+
+  protected generateValidQueryConditionsForCacheClear(entity: ReminderEntity): ReminderQueryConditions[] {
+    throw new Error('Method not implemented.');
   }
 }

@@ -1,4 +1,4 @@
-import { AuthenticationDomainSchema } from '@nestjs-bff/backend/lib/domain/authentication/model/authentication.domain.schema';
+import { AuthenticationSchema } from '@nestjs-bff/backend/lib/domain/authentication/model/authentication.domain.schema';
 import { AuthorizationDomainSchema } from '@nestjs-bff/backend/lib/domain/authorization/model/authorization.domain.schema';
 import { OrganizationDomainSchema } from '@nestjs-bff/backend/lib/domain/organization/model/organization.domain.schema';
 import { UserDomainSchema } from '@nestjs-bff/backend/lib/domain/user/model/user.domain.schema';
@@ -11,9 +11,7 @@ import { data } from './data/seed-data';
  */
 export async function up(connection: Connection, bffLoggerService: LoggerSharedService) {
   await connection.model('IUserDomainModel', UserDomainSchema).collection.insertMany(data.users);
-  await connection
-    .model('IAuthenticationDomainModel', AuthenticationDomainSchema)
-    .collection.insertMany(data.authentications);
+  await connection.model('IAuthenticationModel', AuthenticationSchema).collection.insertMany(data.authentications);
   await connection
     .model('IOrganizationDomainModel', OrganizationDomainSchema)
     .collection.insertMany(data.organizations);
@@ -31,7 +29,7 @@ export async function down(connection: Connection, bffLoggerService: LoggerShare
     .collection.deleteMany({ _id: { $in: data.users.map(item => item._id) } });
 
   await connection
-    .model('IAuthenticationDomainModel', AuthenticationDomainSchema)
+    .model('IAuthenticationModel', AuthenticationSchema)
     .collection.deleteMany({ _id: { $in: data.authentications.map(item => item._id) } });
 
   await connection

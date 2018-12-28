@@ -1,29 +1,28 @@
 import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
 import { Inject, Injectable } from '@nestjs/common';
+import { Model } from 'mongoose';
 import { INestjsBffConfig } from '../../../config/nestjs-bff.config';
 import { AppSharedProviderTokens } from '../../../shared/app/app.shared.constants';
 import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { CachingProviderTokens } from '../../../shared/caching/caching.shared.constants';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
-import { BaseRepoCache } from '../../core/repo/base.repo-cache';
+import { BaseRepo } from '../../core/repo/base.repo';
+import { AuthorizationDomainProviderTokens } from '../authorization.domain.constants';
 import { IAuthorizationModel } from '../model/authorization.domain.model';
-import { AuthorizationDomainRepoRead } from './authorization.domain.repo-read';
 import { AuthorizationQueryConditions } from './authorization.query-conditions';
 
 @Injectable()
-export class AuthorizationRepoDomainCache extends BaseRepoCache<AuthorizationEntity, IAuthorizationModel, AuthorizationQueryConditions> {
+export class AuthorizationDomainRepo extends BaseRepo<AuthorizationEntity, IAuthorizationModel, AuthorizationQueryConditions> {
   constructor(
-    loggerService: LoggerSharedService,
-    repo: AuthorizationDomainRepoRead,
+    readonly loggerService: LoggerSharedService,
+    @Inject(AuthorizationDomainProviderTokens.Models.Authorization) model: Model<IAuthorizationModel>,
     @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
-    @Inject(AppSharedProviderTokens.Config.App)
-    nestjsBffConfig: INestjsBffConfig,
+    @Inject(AppSharedProviderTokens.Config.App) nestjsBffConfig: INestjsBffConfig,
   ) {
-    super({
-      loggerService,
-      repo,
-      cacheStore,
-      ttl: nestjsBffConfig.caching.entities.user,
-    });
+    super({ loggerService, model, cacheStore, defaultTTL: nestjsBffConfig.caching.entities.user });
+  }
+
+  protected generateValidQueryConditionsForCacheClear(entity: AuthorizationEntity): AuthorizationQueryConditions[] {
+    throw new Error('Method not implemented.');
   }
 }

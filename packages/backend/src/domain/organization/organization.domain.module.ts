@@ -4,28 +4,18 @@ import { MongoSharedProviderTokens } from '../../shared/database/mongo/mongo.sha
 import { OrganizationDomainSchema } from './model/organization.domain.schema';
 import { OrganizationProviderTokens } from './organization.domain.constants';
 import { OrganizationDomainRepoCache } from './repo/organization.domain.repo-cache';
-import { OrganizationDomainRepoRead } from './repo/organization.domain.repo-read';
+import { OrganizationDomainRepo } from './repo/organization.domain.repo';
 import { OrganizationDomainRepoWrite } from './repo/organization.domain.repo-write';
 
 const OrganizationDomainModel = {
   provide: OrganizationProviderTokens.Models.Organization,
-  useFactory: mongoose =>
-    mongoose.connection.model('Organization', OrganizationDomainSchema),
+  useFactory: mongoose => mongoose.connection.model('Organization', OrganizationDomainSchema),
   inject: [MongoSharedProviderTokens.Connections.Mongoose],
 };
 
 @Module({
   imports: [CoreDomainModule],
-  providers: [
-    OrganizationDomainRepoRead,
-    OrganizationDomainRepoCache,
-    OrganizationDomainRepoWrite,
-    OrganizationDomainModel,
-  ],
-  exports: [
-    OrganizationDomainRepoRead,
-    OrganizationDomainRepoCache,
-    OrganizationDomainRepoWrite,
-  ],
+  providers: [OrganizationDomainRepo, OrganizationDomainRepoCache, OrganizationDomainRepoWrite, OrganizationDomainModel],
+  exports: [OrganizationDomainRepo, OrganizationDomainRepoCache, OrganizationDomainRepoWrite],
 })
 export class OrganizationDomainModule {}

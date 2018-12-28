@@ -4,7 +4,7 @@ import { PromoteToGroupAdminCommand } from '@nestjs-bff/global/lib/commands/auth
 import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
 import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
 import { Injectable } from '@nestjs/common';
-import { AuthenticationDomainRepoRead } from '../../domain/authentication/repo/authentication.domain.repo-read';
+import { AuthenticationDomainRepo } from '../../domain/authentication/repo/authentication.domain.repo';
 import { AuthenticationDomainRepoWrite } from '../../domain/authentication/repo/authentication.domain.repo-write';
 import { FacebookAuthenticationDomainService } from '../../domain/authentication/social/facebook-authentication.domain.service';
 import { FacebookProfileDomainService } from '../../domain/authentication/social/facebook-profile.domain..service';
@@ -21,7 +21,7 @@ export class UserAuthApplicationService {
   constructor(
     private readonly fbAuthenticationService: FacebookAuthenticationDomainService,
     private readonly fbProfileService: FacebookProfileDomainService,
-    private readonly authenticationRepoRead: AuthenticationDomainRepoRead,
+    private readonly authenticationRepo: AuthenticationDomainRepo,
     private readonly authenticationRepoWrite: AuthenticationDomainRepoWrite,
     private readonly authorizationRepoCache: AuthorizationRepoDomainCache,
     private readonly authorizationRepoWrite: AuthorizationDomainRepoWrite,
@@ -34,7 +34,7 @@ export class UserAuthApplicationService {
    * @param cmd
    */
   public async signInWithLocal(cmd: LocalAuthenticateCommand): Promise<AuthorizationEntity> {
-    const authenticationEntity = await this.authenticationRepoRead.findByLocalEmail(cmd.username);
+    const authenticationEntity = await this.authenticationRepo.findByLocalEmail(cmd.username);
 
     if (!authenticationEntity) throw new ValidationError(['Your login credentials were not correct']);
     if (!authenticationEntity.local)
@@ -140,7 +140,7 @@ export class UserAuthApplicationService {
     const fbProfile = await this.fbProfileService.getProfile(fbAuthorizationToken);
 
     // find Authentication Entity
-    const authenticationEntity = await this.authenticationRepoRead.findByFacebookId(fbProfile.id);
+    const authenticationEntity = await this.authenticationRepo.findByFacebookId(fbProfile.id);
     if (authenticationEntity) throw new AppError('Could not find authorization information for signIn');
 
     // create new user
@@ -182,7 +182,7 @@ export class UserAuthApplicationService {
     const fbProfile = await this.fbProfileService.getProfile(fbAuthorizationToken);
 
     // find Authentication Entity
-    const authenticationEntity = await this.authenticationRepoRead.findByFacebookId(fbProfile.id);
+    const authenticationEntity = await this.authenticationRepo.findByFacebookId(fbProfile.id);
     if (!authenticationEntity) throw new AppError('Could not find authentication information for signIn');
 
     const authorizationEntity = await this.authorizationRepoCache.findOne({ userId: authenticationEntity.userId });

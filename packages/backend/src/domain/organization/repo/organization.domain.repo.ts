@@ -1,29 +1,28 @@
 import { OrganizationEntity } from '@nestjs-bff/global/lib/entities/organization.entity';
 import { Inject, Injectable } from '@nestjs/common';
+import { Model } from 'mongoose';
 import { INestjsBffConfig } from '../../../config/nestjs-bff.config';
 import { AppSharedProviderTokens } from '../../../shared/app/app.shared.constants';
 import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { CachingProviderTokens } from '../../../shared/caching/caching.shared.constants';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
-import { BaseRepoCache } from '../../core/repo/base.repo-cache';
+import { BaseRepo } from '../../core/repo/base.repo';
 import { IOrganizationDomainModel } from '../model/organization.domain.model';
-import { OrganizationDomainRepoRead } from './organization.domain.repo-read';
+import { OrganizationProviderTokens } from '../organization.domain.constants';
 import { OrganizationQueryConditions } from './organization.query-conditions';
 
 @Injectable()
-export class OrganizationDomainRepoCache extends BaseRepoCache<OrganizationEntity, IOrganizationDomainModel, OrganizationQueryConditions> {
+export class OrganizationDomainRepo extends BaseRepo<OrganizationEntity, IOrganizationDomainModel, OrganizationQueryConditions> {
   constructor(
-    repo: OrganizationDomainRepoRead,
-    loggerService: LoggerSharedService,
+    readonly loggerService: LoggerSharedService,
+    @Inject(OrganizationProviderTokens.Models.Organization) model: Model<IOrganizationDomainModel>,
     @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
-    @Inject(AppSharedProviderTokens.Config.App)
-    nestjsBffConfig: INestjsBffConfig,
+    @Inject(AppSharedProviderTokens.Config.App) nestjsBffConfig: INestjsBffConfig,
   ) {
-    super({
-      loggerService,
-      repo,
-      cacheStore,
-      ttl: nestjsBffConfig.caching.entities.organization,
-    });
+    super({ loggerService, model, cacheStore, defaultTTL: nestjsBffConfig.caching.entities.user });
+  }
+
+  protected generateValidQueryConditionsForCacheClear(entity: OrganizationEntity): OrganizationQueryConditions[] {
+    throw new Error('Method not implemented.');
   }
 }

@@ -1,6 +1,6 @@
 import { IsMongoId } from 'class-validator';
 
-export class AuthenticationDomainEntity {
+export class AuthenticationEntity {
   @IsMongoId()
   public userId: string = '';
 

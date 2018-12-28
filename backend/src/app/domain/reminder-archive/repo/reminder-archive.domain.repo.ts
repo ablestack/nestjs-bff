@@ -1,22 +1,31 @@
-import { BaseRepoCache } from '@nestjs-bff/backend/lib/domain/core/repo/base.repo-cache';
 import { AppSharedProviderTokens } from '@nestjs-bff/backend/lib/shared/app/app.shared.constants';
 import { CacheStore } from '@nestjs-bff/backend/lib/shared/caching/cache-store.shared';
 import { CachingProviderTokens } from '@nestjs-bff/backend/lib/shared/caching/caching.shared.constants';
 import { LoggerSharedService } from '@nestjs-bff/backend/lib/shared/logging/logger.shared.service';
 import { Inject, Injectable } from '@nestjs/common';
+import { Model } from 'mongoose';
 import { IAppConfig } from '../../../../config/app.config';
 import { ReminderArchiveEntity } from '../../../global/entities/reminder-archive.entity';
 import { IReminderArchiveModel } from '../model/reminder-archive.domain.model';
-import { ReminderArchiveDomainRepoRead } from './reminder-archive.domain.read-repo';
+import { ReminderArchiveProviderTokens } from '../reminder-archive.domain.constants';
+import { ReminderArchiveQueryConditions } from './reminder-archive-query-conditions';
 
 @Injectable()
-export class ReminderArchiveDomainRepoCache extends BaseRepoCache<ReminderArchiveEntity, IReminderArchiveModel> {
+export class ReminderArchiveDomainRepo extends BaseRepo<
+  ReminderArchiveEntity,
+  IReminderArchiveModel,
+  ReminderArchiveQueryConditions
+> {
   constructor(
-    private _repo: ReminderArchiveDomainRepoRead,
-    loggerService: LoggerSharedService,
+    readonly loggerService: LoggerSharedService,
+    @Inject(ReminderArchiveProviderTokens.Models.ReminderArchive) model: Model<IReminderArchiveModel>,
     @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
     @Inject(AppSharedProviderTokens.Config.App) appConfig: IAppConfig,
   ) {
-    super({ loggerService, repo: _repo, cacheStore, ttl: appConfig.caching.entities.reminderArchive });
+    super({ loggerService, model, cacheStore, defaultTTL: appConfig.caching.entities.reminderArchive });
+  }
+
+  protected generateValidQueryConditionsForCacheClear(entity: ReminderArchiveEntity): ReminderArchiveQueryConditions[] {
+    throw new Error('Method not implemented.');
   }
 }

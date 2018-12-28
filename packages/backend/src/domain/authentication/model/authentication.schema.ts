@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
-export const AuthenticationDomainSchema: Schema = new Schema(
+export const AuthenticationSchema: Schema = new Schema(
   {
     userId: {
       type: Schema.Types.ObjectId,
