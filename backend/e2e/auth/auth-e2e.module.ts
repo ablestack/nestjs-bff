@@ -1,5 +1,5 @@
-import { AuthModule } from '@nestjs-bff/backend/src/host/http/auth/auth.module';
-import { AttachAuthenticationHttpMiddleware } from '@nestjs-bff/backend/src/host/http/core/middleware/attach-authentication.middleware';
+import { AuthModule } from '@nestjs-bff/backend/lib/host/http/auth/auth.module';
+import { AttachAuthenticationHttpMiddleware } from '@nestjs-bff/backend/lib/host/http/core/middleware/attach-authentication.middleware';
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { WebAppModule } from '../../src/app/host/http/web-app/web-app.module';
 
