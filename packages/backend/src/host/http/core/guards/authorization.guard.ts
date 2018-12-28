@@ -24,7 +24,7 @@ import { getReqMetadataLite } from '../utils/core.utils';
  * @implements {CanActivate}
  */
 @Injectable()
-export class AuthorizationHttpGuard implements CanActivate {
+export class AuthorizationGuard implements CanActivate {
   constructor(
     private readonly reflector: Reflector,
     private readonly organizationCache: OrganizationRepo,

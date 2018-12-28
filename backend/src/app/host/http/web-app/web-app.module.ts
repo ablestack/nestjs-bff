@@ -1,7 +1,7 @@
 import { AuthModule } from '@nestjs-bff/backend/lib/host/http/auth/auth.module';
 import { CoreModule } from '@nestjs-bff/backend/lib/host/http/core/core.module';
 import { HttpExceptionFilter } from '@nestjs-bff/backend/lib/host/http/core/exceptions/http-exception.filter';
-import { AuthorizationHttpGuard } from '@nestjs-bff/backend/lib/host/http/core/guards/authorization.guard';
+import { AuthorizationGuard } from '@nestjs-bff/backend/lib/host/http/core/guards/authorization.guard';
 import { AttachAuthenticationHttpMiddleware } from '@nestjs-bff/backend/lib/host/http/core/middleware/attach-authentication.middleware';
 import { MigrationsSharedModule } from '@nestjs-bff/backend/lib/shared/migrations/migrations.shared.module';
 import {
@@ -34,7 +34,7 @@ const AppFilterProvider = {
 const AppGuardProvider = {
   // setting up global guard
   provide: APP_GUARD,
-  useClass: AuthorizationHttpGuard,
+  useClass: AuthorizationGuard,
 };
 
 const CacheInterceptorProvider = {
