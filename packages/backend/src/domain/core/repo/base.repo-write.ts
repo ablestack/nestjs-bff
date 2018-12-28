@@ -14,6 +14,7 @@ export interface IBaseRepoWriteParams<
 > {
   loggerService: LoggerSharedService;
   model: Model<TModel>;
+  entityRepoCache?: BaseRepoCache<TEntity, TModel, TQueryConditions>;
 }
 export abstract class BaseRepoWrite<
   TEntity extends object & IEntity,
@@ -30,6 +31,7 @@ export abstract class BaseRepoWrite<
   constructor(params: IBaseRepoWriteParams<TEntity, TModel, TQueryConditions>) {
     this.loggerService = params.loggerService;
     this.model = params.model;
+    this.entityRepoCache = params.entityRepoCache;
 
     this.name = `RepoBase<${this.model.modelName}>`;
     this.modelName = this.model.modelName;

@@ -12,7 +12,7 @@ export class OrganizationDomainRepoRead extends BaseRepoRead<OrganizationEntity,
   constructor(
     readonly loggerService: LoggerSharedService,
     @Inject(OrganizationProviderTokens.Models.Organization)
-    model: Model<IOrganizationDomainModel>
+    model: Model<IOrganizationDomainModel>,
   ) {
     super({ loggerService, model });
   }

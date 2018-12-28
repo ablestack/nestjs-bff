@@ -1,3 +1,7 @@
-import { BaseQueryConditions } from '../../core/repo/base.query-conditions';
+import { IsMongoId } from 'class-validator';
+import { UserScopedQueryConditions } from '../../core/repo/user-scoped.query-conditions';
 
-export class AuthorizationQueryConditions extends BaseQueryConditions {}
+export class AuthorizationQueryConditions extends UserScopedQueryConditions {
+  @IsMongoId()
+  public userId: string = '';
+}

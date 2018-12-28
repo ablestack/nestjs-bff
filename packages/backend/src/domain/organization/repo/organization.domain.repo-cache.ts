@@ -4,7 +4,6 @@ import { INestjsBffConfig } from '../../../config/nestjs-bff.config';
 import { AppSharedProviderTokens } from '../../../shared/app/app.shared.constants';
 import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { CachingProviderTokens } from '../../../shared/caching/caching.shared.constants';
-import { AppError } from '../../../shared/exceptions/app.exception';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { BaseRepoCache } from '../../core/repo/base.repo-cache';
 import { IOrganizationDomainModel } from '../model/organization.domain.model';
@@ -14,17 +13,17 @@ import { OrganizationQueryConditions } from './organization.query-conditions';
 @Injectable()
 export class OrganizationDomainRepoCache extends BaseRepoCache<OrganizationEntity, IOrganizationDomainModel, OrganizationQueryConditions> {
   constructor(
-    private _repo: OrganizationDomainRepoRead,
+    repo: OrganizationDomainRepoRead,
     loggerService: LoggerSharedService,
     @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
     @Inject(AppSharedProviderTokens.Config.App)
-    nestjsBffConfig: INestjsBffConfig
+    nestjsBffConfig: INestjsBffConfig,
   ) {
     super({
       loggerService,
-      repo: _repo,
+      repo,
       cacheStore,
-      ttl: nestjsBffConfig.caching.entities.organization
+      ttl: nestjsBffConfig.caching.entities.organization,
     });
   }
 }

@@ -6,12 +6,10 @@ import { BaseRepoWrite } from '../../core/repo/base.repo-write';
 import { IOrganizationDomainModel } from '../model/organization.domain.model';
 import { OrganizationProviderTokens } from '../organization.domain.constants';
 import { OrganizationDomainRepoCache } from './organization.domain.repo-cache';
+import { OrganizationQueryConditions } from './organization.query-conditions';
 
 @Injectable()
-export class OrganizationDomainRepoWrite extends BaseRepoWrite<
-  OrganizationEntity,
-  IOrganizationDomainModel
-> {
+export class OrganizationDomainRepoWrite extends BaseRepoWrite<OrganizationEntity, IOrganizationDomainModel, OrganizationQueryConditions> {
   constructor(
     readonly loggerService: LoggerSharedService,
     @Inject(OrganizationProviderTokens.Models.Organization)

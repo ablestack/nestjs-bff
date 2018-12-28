@@ -28,7 +28,7 @@ export class UserAuthApplicationService {
     private readonly authorizationRepoWrite: AuthorizationDomainRepoWrite,
     private readonly userRepoWrite: UserDomainRepoWrite,
     private readonly organizationRepoWrite: OrganizationDomainRepoWrite,
-    private readonly authenticationCreateValidator: AuthenticationCreateValidator
+    private readonly authenticationCreateValidator: AuthenticationCreateValidator,
   ) {}
 
   /**
@@ -41,7 +41,7 @@ export class UserAuthApplicationService {
     if (!authenticationEntity) throw new ValidationError(['Your login credentials were not correct']);
     if (!authenticationEntity.local)
       throw new ValidationError([
-        'Your login credentials were not correct or you do not have an account. Perhaps you registered with social login?'
+        'Your login credentials were not correct or you do not have an account. Perhaps you registered with social login?',
       ]);
 
     if (!validPassword(cmd.password, authenticationEntity.local.hashedPassword))
@@ -66,15 +66,15 @@ export class UserAuthApplicationService {
       userId: '',
       local: {
         email: cmd.username,
-        hashedPassword: generateHashedPassword(cmd.password)
-      }
+        hashedPassword: generateHashedPassword(cmd.password),
+      },
     };
 
     //
     // validate
     //
     await this.authenticationCreateValidator.validate(newAuthenticationEntity, {
-      skipUserIdValidation: true
+      skipUserIdValidation: true,
     });
 
     //
@@ -84,7 +84,7 @@ export class UserAuthApplicationService {
     // create new user
     const user = await this.userRepoWrite.create({
       username: cmd.username,
-      displayName: cmd.displayName
+      displayName: cmd.displayName,
     });
 
     // create authentication
@@ -94,7 +94,7 @@ export class UserAuthApplicationService {
     // create organization
     const organization = await this.organizationRepoWrite.create({
       name: user.username,
-      slug: user.username
+      slug: user.username,
     });
 
     // create authorization
@@ -105,9 +105,9 @@ export class UserAuthApplicationService {
         {
           primary: true,
           orgId: organization.id,
-          organizationRoles: [OrganizationRoles.member, OrganizationRoles.admin]
-        }
-      ]
+          organizationRoles: [OrganizationRoles.member, OrganizationRoles.admin],
+        },
+      ],
     });
 
     return authorizationEntity;
@@ -118,7 +118,7 @@ export class UserAuthApplicationService {
    * @param cmd
    */
   public async promoteToGroupAdmin(cmd: PromoteToGroupAdminCommand): Promise<AuthorizationEntity> {
-    const authorizationEntity = await this.authorizationRepoCache.fineOne({ userId: cmd.userId });
+    const authorizationEntity = await this.authorizationRepoCache.findOne({ userId: cmd.userId });
 
     // Validate
     if (!authorizationEntity) throw new AppError(`Could not find authorizationEntity for userId ${cmd.userId}`);
@@ -128,7 +128,7 @@ export class UserAuthApplicationService {
     authorizationEntity.roles.push(Roles.groupAdmin);
 
     // Persist
-    return this.authorizationRepoWrite.update(authorizationEntity);
+    return this.authorizationRepoWrite.update(authorizationEntity).then(() => authorizationEntity);
   }
 
   /**
@@ -150,7 +150,7 @@ export class UserAuthApplicationService {
     // create new user
     const user = await this.userRepoWrite.create({
       username: fbProfile.email,
-      displayName: fbProfile.name
+      displayName: fbProfile.name,
     });
 
     // create authentication
@@ -159,15 +159,15 @@ export class UserAuthApplicationService {
       facebook: {
         id: fbProfile.id,
         email: fbProfile.email,
-        name: fbProfile.name
-      }
+        name: fbProfile.name,
+      },
     });
 
     // create authorization
     const authorizationEntity = this.authorizationRepoWrite.create({
       userId: user.id,
       roles: [Roles.user],
-      organizations: []
+      organizations: [],
     });
 
     return authorizationEntity;

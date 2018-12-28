@@ -14,16 +14,16 @@ import { AuthorizationQueryConditions } from './authorization.query-conditions';
 export class AuthorizationRepoDomainCache extends BaseRepoCache<AuthorizationEntity, IAuthorizationModel, AuthorizationQueryConditions> {
   constructor(
     loggerService: LoggerSharedService,
-    private _repo: AuthorizationDomainRepoRead,
+    repo: AuthorizationDomainRepoRead,
     @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
     @Inject(AppSharedProviderTokens.Config.App)
-    nestjsBffConfig: INestjsBffConfig
+    nestjsBffConfig: INestjsBffConfig,
   ) {
     super({
       loggerService,
-      repo: _repo,
+      repo,
       cacheStore,
-      ttl: nestjsBffConfig.caching.entities.user
+      ttl: nestjsBffConfig.caching.entities.user,
     });
   }
 }
