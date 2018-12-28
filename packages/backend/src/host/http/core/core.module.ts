@@ -4,12 +4,12 @@ import { OrganizationModule } from '../../../domain/organization/organization.mo
 import { AppSharedModule } from '../../../shared/app/app.shared.module';
 import { LoggingSharedModule } from '../../../shared/logging/logging.shared.module';
 import { AuthorizationHttpGuard } from './guards/authorization.guard';
-import { JwtTokenHttpService } from './jwt/jwt-token.service';
+import { JwtTokenService } from './jwt/jwt-token.service';
 import { AttachAuthenticationHttpMiddleware } from './middleware/attach-authentication.middleware';
 
 @Module({
   imports: [AppSharedModule, AuthorizationModule, OrganizationModule, LoggingSharedModule],
-  providers: [AuthorizationHttpGuard, AttachAuthenticationHttpMiddleware, JwtTokenHttpService],
-  exports: [LoggingSharedModule, AttachAuthenticationHttpMiddleware, JwtTokenHttpService],
+  providers: [AuthorizationHttpGuard, AttachAuthenticationHttpMiddleware, JwtTokenService],
+  exports: [LoggingSharedModule, AttachAuthenticationHttpMiddleware, JwtTokenService],
 })
-export class CoreHttpModule {}
+export class CoreModule {}

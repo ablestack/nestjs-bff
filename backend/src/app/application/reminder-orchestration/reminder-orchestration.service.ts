@@ -5,7 +5,7 @@ import { ReminderRepoWrite } from '../../domain/reminder/repo/reminder.write-rep
 import { SendReminderToArchiveCommand } from '../../global/commands/send-reminder-to-archive.command';
 
 @Injectable()
-export class ReminderOrchestrationApplicationService {
+export class ReminderOrchestrationService {
   constructor(
     private readonly reminderRepo: ReminderRepo,
     private readonly reminderRepoWrite: ReminderRepoWrite,

@@ -3,12 +3,12 @@ import { AuthenticationModule } from '../../domain/authentication/authentication
 import { AuthorizationModule } from '../../domain/authorization/authorization.module';
 import { OrganizationModule } from '../../domain/organization/organization.module';
 import { UserModule } from '../../domain/user/user.module';
-import { CoreApplicationModule } from '../core/core.module';
-import { OrganizationApplicationService } from './organization.service';
+import { CoreModule } from '../core/core.module';
+import { OrganizationService } from './organization.service';
 
 @Module({
-  imports: [CoreApplicationModule, AuthenticationModule, AuthorizationModule, UserModule, OrganizationModule],
-  providers: [OrganizationApplicationService],
-  exports: [OrganizationApplicationService],
+  imports: [CoreModule, AuthenticationModule, AuthorizationModule, UserModule, OrganizationModule],
+  providers: [OrganizationService],
+  exports: [OrganizationService],
 })
-export class OrganizationApplicationModule {}
+export class OrganizationModule {}

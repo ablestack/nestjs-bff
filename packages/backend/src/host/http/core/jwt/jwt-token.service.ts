@@ -7,7 +7,7 @@ import { AppSharedProviderTokens } from '../../../../shared/app/app.shared.const
 import { IJwtPayload } from './i-jwt-payload';
 
 @Injectable()
-export class JwtTokenHttpService {
+export class JwtTokenService {
   private signOptions: SignOptions;
 
   constructor(

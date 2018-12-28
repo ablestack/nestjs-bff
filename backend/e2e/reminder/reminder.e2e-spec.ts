@@ -1,5 +1,5 @@
-import { UserAuthApplicationService } from '@nestjs-bff/backend/lib/application/user-auth/user-auth.service';
-import { JwtTokenHttpService } from '@nestjs-bff/backend/lib/host/http/core/jwt/jwt-token.service';
+import { UserAuthService } from '@nestjs-bff/backend/lib/application/user-auth/user-auth.service';
+import { JwtTokenService } from '@nestjs-bff/backend/lib/host/http/core/jwt/jwt-token.service';
 import { getLogger } from '@nestjs-bff/backend/lib/shared/logging/logging.shared.module';
 import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
 import { INestApplication } from '@nestjs/common';
@@ -49,8 +49,8 @@ describe('Reminder', () => {
     app = module.createNestApplication();
     await app.init();
 
-    const authService = await app.get(UserAuthApplicationService);
-    const jwtTokenService = await app.get(JwtTokenHttpService);
+    const authService = await app.get(UserAuthService);
+    const jwtTokenService = await app.get(JwtTokenService);
 
     //
     // authenticate for required users

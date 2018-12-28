@@ -6,4 +6,4 @@ import { AppSharedModule } from '../../shared/app/app.shared.module';
   providers: [],
   exports: [AppSharedModule],
 })
-export class CoreApplicationModule {}
+export class CoreModule {}

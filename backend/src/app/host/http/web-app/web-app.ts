@@ -6,7 +6,7 @@ import { NestFactory } from '@nestjs/core';
 import * as cookieParser from 'cookie-parser';
 import * as helmet from 'helmet';
 import { AppConfig } from '../../../../config/app.config';
-import { WebAppHttpModule } from './web-app.module';
+import { WebAppModule } from './web-app.module';
 
 async function bootstrap() {
   // GLOBAL CONFIGURATION
@@ -18,7 +18,7 @@ async function bootstrap() {
   bffLogger.debug(`starting web-app bootstrap`);
 
   // CREATE NESTJS APP
-  const app = await NestFactory.create(WebAppHttpModule, { logger: bffLogger });
+  const app = await NestFactory.create(WebAppModule, { logger: bffLogger });
 
   // RUN SETUP STEPS
   bffLogger.debug(`AppConfig.migrations.autoRun: ${AppConfig.migrations.autoRun}`);

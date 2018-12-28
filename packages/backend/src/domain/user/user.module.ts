@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { CoreModule } from '../../domain/core/domain.core.module';
+import { CoreModule } from '../core/core.module';
 import { MongoSharedProviderTokens } from '../../shared/database/mongo/mongo.shared.constants';
 import { UserSchema } from './model/user.schema';
 import { UserRepo } from './repo/user.repo';

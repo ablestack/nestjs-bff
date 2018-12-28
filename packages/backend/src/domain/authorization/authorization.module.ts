@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongoSharedProviderTokens } from '../../shared/database/mongo/mongo.shared.constants';
-import { CoreModule } from '../core/domain.core.module';
+import { CoreModule } from '../core/core.module';
 import { AuthorizationProviderTokens } from './authorization.constants';
 import { AuthorizationSchema } from './model/authorization.schema';
 import { AuthorizationRepoCache } from './repo/authorization.repo-cache';

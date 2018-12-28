@@ -17,7 +17,7 @@ import { AppError } from '../../shared/exceptions/app.exception';
 import { ValidationError } from '../../shared/exceptions/validation.exception';
 
 @Injectable()
-export class UserAuthApplicationService {
+export class UserAuthService {
   constructor(
     private readonly fbAuthenticationService: FacebookAuthenticationService,
     private readonly fbProfileService: FacebookProfileService,

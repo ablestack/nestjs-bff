@@ -4,23 +4,23 @@ import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/constants/roles
 import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
 import { IAuthenticationToken } from '@nestjs-bff/global/lib/interfaces/authentication-token.interface';
 import { Body, Controller, Get, Inject, Post, Req } from '@nestjs/common';
-import { UserAuthApplicationService } from '../../../application/user-auth/user-auth.service';
+import { UserAuthService } from '../../../application/user-auth/user-auth.service';
 import { INestjsBffConfig } from '../../../config/nestjs-bff.config';
 import { FacebookAuthenticationService } from '../../../domain/authentication/social/facebook-authentication.service';
 import { CheckOrgRoles } from '../../../domain/authorization/authorizationchecks/check-org-roles.authorizationcheck';
 import { CheckRole } from '../../../domain/authorization/authorizationchecks/check-roles.authorizationcheck';
 import { AppSharedProviderTokens } from '../../../shared/app/app.shared.constants';
 import { Authorization } from '../core/decorators/authorization.decorator';
-import { JwtTokenHttpService } from '../core/jwt/jwt-token.service';
+import { JwtTokenService } from '../core/jwt/jwt-token.service';
 
 @Controller('auth')
-export class AuthHttpController {
+export class AuthController {
   constructor(
     @Inject(AppSharedProviderTokens.Config.App)
     private readonly nestjsBffConfig: INestjsBffConfig,
     private readonly authFacebookService: FacebookAuthenticationService,
-    private readonly userAuthenticationService: UserAuthApplicationService,
-    private readonly jwtTokenService: JwtTokenHttpService,
+    private readonly userAuthenticationService: UserAuthService,
+    private readonly jwtTokenService: JwtTokenService,
   ) {}
 
   @Post('public/local/signup')

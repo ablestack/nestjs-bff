@@ -4,7 +4,7 @@ import { Test } from '@nestjs/testing';
 import { verify, VerifyOptions } from 'jsonwebtoken';
 import { NestjsBffConfig } from '../../../../config/nestjs-bff.config';
 import { AppSharedProviderTokens } from '../../../../shared/app/app.shared.constants';
-import { JwtTokenHttpService } from './jwt-token.service';
+import { JwtTokenService } from './jwt-token.service';
 
 const verifyOptions: VerifyOptions = {
   issuer: NestjsBffConfig.jwt.issuer,
@@ -13,13 +13,13 @@ const verifyOptions: VerifyOptions = {
 };
 
 describe('JwtTokenService', () => {
-  let jwtTokenService: JwtTokenHttpService;
+  let jwtTokenService: JwtTokenService;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
       imports: [],
       providers: [
-        JwtTokenHttpService,
+        JwtTokenService,
         {
           provide: AppSharedProviderTokens.Config.App,
           useValue: NestjsBffConfig,
@@ -27,7 +27,7 @@ describe('JwtTokenService', () => {
       ],
     }).compile();
 
-    jwtTokenService = module.get<JwtTokenHttpService>(JwtTokenHttpService);
+    jwtTokenService = module.get<JwtTokenService>(JwtTokenService);
   });
 
   describe('createToken', () => {

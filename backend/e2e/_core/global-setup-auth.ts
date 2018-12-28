@@ -1,6 +1,6 @@
-import { OrganizationApplicationService } from '@nestjs-bff/backend/lib/application/organization/organization.service';
-import { UserAuthApplicationService } from '@nestjs-bff/backend/lib/application/user-auth/user-auth.service';
-import { JwtTokenHttpService } from '@nestjs-bff/backend/lib/host/http/core/jwt/jwt-token.service';
+import { OrganizationService } from '@nestjs-bff/backend/lib/application/organization/organization.service';
+import { UserAuthService } from '@nestjs-bff/backend/lib/application/user-auth/user-auth.service';
+import { JwtTokenService } from '@nestjs-bff/backend/lib/host/http/core/jwt/jwt-token.service';
 import { getLogger } from '@nestjs-bff/backend/lib/shared/logging/logging.shared.module';
 import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
 import { INestApplication } from '@nestjs/common/interfaces';
@@ -43,9 +43,9 @@ export const setupAuth = async globalConfig => {
   const app: INestApplication = module.createNestApplication();
   await app.init();
 
-  const authService = await app.get(UserAuthApplicationService);
-  const jwtTokenService = await app.get(JwtTokenHttpService);
-  const organizationAppService = await app.get(OrganizationApplicationService);
+  const authService = await app.get(UserAuthService);
+  const jwtTokenService = await app.get(JwtTokenService);
+  const organizationAppService = await app.get(OrganizationService);
 
   //
   // create domainA admin user

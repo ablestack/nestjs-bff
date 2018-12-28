@@ -18,7 +18,7 @@ import { ReminderEntity } from '../../../../global/entities/reminder.entity';
 */
 
 @Controller('/reminder/:organizationSlug/:userId')
-export class ReminderHttpController {
+export class ReminderController {
   constructor(
     private readonly reminderRepoCache: ReminderRepoCache,
     private readonly reminderRepoWrite: ReminderRepoWrite,
@@ -69,6 +69,6 @@ export class ReminderHttpController {
   // public async create() {
   //   // const authorization: AuthorizationEntity = req.authorization;
   //   // tslint:disable-next-line:no-non-null-assertion (will have userId due to Authorization check)
-  //   // this.userRemindersApplicationService.createMember(authorization.userId!, cmd);
+  //   // this.userRemindersService.createMember(authorization.userId!, cmd);
   // }
 }
