@@ -26,8 +26,8 @@ async function bootstrap() {
   setupWebserver(app);
 
   // START LISTENING
-  bffLogger.debug(`Nest-BFF: Starting to listen on port ${AppConfig.bffPort}`);
-  await app.listen(AppConfig.bffPort);
+  bffLogger.debug(`Nest-BFF: Starting to listen on port ${AppConfig.http.bffPort}`);
+  await app.listen(AppConfig.http.bffPort);
 }
 bootstrap();
 

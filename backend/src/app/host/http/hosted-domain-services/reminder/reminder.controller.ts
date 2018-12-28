@@ -1,7 +1,6 @@
 import { CheckOrgAndUserParam } from '@nestjs-bff/backend/lib/domain/authorization/authorizationchecks/check-org-and-user-param.authorizationcheck';
 import { Authorization } from '@nestjs-bff/backend/lib/host/http/core/decorators/authorization.decorator';
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Req } from '@nestjs/common';
-import { ReminderRepo } from '../../../../domain/reminder/repo/reminder.repo';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
 import { ReminderRepo } from '../../../../domain/reminder/repo/reminder.repo';
 import { ReminderEntity } from '../../../../global/entities/reminder.entity';
 
@@ -19,7 +18,7 @@ import { ReminderEntity } from '../../../../global/entities/reminder.entity';
 
 @Controller('/reminder/:organizationSlug/:userId')
 export class ReminderController {
-  constructor(private readonly reminderRepo: ReminderRepo, private readonly reminderRepo: ReminderRepo) {}
+  constructor(private readonly reminderRepo: ReminderRepo) {}
 
   @Get()
   @Authorization([new CheckOrgAndUserParam()])
@@ -60,12 +59,4 @@ export class ReminderController {
   public async delete(@Param('orgId') orgId: string, @Param('userId') userId: string, id: string) {
     return this.reminderRepo.delete({ _id: id, orgId, userId });
   }
-
-  // @Post()
-  // @Authorization([new CheckOrgAndUserParam()])
-  // public async create() {
-  //   // const authorization: AuthorizationEntity = req.authorization;
-  //   // tslint:disable-next-line:no-non-null-assertion (will have userId due to Authorization check)
-  //   // this.userRemindersService.createMember(authorization.userId!, cmd);
-  // }
 }

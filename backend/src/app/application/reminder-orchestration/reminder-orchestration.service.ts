@@ -9,10 +9,10 @@ export class ReminderOrchestrationService {
 
   public async sendReminderToArchive(cmd: SendReminderToArchiveCommand): Promise<void> {
     // get reminder
-    const reminder = await this.reminderRepo.findOneById(cmd.reminderId);
+    const reminder = await this.reminderRepo.findOne({ _id: cmd.reminderId });
 
     // remove from Reminder data store
-    this.reminderRepo.delete(cmd.reminderId);
+    this.reminderRepo.delete({ _id: cmd.reminderId });
 
     // add to ReminderArchive data store
     this.reminderArchiveRepo.create({

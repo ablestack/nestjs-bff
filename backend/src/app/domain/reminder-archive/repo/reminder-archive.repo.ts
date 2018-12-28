@@ -1,3 +1,4 @@
+import { BaseRepo } from '@nestjs-bff/backend/lib/domain/core/repo/base.repo';
 import { AppSharedProviderTokens } from '@nestjs-bff/backend/lib/shared/app/app.shared.constants';
 import { CacheStore } from '@nestjs-bff/backend/lib/shared/caching/cache-store.shared';
 import { CachingProviderTokens } from '@nestjs-bff/backend/lib/shared/caching/caching.shared.constants';

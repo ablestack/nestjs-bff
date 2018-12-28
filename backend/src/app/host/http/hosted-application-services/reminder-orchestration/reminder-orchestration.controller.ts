@@ -1,4 +1,4 @@
-import { CheckUserParam } from '@nestjs-bff/backend/lib/domain/authorization/authorizationchecks/check-user-ownership.authorizationcheck';
+import { CheckUserParam } from '@nestjs-bff/backend/lib/domain/authorization/authorizationchecks/check-user-param.authorizationcheck';
 import { Authorization } from '@nestjs-bff/backend/lib/host/http/core/decorators/authorization.decorator';
 import { Body, Controller, Post, Req } from '@nestjs/common';
 import { ReminderOrchestrationService } from '../../../../application/reminder-orchestration/reminder-orchestration.service';
