@@ -3,7 +3,7 @@ import { CanActivate, ExecutionContext, Inject, Injectable } from '@nestjs/commo
 import { Reflector } from '@nestjs/core';
 import { INestjsBffConfig } from '../../../../config/nestjs-bff.config';
 import { AuthorizationCheck } from '../../../../domain/authorization/authorizationchecks/authorizationcheck.abstract';
-import { OrganizationRepoCache } from '../../../../domain/organization/repo/organization.repo-cache';
+import { OrganizationRepo } from '../../../../domain/organization/repo/organization.repo';
 import { AppSharedProviderTokens } from '../../../../shared/app/app.shared.constants';
 import { CacheStore } from '../../../../shared/caching/cache-store.shared';
 import { CachingProviderTokens } from '../../../../shared/caching/caching.shared.constants';
@@ -27,7 +27,7 @@ import { getReqMetadataLite } from '../utils/core.utils';
 export class AuthorizationHttpGuard implements CanActivate {
   constructor(
     private readonly reflector: Reflector,
-    private readonly organizationCache: OrganizationRepoCache,
+    private readonly organizationCache: OrganizationRepo,
     @Inject(CachingProviderTokens.Services.CacheStore)
     private readonly cacheStore: CacheStore,
     @Inject(AppSharedProviderTokens.Config.App)

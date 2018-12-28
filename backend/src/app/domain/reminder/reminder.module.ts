@@ -3,9 +3,9 @@ import { MongoSharedProviderTokens } from '@nestjs-bff/backend/lib/shared/databa
 import { Module } from '@nestjs/common';
 import { ReminderSchema } from './model/reminder.schema';
 import { ReminderProviderTokens } from './reminder.constants';
-import { ReminderRepoCache } from './repo/reminder.cache-repo';
+import { ReminderRepo } from './repo/reminder.cache-repo';
 import { ReminderRepo } from './repo/reminder.repo';
-import { ReminderRepoWrite } from './repo/reminder.write-repo';
+import { ReminderRepo } from './repo/reminder.write-repo';
 
 const ReminderModelProvider = {
   provide: ReminderProviderTokens.Models.Reminder,
@@ -15,7 +15,7 @@ const ReminderModelProvider = {
 
 @Module({
   imports: [CoreModule],
-  providers: [ReminderModelProvider, ReminderRepo, ReminderRepoCache, ReminderRepoWrite],
-  exports: [ReminderRepo, ReminderRepoCache, ReminderRepoWrite],
+  providers: [ReminderModelProvider, ReminderRepo, ReminderRepo, ReminderRepo],
+  exports: [ReminderRepo, ReminderRepo, ReminderRepo],
 })
 export class ReminderModule {}

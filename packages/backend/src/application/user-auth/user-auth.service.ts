@@ -5,14 +5,14 @@ import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/constants/roles
 import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
 import { Injectable } from '@nestjs/common';
 import { AuthenticationRepo } from '../../domain/authentication/repo/authentication.repo';
-import { AuthenticationRepoWrite } from '../../domain/authentication/repo/authentication.repo-write';
+import { AuthenticationRepo } from '../../domain/authentication/repo/authentication.repo';
 import { FacebookAuthenticationService } from '../../domain/authentication/social/facebook-authentication.service';
 import { FacebookProfileService } from '../../domain/authentication/social/facebook-profile..service';
 import { generateHashedPassword, validPassword } from '../../domain/authentication/utils/encryption.util';
-import { AuthorizationRepoCache } from '../../domain/authorization/repo/authorization.repo-cache';
-import { AuthorizationRepoWrite } from '../../domain/authorization/repo/authorization.repo-write';
-import { OrganizationRepoWrite } from '../../domain/organization/repo/organization.repo-write';
-import { UserRepoWrite } from '../../domain/user/repo/user.repo-write';
+import { AuthorizationRepo } from '../../domain/authorization/repo/authorization.repo';
+import { AuthorizationRepo } from '../../domain/authorization/repo/authorization.repo';
+import { OrganizationRepo } from '../../domain/organization/repo/organization.repo';
+import { UserRepo } from '../../domain/user/repo/user.repo';
 import { AppError } from '../../shared/exceptions/app.exception';
 import { ValidationError } from '../../shared/exceptions/validation.exception';
 
@@ -22,11 +22,11 @@ export class UserAuthService {
     private readonly fbAuthenticationService: FacebookAuthenticationService,
     private readonly fbProfileService: FacebookProfileService,
     private readonly authenticationRepo: AuthenticationRepo,
-    private readonly authenticationRepoWrite: AuthenticationRepoWrite,
-    private readonly authorizationRepoCache: AuthorizationRepoCache,
-    private readonly authorizationRepoWrite: AuthorizationRepoWrite,
-    private readonly userRepoWrite: UserRepoWrite,
-    private readonly organizationRepoWrite: OrganizationRepoWrite,
+    private readonly authenticationRepo: AuthenticationRepo,
+    private readonly authorizationRepo: AuthorizationRepo,
+    private readonly authorizationRepo: AuthorizationRepo,
+    private readonly userRepo: UserRepo,
+    private readonly organizationRepo: OrganizationRepo,
   ) {}
 
   /**
@@ -45,7 +45,7 @@ export class UserAuthService {
     if (!validPassword(cmd.password, authenticationEntity.local.hashedPassword))
       throw new ValidationError(['Your login credentials were not correct']);
 
-    const authorizationEntity = await this.authorizationRepoCache.findOne({ userId: authenticationEntity.userId });
+    const authorizationEntity = await this.authorizationRepo.findOne({ userId: authenticationEntity.userId });
 
     if (!authorizationEntity) throw new AppError('Could not find authorization information for signIn');
 
@@ -71,30 +71,30 @@ export class UserAuthService {
     //
     // validate
     //
-    this.authenticationRepoWrite.validate(newAuthenticationEntity);
+    this.authenticationRepo.validate(newAuthenticationEntity);
 
     //
     // execute
     //
 
     // create new user
-    const user = await this.userRepoWrite.create({
+    const user = await this.userRepo.create({
       username: cmd.username,
       displayName: cmd.displayName,
     });
 
     // create authentication
     newAuthenticationEntity.userId = user.id;
-    this.authenticationRepoWrite.create(newAuthenticationEntity);
+    this.authenticationRepo.create(newAuthenticationEntity);
 
     // create organization
-    const organization = await this.organizationRepoWrite.create({
+    const organization = await this.organizationRepo.create({
       name: user.username,
       slug: user.username,
     });
 
     // create authorization
-    const authorizationEntity = this.authorizationRepoWrite.create({
+    const authorizationEntity = this.authorizationRepo.create({
       userId: user.id,
       roles: [Roles.user],
       organizations: [
@@ -114,7 +114,7 @@ export class UserAuthService {
    * @param cmd
    */
   public async promoteToGroupAdmin(cmd: PromoteToGroupAdminCommand): Promise<AuthorizationEntity> {
-    const authorizationEntity = await this.authorizationRepoCache.findOne({ userId: cmd.userId });
+    const authorizationEntity = await this.authorizationRepo.findOne({ userId: cmd.userId });
 
     // Validate
     if (!authorizationEntity) throw new AppError(`Could not find authorizationEntity for userId ${cmd.userId}`);
@@ -124,7 +124,7 @@ export class UserAuthService {
     authorizationEntity.roles.push(Roles.groupAdmin);
 
     // Persist
-    return this.authorizationRepoWrite.update(authorizationEntity).then(() => authorizationEntity);
+    return this.authorizationRepo.update(authorizationEntity).then(() => authorizationEntity);
   }
 
   /**
@@ -144,13 +144,13 @@ export class UserAuthService {
     if (authenticationEntity) throw new AppError('Could not find authorization information for signIn');
 
     // create new user
-    const user = await this.userRepoWrite.create({
+    const user = await this.userRepo.create({
       username: fbProfile.email,
       displayName: fbProfile.name,
     });
 
     // create authentication
-    this.authenticationRepoWrite.create({
+    this.authenticationRepo.create({
       userId: user.id,
       facebook: {
         id: fbProfile.id,
@@ -160,7 +160,7 @@ export class UserAuthService {
     });
 
     // create authorization
-    const authorizationEntity = this.authorizationRepoWrite.create({
+    const authorizationEntity = this.authorizationRepo.create({
       userId: user.id,
       roles: [Roles.user],
       organizations: [],
@@ -185,7 +185,7 @@ export class UserAuthService {
     const authenticationEntity = await this.authenticationRepo.findByFacebookId(fbProfile.id);
     if (!authenticationEntity) throw new AppError('Could not find authentication information for signIn');
 
-    const authorizationEntity = await this.authorizationRepoCache.findOne({ userId: authenticationEntity.userId });
+    const authorizationEntity = await this.authorizationRepo.findOne({ userId: authenticationEntity.userId });
     if (!authorizationEntity) throw new AppError('Could not find authorization information for signIn');
 
     return authorizationEntity;

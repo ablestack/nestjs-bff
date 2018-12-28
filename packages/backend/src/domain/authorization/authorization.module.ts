@@ -3,9 +3,9 @@ import { MongoSharedProviderTokens } from '../../shared/database/mongo/mongo.sha
 import { CoreModule } from '../core/core.module';
 import { AuthorizationProviderTokens } from './authorization.constants';
 import { AuthorizationSchema } from './model/authorization.schema';
-import { AuthorizationRepoCache } from './repo/authorization.repo-cache';
 import { AuthorizationRepo } from './repo/authorization.repo';
-import { AuthorizationRepoWrite } from './repo/authorization.repo-write';
+import { AuthorizationRepo } from './repo/authorization.repo';
+import { AuthorizationRepo } from './repo/authorization.repo';
 
 const AuthorizationModel = {
   provide: AuthorizationProviderTokens.Models.Authorization,
@@ -15,7 +15,7 @@ const AuthorizationModel = {
 
 @Module({
   imports: [CoreModule],
-  providers: [AuthorizationModel, AuthorizationRepo, AuthorizationRepoCache, AuthorizationRepoWrite],
-  exports: [AuthorizationRepo, AuthorizationRepoCache, AuthorizationRepoWrite],
+  providers: [AuthorizationModel, AuthorizationRepo, AuthorizationRepo, AuthorizationRepo],
+  exports: [AuthorizationRepo, AuthorizationRepo, AuthorizationRepo],
 })
 export class AuthorizationModule {}

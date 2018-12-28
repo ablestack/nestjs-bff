@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { ReminderArchiveRepoWrite } from '../../domain/reminder-archive/repo/reminder-archive.write-repo';
+import { ReminderArchiveRepo } from '../../domain/reminder-archive/repo/reminder-archive.write-repo';
 import { ReminderRepo } from '../../domain/reminder/repo/reminder.repo';
-import { ReminderRepoWrite } from '../../domain/reminder/repo/reminder.write-repo';
+import { ReminderRepo } from '../../domain/reminder/repo/reminder.write-repo';
 import { SendReminderToArchiveCommand } from '../../global/commands/send-reminder-to-archive.command';
 
 @Injectable()
 export class ReminderOrchestrationService {
   constructor(
     private readonly reminderRepo: ReminderRepo,
-    private readonly reminderRepoWrite: ReminderRepoWrite,
-    private readonly reminderArchiveRepoWrite: ReminderArchiveRepoWrite,
+    private readonly reminderRepo: ReminderRepo,
+    private readonly reminderArchiveRepo: ReminderArchiveRepo,
   ) {}
 
   public async sendReminderToArchive(cmd: SendReminderToArchiveCommand): Promise<void> {
@@ -17,10 +17,10 @@ export class ReminderOrchestrationService {
     const reminder = await this.reminderRepo.findOneById(cmd.reminderId);
 
     // remove from Reminder data store
-    this.reminderRepoWrite.delete(cmd.reminderId);
+    this.reminderRepo.delete(cmd.reminderId);
 
     // add to ReminderArchive data store
-    this.reminderArchiveRepoWrite.create({
+    this.reminderArchiveRepo.create({
       Title: reminder.Title,
       Deadline: reminder.Deadline,
       Completed: reminder.Completed,

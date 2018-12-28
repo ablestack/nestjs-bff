@@ -1,7 +1,7 @@
 import { Inject, Injectable, MiddlewareFunction, NestMiddleware } from '@nestjs/common';
 import { verify, VerifyOptions } from 'jsonwebtoken';
 import { INestjsBffConfig } from '../../../../config/nestjs-bff.config';
-import { AuthorizationRepoCache } from '../../../../domain/authorization/repo/authorization.repo-cache';
+import { AuthorizationRepo } from '../../../../domain/authorization/repo/authorization.repo';
 import { AppSharedProviderTokens } from '../../../../shared/app/app.shared.constants';
 import { LoggerSharedService } from '../../../../shared/logging/logger.shared.service';
 import { BadRequestHttpError } from '../exceptions/server.exception';
@@ -19,7 +19,7 @@ export class AttachAuthenticationHttpMiddleware implements NestMiddleware {
     private readonly bffLoggerService: LoggerSharedService,
     @Inject(AppSharedProviderTokens.Config.App)
     private readonly nestjsBffConfig: INestjsBffConfig,
-    private readonly authorizationService: AuthorizationRepoCache,
+    private readonly authorizationService: AuthorizationRepo,
   ) {
     this.verifyOptions = {
       issuer: nestjsBffConfig.jwt.issuer,

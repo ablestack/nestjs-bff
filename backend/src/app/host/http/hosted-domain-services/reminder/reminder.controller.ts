@@ -1,8 +1,8 @@
 import { CheckOrgAndUserParam } from '@nestjs-bff/backend/lib/domain/authorization/authorizationchecks/check-org-and-user-param.authorizationcheck';
 import { Authorization } from '@nestjs-bff/backend/lib/host/http/core/decorators/authorization.decorator';
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Req } from '@nestjs/common';
-import { ReminderRepoCache } from '../../../../domain/reminder/repo/reminder.cache-repo';
-import { ReminderRepoWrite } from '../../../../domain/reminder/repo/reminder.write-repo';
+import { ReminderRepo } from '../../../../domain/reminder/repo/reminder.cache-repo';
+import { ReminderRepo } from '../../../../domain/reminder/repo/reminder.write-repo';
 import { ReminderEntity } from '../../../../global/entities/reminder.entity';
 
 /*
@@ -19,15 +19,12 @@ import { ReminderEntity } from '../../../../global/entities/reminder.entity';
 
 @Controller('/reminder/:organizationSlug/:userId')
 export class ReminderController {
-  constructor(
-    private readonly reminderRepoCache: ReminderRepoCache,
-    private readonly reminderRepoWrite: ReminderRepoWrite,
-  ) {}
+  constructor(private readonly reminderRepo: ReminderRepo, private readonly reminderRepo: ReminderRepo) {}
 
   @Get()
   @Authorization([new CheckOrgAndUserParam()])
   public async getItems(@Param('orgId') orgId: string, @Param('userId') userId: string): Promise<ReminderEntity[]> {
-    return this.reminderRepoCache.find({ userId, orgId });
+    return this.reminderRepo.find({ userId, orgId });
   }
 
   @Get(':id')
@@ -37,31 +34,31 @@ export class ReminderController {
     @Param('userId') userId: string,
     id: string,
   ): Promise<ReminderEntity> {
-    return this.reminderRepoCache.findOne({ _id: id, orgId, userId });
+    return this.reminderRepo.findOne({ _id: id, orgId, userId });
   }
 
   @Post()
   @Authorization([new CheckOrgAndUserParam()])
   public async create(@Body() entity: ReminderEntity) {
-    return this.reminderRepoWrite.create(entity);
+    return this.reminderRepo.create(entity);
   }
 
   @Put()
   @Authorization([new CheckOrgAndUserParam()])
   public async update(@Body() entity: ReminderEntity) {
-    return this.reminderRepoWrite.update(entity);
+    return this.reminderRepo.update(entity);
   }
 
   @Patch()
   @Authorization([new CheckOrgAndUserParam()])
   public async partialUpdate(@Body() entity: Partial<ReminderEntity>) {
-    return this.reminderRepoWrite.patch(entity);
+    return this.reminderRepo.patch(entity);
   }
 
   @Delete()
   @Authorization([new CheckOrgAndUserParam()])
   public async delete(@Param('orgId') orgId: string, @Param('userId') userId: string, id: string) {
-    return this.reminderRepoWrite.delete({ _id: id, orgId, userId });
+    return this.reminderRepo.delete({ _id: id, orgId, userId });
   }
 
   // @Post()

@@ -4,7 +4,7 @@ import { CoreModule } from '../core/core.module';
 import { AuthenticationProviderTokens } from './authentication.constants';
 import { AuthenticationSchema } from './model/authentication.schema';
 import { AuthenticationRepo } from './repo/authentication.repo';
-import { AuthenticationRepoWrite } from './repo/authentication.repo-write';
+import { AuthenticationRepo } from './repo/authentication.repo';
 import { FacebookAuthenticationService } from './social/facebook-authentication.service';
 import { FacebookClientService } from './social/facebook-client.service';
 import { FacebookProfileService } from './social/facebook-profile..service';
@@ -19,12 +19,12 @@ const AuthenticationModel = {
   imports: [CoreModule],
   providers: [
     AuthenticationRepo,
-    AuthenticationRepoWrite,
+    AuthenticationRepo,
     FacebookClientService,
     FacebookProfileService,
     FacebookAuthenticationService,
     AuthenticationModel,
   ],
-  exports: [AuthenticationRepo, AuthenticationRepoWrite, FacebookAuthenticationService, FacebookProfileService],
+  exports: [AuthenticationRepo, AuthenticationRepo, FacebookAuthenticationService, FacebookProfileService],
 })
 export class AuthenticationModule {}

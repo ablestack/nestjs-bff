@@ -3,8 +3,8 @@ import { CoreModule } from '../core/core.module';
 import { MongoSharedProviderTokens } from '../../shared/database/mongo/mongo.shared.constants';
 import { UserSchema } from './model/user.schema';
 import { UserRepo } from './repo/user.repo';
-import { UserRepoCache } from './repo/user.repo-cache';
-import { UserRepoWrite } from './repo/user.repo-write';
+import { UserRepo } from './repo/user.repo';
+import { UserRepo } from './repo/user.repo';
 import { UserProviderTokens } from './user.constants';
 
 const UserModel = {
@@ -16,7 +16,7 @@ const UserModel = {
 @Module({
   imports: [CoreModule],
   controllers: [],
-  providers: [UserRepo, UserRepoCache, UserRepoWrite, UserModel],
-  exports: [UserRepo, UserRepoCache, UserRepoWrite],
+  providers: [UserRepo, UserRepo, UserRepo, UserModel],
+  exports: [UserRepo, UserRepo, UserRepo],
 })
 export class UserModule {}

@@ -3,9 +3,9 @@ import { CoreModule } from '../core/core.module';
 import { MongoSharedProviderTokens } from '../../shared/database/mongo/mongo.shared.constants';
 import { OrganizationSchema } from './model/organization.schema';
 import { OrganizationProviderTokens } from './organization.constants';
-import { OrganizationRepoCache } from './repo/organization.repo-cache';
 import { OrganizationRepo } from './repo/organization.repo';
-import { OrganizationRepoWrite } from './repo/organization.repo-write';
+import { OrganizationRepo } from './repo/organization.repo';
+import { OrganizationRepo } from './repo/organization.repo';
 
 const OrganizationModel = {
   provide: OrganizationProviderTokens.Models.Organization,
@@ -15,7 +15,7 @@ const OrganizationModel = {
 
 @Module({
   imports: [CoreModule],
-  providers: [OrganizationRepo, OrganizationRepoCache, OrganizationRepoWrite, OrganizationModel],
-  exports: [OrganizationRepo, OrganizationRepoCache, OrganizationRepoWrite],
+  providers: [OrganizationRepo, OrganizationRepo, OrganizationRepo, OrganizationModel],
+  exports: [OrganizationRepo, OrganizationRepo, OrganizationRepo],
 })
 export class OrganizationModule {}
