@@ -25,20 +25,4 @@ export class AuthenticationRepo extends BaseRepo<AuthenticationEntity, IAuthenti
   protected generateValidQueryConditionsForCacheClear(entity: AuthenticationEntity): AuthenticationQueryConditions[] {
     throw new Error('Method not implemented.');
   }
-
-  // public async findByLocalEmail(localEmail: string): Promise<AuthenticationEntity | null> {
-  //   return this.findOne({ 'local.email': localEmail });
-  // }
-
-  // public async findByFacebookId(facebookProfileId: string): Promise<AuthenticationEntity | null> {
-  //   return this.findOne({ 'facebook.id': facebookProfileId });
-  // }
-
-  // public async findByGoogleId(googleProfileId: string): Promise<AuthenticationEntity | null> {
-  //   return this.findOne({ 'google.id': googleProfileId });
-  // }
-
-  // public async findByTwitterId(twitterProfileId: string): Promise<AuthenticationEntity | null> {
-  //   return this.findOne({ 'twitter.id': twitterProfileId });
-  // }
 }

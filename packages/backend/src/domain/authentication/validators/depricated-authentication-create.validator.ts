@@ -19,7 +19,7 @@ export class DeprecatedAuthenticationCreateValidator {
     }
 
     if (authenticationEntity.local) {
-      if (await this.authenticationRepo.findByLocalEmail(authenticationEntity.local.email)) {
+      if (await this.authenticationRepo.findOne({ local: { email: authenticationEntity.local.email } })) {
         messages.push(Messages.EMAIL_IN_USE);
       }
     }

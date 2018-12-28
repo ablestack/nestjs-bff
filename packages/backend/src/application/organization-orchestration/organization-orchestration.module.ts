@@ -4,11 +4,11 @@ import { AuthorizationModule } from '../../domain/authorization/authorization.mo
 import { OrganizationModule } from '../../domain/organization/organization.module';
 import { UserModule } from '../../domain/user/user.module';
 import { CoreModule } from '../core/core.module';
-import { OrganizationService } from './organization.service';
+import { OrganizationOrchestrationService } from './organization-orchestration.service';
 
 @Module({
   imports: [CoreModule, AuthenticationModule, AuthorizationModule, UserModule, OrganizationModule],
-  providers: [OrganizationService],
-  exports: [OrganizationService],
+  providers: [OrganizationOrchestrationService],
+  exports: [OrganizationOrchestrationService],
 })
-export class OrganizationModule {}
+export class OrganizationOrchestrationModule {}

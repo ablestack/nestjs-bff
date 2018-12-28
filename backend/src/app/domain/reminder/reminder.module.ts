@@ -3,9 +3,7 @@ import { MongoSharedProviderTokens } from '@nestjs-bff/backend/lib/shared/databa
 import { Module } from '@nestjs/common';
 import { ReminderSchema } from './model/reminder.schema';
 import { ReminderProviderTokens } from './reminder.constants';
-import { ReminderRepo } from './repo/reminder.cache-repo';
 import { ReminderRepo } from './repo/reminder.repo';
-import { ReminderRepo } from './repo/reminder.write-repo';
 
 const ReminderModelProvider = {
   provide: ReminderProviderTokens.Models.Reminder,

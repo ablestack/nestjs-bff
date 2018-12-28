@@ -1,4 +1,4 @@
-import { AttachAuthenticationHttpMiddleware } from '@nestjs-bff/backend/lib/host/http/core/middleware/attach-authentication.middleware';
+import { AttachAuthenticationHttpMiddleware } from '@nestjs-bff/backend/src/host/http/core/middleware/attach-authentication.middleware';
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { WebAppModule } from '../../src/app/host/http/web-app/web-app.module';
 

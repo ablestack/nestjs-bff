@@ -1,13 +1,13 @@
 import { CreateOrganizationMemberCommand } from '@nestjs-bff/global/lib/commands/auth/create-organization-member.command';
 import { OrganizationRoles } from '@nestjs-bff/global/lib/constants/roles.constants';
 import { Body, Controller, Post } from '@nestjs/common';
-import { OrganizationService } from '../../../application/organization/organization.service';
+import { OrganizationOrchestrationService } from '../../../application/organization-orchestration/organization-orchestration.service';
 import { CheckOrgRoles } from '../../../domain/authorization/authorizationchecks/check-org-roles.authorizationcheck';
 import { Authorization } from '../core/decorators/authorization.decorator';
 
 @Controller('organization')
-export class OrganizationController {
-  constructor(private readonly organizationService: OrganizationService) {}
+export class OrganizationOrchestrationController {
+  constructor(private readonly organizationService: OrganizationOrchestrationService) {}
 
   @Post('create-member')
   @Authorization([new CheckOrgRoles([OrganizationRoles.admin])])

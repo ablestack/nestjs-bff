@@ -5,11 +5,9 @@ import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/constants/roles
 import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
 import { Injectable } from '@nestjs/common';
 import { AuthenticationRepo } from '../../domain/authentication/repo/authentication.repo';
-import { AuthenticationRepo } from '../../domain/authentication/repo/authentication.repo';
 import { FacebookAuthenticationService } from '../../domain/authentication/social/facebook-authentication.service';
 import { FacebookProfileService } from '../../domain/authentication/social/facebook-profile..service';
 import { generateHashedPassword, validPassword } from '../../domain/authentication/utils/encryption.util';
-import { AuthorizationRepo } from '../../domain/authorization/repo/authorization.repo';
 import { AuthorizationRepo } from '../../domain/authorization/repo/authorization.repo';
 import { OrganizationRepo } from '../../domain/organization/repo/organization.repo';
 import { UserRepo } from '../../domain/user/repo/user.repo';
@@ -22,8 +20,6 @@ export class UserAuthService {
     private readonly fbAuthenticationService: FacebookAuthenticationService,
     private readonly fbProfileService: FacebookProfileService,
     private readonly authenticationRepo: AuthenticationRepo,
-    private readonly authenticationRepo: AuthenticationRepo,
-    private readonly authorizationRepo: AuthorizationRepo,
     private readonly authorizationRepo: AuthorizationRepo,
     private readonly userRepo: UserRepo,
     private readonly organizationRepo: OrganizationRepo,
@@ -34,7 +30,7 @@ export class UserAuthService {
    * @param cmd
    */
   public async signInWithLocal(cmd: LocalAuthenticateCommand): Promise<AuthorizationEntity> {
-    const authenticationEntity = await this.authenticationRepo.findByLocalEmail(cmd.username);
+    const authenticationEntity = await this.authenticationRepo.findOne({ local: { email: cmd.username } });
 
     if (!authenticationEntity) throw new ValidationError(['Your login credentials were not correct']);
     if (!authenticationEntity.local)
@@ -71,7 +67,7 @@ export class UserAuthService {
     //
     // validate
     //
-    this.authenticationRepo.validate(newAuthenticationEntity);
+    this.authenticationRepo.validateEntity(newAuthenticationEntity);
 
     //
     // execute
@@ -140,7 +136,7 @@ export class UserAuthService {
     const fbProfile = await this.fbProfileService.getProfile(fbAuthorizationToken);
 
     // find Authentication Entity
-    const authenticationEntity = await this.authenticationRepo.findByFacebookId(fbProfile.id);
+    const authenticationEntity = await this.authenticationRepo.findOne({ facebook: { id: fbProfile.id } });
     if (authenticationEntity) throw new AppError('Could not find authorization information for signIn');
 
     // create new user
@@ -182,7 +178,7 @@ export class UserAuthService {
     const fbProfile = await this.fbProfileService.getProfile(fbAuthorizationToken);
 
     // find Authentication Entity
-    const authenticationEntity = await this.authenticationRepo.findByFacebookId(fbProfile.id);
+    const authenticationEntity = await this.authenticationRepo.findOne({ facebook: { id: fbProfile.id } });
     if (!authenticationEntity) throw new AppError('Could not find authentication information for signIn');
 
     const authorizationEntity = await this.authorizationRepo.findOne({ userId: authenticationEntity.userId });

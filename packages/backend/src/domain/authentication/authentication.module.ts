@@ -4,7 +4,6 @@ import { CoreModule } from '../core/core.module';
 import { AuthenticationProviderTokens } from './authentication.constants';
 import { AuthenticationSchema } from './model/authentication.schema';
 import { AuthenticationRepo } from './repo/authentication.repo';
-import { AuthenticationRepo } from './repo/authentication.repo';
 import { FacebookAuthenticationService } from './social/facebook-authentication.service';
 import { FacebookClientService } from './social/facebook-client.service';
 import { FacebookProfileService } from './social/facebook-profile..service';

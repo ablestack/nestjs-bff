@@ -4,8 +4,6 @@ import { CoreModule } from '../core/core.module';
 import { AuthorizationProviderTokens } from './authorization.constants';
 import { AuthorizationSchema } from './model/authorization.schema';
 import { AuthorizationRepo } from './repo/authorization.repo';
-import { AuthorizationRepo } from './repo/authorization.repo';
-import { AuthorizationRepo } from './repo/authorization.repo';
 
 const AuthorizationModel = {
   provide: AuthorizationProviderTokens.Models.Authorization,
@@ -15,7 +13,7 @@ const AuthorizationModel = {
 
 @Module({
   imports: [CoreModule],
-  providers: [AuthorizationModel, AuthorizationRepo, AuthorizationRepo, AuthorizationRepo],
-  exports: [AuthorizationRepo, AuthorizationRepo, AuthorizationRepo],
+  providers: [AuthorizationModel, AuthorizationRepo],
+  exports: [AuthorizationRepo],
 })
 export class AuthorizationModule {}

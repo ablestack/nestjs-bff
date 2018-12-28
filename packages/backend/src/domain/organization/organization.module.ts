@@ -4,8 +4,6 @@ import { MongoSharedProviderTokens } from '../../shared/database/mongo/mongo.sha
 import { OrganizationSchema } from './model/organization.schema';
 import { OrganizationProviderTokens } from './organization.constants';
 import { OrganizationRepo } from './repo/organization.repo';
-import { OrganizationRepo } from './repo/organization.repo';
-import { OrganizationRepo } from './repo/organization.repo';
 
 const OrganizationModel = {
   provide: OrganizationProviderTokens.Models.Organization,

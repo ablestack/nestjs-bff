@@ -10,7 +10,7 @@ import { UserRepo } from '../../domain/user/repo/user.repo';
 import { AppError } from '../../shared/exceptions/app.exception';
 
 @Injectable()
-export class OrganizationService {
+export class OrganizationOrchestrationService {
   constructor(
     private readonly authenticationRepo: AuthenticationRepo,
     private readonly authorizationRepo: AuthorizationRepo,

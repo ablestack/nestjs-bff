@@ -1,5 +1,6 @@
 import { IEntity } from '@nestjs-bff/global/lib/interfaces/entity.interface';
 import { validate } from 'class-validator';
+import * as _ from 'lodash';
 import { Document, Model } from 'mongoose';
 import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { CachingUtils } from '../../../shared/caching/caching.utils';

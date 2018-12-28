@@ -3,8 +3,6 @@ import { CoreModule } from '../core/core.module';
 import { MongoSharedProviderTokens } from '../../shared/database/mongo/mongo.shared.constants';
 import { UserSchema } from './model/user.schema';
 import { UserRepo } from './repo/user.repo';
-import { UserRepo } from './repo/user.repo';
-import { UserRepo } from './repo/user.repo';
 import { UserProviderTokens } from './user.constants';
 
 const UserModel = {
