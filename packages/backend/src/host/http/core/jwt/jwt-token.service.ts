@@ -16,7 +16,7 @@ export class JwtTokenService {
   ) {
     this.signOptions = {
       issuer: nestjsBffConfig.jwt.issuer,
-      audience: nestjsBffConfig.bffRootUrl,
+      audience: nestjsBffConfig.http.bffRootUrl,
       algorithm: nestjsBffConfig.jwt.signingAlgorithm,
       expiresIn: nestjsBffConfig.jwt.expiresIn,
     };

@@ -23,7 +23,7 @@ export class AttachAuthenticationHttpMiddleware implements NestMiddleware {
   ) {
     this.verifyOptions = {
       issuer: nestjsBffConfig.jwt.issuer,
-      audience: nestjsBffConfig.bffRootUrl,
+      audience: nestjsBffConfig.http.bffRootUrl,
       algorithms: [nestjsBffConfig.jwt.signingAlgorithm],
     };
   }
@@ -50,7 +50,7 @@ export class AttachAuthenticationHttpMiddleware implements NestMiddleware {
       return;
     }
 
-    if (this.nestjsBffConfig.publicRouteRegex.test(req.originalUrl)) {
+    if (this.nestjsBffConfig.http.publicRouteRegex.test(req.originalUrl)) {
       this.bffLoggerService.debug(`Public URL: ${req.originalUrl}`);
       return;
     }

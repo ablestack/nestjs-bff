@@ -8,7 +8,7 @@ import { JwtTokenService } from './jwt-token.service';
 
 const verifyOptions: VerifyOptions = {
   issuer: NestjsBffConfig.jwt.issuer,
-  audience: NestjsBffConfig.bffRootUrl,
+  audience: NestjsBffConfig.http.bffRootUrl,
   algorithms: [NestjsBffConfig.jwt.signingAlgorithm],
 };
 

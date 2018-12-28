@@ -28,10 +28,8 @@ export class AuthorizationHttpGuard implements CanActivate {
   constructor(
     private readonly reflector: Reflector,
     private readonly organizationCache: OrganizationRepo,
-    @Inject(CachingProviderTokens.Services.CacheStore)
-    private readonly cacheStore: CacheStore,
-    @Inject(AppSharedProviderTokens.Config.App)
-    private readonly nestjsBffConfig: INestjsBffConfig,
+    @Inject(CachingProviderTokens.Services.CacheStore) private readonly cacheStore: CacheStore,
+    @Inject(AppSharedProviderTokens.Config.App) private readonly nestjsBffConfig: INestjsBffConfig,
     private readonly logger: LoggerSharedService,
   ) {}
 
@@ -45,7 +43,7 @@ export class AuthorizationHttpGuard implements CanActivate {
       });
 
       // test to see if public route
-      if (this.nestjsBffConfig.publicRouteRegex.test(req.originalUrl)) {
+      if (this.nestjsBffConfig.http.publicRouteRegex.test(req.originalUrl)) {
         this.logger.debug('Public Route', req.originalUrl);
         return true;
       }

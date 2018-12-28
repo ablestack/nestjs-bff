@@ -41,14 +41,14 @@ export class AuthController {
   @Get('public/facebook/oauth2url/sign-in')
   async getOauth2UrlForFacebookSignIn(): Promise<{ redirectUrl: string }> {
     return this.authFacebookService.getOauth2RedirectUrl(
-      `${this.nestjsBffConfig.spaRootUrl}${this.nestjsBffConfig.social.facebook.callbackRelativeURL_signIn}`,
+      `${this.nestjsBffConfig.http.spaRootUrl}${this.nestjsBffConfig.social.facebook.callbackRelativeURL_signIn}`,
     );
   }
 
   @Get('public/facebook/oauth2url/sign-up')
   async getOauth2UrlForFacebookSignUp(): Promise<{ redirectUrl: string }> {
     return this.authFacebookService.getOauth2RedirectUrl(
-      `${this.nestjsBffConfig.spaRootUrl}${this.nestjsBffConfig.social.facebook.callbackRelativeURL_signUp}`,
+      `${this.nestjsBffConfig.http.spaRootUrl}${this.nestjsBffConfig.social.facebook.callbackRelativeURL_signUp}`,
     );
   }
 
@@ -56,7 +56,7 @@ export class AuthController {
   async signUpWithFacebook(@Body('fbAuthorizationCode') fbAuthorizationCode: string): Promise<IAuthenticationToken> {
     const authenticationEntity = await this.userAuthenticationService.signUpWithFacebook(
       fbAuthorizationCode,
-      this.nestjsBffConfig.spaRootUrl,
+      this.nestjsBffConfig.http.spaRootUrl,
     );
 
     return this.jwtTokenService.createToken(authenticationEntity);
@@ -66,7 +66,7 @@ export class AuthController {
   async signInWithFacebook(@Body('fbAuthorizationCode') fbAuthorizationCode: string): Promise<IAuthenticationToken> {
     const authenticationEntity = await this.userAuthenticationService.signInWithFacebook(
       fbAuthorizationCode,
-      this.nestjsBffConfig.spaRootUrl,
+      this.nestjsBffConfig.http.spaRootUrl,
     );
 
     return this.jwtTokenService.createToken(authenticationEntity);
