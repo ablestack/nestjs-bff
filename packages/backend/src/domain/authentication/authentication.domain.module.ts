@@ -8,12 +8,10 @@ import { AuthenticationDomainRepoWrite } from './repo/authentication.domain.repo
 import { FacebookAuthenticationDomainService } from './social/facebook-authentication.domain.service';
 import { FacebookClientDomainService } from './social/facebook-client.domain.service';
 import { FacebookProfileDomainService } from './social/facebook-profile.domain..service';
-import { AuthenticationCreateValidator } from './validators/authentication-create.validator';
 
 const AuthenticationDomainModel = {
   provide: AuthenticationDomainProviderTokens.Models.Authentication,
-  useFactory: mongoose =>
-    mongoose.connection.model('Authentication', AuthenticationDomainSchema),
+  useFactory: mongoose => mongoose.connection.model('Authentication', AuthenticationDomainSchema),
   inject: [MongoSharedProviderTokens.Connections.Mongoose],
 };
 
@@ -22,18 +20,11 @@ const AuthenticationDomainModel = {
   providers: [
     AuthenticationDomainRepoRead,
     AuthenticationDomainRepoWrite,
-    AuthenticationCreateValidator,
     FacebookClientDomainService,
     FacebookProfileDomainService,
     FacebookAuthenticationDomainService,
     AuthenticationDomainModel,
   ],
-  exports: [
-    AuthenticationDomainRepoRead,
-    AuthenticationDomainRepoWrite,
-    AuthenticationCreateValidator,
-    FacebookAuthenticationDomainService,
-    FacebookProfileDomainService,
-  ],
+  exports: [AuthenticationDomainRepoRead, AuthenticationDomainRepoWrite, FacebookAuthenticationDomainService, FacebookProfileDomainService],
 })
 export class AuthenticationDomainModule {}

@@ -4,7 +4,6 @@ import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorizati
 import { Injectable } from '@nestjs/common';
 import { AuthenticationDomainRepoWrite } from '../../domain/authentication/repo/authentication.domain.repo-write';
 import { generateHashedPassword } from '../../domain/authentication/utils/encryption.domain.util';
-import { AuthenticationCreateValidator } from '../../domain/authentication/validators/authentication-create.validator';
 import { AuthorizationDomainRepoWrite } from '../../domain/authorization/repo/authorization.domain.repo-write';
 import { OrganizationDomainRepoCache } from '../../domain/organization/repo/organization.domain.repo-cache';
 import { UserDomainRepoWrite } from '../../domain/user/repo/user.domain.repo-write';
@@ -17,7 +16,6 @@ export class OrganizationApplicationService {
     private readonly authorizationRepoWrite: AuthorizationDomainRepoWrite,
     private readonly userRepoWrite: UserDomainRepoWrite,
     private readonly organizationRepoCache: OrganizationDomainRepoCache,
-    private readonly authenticationCreateValidator: AuthenticationCreateValidator,
   ) {}
 
   public async createMember(cmd: CreateOrganizationMemberCommand): Promise<AuthorizationEntity> {
@@ -31,9 +29,7 @@ export class OrganizationApplicationService {
     };
 
     // validate
-    await this.authenticationCreateValidator.validate(newAuthenticationEntity, {
-      skipUserIdValidation: true,
-    });
+    this.authenticationRepoWrite.validate(newAuthenticationEntity);
 
     // validate organization exists
     if (!(await this.organizationRepoCache.findOne({ _id: cmd.orgId }))) {
