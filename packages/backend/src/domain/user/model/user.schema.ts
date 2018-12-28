@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
-export const UserDomainSchema: Schema = new Schema(
+export const UserSchema: Schema = new Schema(
   {
     username: {
       type: Schema.Types.String,

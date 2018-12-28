@@ -2,20 +2,20 @@ import { CreateOrganizationMemberCommand } from '@nestjs-bff/global/lib/commands
 import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
 import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
 import { Injectable } from '@nestjs/common';
-import { AuthenticationDomainRepoWrite } from '../../domain/authentication/repo/authentication.repo-write';
+import { AuthenticationRepoWrite } from '../../domain/authentication/repo/authentication.repo-write';
 import { generateHashedPassword } from '../../domain/authentication/utils/encryption.util';
-import { AuthorizationDomainRepoWrite } from '../../domain/authorization/repo/authorization.repo-write';
-import { OrganizationDomainRepoCache } from '../../domain/organization/repo/organization.repo-cache';
-import { UserDomainRepoWrite } from '../../domain/user/repo/user.repo-write';
+import { AuthorizationRepoWrite } from '../../domain/authorization/repo/authorization.repo-write';
+import { OrganizationRepoCache } from '../../domain/organization/repo/organization.repo-cache';
+import { UserRepoWrite } from '../../domain/user/repo/user.repo-write';
 import { AppError } from '../../shared/exceptions/app.exception';
 
 @Injectable()
 export class OrganizationApplicationService {
   constructor(
-    private readonly authenticationRepoWrite: AuthenticationDomainRepoWrite,
-    private readonly authorizationRepoWrite: AuthorizationDomainRepoWrite,
-    private readonly userRepoWrite: UserDomainRepoWrite,
-    private readonly organizationRepoCache: OrganizationDomainRepoCache,
+    private readonly authenticationRepoWrite: AuthenticationRepoWrite,
+    private readonly authorizationRepoWrite: AuthorizationRepoWrite,
+    private readonly userRepoWrite: UserRepoWrite,
+    private readonly organizationRepoCache: OrganizationRepoCache,
   ) {}
 
   public async createMember(cmd: CreateOrganizationMemberCommand): Promise<AuthorizationEntity> {

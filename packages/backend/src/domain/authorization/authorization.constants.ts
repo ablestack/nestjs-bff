@@ -1,4 +1,4 @@
-export const AuthorizationDomainProviderTokens = {
+export const AuthorizationProviderTokens = {
   Models: {
     Authorization: 'AuthorizationModelToken',
   },

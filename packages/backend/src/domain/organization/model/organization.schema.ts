@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
-export const OrganizationDomainSchema = new Schema(
+export const OrganizationSchema = new Schema(
   {
     name: {
       required: true,

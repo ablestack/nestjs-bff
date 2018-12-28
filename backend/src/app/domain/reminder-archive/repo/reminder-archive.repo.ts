@@ -11,7 +11,7 @@ import { ReminderArchiveProviderTokens } from '../reminder-archive.constants';
 import { ReminderArchiveQueryConditions } from './reminder-archive-query-conditions';
 
 @Injectable()
-export class ReminderArchiveDomainRepo extends BaseRepo<
+export class ReminderArchiveRepo extends BaseRepo<
   ReminderArchiveEntity,
   IReminderArchiveModel,
   ReminderArchiveQueryConditions

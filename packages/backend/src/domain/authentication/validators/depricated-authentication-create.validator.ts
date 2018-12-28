@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ValidationError } from '../../../shared/exceptions/validation.exception';
 import { AuthenticationEntity } from '../model/authentication.entity';
-import { AuthenticationDomainRepo } from '../repo/authentication.repo';
+import { AuthenticationRepo } from '../repo/authentication.repo';
 import { Messages } from './messages.constants';
 
 export interface IAuthenticationCreateValidatorOptions {
@@ -9,7 +9,7 @@ export interface IAuthenticationCreateValidatorOptions {
 }
 @Injectable()
 export class DeprecatedAuthenticationCreateValidator {
-  constructor(private readonly authenticationRepo: AuthenticationDomainRepo) {}
+  constructor(private readonly authenticationRepo: AuthenticationRepo) {}
 
   public async validate(authenticationEntity: AuthenticationEntity, options?: IAuthenticationCreateValidatorOptions) {
     const messages: string[] = [];

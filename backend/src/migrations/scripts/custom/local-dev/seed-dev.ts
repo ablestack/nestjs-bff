@@ -1,6 +1,6 @@
 import { LoggerSharedService } from '@nestjs-bff/backend/lib/shared/logging/logger.shared.service';
 import { Connection } from 'mongoose';
-import { ReminderDomainSchema } from '../../../../app/domain/reminder/model/reminder.schema';
+import { ReminderSchema } from '../../../../app/domain/reminder/model/reminder.schema';
 import { data } from './seed-data-dev';
 
 /**
@@ -8,7 +8,7 @@ import { data } from './seed-data-dev';
  */
 export async function up(connection: Connection, bffLoggerService: LoggerSharedService) {
   const newReminders = data.entities;
-  const reminder = connection.model('Reminder', ReminderDomainSchema);
+  const reminder = connection.model('Reminder', ReminderSchema);
   const completed = await reminder.collection.insertMany(newReminders);
   bffLoggerService.info(`UP script completed. ${completed ? JSON.stringify(completed.result) : 'no results'}`);
 }
@@ -20,7 +20,7 @@ export async function down(connection: Connection, bffLoggerService: LoggerShare
   // Write migration here
   const newReminders = data.entities;
   const idsToRemove = newReminders.map(item => item._id);
-  const reminder = connection.model('Reminder', ReminderDomainSchema);
+  const reminder = connection.model('Reminder', ReminderSchema);
   const completed = await reminder.collection.deleteMany({ _id: { $in: idsToRemove } });
   bffLoggerService.info(`DOWN script completed. ${completed ? JSON.stringify(completed.result) : 'no results'}`);
 }

@@ -11,7 +11,7 @@ import { ReminderProviderTokens } from '../reminder.constants';
 import { ReminderQueryConditions } from './reminder-query-conditions';
 
 @Injectable()
-export class ReminderDomainRepo extends BaseRepo<ReminderEntity, IReminderModel, ReminderQueryConditions> {
+export class ReminderRepo extends BaseRepo<ReminderEntity, IReminderModel, ReminderQueryConditions> {
   constructor(
     readonly loggerService: LoggerSharedService,
     @Inject(ReminderProviderTokens.Models.Reminder) model: Model<IReminderModel>,

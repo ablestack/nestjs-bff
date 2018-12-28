@@ -5,18 +5,8 @@ import { MongoSharedModule } from '../../shared/database/mongo/mongo.shared.modu
 import { LoggingSharedModule } from '../../shared/logging/logging.shared.module';
 
 @Module({
-  imports: [
-    AppSharedModule,
-    MongoSharedModule,
-    LoggingSharedModule,
-    CachingSharedModule,
-  ],
+  imports: [AppSharedModule, MongoSharedModule, LoggingSharedModule, CachingSharedModule],
   providers: [],
-  exports: [
-    AppSharedModule,
-    MongoSharedModule,
-    LoggingSharedModule,
-    CachingSharedModule,
-  ],
+  exports: [AppSharedModule, MongoSharedModule, LoggingSharedModule, CachingSharedModule],
 })
-export class CoreDomainModule {}
+export class CoreModule {}

@@ -6,7 +6,7 @@ import { IAuthenticationToken } from '@nestjs-bff/global/lib/interfaces/authenti
 import { Body, Controller, Get, Inject, Post, Req } from '@nestjs/common';
 import { UserAuthApplicationService } from '../../../application/user-auth/user-auth.service';
 import { INestjsBffConfig } from '../../../config/nestjs-bff.config';
-import { FacebookAuthenticationDomainService } from '../../../domain/authentication/social/facebook-authentication.service';
+import { FacebookAuthenticationService } from '../../../domain/authentication/social/facebook-authentication.service';
 import { CheckOrgRoles } from '../../../domain/authorization/authorizationchecks/check-org-roles.authorizationcheck';
 import { CheckRole } from '../../../domain/authorization/authorizationchecks/check-roles.authorizationcheck';
 import { AppSharedProviderTokens } from '../../../shared/app/app.shared.constants';
@@ -18,7 +18,7 @@ export class AuthHttpController {
   constructor(
     @Inject(AppSharedProviderTokens.Config.App)
     private readonly nestjsBffConfig: INestjsBffConfig,
-    private readonly authFacebookService: FacebookAuthenticationDomainService,
+    private readonly authFacebookService: FacebookAuthenticationService,
     private readonly userAuthenticationService: UserAuthApplicationService,
     private readonly jwtTokenService: JwtTokenHttpService,
   ) {}

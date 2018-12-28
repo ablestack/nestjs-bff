@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
-import { AuthenticationDomainModule } from '../../domain/authentication/authentication.module';
-import { AuthorizationDomainModule } from '../../domain/authorization/authorization.module';
-import { OrganizationDomainModule } from '../../domain/organization/organization.module';
-import { UserDomainModule } from '../../domain/user/user.module';
+import { AuthenticationModule } from '../../domain/authentication/authentication.module';
+import { AuthorizationModule } from '../../domain/authorization/authorization.module';
+import { OrganizationModule } from '../../domain/organization/organization.module';
+import { UserModule } from '../../domain/user/user.module';
 import { CoreApplicationModule } from '../core/core.module';
 import { UserAuthApplicationService } from './user-auth.service';
 
 @Module({
-  imports: [CoreApplicationModule, AuthenticationDomainModule, AuthorizationDomainModule, UserDomainModule, OrganizationDomainModule],
+  imports: [CoreApplicationModule, AuthenticationModule, AuthorizationModule, UserModule, OrganizationModule],
   providers: [UserAuthApplicationService],
   exports: [UserAuthApplicationService],
 })

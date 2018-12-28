@@ -1,4 +1,4 @@
-export const DomainCoreProviderTokens = {};
+export const CoreProviderTokens = {};
 
 export const Messages = {
   USER_ID_REQUIRED: 'UserId is required',

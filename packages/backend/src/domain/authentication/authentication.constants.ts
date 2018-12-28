@@ -1,4 +1,4 @@
-export const AuthenticationDomainProviderTokens = {
+export const AuthenticationProviderTokens = {
   Config: {
     Facebook: 'FacebookConfigToken',
     Google: 'GoogleConfigToken',

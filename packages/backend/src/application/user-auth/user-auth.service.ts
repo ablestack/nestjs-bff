@@ -4,29 +4,29 @@ import { PromoteToGroupAdminCommand } from '@nestjs-bff/global/lib/commands/auth
 import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
 import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
 import { Injectable } from '@nestjs/common';
-import { AuthenticationDomainRepo } from '../../domain/authentication/repo/authentication.repo';
-import { AuthenticationDomainRepoWrite } from '../../domain/authentication/repo/authentication.repo-write';
-import { FacebookAuthenticationDomainService } from '../../domain/authentication/social/facebook-authentication.service';
-import { FacebookProfileDomainService } from '../../domain/authentication/social/facebook-profile..service';
+import { AuthenticationRepo } from '../../domain/authentication/repo/authentication.repo';
+import { AuthenticationRepoWrite } from '../../domain/authentication/repo/authentication.repo-write';
+import { FacebookAuthenticationService } from '../../domain/authentication/social/facebook-authentication.service';
+import { FacebookProfileService } from '../../domain/authentication/social/facebook-profile..service';
 import { generateHashedPassword, validPassword } from '../../domain/authentication/utils/encryption.util';
-import { AuthorizationRepoDomainCache } from '../../domain/authorization/repo/authorization.repo-cache';
-import { AuthorizationDomainRepoWrite } from '../../domain/authorization/repo/authorization.repo-write';
-import { OrganizationDomainRepoWrite } from '../../domain/organization/repo/organization.repo-write';
-import { UserDomainRepoWrite } from '../../domain/user/repo/user.repo-write';
+import { AuthorizationRepoCache } from '../../domain/authorization/repo/authorization.repo-cache';
+import { AuthorizationRepoWrite } from '../../domain/authorization/repo/authorization.repo-write';
+import { OrganizationRepoWrite } from '../../domain/organization/repo/organization.repo-write';
+import { UserRepoWrite } from '../../domain/user/repo/user.repo-write';
 import { AppError } from '../../shared/exceptions/app.exception';
 import { ValidationError } from '../../shared/exceptions/validation.exception';
 
 @Injectable()
 export class UserAuthApplicationService {
   constructor(
-    private readonly fbAuthenticationService: FacebookAuthenticationDomainService,
-    private readonly fbProfileService: FacebookProfileDomainService,
-    private readonly authenticationRepo: AuthenticationDomainRepo,
-    private readonly authenticationRepoWrite: AuthenticationDomainRepoWrite,
-    private readonly authorizationRepoCache: AuthorizationRepoDomainCache,
-    private readonly authorizationRepoWrite: AuthorizationDomainRepoWrite,
-    private readonly userRepoWrite: UserDomainRepoWrite,
-    private readonly organizationRepoWrite: OrganizationDomainRepoWrite,
+    private readonly fbAuthenticationService: FacebookAuthenticationService,
+    private readonly fbProfileService: FacebookProfileService,
+    private readonly authenticationRepo: AuthenticationRepo,
+    private readonly authenticationRepoWrite: AuthenticationRepoWrite,
+    private readonly authorizationRepoCache: AuthorizationRepoCache,
+    private readonly authorizationRepoWrite: AuthorizationRepoWrite,
+    private readonly userRepoWrite: UserRepoWrite,
+    private readonly organizationRepoWrite: OrganizationRepoWrite,
   ) {}
 
   /**

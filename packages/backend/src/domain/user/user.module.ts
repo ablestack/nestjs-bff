@@ -1,22 +1,22 @@
 import { Module } from '@nestjs/common';
-import { CoreDomainModule } from '../../domain/core/domain.core.module';
+import { CoreModule } from '../../domain/core/domain.core.module';
 import { MongoSharedProviderTokens } from '../../shared/database/mongo/mongo.shared.constants';
-import { UserDomainSchema } from './model/user.schema';
-import { UserDomainRepo } from './repo/user.repo';
-import { UserDomainRepoCache } from './repo/user.repo-cache';
-import { UserDomainRepoWrite } from './repo/user.repo-write';
+import { UserSchema } from './model/user.schema';
+import { UserRepo } from './repo/user.repo';
+import { UserRepoCache } from './repo/user.repo-cache';
+import { UserRepoWrite } from './repo/user.repo-write';
 import { UserProviderTokens } from './user.constants';
 
-const UserDomainModel = {
+const UserModel = {
   provide: UserProviderTokens.Models.User,
-  useFactory: mongoose => mongoose.connection.model('User', UserDomainSchema),
+  useFactory: mongoose => mongoose.connection.model('User', UserSchema),
   inject: [MongoSharedProviderTokens.Connections.Mongoose],
 };
 
 @Module({
-  imports: [CoreDomainModule],
+  imports: [CoreModule],
   controllers: [],
-  providers: [UserDomainRepo, UserDomainRepoCache, UserDomainRepoWrite, UserDomainModel],
-  exports: [UserDomainRepo, UserDomainRepoCache, UserDomainRepoWrite],
+  providers: [UserRepo, UserRepoCache, UserRepoWrite, UserModel],
+  exports: [UserRepo, UserRepoCache, UserRepoWrite],
 })
-export class UserDomainModule {}
+export class UserModule {}

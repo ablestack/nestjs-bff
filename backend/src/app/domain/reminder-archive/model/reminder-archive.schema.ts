@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
-export const ReminderArchiveDomainSchema = new Schema(
+export const ReminderArchiveSchema = new Schema(
   {
     title: {
       required: true,

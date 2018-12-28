@@ -1,21 +1,21 @@
 import { Module } from '@nestjs/common';
-import { CoreDomainModule } from '../../domain/core/domain.core.module';
+import { CoreModule } from '../../domain/core/domain.core.module';
 import { MongoSharedProviderTokens } from '../../shared/database/mongo/mongo.shared.constants';
-import { OrganizationDomainSchema } from './model/organization.schema';
+import { OrganizationSchema } from './model/organization.schema';
 import { OrganizationProviderTokens } from './organization.constants';
-import { OrganizationDomainRepoCache } from './repo/organization.repo-cache';
-import { OrganizationDomainRepo } from './repo/organization.repo';
-import { OrganizationDomainRepoWrite } from './repo/organization.repo-write';
+import { OrganizationRepoCache } from './repo/organization.repo-cache';
+import { OrganizationRepo } from './repo/organization.repo';
+import { OrganizationRepoWrite } from './repo/organization.repo-write';
 
-const OrganizationDomainModel = {
+const OrganizationModel = {
   provide: OrganizationProviderTokens.Models.Organization,
-  useFactory: mongoose => mongoose.connection.model('Organization', OrganizationDomainSchema),
+  useFactory: mongoose => mongoose.connection.model('Organization', OrganizationSchema),
   inject: [MongoSharedProviderTokens.Connections.Mongoose],
 };
 
 @Module({
-  imports: [CoreDomainModule],
-  providers: [OrganizationDomainRepo, OrganizationDomainRepoCache, OrganizationDomainRepoWrite, OrganizationDomainModel],
-  exports: [OrganizationDomainRepo, OrganizationDomainRepoCache, OrganizationDomainRepoWrite],
+  imports: [CoreModule],
+  providers: [OrganizationRepo, OrganizationRepoCache, OrganizationRepoWrite, OrganizationModel],
+  exports: [OrganizationRepo, OrganizationRepoCache, OrganizationRepoWrite],
 })
-export class OrganizationDomainModule {}
+export class OrganizationModule {}

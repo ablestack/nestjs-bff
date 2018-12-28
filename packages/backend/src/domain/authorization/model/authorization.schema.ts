@@ -1,7 +1,7 @@
 import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
 import { Schema } from 'mongoose';
 
-const OrganizationAuthorizationDomainSchema: Schema = new Schema({
+const OrganizationAuthorizationSchema: Schema = new Schema({
   primary: {
     type: Schema.Types.Boolean,
     required: true,
@@ -17,7 +17,7 @@ const OrganizationAuthorizationDomainSchema: Schema = new Schema({
   },
 });
 
-export const AuthorizationDomainSchema: Schema = new Schema(
+export const AuthorizationSchema: Schema = new Schema(
   {
     userId: {
       type: Schema.Types.ObjectId,
@@ -29,7 +29,7 @@ export const AuthorizationDomainSchema: Schema = new Schema(
       required: true,
     },
     organizations: {
-      type: [OrganizationAuthorizationDomainSchema],
+      type: [OrganizationAuthorizationSchema],
       required: true,
     },
   },

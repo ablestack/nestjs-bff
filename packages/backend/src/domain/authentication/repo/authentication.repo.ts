@@ -6,16 +6,16 @@ import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { CachingProviderTokens } from '../../../shared/caching/caching.shared.constants';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { BaseRepo } from '../../core/repo/base.repo';
-import { AuthenticationDomainProviderTokens } from '../authentication.constants';
+import { AuthenticationProviderTokens } from '../authentication.constants';
 import { AuthenticationEntity } from '../model/authentication.entity';
 import { IAuthenticationModel } from '../model/authentication.model';
 import { AuthenticationQueryConditions } from './authentication.query-conditions';
 
 @Injectable()
-export class AuthenticationDomainRepo extends BaseRepo<AuthenticationEntity, IAuthenticationModel, AuthenticationQueryConditions> {
+export class AuthenticationRepo extends BaseRepo<AuthenticationEntity, IAuthenticationModel, AuthenticationQueryConditions> {
   constructor(
     readonly loggerService: LoggerSharedService,
-    @Inject(AuthenticationDomainProviderTokens.Models.Authentication) model: Model<IAuthenticationModel>,
+    @Inject(AuthenticationProviderTokens.Models.Authentication) model: Model<IAuthenticationModel>,
     @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
     @Inject(AppSharedProviderTokens.Config.App) nestjsBffConfig: INestjsBffConfig,
   ) {
