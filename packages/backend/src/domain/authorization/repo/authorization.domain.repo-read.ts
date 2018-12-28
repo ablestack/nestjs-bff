@@ -12,7 +12,7 @@ export class AuthorizationDomainRepoRead extends BaseRepoRead<AuthorizationEntit
   constructor(
     readonly loggerService: LoggerSharedService,
     @Inject(AuthorizationDomainProviderTokens.Models.Authorization)
-    model: Model<IAuthorizationModel>
+    model: Model<IAuthorizationModel>,
   ) {
     super({ loggerService, model });
   }

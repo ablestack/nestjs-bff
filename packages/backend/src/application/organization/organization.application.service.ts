@@ -17,7 +17,7 @@ export class OrganizationApplicationService {
     private readonly authorizationRepoWrite: AuthorizationDomainRepoWrite,
     private readonly userRepoWrite: UserDomainRepoWrite,
     private readonly organizationRepoCache: OrganizationDomainRepoCache,
-    private readonly authenticationCreateValidator: AuthenticationCreateValidator
+    private readonly authenticationCreateValidator: AuthenticationCreateValidator,
   ) {}
 
   public async createMember(cmd: CreateOrganizationMemberCommand): Promise<AuthorizationEntity> {
@@ -26,13 +26,13 @@ export class OrganizationApplicationService {
       userId: '',
       local: {
         email: cmd.username,
-        hashedPassword: generateHashedPassword(cmd.password)
-      }
+        hashedPassword: generateHashedPassword(cmd.password),
+      },
     };
 
     // validate
     await this.authenticationCreateValidator.validate(newAuthenticationEntity, {
-      skipUserIdValidation: true
+      skipUserIdValidation: true,
     });
 
     // validate organization exists
@@ -43,7 +43,7 @@ export class OrganizationApplicationService {
     // create new user
     const user = await this.userRepoWrite.create({
       username: cmd.username,
-      displayName: cmd.displayName
+      displayName: cmd.displayName,
     });
 
     // create authentication
@@ -58,9 +58,9 @@ export class OrganizationApplicationService {
         {
           primary: true,
           orgId: cmd.orgId,
-          organizationRoles: [OrganizationRoles.member]
-        }
-      ]
+          organizationRoles: [OrganizationRoles.member],
+        },
+      ],
     });
 
     return authorizationEntity;

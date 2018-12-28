@@ -52,6 +52,8 @@ export abstract class BaseRepoWrite<
    * @param newEntity
    */
   public async create(newEntity: TEntity): Promise<TEntity> {
+    this.loggerService.trace(`${this.name}.create`, newEntity);
+
     const createModel: TModel = new this.model();
     Object.assign(createModel, newEntity);
     return createModel.save();
@@ -59,14 +61,14 @@ export abstract class BaseRepoWrite<
 
   /**
    *
-   * @param entity
+   * @param partialEntity
    */
-  public async patch(entity: Partial<TEntity>): Promise<void> {
-    this.validate(entity, true);
+  public async patch(partialEntity: Partial<TEntity>): Promise<void> {
+    this.loggerService.trace(`${this.name}.patch`, partialEntity);
 
-    await this.model.findByIdAndUpdate(entity.id, entity, {}).exec();
-
-    this.triggerCacheClearById(entity.id);
+    this.validate(partialEntity, true);
+    await this.model.findByIdAndUpdate(partialEntity.id, partialEntity, {}).exec();
+    this.triggerCacheClearById(partialEntity.id);
   }
 
   /**
@@ -74,11 +76,11 @@ export abstract class BaseRepoWrite<
    * @param entity
    */
   public async update(entity: TEntity): Promise<void> {
-    this.validate(entity, false);
+    this.loggerService.trace(`${this.name}.update`, entity);
 
+    this.validate(entity, false);
     // update. (at some point in the future, consider changing to findOneAndReplace... wasn't in typescript definitions for some reason)
     await this.model.findByIdAndUpdate(entity.id, entity, {}).exec();
-
     this.triggerCacheClearById(entity.id);
   }
 
@@ -87,8 +89,9 @@ export abstract class BaseRepoWrite<
    * @param entityId
    */
   public async delete(entityId: string): Promise<void> {
-    await this.model.findByIdAndDelete(entityId).exec();
+    this.loggerService.trace(`${this.name}.delete`, entityId);
 
+    await this.model.findByIdAndDelete(entityId).exec();
     this.triggerCacheClearById(entityId);
   }
 
