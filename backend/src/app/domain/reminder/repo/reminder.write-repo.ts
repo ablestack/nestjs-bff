@@ -9,7 +9,7 @@ import { ReminderQueryConditions } from './reminder-query-conditions';
 import { ReminderRepoCache } from './reminder.cache-repo';
 
 @Injectable()
-export class ReminderDomainRepoWrite extends BaseRepoWrite<ReminderEntity, IReminderModel, ReminderQueryConditions> {
+export class ReminderRepoWrite extends BaseRepoWrite<ReminderEntity, IReminderModel, ReminderQueryConditions> {
   constructor(
     readonly loggerService: LoggerSharedService,
     @Inject(ReminderProviderTokens.Models.Reminder) model: Model<IReminderModel>,

@@ -1,7 +1,6 @@
 import { IEntity } from '@nestjs-bff/global/lib/interfaces/entity.interface';
-import { Validator } from 'class-validator';
 import { Document } from 'mongoose';
-import * as hash from 'object-hash';
+
 import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { AppError } from '../../../shared/exceptions/app.exception';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
@@ -25,12 +24,11 @@ export abstract class BaseRepoCache<
   TQueryConditions extends BaseQueryConditions
 > {
   private name: string;
-  private cacheKeyBase;
+
   protected readonly loggerService: LoggerSharedService;
   protected readonly repo: BaseRepoRead<TEntity, TModel, TQueryConditions>;
   protected readonly cacheStore: CacheStore;
   protected readonly ttl: number;
-  protected readonly validator: Validator;
 
   constructor(params: IBaseRepoCacheParams<TEntity, TModel, TQueryConditions>) {
     this.loggerService = params.loggerService;
@@ -39,10 +37,12 @@ export abstract class BaseRepoCache<
     this.ttl = params.ttl;
 
     this.name = `CachedRepo<${this.repo.modelName}>`;
-    this.cacheKeyBase = `${this.name}-cacheKey-`;
-    this.validator = new Validator();
   }
 
+  /**
+   *
+   * @param conditions
+   */
   public async findOne(conditions: Partial<TQueryConditions>): Promise<TEntity> {
     this.loggerService.trace(`${this.name}.findOne`, conditions);
 
@@ -60,6 +60,10 @@ export abstract class BaseRepoCache<
     return result;
   }
 
+  /**
+   *
+   * @param conditions
+   */
   public async find(conditions: Partial<TQueryConditions>): Promise<TEntity[]> {
     this.loggerService.trace(`${this.name}.find`, conditions);
 
@@ -72,33 +76,6 @@ export abstract class BaseRepoCache<
     this.cacheStore.set(key, result, { ttl: this.ttl });
 
     return result;
-  }
-
-  protected makeCacheKeyFromId(entityId: string): string {
-    this.validator.isMongoId(entityId);
-    return this.makeCacheKeyFromProperty(entityId, 'id');
-  }
-
-  protected makeCacheKeyFromProperty(propertyValue: string, propertyName: string): string {
-    this.validator.isNotEmpty(propertyValue);
-    this.validator.isNotEmpty(propertyName);
-    return `${this.cacheKeyBase}-${propertyName}-${propertyValue}`;
-  }
-
-  protected makeCacheKeyFromObject(object: object): string {
-    return hash(object);
-  }
-
-  public clearCacheById(entityId: string) {
-    return this.cacheStore.del(this.makeCacheKeyFromId(entityId));
-  }
-
-  public clearCacheByProperty(propertyValue: string, propertyName: string) {
-    return this.cacheStore.del(this.makeCacheKeyFromProperty(propertyValue, propertyName));
-  }
-
-  public clearCacheByObject(object: object) {
-    return this.cacheStore.del(this.makeCacheKeyFromObject(object));
   }
 
   public clearCacheByKey(cacheKey: string) {

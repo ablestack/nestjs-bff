@@ -92,10 +92,12 @@ export abstract class BaseRepoWrite<
    *
    * @param entityId
    */
-  public async delete(entityId: string): Promise<void> {
+  public async delete(conditions: Partial<TQueryConditions>): Promise<void> {
     this.loggerService.trace(`${this.name}.delete`, entityId);
 
-    await this.model.findByIdAndDelete(entityId).exec();
+    let deleteModel = await this.entityRepoCache;
+
+    await this.model.findOneAndDelete(conditions).exec();
     this.triggerCacheClearById(entityId);
   }
 

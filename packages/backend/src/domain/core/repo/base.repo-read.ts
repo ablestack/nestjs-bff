@@ -27,9 +27,9 @@ export abstract class BaseRepoRead<
   TQueryConditions extends BaseQueryConditions
 > {
   private readonly name: string;
-  public readonly modelName: string;
   protected readonly loggerService: LoggerSharedService;
   protected readonly model: Model<TModel>;
+  public readonly modelName: string;
 
   /**
    *
