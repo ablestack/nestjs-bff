@@ -1,4 +1,4 @@
 import { Document } from 'mongoose';
-import { IAuthenticationDomainEntity } from './i-authentication.domain.entity';
+import { AuthenticationDomainEntity } from './authentication.domain.entity';
 
-export interface IAuthenticationDomainModel extends IAuthenticationDomainEntity, Document {}
+export interface IAuthenticationDomainModel extends AuthenticationDomainEntity, Document {}

@@ -7,16 +7,17 @@ import { Inject, Injectable } from '@nestjs/common';
 import { IAppConfig } from '../../../../config/app.config';
 import { ReminderEntity } from '../../../global/entities/reminder.entity';
 import { IReminderModel } from '../model/reminder.domain.model';
+import { ReminderQueryConditions } from './reminder-query-conditions';
 import { ReminderRepoRead } from './reminder.read-repo';
 
 @Injectable()
-export class ReminderRepoCache extends BaseRepoCache<ReminderEntity, IReminderModel> {
+export class ReminderRepoCache extends BaseRepoCache<ReminderEntity, IReminderModel, ReminderQueryConditions> {
   constructor(
-    private _repo: ReminderRepoRead,
+    repo: ReminderRepoRead,
     loggerService: LoggerSharedService,
     @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
     @Inject(AppSharedProviderTokens.Config.App) appConfig: IAppConfig,
   ) {
-    super({ loggerService, repo: _repo, cacheStore, ttl: appConfig.caching.entities.reminder });
+    super({ loggerService, repo, cacheStore, ttl: appConfig.caching.entities.reminder });
   }
 }

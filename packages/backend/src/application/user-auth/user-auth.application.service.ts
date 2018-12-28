@@ -9,7 +9,6 @@ import { AuthenticationDomainRepoWrite } from '../../domain/authentication/repo/
 import { FacebookAuthenticationDomainService } from '../../domain/authentication/social/facebook-authentication.domain.service';
 import { FacebookProfileDomainService } from '../../domain/authentication/social/facebook-profile.domain..service';
 import { generateHashedPassword, validPassword } from '../../domain/authentication/utils/encryption.domain.util';
-import { AuthenticationCreateValidator } from '../../domain/authentication/validators/authentication-create.validator';
 import { AuthorizationRepoDomainCache } from '../../domain/authorization/repo/authorization.domain.repo-cache';
 import { AuthorizationDomainRepoWrite } from '../../domain/authorization/repo/authorization.domain.repo-write';
 import { OrganizationDomainRepoWrite } from '../../domain/organization/repo/organization.domain.repo-write';
@@ -28,7 +27,6 @@ export class UserAuthApplicationService {
     private readonly authorizationRepoWrite: AuthorizationDomainRepoWrite,
     private readonly userRepoWrite: UserDomainRepoWrite,
     private readonly organizationRepoWrite: OrganizationDomainRepoWrite,
-    private readonly authenticationCreateValidator: AuthenticationCreateValidator,
   ) {}
 
   /**
@@ -73,9 +71,7 @@ export class UserAuthApplicationService {
     //
     // validate
     //
-    await this.authenticationCreateValidator.validate(newAuthenticationEntity, {
-      skipUserIdValidation: true,
-    });
+    this.authenticationRepoWrite.validate(newAuthenticationEntity);
 
     //
     // execute

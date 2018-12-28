@@ -1,9 +1,3 @@
-import { IsMongoId } from 'class-validator';
+import { UserAndOrgScopedQueryConditions } from '@nestjs-bff/backend/lib/domain/core/repo/user-and-org-scoped.query-conditions';
 
-export class ReminderQueryConditions {
-  @IsMongoId()
-  public userId: string = '';
-
-  @IsMongoId()
-  public readonly orgId: string = '';
-}
+export class ReminderQueryConditions extends UserAndOrgScopedQueryConditions {}

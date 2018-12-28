@@ -10,19 +10,11 @@ import { ReminderProviderTokens } from '../reminder.domain.constants';
 import { ReminderQueryConditions } from './reminder-query-conditions';
 
 @Injectable()
-export class ReminderRepoRead extends BaseRepoRead<ReminderEntity, IReminderModel> {
+export class ReminderRepoRead extends BaseRepoRead<ReminderEntity, IReminderModel, ReminderQueryConditions> {
   constructor(
     readonly loggerService: LoggerSharedService,
     @Inject(ReminderProviderTokens.Models.Reminder) model: Model<IReminderModel>,
   ) {
     super({ loggerService, model });
-  }
-
-  public async find(conditions: ReminderQueryConditions): Promise<ReminderEntity[]> {
-    return super.find(conditions);
-  }
-
-  public async findOne(conditions: ReminderQueryConditions): Promise<ReminderEntity> {
-    return super.find(conditions);
   }
 }

@@ -43,7 +43,7 @@ export abstract class BaseRepoCache<
     this.validator = new Validator();
   }
 
-  public async findOne(conditions: Partial<TQueryConditions>): Promise<TEntity | null> {
+  public async findOne(conditions: Partial<TQueryConditions>): Promise<TEntity> {
     this.loggerService.trace(`${this.name}.findOne`, conditions);
 
     this.repo.validate(conditions);
@@ -51,7 +51,10 @@ export abstract class BaseRepoCache<
     const key = this.makeCacheKeyFromObject(conditions);
     const cachedResult = await this.cacheStore.get<TEntity>(key);
     if (cachedResult) return cachedResult;
+
     const result = await this.repo.findOne(conditions);
+    if (result == null) throw new AppError(`Could not find entity ${this.name} with conditions ${conditions}`);
+
     this.cacheStore.set(key, result, { ttl: this.ttl });
 
     return result;

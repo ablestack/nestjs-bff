@@ -3,13 +3,13 @@ import { Model } from 'mongoose';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { BaseRepoRead } from '../../core/repo/base.repo-read';
 import { AuthenticationDomainProviderTokens } from '../authentication.domain.constants';
+import { AuthenticationDomainEntity } from '../model/authentication.domain.entity';
 import { IAuthenticationDomainModel } from '../model/authentication.domain.model';
-import { IAuthenticationDomainEntity } from '../model/i-authentication.domain.entity';
 import { AuthenticationQueryConditions } from './authentication.query-conditions';
 
 @Injectable()
 export class AuthenticationDomainRepoRead extends BaseRepoRead<
-  IAuthenticationDomainEntity,
+  AuthenticationDomainEntity,
   IAuthenticationDomainModel,
   AuthenticationQueryConditions
 > {
@@ -25,7 +25,7 @@ export class AuthenticationDomainRepoRead extends BaseRepoRead<
    *
    * @param localEmail
    */
-  public async findByLocalEmail(localEmail: string): Promise<IAuthenticationDomainEntity | null> {
+  public async findByLocalEmail(localEmail: string): Promise<AuthenticationDomainEntity | null> {
     return this.model.findOne({ 'local.email': localEmail });
   }
 
@@ -33,7 +33,7 @@ export class AuthenticationDomainRepoRead extends BaseRepoRead<
    *
    * @param facebookProfileId
    */
-  public async findByFacebookId(facebookProfileId: string): Promise<IAuthenticationDomainEntity | null> {
+  public async findByFacebookId(facebookProfileId: string): Promise<AuthenticationDomainEntity | null> {
     return this.model.findOne({ 'facebook.id': facebookProfileId });
   }
 
@@ -41,7 +41,7 @@ export class AuthenticationDomainRepoRead extends BaseRepoRead<
    *
    * @param googleProfileId
    */
-  public async findByGoogleId(googleProfileId: string): Promise<IAuthenticationDomainEntity | null> {
+  public async findByGoogleId(googleProfileId: string): Promise<AuthenticationDomainEntity | null> {
     return this.model.findOne({ 'google.id': googleProfileId });
   }
 
@@ -50,7 +50,7 @@ export class AuthenticationDomainRepoRead extends BaseRepoRead<
    *
    * @param {string} twitterProfileId
    */
-  public async findByTwitterId(twitterProfileId: string): Promise<IAuthenticationDomainEntity | null> {
+  public async findByTwitterId(twitterProfileId: string): Promise<AuthenticationDomainEntity | null> {
     return this.model.findOne({ 'twitter.id': twitterProfileId });
   }
 }

@@ -1,5 +1,4 @@
 import { IEntity } from '@nestjs-bff/global/lib/interfaces/entity.interface';
-import { validate } from 'class-validator';
 import * as _ from 'lodash';
 import { Document, Model } from 'mongoose';
 import { AppError } from '../../../shared/exceptions/app.exception';
@@ -39,14 +38,9 @@ export abstract class BaseRepoWrite<
 
   /**
    *
-   *
-   * @param {TQueryConditions} queryConditions
-   * @param {string[]} [validationGroups=[]]
-   * @memberof BaseRepoRead
-   * @description Validates query conditions.  Defaults to all validation groups
-   */
-  public validate(entity: Partial<TEntity>, skipMissingProperties: boolean = false, validationGroups: string[] = []) {
-    validate(entity, { skipMissingProperties, groups: validationGroups });
+   * @param entity
+   */ public validate(entity: TEntity) {
+    new this.model(entity).validate();
   }
 
   /**
@@ -65,12 +59,20 @@ export abstract class BaseRepoWrite<
    *
    * @param partialEntity
    */
-  public async patch(partialEntity: Partial<TEntity>): Promise<void> {
-    this.loggerService.trace(`${this.name}.patch`, partialEntity);
+  public async patch(patchEntity: Partial<TEntity>): Promise<void> {
+    this.loggerService.trace(`${this.name}.patch`, patchEntity);
 
-    this.validate(partialEntity, true);
-    await this.model.findByIdAndUpdate(partialEntity.id, partialEntity, {}).exec();
-    this.triggerCacheClearById(partialEntity.id);
+    if (!patchEntity.id) throw new AppError(`${this.modelName} id can not be null`);
+
+    let patchModel = await this.model.findById(patchEntity.id);
+    if (!patchModel) throw new AppError(`No ${this.modelName} found with id ${patchEntity.id}`);
+
+    patchModel = _.merge(patchModel, patchEntity);
+    this.validate(patchModel);
+
+    await patchModel.save();
+
+    this.triggerCacheClearById(patchModel.id);
   }
 
   /**
@@ -80,7 +82,7 @@ export abstract class BaseRepoWrite<
   public async update(entity: TEntity): Promise<void> {
     this.loggerService.trace(`${this.name}.update`, entity);
 
-    this.validate(entity, false);
+    this.validate(entity);
     // update. (at some point in the future, consider changing to findOneAndReplace... wasn't in typescript definitions for some reason)
     await this.model.findByIdAndUpdate(entity.id, entity, {}).exec();
     this.triggerCacheClearById(entity.id);

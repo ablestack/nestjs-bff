@@ -1,8 +1,8 @@
 import { CheckOrgAndUserParam } from '@nestjs-bff/backend/lib/domain/authorization/authorizationchecks/check-org-and-user-param.authorizationcheck';
 import { Authorization } from '@nestjs-bff/backend/lib/host/http/core/decorators/authorization.http.decorator';
 import { Controller, Delete, Get, Param, Patch, Post, Put, Req } from '@nestjs/common';
-import { ReminderDomainRepoCache } from '../../../../domain/reminder/repo/reminder.cache-repo';
-import { ReminderDomainRepoWrite } from '../../../../domain/reminder/repo/reminder.write-repo';
+import { ReminderRepoCache } from '../../../../domain/reminder/repo/reminder.cache-repo';
+import { ReminderRepoWrite } from '../../../../domain/reminder/repo/reminder.write-repo';
 import { ReminderEntity } from '../../../../global/entities/reminder.entity';
 
 /*
@@ -20,14 +20,14 @@ import { ReminderEntity } from '../../../../global/entities/reminder.entity';
 @Controller('/reminder/:organizationSlug/:userId')
 export class ReminderHttpController {
   constructor(
-    private readonly reminderRepoCache: ReminderDomainRepoCache,
-    private readonly reminderRepoWrite: ReminderDomainRepoWrite,
+    private readonly reminderRepoCache: ReminderRepoCache,
+    private readonly reminderRepoWrite: ReminderRepoWrite,
   ) {}
 
   @Get()
   @Authorization([new CheckOrgAndUserParam()])
-  public async getItems(userId: string): Promise<ReminderEntity[]> {
-    return this.reminderRepoCache.findOne({ userId });
+  public async getItems(@Param('orgId') orgId: string, @Param('userId') userId: string): Promise<ReminderEntity[]> {
+    return this.reminderRepoCache.find({ userId, orgId });
   }
 
   @Get(':id')
@@ -37,7 +37,7 @@ export class ReminderHttpController {
     @Param('userId') userId: string,
     id: string,
   ): Promise<ReminderEntity> {
-    return this.reminderRepoCache.findOneById(id, { orgId, userId });
+    return this.reminderRepoCache.findOne({ _id: id, orgId, userId });
   }
 
   @Post()

@@ -5,14 +5,15 @@ import { Model } from 'mongoose';
 import { ReminderEntity } from '../../../global/entities/reminder.entity';
 import { IReminderModel } from '../model/reminder.domain.model';
 import { ReminderProviderTokens } from '../reminder.domain.constants';
-import { ReminderDomainRepoCache } from './reminder.cache-repo';
+import { ReminderQueryConditions } from './reminder-query-conditions';
+import { ReminderRepoCache } from './reminder.cache-repo';
 
 @Injectable()
-export class ReminderDomainRepoWrite extends BaseRepoWrite<ReminderEntity, IReminderModel> {
+export class ReminderDomainRepoWrite extends BaseRepoWrite<ReminderEntity, IReminderModel, ReminderQueryConditions> {
   constructor(
     readonly loggerService: LoggerSharedService,
     @Inject(ReminderProviderTokens.Models.Reminder) model: Model<IReminderModel>,
-    reminderRepoCache: ReminderDomainRepoCache,
+    reminderRepoCache: ReminderRepoCache,
   ) {
     super({ loggerService, model, entityRepoCache: reminderRepoCache });
   }
