@@ -6,7 +6,7 @@ import { NestFactory } from '@nestjs/core';
 import * as cookieParser from 'cookie-parser';
 import * as helmet from 'helmet';
 import { AppConfig } from '../../../../config/app.config';
-import { WebAppHttpModule } from './web-app.http.module';
+import { WebAppHttpModule } from './web-app.module';
 
 async function bootstrap() {
   // GLOBAL CONFIGURATION
@@ -26,8 +26,8 @@ async function bootstrap() {
   setupWebserver(app);
 
   // START LISTENING
-  bffLogger.debug(`Nest-BFF: Starting to listen on port ${AppConfig.http.bffPort}`);
-  await app.listen(AppConfig.http.bffPort);
+  bffLogger.debug(`Nest-BFF: Starting to listen on port ${AppConfig.bffPort}`);
+  await app.listen(AppConfig.bffPort);
 }
 bootstrap();
 

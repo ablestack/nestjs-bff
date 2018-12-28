@@ -1,6 +1,6 @@
-import { AttachAuthenticationHttpMiddleware } from '@nestjs-bff/backend/lib/host/http/core/middleware/attach-authentication.http.middleware';
+import { AttachAuthenticationHttpMiddleware } from '@nestjs-bff/backend/lib/host/http/core/middleware/attach-authentication.middleware';
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
-import { WebAppHttpModule } from '../../src/app/host/http/web-app/web-app.http.module';
+import { WebAppHttpModule } from '../../src/app/host/http/web-app/web-app.module';
 
 @Module({
   imports: [WebAppHttpModule, ReminderE2eModule],

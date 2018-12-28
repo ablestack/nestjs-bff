@@ -1,7 +1,7 @@
-import { AuthenticationSchema } from '@nestjs-bff/backend/lib/domain/authentication/model/authentication.domain.schema';
-import { AuthorizationDomainSchema } from '@nestjs-bff/backend/lib/domain/authorization/model/authorization.domain.schema';
-import { OrganizationDomainSchema } from '@nestjs-bff/backend/lib/domain/organization/model/organization.domain.schema';
-import { UserDomainSchema } from '@nestjs-bff/backend/lib/domain/user/model/user.domain.schema';
+import { AuthenticationSchema } from '@nestjs-bff/backend/lib/domain/authentication/model/authentication.schema';
+import { AuthorizationDomainSchema } from '@nestjs-bff/backend/lib/domain/authorization/model/authorization.schema';
+import { OrganizationDomainSchema } from '@nestjs-bff/backend/lib/domain/organization/model/organization.schema';
+import { UserDomainSchema } from '@nestjs-bff/backend/lib/domain/user/model/user.schema';
 import { LoggerSharedService } from '@nestjs-bff/backend/lib/shared/logging/logger.shared.service';
 import { Connection } from 'mongoose';
 import { data } from './data/seed-data';

@@ -1,0 +1,28 @@
+import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
+import { Inject, Injectable } from '@nestjs/common';
+import { Model } from 'mongoose';
+import { INestjsBffConfig } from '../../../config/nestjs-bff.config';
+import { AppSharedProviderTokens } from '../../../shared/app/app.shared.constants';
+import { CacheStore } from '../../../shared/caching/cache-store.shared';
+import { CachingProviderTokens } from '../../../shared/caching/caching.shared.constants';
+import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
+import { BaseRepo } from '../../core/repo/base.repo';
+import { AuthorizationDomainProviderTokens } from '../authorization.constants';
+import { IAuthorizationModel } from '../model/authorization.model';
+import { AuthorizationQueryConditions } from './authorization.query-conditions';
+
+@Injectable()
+export class AuthorizationDomainRepo extends BaseRepo<AuthorizationEntity, IAuthorizationModel, AuthorizationQueryConditions> {
+  constructor(
+    readonly loggerService: LoggerSharedService,
+    @Inject(AuthorizationDomainProviderTokens.Models.Authorization) model: Model<IAuthorizationModel>,
+    @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
+    @Inject(AppSharedProviderTokens.Config.App) nestjsBffConfig: INestjsBffConfig,
+  ) {
+    super({ loggerService, model, cacheStore, defaultTTL: nestjsBffConfig.caching.entities.user });
+  }
+
+  protected generateValidQueryConditionsForCacheClear(entity: AuthorizationEntity): AuthorizationQueryConditions[] {
+    throw new Error('Method not implemented.');
+  }
+}

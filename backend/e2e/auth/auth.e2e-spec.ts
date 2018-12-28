@@ -1,5 +1,5 @@
-import { UserAuthApplicationService } from '@nestjs-bff/backend/lib/application/user-auth/user-auth.application.service';
-import { JwtTokenHttpService } from '@nestjs-bff/backend/lib/host/http/core/jwt/jwt-token.http.service';
+import { UserAuthApplicationService } from '@nestjs-bff/backend/lib/application/user-auth/user-auth.service';
+import { JwtTokenHttpService } from '@nestjs-bff/backend/lib/host/http/core/jwt/jwt-token.service';
 import { getLogger } from '@nestjs-bff/backend/lib/shared/logging/logging.shared.module';
 import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ValidationError } from '../../../shared/exceptions/validation.exception';
 import { AuthenticationEntity } from '../model/authentication.entity';
-import { AuthenticationDomainRepo } from '../repo/authentication.domain.repo';
+import { AuthenticationDomainRepo } from '../repo/authentication.repo';
 import { Messages } from './messages.constants';
 
 export interface IAuthenticationCreateValidatorOptions {

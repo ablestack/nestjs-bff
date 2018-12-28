@@ -1,6 +1,6 @@
 import { LoggerSharedService } from '@nestjs-bff/backend/lib/shared/logging/logger.shared.service';
 import { Connection } from 'mongoose';
-import { ReminderDomainSchema } from '../../../../app/domain/reminder/model/reminder.domain.schema';
+import { ReminderDomainSchema } from '../../../../app/domain/reminder/model/reminder.schema';
 import { data } from './seed-data-dev';
 
 /**
