@@ -60,13 +60,16 @@ export abstract class BaseRepo<
    * @description Validates query conditions.  Defaults to all validation groups
    */
   public validateQuery(queryConditions: Partial<TQueryConditions>, validationGroups: string[] = []) {
+    this.loggerService.trace(`${this.name}.validateQuery`, queryConditions);
     validate(queryConditions, { skipMissingProperties: true, groups: validationGroups });
   }
 
   /**
    *
    * @param entity
-   */ public validateEntity(entity: TEntity) {
+   */
+  public validateEntity(entity: TEntity) {
+    this.loggerService.trace(`${this.name}.validateEntity`, entity);
     new this.model(entity).validate();
   }
 

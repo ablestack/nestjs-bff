@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { CoreModule } from '../core/core.module';
+import { DomainCoreModule } from '../core/core.module';
 import { MongoSharedProviderTokens } from '../../shared/database/mongo/mongo.shared.constants';
 import { OrganizationSchema } from './model/organization.schema';
 import { OrganizationProviderTokens } from './organization.constants';
@@ -12,8 +12,8 @@ const OrganizationModel = {
 };
 
 @Module({
-  imports: [CoreModule],
+  imports: [DomainCoreModule],
   providers: [OrganizationRepo, OrganizationRepo, OrganizationRepo, OrganizationModel],
   exports: [OrganizationRepo, OrganizationRepo, OrganizationRepo],
 })
-export class OrganizationModule {}
+export class DomainOrganizationModule {}

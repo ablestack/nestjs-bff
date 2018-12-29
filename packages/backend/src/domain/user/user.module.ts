@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { CoreModule } from '../core/core.module';
 import { MongoSharedProviderTokens } from '../../shared/database/mongo/mongo.shared.constants';
+import { DomainCoreModule } from '../core/core.module';
 import { UserSchema } from './model/user.schema';
 import { UserRepo } from './repo/user.repo';
 import { UserProviderTokens } from './user.constants';
@@ -12,9 +12,9 @@ const UserModel = {
 };
 
 @Module({
-  imports: [CoreModule],
+  imports: [DomainCoreModule],
   controllers: [],
   providers: [UserRepo, UserRepo, UserRepo, UserModel],
   exports: [UserRepo, UserRepo, UserRepo],
 })
-export class UserModule {}
+export class DomainUserModule {}

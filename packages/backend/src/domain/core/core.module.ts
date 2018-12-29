@@ -9,4 +9,4 @@ import { LoggingSharedModule } from '../../shared/logging/logging.shared.module'
   providers: [],
   exports: [AppSharedModule, MongoSharedModule, LoggingSharedModule, CachingSharedModule],
 })
-export class CoreModule {}
+export class DomainCoreModule {}

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongoSharedProviderTokens } from '../../shared/database/mongo/mongo.shared.constants';
-import { CoreModule } from '../core/core.module';
+import { DomainCoreModule } from '../core/core.module';
 import { AuthenticationProviderTokens } from './authentication.constants';
 import { AuthenticationSchema } from './model/authentication.schema';
 import { AuthenticationRepo } from './repo/authentication.repo';
@@ -15,7 +15,7 @@ const AuthenticationModel = {
 };
 
 @Module({
-  imports: [CoreModule],
+  imports: [DomainCoreModule],
   providers: [
     AuthenticationRepo,
     AuthenticationRepo,
@@ -26,4 +26,4 @@ const AuthenticationModel = {
   ],
   exports: [AuthenticationRepo, AuthenticationRepo, FacebookAuthenticationService, FacebookProfileService],
 })
-export class AuthenticationModule {}
+export class DomainAuthenticationModule {}

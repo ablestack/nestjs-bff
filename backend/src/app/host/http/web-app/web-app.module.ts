@@ -1,5 +1,5 @@
-import { AuthModule } from '@nestjs-bff/backend/lib/host/http/auth/auth.module';
-import { CoreModule } from '@nestjs-bff/backend/lib/host/http/core/core.module';
+import { HttpAuthModule } from '@nestjs-bff/backend/lib/host/http/auth/auth.module';
+import { HttpCoreModule } from '@nestjs-bff/backend/lib/host/http/core/core.module';
 import { HttpExceptionFilter } from '@nestjs-bff/backend/lib/host/http/core/exceptions/http-exception.filter';
 import { AuthorizationGuard } from '@nestjs-bff/backend/lib/host/http/core/guards/authorization.guard';
 import { AttachAuthenticationHttpMiddleware } from '@nestjs-bff/backend/lib/host/http/core/middleware/attach-authentication.middleware';
@@ -13,7 +13,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
-import { ReminderModule } from '../hosted-domain-services/reminder/reminder.module';
+import { HttpReminderModule } from '../hosted-domain-services/reminder/reminder.module';
 import { WebAppHealthCheckService } from './web-app-health-check.service';
 import { WebAppController } from './web-app.controller';
 
@@ -50,12 +50,12 @@ const AppPipeProvider = {
 };
 
 @Module({
-  imports: [CoreModule, AuthModule, ReminderModule, MigrationsSharedModule],
+  imports: [HttpCoreModule, HttpAuthModule, HttpReminderModule, MigrationsSharedModule],
   controllers: [WebAppController],
   providers: [WebAppHealthCheckService, AppFilterProvider, CacheInterceptorProvider, AppGuardProvider, AppPipeProvider],
   exports: undefined,
 })
-export class WebAppModule implements NestModule {
+export class HttpWebAppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(AttachAuthenticationHttpMiddleware).forRoutes({ path: '*', method: RequestMethod.ALL });
   }
