@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { DomainCoreModule } from '../core/core.module';
 import { MongoSharedProviderTokens } from '../../shared/database/mongo/mongo.shared.constants';
+import { DomainCoreModule } from '../core/core.module';
 import { OrganizationSchema } from './model/organization.schema';
 import { OrganizationProviderTokens } from './organization.constants';
 import { OrganizationRepo } from './repo/organization.repo';

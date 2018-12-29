@@ -89,7 +89,7 @@ export abstract class BaseRepo<
       if (cachedResult) return cachedResult;
     }
 
-    const result = await this.model.findOne(conditions);
+    const result = await this._mongooseFindOne(conditions);
     if (result == null) throw new AppError(`Could not find entity ${this.name} with conditions ${conditions}`);
 
     if (useCache) {
@@ -213,4 +213,11 @@ export abstract class BaseRepo<
    * @param entity
    */
   protected abstract generateValidQueryConditionsForCacheClear(entity: TEntity): TQueryConditions[];
+
+  //
+  // Abstracted Mongoose calls, to allow for easier testing through mocked mongoose calls
+  //
+  public async _mongooseFindOne(conditions: Partial<TQueryConditions>) {
+    return this.model.findOne(conditions);
+  }
 }
