@@ -1,6 +1,5 @@
 import * as _ from 'lodash';
 import { LogLevels } from '../shared/logging/log-levels.const';
-import { extractKey } from '../shared/utils/key.shared.utils';
 import { INestjsBffConfigEnv } from './nestjs.config.env.interface';
 import { NestjsBffConfigEnv } from './nestjs.config.test';
 
@@ -53,13 +52,9 @@ const _NestjsBffConfig = {
   },
 
   jwt: {
-    jwtPrivateKey: extractKey(
-      `${process.cwd()}\\src\\config\\keys\\jwt.private-key.pem`,
-    ),
+    jwtPrivateKey: '',
     jwtPrivateKeyPemPassphrase: 'D161tal',
-    jwtPublicKey: extractKey(
-      `${process.cwd()}\\src\\config\\keys\\jwt.public-key.pem`,
-    ),
+    jwtPublicKey: '',
     issuer: 'entity',
     expiresIn: '18h',
     signingAlgorithm: 'RS256',
@@ -68,13 +63,7 @@ const _NestjsBffConfig = {
   logging: {
     logDir: 'logs',
     console: {
-      levels: [
-        LogLevels.error,
-        LogLevels.warning,
-        LogLevels.info,
-        LogLevels.debug,
-        LogLevels.trace,
-      ],
+      levels: [LogLevels.error, LogLevels.warning, LogLevels.info, LogLevels.debug, LogLevels.trace],
     },
     winston: {
       level: 'info',
@@ -118,7 +107,4 @@ const _NestjsBffConfig = {
 };
 
 export type INestjsBffConfig = typeof _NestjsBffConfig & INestjsBffConfigEnv;
-export const NestjsBffConfig: INestjsBffConfig = _.merge(
-  _NestjsBffConfig,
-  NestjsBffConfigEnv,
-);
+export const NestjsBffConfig: INestjsBffConfig = _.merge(_NestjsBffConfig, NestjsBffConfigEnv);

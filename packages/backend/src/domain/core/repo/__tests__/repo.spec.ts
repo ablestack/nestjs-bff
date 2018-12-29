@@ -11,12 +11,14 @@ describe('BaseRepo', () => {
       imports: [DomainCoreModule, DomainFooModule],
     }).compile();
 
-    fooRepo = module.get<FooRepo>(FooRepo);
+    fooRepo = await module.get<FooRepo>(FooRepo);
   });
 
   describe('findOne', () => {
     it('should return an array of cats', async () => {
       const aFoo = { _id: '123', name: 'foomanchu', slug: 'fooman' };
+
+      console.log({ fooRepo });
 
       jest.spyOn(fooRepo, '_mongooseFindOne').mockImplementation(conditions => {
         return aFoo;

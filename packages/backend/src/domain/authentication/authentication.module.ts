@@ -24,6 +24,6 @@ const AuthenticationModel = {
     FacebookAuthenticationService,
     AuthenticationModel,
   ],
-  exports: [AuthenticationRepo, AuthenticationRepo, FacebookAuthenticationService, FacebookProfileService],
+  exports: [AuthenticationRepo, FacebookAuthenticationService, FacebookProfileService],
 })
 export class DomainAuthenticationModule {}

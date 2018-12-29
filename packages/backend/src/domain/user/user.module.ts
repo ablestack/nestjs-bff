@@ -14,7 +14,7 @@ const UserModel = {
 @Module({
   imports: [DomainCoreModule],
   controllers: [],
-  providers: [UserRepo, UserRepo, UserRepo, UserModel],
-  exports: [UserRepo, UserRepo, UserRepo],
+  providers: [UserRepo, UserModel],
+  exports: [UserRepo],
 })
 export class DomainUserModule {}

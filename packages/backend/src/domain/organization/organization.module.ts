@@ -13,7 +13,7 @@ const OrganizationModel = {
 
 @Module({
   imports: [DomainCoreModule],
-  providers: [OrganizationRepo, OrganizationRepo, OrganizationRepo, OrganizationModel],
-  exports: [OrganizationRepo, OrganizationRepo, OrganizationRepo],
+  providers: [OrganizationRepo, OrganizationModel],
+  exports: [OrganizationRepo],
 })
 export class DomainOrganizationModule {}

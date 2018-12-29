@@ -13,7 +13,7 @@ const FooModel = {
 
 @Module({
   imports: [DomainCoreModule],
-  providers: [FooRepo, FooRepo, FooRepo, FooModel],
-  exports: [FooRepo, FooRepo, FooRepo],
+  providers: [FooRepo, FooModel],
+  exports: [FooRepo],
 })
 export class DomainFooModule {}
