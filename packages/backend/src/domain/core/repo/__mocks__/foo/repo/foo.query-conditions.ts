@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsString } from 'class-validator';
-import { BaseQueryConditions } from '../../../../../core/repo/base.query-conditions';
+import { UserAndOrgScopedQueryConditions } from '../../../user-and-org-scoped.query-conditions';
 
-export class FooQueryConditions extends BaseQueryConditions {
+export class FooQueryConditions extends UserAndOrgScopedQueryConditions {
   @IsString()
   @IsNotEmpty()
   public slug: string = '';

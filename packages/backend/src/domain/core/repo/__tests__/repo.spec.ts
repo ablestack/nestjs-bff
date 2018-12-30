@@ -10,12 +10,6 @@ describe('BaseRepo', () => {
   let fooRepo: FooRepo;
 
   beforeEach(async () => {
-    // const module = await Test.createTestingModule({
-    //   imports: [DomainCoreModule, DomainFooModule],
-    // }).compile();
-
-    // fooRepo = await module.get<FooRepo>(FooRepo);
-
     const loggerService = new LoggerConsoleSharedService(NestjsBffConfig);
     const fooModel = mongoose.model<IFooModel>('Foo', FooSchema);
     const memCache = cacheManager.caching({
@@ -48,3 +42,16 @@ describe('BaseRepo', () => {
 
   describe('validateEntity', () => {});
 });
+
+//
+// Unused Snippits
+//
+
+// Instantiate Object Via NestJS
+/*
+  const module = await Test.createTestingModule({
+    imports: [DomainCoreModule, DomainFooModule],
+  }).compile();
+
+  fooRepo = await module.get<FooRepo>(FooRepo);
+*/

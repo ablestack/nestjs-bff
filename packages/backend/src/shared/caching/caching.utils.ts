@@ -9,7 +9,10 @@ export class CachingUtils {
     return this.makeCacheKeyFromProperty(entityId, 'id');
   }
 
-  public static makeCacheKeyFromProperty(propertyValue: string, propertyName: string): string {
+  public static makeCacheKeyFromProperty(
+    propertyName: string,
+    propertyValue: string,
+  ): string {
     this.validator.isNotEmpty(propertyValue);
     this.validator.isNotEmpty(propertyName);
     return `CacheKey-${propertyName}-${propertyValue}`;

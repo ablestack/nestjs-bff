@@ -7,10 +7,6 @@
   "settings": {
     "editor.formatOnSave": true,
     "prettier.printWidth": 140,
-    "cSpell.words": [
-      "Repo",
-      "mockingoose"
-    ],
-    "tslint.autoFixOnSave": true
+    "cSpell.words": ["Repo", "mockingoose"]
   }
 }

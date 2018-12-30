@@ -3,5 +3,5 @@ import { OrgScopedQueryConditions } from './org-scoped.query-conditions';
 
 export class UserAndOrgScopedQueryConditions extends OrgScopedQueryConditions {
   @IsMongoId()
-  public readonly userId: string = '';
+  public userId: string = '';
 }

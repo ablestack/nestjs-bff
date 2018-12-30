@@ -3,5 +3,5 @@ import { BaseQueryConditions } from './base.query-conditions';
 
 export class OrgScopedQueryConditions extends BaseQueryConditions {
   @IsMongoId()
-  public readonly orgId: string = '';
+  public orgId: string = '';
 }
