@@ -1,5 +1,6 @@
 import { Validator } from 'class-validator';
-import * as hash from 'object-hash';
+import { hash } from '../utils/hash.utils';
+// import * as hash from 'object-hash';
 
 export class CachingUtils {
   private static validator = new Validator();
@@ -19,6 +20,6 @@ export class CachingUtils {
   }
 
   public static makeCacheKeyFromObject(object: object): string {
-    return hash(object);
+    return hash(JSON.stringify(object)).toString();
   }
 }

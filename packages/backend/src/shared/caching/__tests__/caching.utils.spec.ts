@@ -1,6 +1,8 @@
 import { FooQueryConditions } from '../../../domain/core/repo/__mocks__/foo/repo/foo.query-conditions';
 import { getLogger } from '../../logging/logging.shared.module';
 import { CachingUtils } from '../caching.utils';
+
+const performanceTestIterations = 1000;
 const logger = getLogger();
 
 describe('CachingUtils', () => {
@@ -95,4 +97,35 @@ describe('CachingUtils', () => {
       expect(result.length).toBeGreaterThan(0);
     });
   });
+
+  describe('makeCacheKeyFromObject - performance', () => {
+    it('should be fast', async () => {
+      const makeCachKeyFunc = () => {
+        CachingUtils.makeCacheKeyFromObject({
+          foo: 'foo',
+          bar: { baz: 'baz' },
+        });
+      };
+
+      const processingTime = perfTest(
+        makeCachKeyFunc,
+        performanceTestIterations,
+      );
+      logger.debug(
+        `makeCachKeyFunc ${performanceTestIterations} iterations`,
+        processingTime,
+      );
+
+      expect(processingTime).toBeLessThan(1000);
+    });
+  });
 });
+
+const perfTest = (func: () => any, iterations: number): number => {
+  const start = new Date();
+  for (let i = 0; i < iterations; i++) {
+    func();
+  }
+  const finish = new Date();
+  return finish.getTime() - start.getTime();
+};
