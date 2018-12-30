@@ -59,9 +59,15 @@ export abstract class BaseRepo<
    * @memberof BaseRepo
    * @description Validates query conditions.  Defaults to all validation groups
    */
-  public validateQuery(queryConditions: Partial<TQueryConditions>, validationGroups: string[] = []) {
+  public validateQuery(
+    queryConditions: Partial<TQueryConditions>,
+    validationGroups: string[] = [],
+  ) {
     this.loggerService.trace(`${this.name}.validateQuery`, queryConditions);
-    validate(queryConditions, { skipMissingProperties: true, groups: validationGroups });
+    validate(queryConditions, {
+      skipMissingProperties: true,
+      groups: validationGroups,
+    });
   }
 
   /**
@@ -77,7 +83,11 @@ export abstract class BaseRepo<
    *
    * @param conditions
    */
-  public async findOne(conditions: Partial<TQueryConditions>, useCache: boolean = true, ttl?: number): Promise<TEntity> {
+  public async findOne(
+    conditions: Partial<TQueryConditions>,
+    useCache: boolean = true,
+    ttl?: number,
+  ): Promise<TEntity> {
     let key: string | undefined;
     this.loggerService.trace(`${this.name}.findOne`, conditions);
 
@@ -90,7 +100,10 @@ export abstract class BaseRepo<
     }
 
     const result = await this._mongooseFindOne(conditions);
-    if (result == null) throw new AppError(`Could not find entity ${this.name} with conditions ${conditions}`);
+    if (result == null)
+      throw new AppError(
+        `Could not find entity ${this.name} with conditions ${conditions}`,
+      );
 
     if (useCache) {
       // tslint:disable-next-line:no-non-null-assertion
@@ -104,7 +117,11 @@ export abstract class BaseRepo<
    *
    * @param conditions
    */
-  public async find(conditions: Partial<TQueryConditions>, useCache: boolean = true, ttl?: number): Promise<TEntity[]> {
+  public async find(
+    conditions: Partial<TQueryConditions>,
+    useCache: boolean = true,
+    ttl?: number,
+  ): Promise<TEntity[]> {
     let key: string | undefined;
     this.loggerService.trace(`${this.name}.find`, conditions);
 
@@ -145,10 +162,14 @@ export abstract class BaseRepo<
   public async patch(patchEntity: Partial<TEntity>): Promise<void> {
     this.loggerService.trace(`${this.name}.patch`, patchEntity);
 
-    if (!patchEntity.id) throw new AppError(`${this.modelName} id can not be null`);
+    if (!patchEntity.id)
+      throw new AppError(`${this.modelName} id can not be null`);
 
     let patchModel = await this.model.findById(patchEntity.id);
-    if (!patchModel) throw new AppError(`No ${this.modelName} found with id ${patchEntity.id}`);
+    if (!patchModel)
+      throw new AppError(
+        `No ${this.modelName} found with id ${patchEntity.id}`,
+      );
 
     patchModel = _.merge(patchModel, patchEntity);
     this.validateEntity(patchModel);
@@ -187,16 +208,21 @@ export abstract class BaseRepo<
    * @param cacheKey
    */
   protected async clearCacheByEntity(entity: TEntity | null) {
-    if (!entity) throw new AppError('entity must not be null to trigger cache clear');
+    if (!entity)
+      throw new AppError('entity must not be null to trigger cache clear');
     this.validateEntity(entity);
 
     // clear by ID
     this.clearCacheByKey(CachingUtils.makeCacheKeyFromId(entity.id));
 
     // clear by query conditions
-    this.generateValidQueryConditionsForCacheClear(entity).forEach(queryConditions => {
-      this.clearCacheByKey(CachingUtils.makeCacheKeyFromObject(queryConditions));
-    });
+    this.generateValidQueryConditionsForCacheClear(entity).forEach(
+      queryConditions => {
+        this.clearCacheByKey(
+          CachingUtils.makeCacheKeyFromObject(queryConditions),
+        );
+      },
+    );
   }
 
   /**
@@ -204,7 +230,8 @@ export abstract class BaseRepo<
    * @param cacheKey
    */
   protected clearCacheByKey(cacheKey: string) {
-    if (cacheKey.trim.length > 0) throw new AppError('cacheKey can not be null or whitespace');
+    if (cacheKey.trim.length > 0)
+      throw new AppError('cacheKey can not be null or whitespace');
     return this.cacheStore.del(cacheKey);
   }
 
@@ -212,12 +239,14 @@ export abstract class BaseRepo<
    *
    * @param entity
    */
-  protected abstract generateValidQueryConditionsForCacheClear(entity: TEntity): TQueryConditions[];
+  protected abstract generateValidQueryConditionsForCacheClear(
+    entity: TEntity,
+  ): TQueryConditions[];
 
   //
   // Abstracted Mongoose calls, to allow for easier testing through mocked mongoose calls
   //
-  public async _mongooseFindOne(conditions: Partial<TQueryConditions>) {
+  protected async _mongooseFindOne(conditions: Partial<TQueryConditions>) {
     return this.model.findOne(conditions);
   }
 }

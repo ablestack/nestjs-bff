@@ -8,7 +8,9 @@
     "editor.formatOnSave": true,
     "prettier.printWidth": 140,
     "cSpell.words": [
-      "Repo"
-    ]
+      "Repo",
+      "mockingoose"
+    ],
+    "tslint.autoFixOnSave": true
   }
 }
