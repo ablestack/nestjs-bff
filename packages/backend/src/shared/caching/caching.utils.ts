@@ -1,7 +1,13 @@
 import { Validator } from 'class-validator';
+import * as stringify from 'json-stable-stringify';
 import { hash } from '../utils/hash.utils';
-// import * as hash from 'object-hash';
 
+/**
+ * @description: Utility functions to support caching operations
+ * @notes:
+ *  - Uses json-stable-stringify (instead of JSON.Stringify) for determanistic string generation - regardless of parameter ordering
+ *  - Uses custom hash function as significantly faster than cryptogaphic hashes
+ */
 export class CachingUtils {
   private static validator = new Validator();
 
@@ -20,6 +26,6 @@ export class CachingUtils {
   }
 
   public static makeCacheKeyFromObject(object: object): string {
-    return hash(JSON.stringify(object)).toString();
+    return hash(stringify(object)).toString();
   }
 }
