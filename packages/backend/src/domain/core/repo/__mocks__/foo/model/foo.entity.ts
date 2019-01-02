@@ -4,4 +4,6 @@ export class FooEntity implements IEntity {
   id?: any;
   readonly name: string = '';
   readonly slug: string = '';
+  readonly userId: string = '';
+  readonly orgId: string = '';
 }

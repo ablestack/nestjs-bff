@@ -7,22 +7,38 @@ import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { CachingProviderTokens } from '../../../shared/caching/caching.shared.constants';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { BaseRepo } from '../../core/repo/base.repo';
+import { QueryValidatorService } from '../../core/repo/validators/query-validator.service';
 import { AuthorizationProviderTokens } from '../authorization.constants';
 import { IAuthorizationModel } from '../model/authorization.model';
 import { AuthorizationQueryConditions } from './authorization.query-conditions';
 
 @Injectable()
-export class AuthorizationRepo extends BaseRepo<AuthorizationEntity, IAuthorizationModel, AuthorizationQueryConditions> {
+export class AuthorizationRepo extends BaseRepo<
+  AuthorizationEntity,
+  IAuthorizationModel,
+  AuthorizationQueryConditions
+> {
   constructor(
     readonly loggerService: LoggerSharedService,
-    @Inject(AuthorizationProviderTokens.Models.Authorization) model: Model<IAuthorizationModel>,
+    queryValidatorService: QueryValidatorService,
+    @Inject(AuthorizationProviderTokens.Models.Authorization)
+    model: Model<IAuthorizationModel>,
     @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
-    @Inject(AppSharedProviderTokens.Config.App) nestjsBffConfig: INestjsBffConfig,
+    @Inject(AppSharedProviderTokens.Config.App)
+    nestjsBffConfig: INestjsBffConfig,
   ) {
-    super({ loggerService, model, cacheStore, defaultTTL: nestjsBffConfig.caching.entities.user });
+    super({
+      loggerService,
+      queryValidatorService,
+      model,
+      cacheStore,
+      defaultTTL: nestjsBffConfig.caching.entities.user,
+    });
   }
 
-  protected generateValidQueryConditionsForCacheClear(entity: AuthorizationEntity): AuthorizationQueryConditions[] {
+  protected generateValidQueryConditionsForCacheClear(
+    entity: AuthorizationEntity,
+  ): AuthorizationQueryConditions[] {
     throw new Error('Method not implemented.');
   }
 }

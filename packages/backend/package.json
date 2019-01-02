@@ -6,8 +6,7 @@
   "license": "MIT",
   "homepage": "https://github.com/ahrnee/nestjs-bff",
   "directories": {
-    "src": "src",
-    "test": "__tests__"
+    "src": "src"
   },
   "files": [
     "lib",

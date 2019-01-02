@@ -10,6 +10,14 @@ export const FooSchema = new Schema(
       required: true,
       type: Schema.Types.String,
     },
+    orgId: {
+      type: Schema.Types.ObjectId,
+      required: false,
+    },
+    userId: {
+      type: Schema.Types.ObjectId,
+      required: false,
+    },
   },
   {
     timestamps: true,

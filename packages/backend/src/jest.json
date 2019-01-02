@@ -1,7 +1,7 @@
 {
   "preset": "ts-jest",
   "testEnvironment": "node",
-  "testMatch": ["<rootDir>/**/__tests__/**/*.spec.(ts|tsx|js)"],
+  "testMatch": ["<rootDir>/**/*.spec.(ts|tsx|js)"],
   "modulePaths": ["<rootDir>/"],
   "collectCoverageFrom": ["<rootDir>/**/*.{js,jsx,tsx,ts}", "!**/node_modules/**", "!**/vendor/**"],
   "coverageReporters": ["json", "lcov"],

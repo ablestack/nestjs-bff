@@ -1,6 +1,7 @@
-import { FooQueryConditions } from '../../../domain/core/repo/__mocks__/foo/repo/foo.query-conditions';
-import { getLogger } from '../../logging/logging.shared.module';
-import { CachingUtils } from '../caching.utils';
+import { FooQueryConditions } from '../../domain/core/repo/__mocks__/foo/repo/foo.query-conditions';
+import { getLogger } from '../logging/logging.shared.module';
+import { TestingUtils } from '../utils/testing.utils';
+import { CachingUtils } from './caching.utils';
 
 const performanceTestIterations = 1000;
 const logger = getLogger();
@@ -107,7 +108,7 @@ describe('CachingUtils', () => {
         });
       };
 
-      const processingTime = perfTest(
+      const processingTime = TestingUtils.MeasureExecutionTime(
         makeCachKeyFunc,
         performanceTestIterations,
       );
@@ -120,12 +121,3 @@ describe('CachingUtils', () => {
     });
   });
 });
-
-const perfTest = (func: () => any, iterations: number): number => {
-  const start = new Date();
-  for (let i = 0; i < iterations; i++) {
-    func();
-  }
-  const finish = new Date();
-  return finish.getTime() - start.getTime();
-};

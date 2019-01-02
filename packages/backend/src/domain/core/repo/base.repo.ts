@@ -1,12 +1,12 @@
 import { IEntity } from '@nestjs-bff/global/lib/interfaces/entity.interface';
-import { validate } from 'class-validator';
 import * as _ from 'lodash';
 import { Document, Model } from 'mongoose';
 import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { CachingUtils } from '../../../shared/caching/caching.utils';
 import { AppError } from '../../../shared/exceptions/app.exception';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
-import { BaseQueryConditions } from './base.query-conditions';
+import { BaseQueryConditions } from './query-conditions/base.query-conditions';
+import { QueryValidatorService } from './validators/query-validator.service';
 
 export interface IBaseRepoParams<
   TEntity extends object & IEntity,
@@ -17,6 +17,7 @@ export interface IBaseRepoParams<
   model: Model<TModel>;
   cacheStore: CacheStore;
   defaultTTL: number;
+  queryValidatorService: QueryValidatorService;
 }
 
 /**
@@ -37,6 +38,7 @@ export abstract class BaseRepo<
   public readonly modelName: string;
   protected readonly cacheStore: CacheStore;
   protected readonly defaultTTL: number;
+  protected readonly queryValidatorService: QueryValidatorService;
 
   /**
    *
@@ -44,30 +46,12 @@ export abstract class BaseRepo<
    */
   constructor(params: IBaseRepoParams<TEntity, TModel, TQueryConditions>) {
     this.loggerService = params.loggerService;
+    this.queryValidatorService = params.queryValidatorService;
     this.model = params.model;
     this.name = `RepoBase<${this.model.modelName}>`;
     this.modelName = this.model.modelName;
     this.cacheStore = params.cacheStore;
     this.defaultTTL = params.defaultTTL;
-  }
-
-  /**
-   *
-   *
-   * @param {TQueryConditions} queryConditions
-   * @param {string[]} [validationGroups=[]]
-   * @memberof BaseRepo
-   * @description Validates query conditions.  Defaults to all validation groups
-   */
-  public validateQuery(
-    queryConditions: Partial<TQueryConditions>,
-    validationGroups: string[] = [],
-  ) {
-    this.loggerService.trace(`${this.name}.validateQuery`, queryConditions);
-    validate(queryConditions, {
-      skipMissingProperties: true,
-      groups: validationGroups,
-    });
   }
 
   /**
@@ -91,7 +75,7 @@ export abstract class BaseRepo<
     let key: string | undefined;
     this.loggerService.trace(`${this.name}.findOne`, conditions);
 
-    this.validateQuery(conditions);
+    this.queryValidatorService.validateQuery(conditions);
 
     if (useCache) {
       key = CachingUtils.makeCacheKeyFromObject(conditions);
@@ -125,7 +109,7 @@ export abstract class BaseRepo<
     let key: string | undefined;
     this.loggerService.trace(`${this.name}.find`, conditions);
 
-    this.validateQuery(conditions);
+    this.queryValidatorService.validateQuery(conditions);
 
     if (useCache) {
       key = CachingUtils.makeCacheKeyFromObject(conditions);
