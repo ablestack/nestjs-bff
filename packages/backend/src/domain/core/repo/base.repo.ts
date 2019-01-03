@@ -5,23 +5,18 @@ import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { CachingUtils } from '../../../shared/caching/caching.utils';
 import { AppError } from '../../../shared/exceptions/app.exception';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
-import { FooEntity } from '../__mocks__/foo/model/foo.entity';
-import { BaseQueryConditions } from './query-conditions/base.query-conditions';
+import { ValidationGroups } from '../core.constants';
 import { IEntityValidator } from './validators/entity-validator.interface';
-import { EntityValidatorService } from './validators/entity-validator.service';
-import { QueryValidatorService } from './validators/query-validator.service';
 
 export interface IBaseRepoParams<
-  TEntity extends object & IEntity,
+  TEntity extends IEntity,
   TModel extends Document & TEntity,
-  TQueryConditions extends BaseQueryConditions
 > {
   loggerService: LoggerSharedService;
   model: Model<TModel>;
   cacheStore: CacheStore;
   defaultTTL: number;
-  queryValidatorService: QueryValidatorService<TQueryConditions>;
-  queryConditionsType: { new (): TQueryConditions };
+  entityValidator: IEntityValidator;
 }
 
 /**
@@ -33,8 +28,7 @@ export interface IBaseRepoParams<
  */
 export abstract class BaseRepo<
   TEntity extends IEntity,
-  TModel extends Document & TEntity,
-  TQueryConditions extends BaseQueryConditions
+  TModel extends Document & TEntity
 > {
   private readonly name: string;
   protected readonly loggerService: LoggerSharedService;
@@ -42,35 +36,31 @@ export abstract class BaseRepo<
   public readonly modelName: string;
   protected readonly cacheStore: CacheStore;
   protected readonly defaultTTL: number;
-  protected readonly queryValidatorService: QueryValidatorService<TQueryConditions>;
   protected readonly entityValidator: IEntityValidator;
-  protected readonly queryConditionsType: { new (): TQueryConditions };
 
   /**
    *
    * @param options
    */
-  constructor(params: IBaseRepoParams<TEntity, TModel, TQueryConditions>) {
+  constructor(params: IBaseRepoParams<TEntity, TModel>) {
     this.loggerService = params.loggerService;
     this.model = params.model;
     this.name = `RepoBase<${this.model.modelName}>`;
     this.modelName = this.model.modelName;
     this.cacheStore = params.cacheStore;
     this.defaultTTL = params.defaultTTL;
-    this.entityValidator = new EntityValidatorService(this.loggerService, FooEntity);
-    this.queryValidatorService = params.queryValidatorService;
-    this.queryConditionsType = params.queryConditionsType;
+    this.entityValidator = params.entityValidator;
   }
 
   /**
    *
    * @param conditions
    */
-  public async findOne(conditions: Partial<TQueryConditions>, useCache: boolean = true, ttl?: number): Promise<TEntity> {
+  public async findOne(conditions: Partial<TEntity>, useCache: boolean = true, ttl?: number): Promise<TEntity> {
     let key: string | undefined;
     this.loggerService.trace(`${this.name}.findOne`, conditions);
 
-    await this.queryValidatorService.validateQuery(conditions);
+    await this.entityValidator.validate(conditions, [ValidationGroups.QUERY_REQUIRED]);
 
     if (useCache) {
       key = CachingUtils.makeCacheKeyFromObject(conditions);
@@ -93,11 +83,11 @@ export abstract class BaseRepo<
    *
    * @param conditions
    */
-  public async find(conditions: Partial<TQueryConditions>, useCache: boolean = true, ttl?: number): Promise<TEntity[]> {
+  public async find(conditions: Partial<TEntity>, useCache: boolean = true, ttl?: number): Promise<TEntity[]> {
     let key: string | undefined;
     this.loggerService.trace(`${this.name}.find`, conditions);
 
-    await this.queryValidatorService.validateQuery(conditions);
+    await this.entityValidator.validate(conditions, [ValidationGroups.QUERY_REQUIRED]);
 
     if (useCache) {
       key = CachingUtils.makeCacheKeyFromObject(conditions);
@@ -140,7 +130,7 @@ export abstract class BaseRepo<
     if (!patchModel) throw new AppError(`No ${this.modelName} found with id ${patchEntity.id}`);
 
     patchModel = _.merge(patchModel, patchEntity);
-    this.entityValidator.validate(patchModel);
+    await this.entityValidator.validate(patchModel);
 
     await patchModel.save();
 
@@ -154,7 +144,7 @@ export abstract class BaseRepo<
   public async update(entity: TEntity): Promise<void> {
     this.loggerService.trace(`${this.name}.update`, entity);
 
-    this.entityValidator.validate(entity);
+    await this.entityValidator.validate(entity);
 
     // update. (at some point in the future, consider changing to findOneAndReplace... wasn't in typescript definitions for some reason)
     await this.model.findByIdAndUpdate(entity.id, entity, {}).exec();
@@ -165,8 +155,10 @@ export abstract class BaseRepo<
    *
    * @param entityId
    */
-  public async delete(conditions: Partial<TQueryConditions>): Promise<void> {
+  public async delete(conditions: Partial<TEntity>): Promise<void> {
     this.loggerService.trace(`${this.name}.delete`, conditions);
+
+    await this.entityValidator.validate(conditions, [ValidationGroups.QUERY_REQUIRED]);
 
     const deletedEntity = await this.model.findOneAndDelete(conditions).exec();
     this.clearCacheByEntity(deletedEntity);
@@ -178,7 +170,7 @@ export abstract class BaseRepo<
    */
   protected async clearCacheByEntity(entity: TEntity | null) {
     if (!entity) throw new AppError('entity must not be null to trigger cache clear');
-    this.entityValidator.validate(entity);
+    await this.entityValidator.validate(entity);
 
     // clear by ID
     this.clearCacheByKey(CachingUtils.makeCacheKeyFromId(entity.id));
@@ -202,12 +194,12 @@ export abstract class BaseRepo<
    *
    * @param entity
    */
-  protected abstract generateValidQueryConditionsForCacheClear(entity: TEntity): TQueryConditions[];
+  protected abstract generateValidQueryConditionsForCacheClear(entity: TEntity): Array<Partial<TEntity>>;
 
   //
   // Abstracted Mongoose calls, to allow for easier testing through mocked mongoose calls
   //
-  protected async _mongooseFindOne(conditions: Partial<TQueryConditions>) {
+  protected async _mongooseFindOne(conditions: Partial<TEntity>) {
     return this.model.findOne(conditions);
   }
 }
