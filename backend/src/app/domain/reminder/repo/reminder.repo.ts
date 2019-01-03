@@ -1,4 +1,5 @@
 import { BaseRepo } from '@nestjs-bff/backend/lib/domain/core/repo/base.repo';
+import { QueryValidatorService } from '@nestjs-bff/backend/lib/domain/core/repo/validators/query-validator.service';
 import { AppSharedProviderTokens } from '@nestjs-bff/backend/lib/shared/app/app.shared.constants';
 import { CacheStore } from '@nestjs-bff/backend/lib/shared/caching/cache-store.shared';
 import { CachingProviderTokens } from '@nestjs-bff/backend/lib/shared/caching/caching.shared.constants';
@@ -15,11 +16,19 @@ import { ReminderQueryConditions } from './reminder-query-conditions';
 export class ReminderRepo extends BaseRepo<ReminderEntity, IReminderModel, ReminderQueryConditions> {
   constructor(
     readonly loggerService: LoggerSharedService,
-    @Inject(ReminderProviderTokens.Models.Reminder) model: Model<IReminderModel>,
-    @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
     @Inject(AppSharedProviderTokens.Config.App) appConfig: IAppConfig,
+    @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
+    @Inject(ReminderProviderTokens.Models.Reminder) model: Model<IReminderModel>,
+    queryValidatorService: QueryValidatorService<ReminderQueryConditions>,
   ) {
-    super({ loggerService, model, cacheStore, defaultTTL: appConfig.caching.entities.reminder });
+    super({
+      loggerService,
+      model,
+      cacheStore,
+      defaultTTL: appConfig.caching.entities.reminder,
+      queryValidatorService,
+      queryConditionsType: ReminderQueryConditions,
+    });
   }
 
   protected generateValidQueryConditionsForCacheClear(entity: ReminderEntity): ReminderQueryConditions[] {

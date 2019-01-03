@@ -63,7 +63,7 @@ export abstract class BaseRepo<
    */
   public validateEntity(entity: TEntity) {
     this.loggerService.trace(`${this.name}.validateEntity`, entity);
-    new this.model(entity).validate();
+    new this.model(entity).validateSync();
   }
 
   /**

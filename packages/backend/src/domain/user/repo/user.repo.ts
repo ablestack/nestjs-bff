@@ -16,10 +16,10 @@ import { UserQueryConditions } from './user.query-conditions';
 export class UserRepo extends BaseRepo<UserEntity, IUserModel, UserQueryConditions> {
   constructor(
     loggerService: LoggerSharedService,
-    queryValidatorService: QueryValidatorService<UserQueryConditions>,
-    @Inject(UserProviderTokens.Models.User) model: Model<IUserModel>,
-    @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
     @Inject(AppSharedProviderTokens.Config.App) nestjsBffConfig: INestjsBffConfig,
+    @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
+    @Inject(UserProviderTokens.Models.User) model: Model<IUserModel>,
+    queryValidatorService: QueryValidatorService<UserQueryConditions>,
   ) {
     super({
       loggerService,

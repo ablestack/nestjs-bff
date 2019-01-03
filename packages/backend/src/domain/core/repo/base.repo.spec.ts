@@ -2,12 +2,15 @@ import * as cacheManager from 'cache-manager';
 import * as mongoose from 'mongoose';
 import { NestjsBffConfig } from '../../../config/nestjs-bff.config';
 import { LoggerConsoleSharedService } from '../../../shared/logging/console-logger.shared.service';
+import { getLogger } from '../../../shared/logging/logging.shared.module';
 import { TestingUtils } from '../../../shared/utils/testing.utils';
 import { IFooModel } from './__mocks__/foo/model/foo.model';
 import { FooSchema } from './__mocks__/foo/model/foo.schema';
 import { FooQueryConditions } from './__mocks__/foo/repo/foo.query-conditions';
 import { FooRepo } from './__mocks__/foo/repo/foo.repo';
 import { QueryValidatorService } from './validators/query-validator.service';
+
+const logger = getLogger();
 
 describe('BaseRepo', () => {
   let fooRepo: FooRepo;
@@ -43,9 +46,45 @@ describe('BaseRepo', () => {
     });
   });
 
-  describe('validateQuery', () => {});
+  describe('findMany', () => {});
 
-  describe('validateEntity', () => {});
+  describe('validateEntity', () => {
+    describe('should pass validation when passed a valid entity', async () => {
+      const fooConditions = {
+        slug: 'fooman',
+        orgId: TestingUtils.generateMongoObjectIdString(),
+        userId: TestingUtils.generateMongoObjectIdString(),
+      };
+
+      let error: any;
+      try {
+        await fooRepo.validateEntity(fooConditions);
+      } catch (e) {
+        error = e;
+        logger.debug('error', { error, innerErrors: error.metaData.errors });
+      }
+
+      expect(error).toBeUndefined();
+    });
+
+    describe('should throw an error when passed an invalid entity', async () => {
+      const fooConditions = {
+        slug: 'fooman',
+        orgId: TestingUtils.generateMongoObjectIdString(),
+        userId: TestingUtils.generateMongoObjectIdString(),
+      };
+
+      let error: any;
+      try {
+        await fooRepo.validateEntity(fooConditions);
+      } catch (e) {
+        error = e;
+        logger.debug('error', { error, innerErrors: error.metaData.errors });
+      }
+
+      expect(error).not.toBeUndefined();
+    });
+  });
 });
 
 //
