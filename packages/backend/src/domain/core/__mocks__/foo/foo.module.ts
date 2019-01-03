@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { MongoSharedProviderTokens } from '../../../../../shared/database/mongo/mongo.shared.constants';
-import { DomainCoreModule } from '../../../../core/core.module';
+import { MongoSharedProviderTokens } from '../../../../shared/database/mongo/mongo.shared.constants';
+import { DomainCoreModule } from '../../../core/core.module';
 import { FooProviderTokens } from './foo.constants';
 import { FooSchema } from './model/foo.schema';
 import { FooRepo } from './repo/foo.repo';
