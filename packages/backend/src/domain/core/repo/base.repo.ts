@@ -16,7 +16,7 @@ export interface IBaseRepoParams<
   model: Model<TModel>;
   cacheStore: CacheStore;
   defaultTTL: number;
-  entityValidator: IEntityValidator;
+  entityValidator: IEntityValidator<TEntity>;
 }
 
 /**
@@ -36,7 +36,7 @@ export abstract class BaseRepo<
   public readonly modelName: string;
   protected readonly cacheStore: CacheStore;
   protected readonly defaultTTL: number;
-  protected readonly entityValidator: IEntityValidator;
+  protected readonly entityValidator: IEntityValidator<TEntity>;
 
   /**
    *
@@ -176,8 +176,8 @@ export abstract class BaseRepo<
     this.clearCacheByKey(CachingUtils.makeCacheKeyFromId(entity.id));
 
     // clear by query conditions
-    this.generateValidQueryConditionsForCacheClear(entity).forEach(queryConditions => {
-      this.clearCacheByKey(CachingUtils.makeCacheKeyFromObject(queryConditions));
+    this.generateValidQueryConditionsForCacheClear(entity).forEach(entity => {
+      this.clearCacheByKey(CachingUtils.makeCacheKeyFromObject(entity));
     });
   }
 

@@ -7,13 +7,14 @@ import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { CachingProviderTokens } from '../../../shared/caching/caching.shared.constants';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { BaseRepo } from '../../core/repo/base.repo';
+import { EntityValidatorService } from '../../core/repo/validators/entity-validator.service';
 import { QueryValidatorService } from '../../core/repo/validators/query-validator.service';
 import { IOrganizationModel } from '../model/organization.model';
 import { OrganizationProviderTokens } from '../organization.constants';
 import { OrganizationQueryConditions } from './organization.query-conditions';
 
 @Injectable()
-export class OrganizationRepo extends BaseRepo<OrganizationEntity, IOrganizationModel, OrganizationQueryConditions> {
+export class OrganizationRepo extends BaseRepo<OrganizationEntity, IOrganizationModel> {
   constructor(
     readonly loggerService: LoggerSharedService,
     queryValidatorService: QueryValidatorService<OrganizationQueryConditions>,
@@ -23,11 +24,10 @@ export class OrganizationRepo extends BaseRepo<OrganizationEntity, IOrganization
   ) {
     super({
       loggerService,
-      queryValidatorService,
-      model,
       cacheStore,
       defaultTTL: nestjsBffConfig.caching.entities.organization,
-      queryConditionsType: OrganizationQueryConditions,
+      entityValidator: new EntityValidatorService(loggerService, OrganizationEntity),
+      model,
     });
   }
 

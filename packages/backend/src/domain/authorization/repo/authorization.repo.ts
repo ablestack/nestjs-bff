@@ -7,13 +7,14 @@ import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { CachingProviderTokens } from '../../../shared/caching/caching.shared.constants';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { BaseRepo } from '../../core/repo/base.repo';
+import { EntityValidatorService } from '../../core/repo/validators/entity-validator.service';
 import { QueryValidatorService } from '../../core/repo/validators/query-validator.service';
 import { AuthorizationProviderTokens } from '../authorization.constants';
 import { IAuthorizationModel } from '../model/authorization.model';
 import { AuthorizationQueryConditions } from './authorization.query-conditions';
 
 @Injectable()
-export class AuthorizationRepo extends BaseRepo<AuthorizationEntity, IAuthorizationModel, AuthorizationQueryConditions> {
+export class AuthorizationRepo extends BaseRepo<AuthorizationEntity, IAuthorizationModel> {
   constructor(
     readonly loggerService: LoggerSharedService,
     queryValidatorService: QueryValidatorService<AuthorizationQueryConditions>,
@@ -23,11 +24,10 @@ export class AuthorizationRepo extends BaseRepo<AuthorizationEntity, IAuthorizat
   ) {
     super({
       loggerService,
-      queryValidatorService,
       model,
       cacheStore,
       defaultTTL: nestjsBffConfig.caching.entities.authorization,
-      queryConditionsType: AuthorizationQueryConditions,
+      entityValidator: new EntityValidatorService(loggerService, AuthorizationEntity),
     });
   }
 
