@@ -13,14 +13,10 @@ import { IFooModel } from '../model/foo.model';
 import { FooQueryConditions } from './foo.query-conditions';
 
 @Injectable()
-export class FooRepo extends BaseRepo<
-  FooEntity,
-  IFooModel,
-  FooQueryConditions
-> {
+export class FooRepo extends BaseRepo<FooEntity, IFooModel, FooQueryConditions> {
   constructor(
     readonly loggerService: LoggerSharedService,
-    queryValidatorService: QueryValidatorService,
+    queryValidatorService: QueryValidatorService<FooQueryConditions>,
     @Inject(FooProviderTokens.Models.Foo) model: Model<IFooModel>,
     @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
     @Inject(AppSharedProviderTokens.Config.App)
@@ -31,13 +27,12 @@ export class FooRepo extends BaseRepo<
       queryValidatorService,
       model,
       cacheStore,
-      defaultTTL: nestjsBffConfig.caching.entities.user,
+      defaultTTL: 60 * 1,
+      queryConditionsType: FooQueryConditions,
     });
   }
 
-  protected generateValidQueryConditionsForCacheClear(
-    entity: FooEntity,
-  ): FooQueryConditions[] {
+  protected generateValidQueryConditionsForCacheClear(entity: FooEntity): FooQueryConditions[] {
     throw new Error('Method not implemented.');
   }
 }

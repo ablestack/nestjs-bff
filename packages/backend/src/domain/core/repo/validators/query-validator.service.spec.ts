@@ -8,25 +8,40 @@ const logger = getLogger();
 describe('QueryValidator', () => {
   describe('validateQuery', () => {
     describe('for UserAndOrgScopedQueryConditions', () => {
-      const queryValidator = new QueryValidatorService(logger);
+      const queryValidator = new QueryValidatorService(logger, FooQueryConditions);
 
       it('should pass if all required parameters are provided', async () => {
         const fooConditions = {
           slug: 'fooman',
           orgId: TestingUtils.generateMongoObjectIdString(),
-          uerId: TestingUtils.generateMongoObjectIdString(),
+          userId: TestingUtils.generateMongoObjectIdString(),
         };
 
-        expect(() => queryValidator.validateQuery<FooQueryConditions>(fooConditions)).not.toThrow();
+        let error: any;
+        try {
+          await queryValidator.validateQuery(fooConditions);
+        } catch (e) {
+          error = e;
+          logger.debug('error', { error, innerErrors: error.metaData.errors });
+        }
+
+        expect(error).toBeUndefined();
       });
 
       it('should throw an error if orgId missing', async () => {
         const fooConditions = {
           slug: 'fooman',
-          uerId: TestingUtils.generateMongoObjectIdString(),
+          userId: TestingUtils.generateMongoObjectIdString(),
         };
 
-        expect(() => queryValidator.validateQuery<FooQueryConditions>(fooConditions)).toThrowError();
+        let error: any;
+        try {
+          await queryValidator.validateQuery(fooConditions);
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error).not.toBeUndefined();
       });
 
       it('should throw an error if userId missing', async () => {
@@ -35,7 +50,14 @@ describe('QueryValidator', () => {
           orgId: TestingUtils.generateMongoObjectIdString(),
         };
 
-        expect(() => queryValidator.validateQuery<FooQueryConditions>(fooConditions)).toThrowError();
+        let error: any;
+        try {
+          await queryValidator.validateQuery(fooConditions);
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error).not.toBeUndefined();
       });
     });
   });

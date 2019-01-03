@@ -13,11 +13,7 @@ import { IAuthenticationModel } from '../model/authentication.model';
 import { AuthenticationQueryConditions } from './authentication.query-conditions';
 
 @Injectable()
-export class AuthenticationRepo extends BaseRepo<
-  AuthenticationEntity,
-  IAuthenticationModel,
-  AuthenticationQueryConditions
-> {
+export class AuthenticationRepo extends BaseRepo<AuthenticationEntity, IAuthenticationModel, AuthenticationQueryConditions> {
   constructor(
     readonly loggerService: LoggerSharedService,
     queryValidatorService: QueryValidatorService,
@@ -33,12 +29,11 @@ export class AuthenticationRepo extends BaseRepo<
       model,
       cacheStore,
       defaultTTL: nestjsBffConfig.caching.entities.user,
+      queryConditionsType: AuthenticationQueryConditions,
     });
   }
 
-  protected generateValidQueryConditionsForCacheClear(
-    entity: AuthenticationEntity,
-  ): AuthenticationQueryConditions[] {
+  protected generateValidQueryConditionsForCacheClear(entity: AuthenticationEntity): AuthenticationQueryConditions[] {
     throw new Error('Method not implemented.');
   }
 }

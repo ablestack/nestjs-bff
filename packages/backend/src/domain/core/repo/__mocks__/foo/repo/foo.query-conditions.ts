@@ -4,5 +4,5 @@ import { UserAndOrgScopedQueryConditions } from '../../../query-conditions/user-
 export class FooQueryConditions extends UserAndOrgScopedQueryConditions {
   @IsString()
   @IsNotEmpty()
-  public slug: string = '';
+  public slug?: string;
 }

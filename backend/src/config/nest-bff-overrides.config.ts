@@ -1,5 +1,4 @@
 import { LogLevels } from '@nestjs-bff/backend/lib/shared/logging/log-levels.const';
-import { extractKey } from '@nestjs-bff/backend/lib/shared/utils/key.shared.utils';
 
 export const NestBffConfigOverrides = {
   rootPath: process.cwd(),

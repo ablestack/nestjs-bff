@@ -13,11 +13,7 @@ import { OrganizationProviderTokens } from '../organization.constants';
 import { OrganizationQueryConditions } from './organization.query-conditions';
 
 @Injectable()
-export class OrganizationRepo extends BaseRepo<
-  OrganizationEntity,
-  IOrganizationModel,
-  OrganizationQueryConditions
-> {
+export class OrganizationRepo extends BaseRepo<OrganizationEntity, IOrganizationModel, OrganizationQueryConditions> {
   constructor(
     readonly loggerService: LoggerSharedService,
     queryValidatorService: QueryValidatorService,
@@ -32,13 +28,12 @@ export class OrganizationRepo extends BaseRepo<
       queryValidatorService,
       model,
       cacheStore,
-      defaultTTL: nestjsBffConfig.caching.entities.user,
+      defaultTTL: nestjsBffConfig.caching.entities.organization,
+      queryConditionsType: OrganizationQueryConditions,
     });
   }
 
-  protected generateValidQueryConditionsForCacheClear(
-    entity: OrganizationEntity,
-  ): OrganizationQueryConditions[] {
+  protected generateValidQueryConditionsForCacheClear(entity: OrganizationEntity): OrganizationQueryConditions[] {
     throw new Error('Method not implemented.');
   }
 }

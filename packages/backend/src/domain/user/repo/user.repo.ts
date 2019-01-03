@@ -13,11 +13,7 @@ import { UserProviderTokens } from '../user.constants';
 import { UserQueryConditions } from './user.query-conditions';
 
 @Injectable()
-export class UserRepo extends BaseRepo<
-  UserEntity,
-  IUserModel,
-  UserQueryConditions
-> {
+export class UserRepo extends BaseRepo<UserEntity, IUserModel, UserQueryConditions> {
   constructor(
     loggerService: LoggerSharedService,
     queryValidatorService: QueryValidatorService,
@@ -32,12 +28,11 @@ export class UserRepo extends BaseRepo<
       cacheStore,
       queryValidatorService,
       defaultTTL: nestjsBffConfig.caching.entities.user,
+      queryConditionsType: UserQueryConditions,
     });
   }
 
-  protected generateValidQueryConditionsForCacheClear(
-    entity: UserEntity,
-  ): UserQueryConditions[] {
+  protected generateValidQueryConditionsForCacheClear(entity: UserEntity): UserQueryConditions[] {
     throw new Error('Method not implemented.');
   }
 }

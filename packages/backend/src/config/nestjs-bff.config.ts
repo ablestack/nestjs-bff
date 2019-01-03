@@ -21,6 +21,7 @@ const _NestjsBffConfig = {
     entities: {
       organization: 60 * 20,
       user: 60 * 20,
+      authorization: 60 * 20,
     },
   },
 

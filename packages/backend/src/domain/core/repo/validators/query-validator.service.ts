@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { validate } from 'class-validator';
+import _ = require('lodash');
+import { AppError } from '../../../../shared/exceptions/app.exception';
 import { LoggerSharedService } from '../../../../shared/logging/logger.shared.service';
 import { BaseQueryConditions } from '../query-conditions/base.query-conditions';
 
 @Injectable()
-export class QueryValidatorService {
-  constructor(private readonly loggerService: LoggerSharedService) {}
+export class QueryValidatorService<TQueryConditions extends BaseQueryConditions> {
+  constructor(private readonly loggerService: LoggerSharedService, private readonly queryConditionsType: { new (): TQueryConditions }) {}
 
   /**
    *
@@ -15,17 +17,22 @@ export class QueryValidatorService {
    * @memberof BaseRepo
    * @description Validates query conditions.  Defaults to all validation groups
    */
-  public validateQuery<TQueryConditions extends BaseQueryConditions>(
-    queryConditions: Partial<TQueryConditions>,
-    validationGroups: string[] = [],
-  ) {
-    this.loggerService.trace(
-      `QueryValidatorService.validateQuery`,
-      queryConditions,
-    );
-    validate(queryConditions, {
+  public async validateQuery(queryConditions: Partial<TQueryConditions>, validationGroups: string[] = []) {
+    this.loggerService.trace(`QueryValidatorService.validateQuery`, queryConditions);
+
+    // ensure the object has the relevant attributes
+    const qcInstance: TQueryConditions = new this.queryConditionsType();
+    _.merge(qcInstance, queryConditions);
+
+    this.loggerService.debug(`validateQuery`, { queryConditions, qcInstance });
+
+    const validationErrors = await validate(qcInstance, {
       skipMissingProperties: true,
       groups: validationGroups,
     });
+
+    if (validationErrors && validationErrors.length > 0) {
+      throw new AppError(`Validation Failed`, { queryConditions, errors: validationErrors });
+    }
   }
 }
