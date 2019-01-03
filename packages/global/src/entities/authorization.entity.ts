@@ -1,15 +1,27 @@
-import { Roles } from '../constants/roles.constants';
-import { IEntity } from '../interfaces/entity.interface';
+import { Roles, OrganizationRoles } from '../constants/roles.constants';
+import { BaseEntity } from './core/base.entity';
+import { IsMongoId, IsArray, ValidateNested, IsBoolean, IsIn } from 'class-validator';
 
-export class AuthorizationEntity implements IEntity {
-  id?: any;
+export class AuthorizationEntity extends BaseEntity {
+  @IsMongoId()
   userId?: string;
-  roles: string[] = [Roles.user];
-  organizations: OrganizationAuthorization[] = [];
+
+  @IsArray()
+  @IsIn([Roles.user, Roles.groupAdmin, Roles.staffAdmin, Roles.systemAdmin], {each: true} )
+  roles?: string[] = [Roles.user];
+
+  @ValidateNested()
+  organizations?: OrganizationAuthorization[] = [];
 }
 
 export class OrganizationAuthorization {
-  primary: boolean = false;
-  orgId: string = '';
-  organizationRoles: string[] = [];
+  @IsBoolean()
+  primary?: boolean;
+
+  @IsMongoId()
+  orgId?: string;
+
+  @IsArray()
+  @IsIn([OrganizationRoles.member, OrganizationRoles.admin], {each: true} )
+  organizationRoles?: string[];
 }

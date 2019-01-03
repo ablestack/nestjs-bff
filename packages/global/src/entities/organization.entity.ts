@@ -1,7 +1,10 @@
-import { IEntity } from '../interfaces/entity.interface';
+import { BaseEntity } from "./core/base.entity";
+import { Length } from "class-validator";
 
-export class OrganizationEntity implements IEntity {
-  id?: any;
-  readonly name: string = '';
-  readonly slug: string = '';
+export class OrganizationEntity extends BaseEntity {
+  @Length(2, 50)
+  name?: string;
+  
+  @Length(2, 50)
+  slug?: string;
 }

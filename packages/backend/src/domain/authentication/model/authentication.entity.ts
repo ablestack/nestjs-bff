@@ -1,9 +1,7 @@
-import { IEntity } from '@nestjs-bff/global/lib/interfaces/entity.interface';
+import { BaseEntity } from '@nestjs-bff/global/lib/entities/core/base.entity';
 import { IsMongoId } from 'class-validator';
 
-export class AuthenticationEntity implements IEntity {
-  id?: any;
-  
+export class AuthenticationEntity extends BaseEntity {  
   @IsMongoId()
   public userId: string = '';
 
