@@ -5,7 +5,10 @@ import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { CachingUtils } from '../../../shared/caching/caching.utils';
 import { AppError } from '../../../shared/exceptions/app.exception';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
+import { FooEntity } from '../__mocks__/foo/model/foo.entity';
 import { BaseQueryConditions } from './query-conditions/base.query-conditions';
+import { IEntityValidator } from './validators/entity-validator.interface';
+import { EntityValidatorService } from './validators/entity-validator.service';
 import { QueryValidatorService } from './validators/query-validator.service';
 
 export interface IBaseRepoParams<
@@ -29,7 +32,7 @@ export interface IBaseRepoParams<
  *  - FindAll can be achieved with find, passing no conditions
  */
 export abstract class BaseRepo<
-  TEntity extends object & IEntity,
+  TEntity extends IEntity,
   TModel extends Document & TEntity,
   TQueryConditions extends BaseQueryConditions
 > {
@@ -40,6 +43,7 @@ export abstract class BaseRepo<
   protected readonly cacheStore: CacheStore;
   protected readonly defaultTTL: number;
   protected readonly queryValidatorService: QueryValidatorService<TQueryConditions>;
+  protected readonly entityValidator: IEntityValidator;
   protected readonly queryConditionsType: { new (): TQueryConditions };
 
   /**
@@ -53,17 +57,9 @@ export abstract class BaseRepo<
     this.modelName = this.model.modelName;
     this.cacheStore = params.cacheStore;
     this.defaultTTL = params.defaultTTL;
+    this.entityValidator = new EntityValidatorService(this.loggerService, FooEntity);
     this.queryValidatorService = params.queryValidatorService;
     this.queryConditionsType = params.queryConditionsType;
-  }
-
-  /**
-   *
-   * @param entity
-   */
-  public validateEntity(entity: TEntity) {
-    this.loggerService.trace(`${this.name}.validateEntity`, entity);
-    new this.model(entity).validateSync();
   }
 
   /**
@@ -144,7 +140,7 @@ export abstract class BaseRepo<
     if (!patchModel) throw new AppError(`No ${this.modelName} found with id ${patchEntity.id}`);
 
     patchModel = _.merge(patchModel, patchEntity);
-    this.validateEntity(patchModel);
+    this.entityValidator.validate(patchModel);
 
     await patchModel.save();
 
@@ -158,7 +154,8 @@ export abstract class BaseRepo<
   public async update(entity: TEntity): Promise<void> {
     this.loggerService.trace(`${this.name}.update`, entity);
 
-    this.validateEntity(entity);
+    this.entityValidator.validate(entity);
+
     // update. (at some point in the future, consider changing to findOneAndReplace... wasn't in typescript definitions for some reason)
     await this.model.findByIdAndUpdate(entity.id, entity, {}).exec();
     this.clearCacheByEntity(entity);
@@ -181,7 +178,7 @@ export abstract class BaseRepo<
    */
   protected async clearCacheByEntity(entity: TEntity | null) {
     if (!entity) throw new AppError('entity must not be null to trigger cache clear');
-    this.validateEntity(entity);
+    this.entityValidator.validate(entity);
 
     // clear by ID
     this.clearCacheByKey(CachingUtils.makeCacheKeyFromId(entity.id));
