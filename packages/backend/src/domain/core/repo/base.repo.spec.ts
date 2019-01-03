@@ -17,9 +17,6 @@ describe('BaseRepo', () => {
 
   beforeAll(async () => {
     const loggerService = new LoggerConsoleSharedService(NestjsBffConfig);
-    const queryValidatorService: QueryValidatorService<
-      FooQueryConditions
-    > = new QueryValidatorService(loggerService, FooQueryConditions);
     const fooModel = mongoose.model<IFooModel>('Foo', FooSchema);
     const memCache = cacheManager.caching({
       store: 'memory',
@@ -28,7 +25,6 @@ describe('BaseRepo', () => {
     });
     fooRepo = new FooRepo(
       loggerService,
-      queryValidatorService,
       fooModel,
       memCache,
       NestjsBffConfig,
@@ -38,7 +34,7 @@ describe('BaseRepo', () => {
   describe('findOne', () => {
     it('should return a Foo', async () => {
       const fooConditions = {
-        _id: TestingUtils.generateMongoObjectIdString(),
+        id: TestingUtils.generateMongoObjectIdString(),
         slug: 'fooman',
         orgId: TestingUtils.generateMongoObjectIdString(),
         userId: TestingUtils.generateMongoObjectIdString(),
@@ -50,7 +46,7 @@ describe('BaseRepo', () => {
       });
 
       const result = await fooRepo.findOne({
-        _id: '507f191e810c19729de860ea',
+        id: '507f191e810c19729de860ea',
         orgId: fooConditions.orgId,
         userId: fooConditions.userId,
       });
@@ -70,7 +66,7 @@ describe('BaseRepo', () => {
 
       let error: any;
       try {
-        await fooRepo.validateEntity(fooConditions);
+        await fooRepo.entityValidator.validate(fooConditions);
       } catch (e) {
         error = e;
         logger.debug('error', { error, innerErrors: error.metaData.errors });
@@ -88,7 +84,7 @@ describe('BaseRepo', () => {
 
       let error: any;
       try {
-        await fooRepo.validateEntity(fooConditions);
+        await fooRepo.entityValidator.validate(fooConditions);
       } catch (e) {
         error = e;
         logger.debug('error', { error, innerErrors: error.metaData.errors });

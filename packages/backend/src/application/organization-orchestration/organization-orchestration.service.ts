@@ -29,10 +29,10 @@ export class OrganizationOrchestrationService {
     };
 
     // validate
-    this.authenticationRepo.validateEntity(newAuthenticationEntity);
+    this.authenticationRepo.entityValidator.validate(newAuthenticationEntity);
 
     // validate organization exists
-    if (!(await this.organizationRepo.findOne({ _id: cmd.orgId }))) {
+    if (!(await this.organizationRepo.findOne({ id: cmd.orgId }))) {
       throw new AppError(`Could not find organization for Id ${cmd.orgId}`);
     }
 

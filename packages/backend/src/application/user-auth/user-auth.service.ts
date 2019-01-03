@@ -67,7 +67,7 @@ export class UserAuthService {
     //
     // validate
     //
-    this.authenticationRepo.validateEntity(newAuthenticationEntity);
+    this.authenticationRepo.entityValidator.validate(newAuthenticationEntity);
 
     //
     // execute

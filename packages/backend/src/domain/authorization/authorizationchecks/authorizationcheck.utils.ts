@@ -10,13 +10,13 @@ function isSystemAdmin(authorization: AuthorizationEntity): boolean {
 }
 
 function hasOrganization(authorization: AuthorizationEntity, organizationIDForResource: string): boolean {
-  return !!authorization.organizations.find(organizationAuth => {
+  return !!authorization.organizations && !!authorization.organizations.find(organizationAuth => {
     return organizationAuth.orgId === organizationIDForResource;
   });
 }
 
 function hasOrganizationRole(authorization: AuthorizationEntity, organizationIDForResource: string, qualifyingRoles: string[]): boolean {
-  return !!authorization.organizations.find(organizationAuth => {
+  return !!authorization.organizations && !!authorization.organizations.find(organizationAuth => {
     return (
       // tslint:disable-next-line:triple-equals
       organizationAuth.orgId == organizationIDForResource && qualifyingRoles.some(role => organizationAuth.organizationRoles.includes(role))

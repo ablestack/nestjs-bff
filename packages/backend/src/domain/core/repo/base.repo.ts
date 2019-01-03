@@ -1,3 +1,4 @@
+import { ValidationGroups } from '@nestjs-bff/global/lib/entities/core/core.constants';
 import { IEntity } from '@nestjs-bff/global/lib/interfaces/entity.interface';
 import * as _ from 'lodash';
 import { Document, Model } from 'mongoose';
@@ -5,7 +6,6 @@ import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { CachingUtils } from '../../../shared/caching/caching.utils';
 import { AppError } from '../../../shared/exceptions/app.exception';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
-import { ValidationGroups } from '../core.constants';
 import { IEntityValidator } from './validators/entity-validator.interface';
 
 export interface IBaseRepoParams<
@@ -33,10 +33,10 @@ export abstract class BaseRepo<
   private readonly name: string;
   protected readonly loggerService: LoggerSharedService;
   protected readonly model: Model<TModel>;
-  public readonly modelName: string;
   protected readonly cacheStore: CacheStore;
   protected readonly defaultTTL: number;
-  protected readonly entityValidator: IEntityValidator<TEntity>;
+  public readonly modelName: string;
+  public readonly entityValidator: IEntityValidator<TEntity>;
 
   /**
    *

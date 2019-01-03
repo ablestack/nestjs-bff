@@ -8,7 +8,7 @@ export class AuthorizationEntity extends BaseEntity {
 
   @IsArray()
   @IsIn([Roles.user, Roles.groupAdmin, Roles.staffAdmin, Roles.systemAdmin], {each: true} )
-  roles?: string[] = [Roles.user];
+  roles: string[] = [Roles.user];
 
   @ValidateNested()
   organizations?: OrganizationAuthorization[] = [];
@@ -23,5 +23,5 @@ export class OrganizationAuthorization {
 
   @IsArray()
   @IsIn([OrganizationRoles.member, OrganizationRoles.admin], {each: true} )
-  organizationRoles?: string[];
+  organizationRoles: string[] = [];
 }

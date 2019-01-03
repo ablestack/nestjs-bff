@@ -3,28 +3,28 @@ import { IsMongoId } from 'class-validator';
 
 export class AuthenticationEntity extends BaseEntity {  
   @IsMongoId()
-  public userId: string = '';
+  userId?: string;
 
   local?: {
-    email: string;
-    hashedPassword: string;
+    email?: string;
+    hashedPassword?: string;
   };
 
   google?: {
-    id: string;
-    email: string;
-    name: string;
+    id?: string;
+    email?: string;
+    name?: string;
   };
 
   facebook?: {
-    id: string;
-    name: string;
-    email: string;
+    id?: string;
+    name?: string;
+    email?: string;
   };
 
   twitter?: {
-    id: string;
-    displayName: string;
-    username: string;
+    id?: string;
+    displayName?: string;
+    username?: string;
   };
 }

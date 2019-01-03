@@ -11,7 +11,6 @@ import { EntityValidatorService } from '../../core/repo/validators/entity-valida
 import { QueryValidatorService } from '../../core/repo/validators/query-validator.service';
 import { IOrganizationModel } from '../model/organization.model';
 import { OrganizationProviderTokens } from '../organization.constants';
-import { OrganizationQueryConditions } from './organization.query-conditions';
 
 @Injectable()
 export class OrganizationRepo extends BaseRepo<OrganizationEntity, IOrganizationModel> {
