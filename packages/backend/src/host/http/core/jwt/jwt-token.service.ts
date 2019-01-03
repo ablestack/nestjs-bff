@@ -10,10 +10,7 @@ import { IJwtPayload } from './i-jwt-payload';
 export class JwtTokenService {
   private signOptions: SignOptions;
 
-  constructor(
-    @Inject(AppSharedProviderTokens.Config.App)
-    private readonly nestjsBffConfig: INestjsBffConfig,
-  ) {
+  constructor(@Inject(AppSharedProviderTokens.Config.App) private readonly nestjsBffConfig: INestjsBffConfig) {
     this.signOptions = {
       issuer: nestjsBffConfig.jwt.issuer,
       audience: nestjsBffConfig.http.bffRootUrl,

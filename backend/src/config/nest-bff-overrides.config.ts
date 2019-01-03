@@ -39,9 +39,7 @@ export const NestBffConfigOverrides = {
   },
 
   jwt: {
-    jwtPrivateKey: extractKey(`${process.cwd()}\\src\\config\\keys\\jwt.private-key.pem`),
     jwtPrivateKeyPemPassphrase: 'D161tal',
-    jwtPublicKey: extractKey(`${process.cwd()}\\src\\config\\keys\\jwt.public-key.pem`),
     issuer: 'my org name',
     expiresIn: '18h',
     signingAlgorithm: 'RS256',

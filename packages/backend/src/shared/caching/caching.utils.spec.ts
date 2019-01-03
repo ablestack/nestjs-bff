@@ -9,9 +9,7 @@ const logger = getLogger();
 describe('CachingUtils', () => {
   describe('makeCacheKeyFromId', () => {
     it('should return a string', async () => {
-      const result = CachingUtils.makeCacheKeyFromId(
-        '507f191e810c19729de860ea',
-      );
+      const result = CachingUtils.makeCacheKeyFromId('507f191e810c19729de860ea');
       logger.debug('makeCacheKeyFromId-result', result);
       expect(typeof result).toBe('string');
       expect(result.length).toBeGreaterThan(0);
@@ -108,14 +106,8 @@ describe('CachingUtils', () => {
         });
       };
 
-      const processingTime = TestingUtils.MeasureExecutionTime(
-        makeCachKeyFunc,
-        performanceTestIterations,
-      );
-      logger.debug(
-        `makeCachKeyFunc ${performanceTestIterations} iterations`,
-        processingTime,
-      );
+      const processingTime = TestingUtils.measureExecutionTime(makeCachKeyFunc, performanceTestIterations);
+      logger.debug(`makeCachKeyFunc ${performanceTestIterations} iterations`, processingTime);
 
       expect(processingTime).toBeLessThan(1000);
     });

@@ -22,4 +22,8 @@ export interface INestjsBffConfigEnv {
       clientSecret: string;
     };
   };
+  jwt: {
+    jwtPrivateKey: string;
+    jwtPublicKey: string;
+  };
 }
