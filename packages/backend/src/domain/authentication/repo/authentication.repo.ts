@@ -16,7 +16,7 @@ import { AuthenticationQueryConditions } from './authentication.query-conditions
 export class AuthenticationRepo extends BaseRepo<AuthenticationEntity, IAuthenticationModel, AuthenticationQueryConditions> {
   constructor(
     readonly loggerService: LoggerSharedService,
-    queryValidatorService: QueryValidatorService,
+    queryValidatorService: QueryValidatorService<AuthenticationQueryConditions>,
     @Inject(AuthenticationProviderTokens.Models.Authentication)
     model: Model<IAuthenticationModel>,
     @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,

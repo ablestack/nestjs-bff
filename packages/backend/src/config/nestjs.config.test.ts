@@ -28,4 +28,8 @@ export const NestjsBffConfigEnv: INestjsBffConfigEnv = {
       clientSecret: 'your-client-secret-here', // your App Secret
     },
   },
+  jwt: {
+    jwtPrivateKey: '',
+    jwtPublicKey: '',
+  },
 };

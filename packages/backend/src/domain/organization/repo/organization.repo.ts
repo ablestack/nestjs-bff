@@ -16,12 +16,10 @@ import { OrganizationQueryConditions } from './organization.query-conditions';
 export class OrganizationRepo extends BaseRepo<OrganizationEntity, IOrganizationModel, OrganizationQueryConditions> {
   constructor(
     readonly loggerService: LoggerSharedService,
-    queryValidatorService: QueryValidatorService,
-    @Inject(OrganizationProviderTokens.Models.Organization)
-    model: Model<IOrganizationModel>,
+    queryValidatorService: QueryValidatorService<OrganizationQueryConditions>,
+    @Inject(OrganizationProviderTokens.Models.Organization) model: Model<IOrganizationModel>,
     @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
-    @Inject(AppSharedProviderTokens.Config.App)
-    nestjsBffConfig: INestjsBffConfig,
+    @Inject(AppSharedProviderTokens.Config.App) nestjsBffConfig: INestjsBffConfig,
   ) {
     super({
       loggerService,

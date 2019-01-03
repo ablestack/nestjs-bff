@@ -16,12 +16,10 @@ import { AuthorizationQueryConditions } from './authorization.query-conditions';
 export class AuthorizationRepo extends BaseRepo<AuthorizationEntity, IAuthorizationModel, AuthorizationQueryConditions> {
   constructor(
     readonly loggerService: LoggerSharedService,
-    queryValidatorService: QueryValidatorService,
-    @Inject(AuthorizationProviderTokens.Models.Authorization)
-    model: Model<IAuthorizationModel>,
+    queryValidatorService: QueryValidatorService<AuthorizationQueryConditions>,
+    @Inject(AuthorizationProviderTokens.Models.Authorization) model: Model<IAuthorizationModel>,
     @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
-    @Inject(AppSharedProviderTokens.Config.App)
-    nestjsBffConfig: INestjsBffConfig,
+    @Inject(AppSharedProviderTokens.Config.App) nestjsBffConfig: INestjsBffConfig,
   ) {
     super({
       loggerService,
