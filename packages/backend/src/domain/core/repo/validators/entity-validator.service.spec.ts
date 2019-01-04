@@ -3,14 +3,15 @@ import { TestingUtils } from '../../../../shared/utils/testing.utils';
 import { FooEntity } from '../../__mocks__/foo/model/foo.entity';
 import { EntityValidatorService } from './entity-validator.service';
 
+// @ts-ignore
 const logger = getLogger();
 
-describe('EntityValidator', () => {
+describe('GIVEN EntityValidator', () => {
   describe('validateEntity', () => {
-    describe('for UserAndOrgScopedEntityConditions', () => {
+    describe('UserAndOrgScopedEntityConditions', () => {
       const entityValidator = new EntityValidatorService(logger, FooEntity);
 
-      it('should pass if all required parameters are provided', async () => {
+      it('WHEN all required parameters are provided, THEN should pass', async () => {
         const fooConditions = {
           slug: 'fooman',
           orgId: TestingUtils.generateMongoObjectIdString(),
@@ -22,13 +23,13 @@ describe('EntityValidator', () => {
           await entityValidator.validate(fooConditions);
         } catch (e) {
           error = e;
-          logger.debug('error', { error, innerErrors: error.metaData.errors });
+          // logger.debug('error', { error, innerErrors: error.metaData.errors });
         }
 
         expect(error).toBeUndefined();
       });
 
-      it('should throw an error if orgId missing', async () => {
+      it('WHEN orgId missing THEN should throw error', async () => {
         const fooConditions = {
           slug: 'fooman',
           userId: TestingUtils.generateMongoObjectIdString(),
@@ -44,7 +45,25 @@ describe('EntityValidator', () => {
         expect(error).not.toBeUndefined();
       });
 
-      it('should throw an error if userId missing', async () => {
+      it('WHEN userId is undefined but userScope validation is overridden , THEN should pass', async () => {
+        const fooConditions = {
+          slug: 'fooman',
+          orgId: TestingUtils.generateMongoObjectIdString(),
+          userId: undefined,
+        };
+
+        let error: any;
+        try {
+          await entityValidator.validate(fooConditions);
+        } catch (e) {
+          error = e;
+          // logger.debug('error', { error, innerErrors: error.metaData.errors });
+        }
+
+        expect(error).toBeUndefined();
+      });
+
+      it('WHEN userId missing THEN should throw error', async () => {
         const fooConditions = {
           slug: 'fooman',
           orgId: TestingUtils.generateMongoObjectIdString(),
@@ -58,6 +77,24 @@ describe('EntityValidator', () => {
         }
 
         expect(error).not.toBeUndefined();
+      });
+
+      it('WHEN orgId is undefined but orgScope validation is overridden , THEN should pass', async () => {
+        const fooConditions = {
+          slug: 'fooman',
+          orgId: undefined,
+          userId: TestingUtils.generateMongoObjectIdString(),
+        };
+
+        let error: any;
+        try {
+          await entityValidator.validate(fooConditions);
+        } catch (e) {
+          error = e;
+          // logger.debug('error', { error, innerErrors: error.metaData.errors });
+        }
+
+        expect(error).toBeUndefined();
       });
     });
   });

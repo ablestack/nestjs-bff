@@ -5,6 +5,7 @@ import { NestjsBffConfig } from '../../../../config/nestjs-bff.config';
 import { getLogger } from '../../../../shared/logging/logging.shared.module';
 import { JwtTokenService } from './jwt-token.service';
 
+// @ts-ignore
 const logger = getLogger();
 
 const verifyOptions: VerifyOptions = {
@@ -33,7 +34,7 @@ NHAlRUQ161mqPZh/hg4ARYQoSkwmwZHA4xvEcYeyjm0GPkK5nKtI8RcCAwEAAQ==
 -----END PUBLIC KEY-----`;
 
     jwtTokenService = new JwtTokenService(NestjsBffConfig);
-    logger.debug('NestjsBffConfig.jwt.jwtPrivateKey', NestjsBffConfig.jwt.jwtPrivateKey);
+    // logger.debug('NestjsBffConfig.jwt.jwtPrivateKey', NestjsBffConfig.jwt.jwtPrivateKey);
   });
 
   describe('createToken', () => {

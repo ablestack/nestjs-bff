@@ -38,6 +38,7 @@ export const authData = {
 
 describe('Auth', () => {
   let app: INestApplication;
+  // @ts-ignore
   const logger = getLogger();
 
   //

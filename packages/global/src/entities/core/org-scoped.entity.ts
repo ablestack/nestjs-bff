@@ -3,5 +3,5 @@ import { IsMongoId } from 'class-validator';
 
 export abstract class OrgScopedEntity extends BaseEntity {
   @IsMongoId()
-  public orgId?: string;
+  public orgId: string | undefined = undefined;
 }

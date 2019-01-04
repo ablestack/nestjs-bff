@@ -4,13 +4,15 @@ import { TestingUtils } from '../utils/testing.utils';
 import { CachingUtils } from './caching.utils';
 
 const performanceTestIterations = 1000;
+
+// @ts-ignore
 const logger = getLogger();
 
 describe('CachingUtils', () => {
   describe('makeCacheKeyFromId', () => {
     it('should return a string', async () => {
       const result = CachingUtils.makeCacheKeyFromId('507f191e810c19729de860ea');
-      logger.debug('makeCacheKeyFromId-result', result);
+      // logger.debug('makeCacheKeyFromId-result', result);
       expect(typeof result).toBe('string');
       expect(result.length).toBeGreaterThan(0);
     });
@@ -19,7 +21,7 @@ describe('CachingUtils', () => {
   describe('makeCacheKeyFromProperty', () => {
     it('should return a string', async () => {
       const result = CachingUtils.makeCacheKeyFromProperty('foo', 'bar');
-      logger.debug('makeCacheKeyFromProperty-result', result);
+      // logger.debug('makeCacheKeyFromProperty-result', result);
       expect(typeof result).toBe('string');
       expect(result.length).toBeGreaterThan(0);
     });
@@ -32,7 +34,7 @@ describe('CachingUtils', () => {
           foo: 'foo',
           bar: { baz: 'baz' },
         });
-        logger.debug('makeCacheKeyFromObject-result', result);
+        // logger.debug('makeCacheKeyFromObject-result', result);
         expect(typeof result).toBe('string');
         expect(result.length).toBeGreaterThan(0);
       });
@@ -48,7 +50,7 @@ describe('CachingUtils', () => {
           foo: 'foo',
         });
 
-        logger.debug('makeCacheKeyFromObject-result', { result1, result2 });
+        // logger.debug('makeCacheKeyFromObject-result', { result1, result2 });
         expect(result1).toEqual(result2);
       });
 
@@ -63,7 +65,7 @@ describe('CachingUtils', () => {
           bar: { baz: 'bag' },
         });
 
-        logger.debug('makeCacheKeyFromObject-result', { result1, result2 });
+        // logger.debug('makeCacheKeyFromObject-result', { result1, result2 });
         expect(result1).not.toEqual(result2);
       });
     });
@@ -78,7 +80,7 @@ describe('CachingUtils', () => {
       qc.slug = 'foo';
 
       const result = CachingUtils.makeCacheKeyFromObject(qc);
-      logger.debug('makeCacheKeyFromObject-result', result);
+      // logger.debug('makeCacheKeyFromObject-result', result);
       expect(typeof result).toBe('string');
       expect(result.length).toBeGreaterThan(0);
     });
@@ -91,7 +93,7 @@ describe('CachingUtils', () => {
       qc.slug = 'foo';
 
       const result = CachingUtils.makeCacheKeyFromObject(qc);
-      logger.debug('makeCacheKeyFromObject-result', result);
+      // logger.debug('makeCacheKeyFromObject-result', result);
       expect(typeof result).toBe('string');
       expect(result.length).toBeGreaterThan(0);
     });
@@ -107,7 +109,7 @@ describe('CachingUtils', () => {
       };
 
       const processingTime = TestingUtils.measureExecutionTime(makeCachKeyFunc, performanceTestIterations);
-      logger.debug(`makeCachKeyFunc ${performanceTestIterations} iterations`, processingTime);
+      // logger.debug(`makeCachKeyFunc ${performanceTestIterations} iterations`, processingTime);
 
       expect(processingTime).toBeLessThan(1000);
     });

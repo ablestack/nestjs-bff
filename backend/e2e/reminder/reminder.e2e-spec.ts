@@ -31,6 +31,7 @@ export const authData = {
 
 describe('Reminder', () => {
   let app: INestApplication;
+  // @ts-ignore
   const logger = getLogger();
 
   //

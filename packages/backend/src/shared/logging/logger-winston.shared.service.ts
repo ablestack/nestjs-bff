@@ -23,8 +23,7 @@ export class LoggerWinstonSharedService implements LoggerSharedService {
     this.appName = nestjsBffConfig.appName;
 
     const logLevel: string = this.nestjsBffConfig.logging.winston.level;
-    const logTransport: object = this.nestjsBffConfig.logging.winston
-      .transports;
+    const logTransport: object = this.nestjsBffConfig.logging.winston.transports;
 
     for (const key in logTransport) {
       if (logTransport.hasOwnProperty(key)) {
@@ -94,9 +93,7 @@ export class LoggerWinstonSharedService implements LoggerSharedService {
           {
             name: key,
             level: key,
-            filename: `${this.nestjsBffConfig.logging.logDir}/${this.appName +
-              '-' +
-              targetFileList[key]}`,
+            filename: `${this.nestjsBffConfig.logging.logDir}/${this.appName + '-' + targetFileList[key]}`,
           },
           transport,
         );

@@ -36,7 +36,7 @@ const setupDBWithVerification = async () => {
 //
 const verifyDoesDbExist = async () => {
   const result = await mongoose.connection.db.admin().listDatabases();
-  logger.debug('databases found', result);
+  // logger.debug('databases found', result);
   const doesDbExist = !!result.databases.find(item => item.name === AppConfig.db.mongo.options.dbName);
   logger.info(`-- Does '${AppConfig.db.mongo.options.dbName}' Database Exist:`, doesDbExist);
   return doesDbExist;

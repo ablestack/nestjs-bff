@@ -8,6 +8,7 @@ import { IFooModel } from '../__mocks__/foo/model/foo.model';
 import { FooSchema } from '../__mocks__/foo/model/foo.schema';
 import { FooRepo } from '../__mocks__/foo/repo/foo.repo';
 
+// @ts-ignore
 const logger = getLogger();
 
 describe('BaseRepo', () => {
@@ -62,7 +63,7 @@ describe('BaseRepo', () => {
         await fooRepo.entityValidator.validate(fooConditions);
       } catch (e) {
         error = e;
-        logger.debug('error', { error, innerErrors: error.metaData.errors });
+        // logger.debug('error', { error, innerErrors: error.metaData.errors });
       }
 
       expect(error).toBeUndefined();
@@ -80,7 +81,7 @@ describe('BaseRepo', () => {
         await fooRepo.entityValidator.validate(fooConditions);
       } catch (e) {
         error = e;
-        logger.debug('error', { error, innerErrors: error.metaData.errors });
+        // logger.debug('error', { error, innerErrors: error.metaData.errors });
       }
 
       expect(error).not.toBeUndefined();
