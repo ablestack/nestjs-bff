@@ -1,14 +1,14 @@
 import { getLogger } from '../../../../shared/logging/logging.shared.module';
 import { TestingUtils } from '../../../../shared/utils/testing.utils';
-import { FooQueryConditions } from '../__mocks__/foo/repo/foo.query-conditions';
-import { QueryValidatorService } from './query-validator.service';
+import { FooEntity } from '../../__mocks__/foo/model/foo.entity';
+import { EntityValidatorService } from './entity-validator.service';
 
 const logger = getLogger();
 
-describe('QueryValidator', () => {
-  describe('validateQuery', () => {
-    describe('for UserAndOrgScopedQueryConditions', () => {
-      const queryValidator = new QueryValidatorService(logger, FooQueryConditions);
+describe('EntityValidator', () => {
+  describe('validateEntity', () => {
+    describe('for UserAndOrgScopedEntityConditions', () => {
+      const entityValidator = new EntityValidatorService(logger, FooEntity);
 
       it('should pass if all required parameters are provided', async () => {
         const fooConditions = {
@@ -19,7 +19,7 @@ describe('QueryValidator', () => {
 
         let error: any;
         try {
-          await queryValidator.validateQuery(fooConditions);
+          await entityValidator.validate(fooConditions);
         } catch (e) {
           error = e;
           logger.debug('error', { error, innerErrors: error.metaData.errors });
@@ -36,7 +36,7 @@ describe('QueryValidator', () => {
 
         let error: any;
         try {
-          await queryValidator.validateQuery(fooConditions);
+          await entityValidator.validate(fooConditions);
         } catch (e) {
           error = e;
         }
@@ -52,7 +52,7 @@ describe('QueryValidator', () => {
 
         let error: any;
         try {
-          await queryValidator.validateQuery(fooConditions);
+          await entityValidator.validate(fooConditions);
         } catch (e) {
           error = e;
         }

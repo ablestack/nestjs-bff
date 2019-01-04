@@ -17,8 +17,7 @@ export class AuthenticationRepo extends BaseRepo<AuthenticationEntity, IAuthenti
     readonly loggerService: LoggerSharedService,
     @Inject(AuthenticationProviderTokens.Models.Authentication) model: Model<IAuthenticationModel>,
     @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
-    @Inject(AppSharedProviderTokens.Config.App)
-    nestjsBffConfig: INestjsBffConfig,
+    @Inject(AppSharedProviderTokens.Config.App) nestjsBffConfig: INestjsBffConfig,
   ) {
     super({
       loggerService,

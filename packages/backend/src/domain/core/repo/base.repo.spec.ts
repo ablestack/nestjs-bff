@@ -6,9 +6,7 @@ import { getLogger } from '../../../shared/logging/logging.shared.module';
 import { TestingUtils } from '../../../shared/utils/testing.utils';
 import { IFooModel } from '../__mocks__/foo/model/foo.model';
 import { FooSchema } from '../__mocks__/foo/model/foo.schema';
-import { FooQueryConditions } from '../__mocks__/foo/repo/foo.query-conditions';
 import { FooRepo } from '../__mocks__/foo/repo/foo.repo';
-import { QueryValidatorService } from './validators/query-validator.service';
 
 const logger = getLogger();
 
@@ -21,14 +19,9 @@ describe('BaseRepo', () => {
     const memCache = cacheManager.caching({
       store: 'memory',
       max: 100,
-      ttl: 10, /*seconds*/
+      ttl: 10 /*seconds*/,
     });
-    fooRepo = new FooRepo(
-      loggerService,
-      fooModel,
-      memCache,
-      NestjsBffConfig,
-    );
+    fooRepo = new FooRepo(loggerService, fooModel, memCache, NestjsBffConfig);
   });
 
   describe('findOne', () => {

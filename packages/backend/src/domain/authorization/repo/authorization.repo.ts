@@ -28,7 +28,7 @@ export class AuthorizationRepo extends BaseRepo<AuthorizationEntity, IAuthorizat
     });
   }
 
-  protected generateValidQueryConditionsForCacheClear(entity: AuthorizationEntity): AuthorizationQueryConditions[] {
+  protected generateValidQueryConditionsForCacheClear(entity: AuthorizationEntity): Array<Partial<AuthorizationEntity>> {
     throw new Error('Method not implemented.');
   }
 }

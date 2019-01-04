@@ -1,4 +1,4 @@
-import { FooQueryConditions } from '../../domain/core/repo/__mocks__/foo/repo/foo.query-conditions';
+import { FooEntity } from '../../domain/core/__mocks__/foo/model/foo.entity';
 import { getLogger } from '../logging/logging.shared.module';
 import { TestingUtils } from '../utils/testing.utils';
 import { CachingUtils } from './caching.utils';
@@ -71,7 +71,7 @@ describe('CachingUtils', () => {
 
   describe('with full query condition', () => {
     it('should return a string', async () => {
-      const qc = new FooQueryConditions();
+      const qc = new FooEntity();
       qc.id = '507f191e810c19729de860ea';
       qc.orgId = '607f191e810c19729de860ea';
       qc.userId = '707f191e810c19729de860ea';
@@ -86,7 +86,7 @@ describe('CachingUtils', () => {
 
   describe('with partial query condition', () => {
     it('should return a string', async () => {
-      const qc = new FooQueryConditions();
+      const qc = new FooEntity();
       qc.orgId = '607f191e810c19729de860ea';
       qc.slug = 'foo';
 

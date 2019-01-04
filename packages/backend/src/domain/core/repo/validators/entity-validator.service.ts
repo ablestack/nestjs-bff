@@ -7,14 +7,14 @@ import { LoggerSharedService } from '../../../../shared/logging/logger.shared.se
 import { IEntityValidator } from './entity-validator.interface';
 
 @Injectable()
-export class EntityValidatorService implements IEntityValidator {
-  constructor(private readonly loggerService: LoggerSharedService, private readonly entityType:  { new (): IEntity } ) {}
+export class EntityValidatorService<TEntity extends IEntity> implements IEntityValidator<TEntity> {
+  constructor(private readonly loggerService: LoggerSharedService, private readonly entityType: { new (): TEntity }) {}
 
-  public async validate(entity: Partial<IEntity>, validationGroups: string[] = []) {
+  public async validate(entity: Partial<TEntity>, validationGroups: string[] = []) {
     this.loggerService.trace(`EntityValidatorService.validate`, entity);
 
     // ensure the object has the relevant attributes
-    const entityWithAttributes: IEntity = new this.entityType();
+    const entityWithAttributes: TEntity = new this.entityType();
     _.merge(entityWithAttributes, entity);
 
     this.loggerService.debug(`validateQuery`, { entity, entityWithAttributes });
