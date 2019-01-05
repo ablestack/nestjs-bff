@@ -6,7 +6,7 @@ import { CacheStore } from '../../../../../shared/caching/cache-store.shared';
 import { CachingProviderTokens } from '../../../../../shared/caching/caching.shared.constants';
 import { LoggerSharedService } from '../../../../../shared/logging/logger.shared.service';
 import { BaseRepo } from '../../../repo/base.repo';
-import { EntityValidatorService } from '../../../repo/validators/entity-validator.service';
+import { EntityValidatorService } from '../../../repo/validators/entity.validator';
 import { FooProviderTokens } from '../foo.constants';
 import { FooEntity } from '../model/foo.entity';
 import { IFooModel } from '../model/foo.model';
@@ -18,7 +18,7 @@ export class FooRepo extends BaseRepo<FooEntity, IFooModel> {
     @Inject(AppSharedProviderTokens.Config.App) nestjsBffConfig: INestjsBffConfig,
     @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
     @Inject(FooProviderTokens.Models.Foo) model: Model<IFooModel>,
-    ) {
+  ) {
     super({
       loggerService,
       cacheStore,

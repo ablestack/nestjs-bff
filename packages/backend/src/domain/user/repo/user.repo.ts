@@ -7,7 +7,7 @@ import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { CachingProviderTokens } from '../../../shared/caching/caching.shared.constants';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { BaseRepo } from '../../core/repo/base.repo';
-import { EntityValidatorService } from '../../core/repo/validators/entity-validator.service';
+import { EntityValidatorService } from '../../core/repo/validators/entity.validator';
 import { IUserModel } from '../model/user.model';
 import { UserProviderTokens } from '../user.constants';
 

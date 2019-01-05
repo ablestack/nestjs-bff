@@ -1,7 +1,7 @@
 import { getLogger } from '../../../../shared/logging/logging.shared.module';
 import { TestingUtils } from '../../../../shared/utils/testing.utils';
 import { FooEntity } from '../../__mocks__/foo/model/foo.entity';
-import { EntityValidatorService } from './entity-validator.service';
+import { EntityValidatorService } from './entity.validator';
 
 // @ts-ignore
 const logger = getLogger();

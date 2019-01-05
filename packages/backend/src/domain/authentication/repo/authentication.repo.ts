@@ -6,7 +6,7 @@ import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { CachingProviderTokens } from '../../../shared/caching/caching.shared.constants';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { BaseRepo } from '../../core/repo/base.repo';
-import { EntityValidatorService } from '../../core/repo/validators/entity-validator.service';
+import { EntityValidatorService } from '../../core/repo/validators/entity.validator';
 import { AuthenticationProviderTokens } from '../authentication.constants';
 import { AuthenticationEntity } from '../model/authentication.entity';
 import { IAuthenticationModel } from '../model/authentication.model';
