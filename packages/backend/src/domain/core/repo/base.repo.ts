@@ -8,10 +8,7 @@ import { AppError } from '../../../shared/exceptions/app.exception';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { IEntityValidator } from './validators/entity-validator.interface';
 
-export interface IBaseRepoParams<
-  TEntity extends IEntity,
-  TModel extends Document & TEntity,
-> {
+export interface IBaseRepoParams<TEntity extends IEntity, TModel extends Document & TEntity> {
   loggerService: LoggerSharedService;
   model: Model<TModel>;
   cacheStore: CacheStore;
@@ -26,10 +23,7 @@ export interface IBaseRepoParams<
  *  - By default will try to validate that org and user filtering in in place, unless overridden with params
  *  - FindAll can be achieved with find, passing no conditions
  */
-export abstract class BaseRepo<
-  TEntity extends IEntity,
-  TModel extends Document & TEntity
-> {
+export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document & TEntity> {
   private readonly name: string;
   protected readonly loggerService: LoggerSharedService;
   protected readonly model: Model<TModel>;
@@ -56,26 +50,41 @@ export abstract class BaseRepo<
    *
    * @param conditions
    */
-  public async findOne(conditions: Partial<TEntity>, useCache: boolean = true, ttl?: number): Promise<TEntity> {
+  public async findOne(
+    conditions: Partial<TEntity>,
+    options?: { useCache?: boolean; ttl?: number; customValidator?: IEntityValidator<TEntity> },
+  ): Promise<TEntity> {
+    // trace logging
+    this.loggerService.trace(`${this.name}.findOne`, conditions, options);
+
+    // Setup
     let key: string | undefined;
-    this.loggerService.trace(`${this.name}.findOne`, conditions);
+    options = options || {}; // ensure options is not null
+    const validator = options.customValidator || this.entityValidator;
 
-    await this.entityValidator.validate(conditions, [ValidationGroups.QUERY_REQUIRED]);
+    // validation
+    await validator.validate(conditions, [ValidationGroups.QUERY_REQUIRED]);
 
-    if (useCache) {
+    // cache access
+    if (options.useCache) {
       key = CachingUtils.makeCacheKeyFromObject(conditions);
       const cachedResult = await this.cacheStore.get<TEntity>(key);
       if (cachedResult) return cachedResult;
     }
 
-    const result = await this._mongooseFindOne(conditions);
+    // data store access
+    const result = await this._dbFindOne(conditions);
+
+    // validate
     if (result == null) throw new AppError(`Could not find entity ${this.name} with conditions ${conditions}`);
 
-    if (useCache) {
+    // cache population
+    if (options.useCache) {
       // tslint:disable-next-line:no-non-null-assertion
-      this.cacheStore.set(key!, result, { ttl: ttl || this.defaultTTL });
+      this.cacheStore.set(key!, result, { ttl: options.ttl || this.defaultTTL });
     }
 
+    // Return
     return result;
   }
 
@@ -83,25 +92,38 @@ export abstract class BaseRepo<
    *
    * @param conditions
    */
-  public async find(conditions: Partial<TEntity>, useCache: boolean = true, ttl?: number): Promise<TEntity[]> {
+  public async find(
+    conditions: Partial<TEntity>,
+    options?: { useCache?: boolean; ttl?: number; customValidator?: IEntityValidator<TEntity> },
+  ): Promise<TEntity[]> {
+    // trace logging
+    this.loggerService.trace(`${this.name}.find`, conditions, options);
+
+    // setup
     let key: string | undefined;
-    this.loggerService.trace(`${this.name}.find`, conditions);
+    options = options || {}; // ensure options is not null
+    const validator = options.customValidator || this.entityValidator;
 
-    await this.entityValidator.validate(conditions, [ValidationGroups.QUERY_REQUIRED]);
+    // validation
+    await validator.validate(conditions, [ValidationGroups.QUERY_REQUIRED]);
 
-    if (useCache) {
+    // cache access
+    if (options.useCache) {
       key = CachingUtils.makeCacheKeyFromObject(conditions);
       const cachedResult = await this.cacheStore.get<TEntity[]>(key);
       if (cachedResult) return cachedResult;
     }
 
-    const result = await this.model.find(conditions);
+    // data store access
+    const result = await this._dbFind(conditions);
 
-    if (useCache) {
+    // cache population
+    if (options.useCache) {
       // tslint:disable-next-line:no-non-null-assertion
-      this.cacheStore.set(key!, result, { ttl: ttl || this.defaultTTL });
+      this.cacheStore.set(key!, result, { ttl: options.ttl || this.defaultTTL });
     }
 
+    // return
     return result;
   }
 
@@ -109,45 +131,76 @@ export abstract class BaseRepo<
    *
    * @param newEntity
    */
-  public async create(newEntity: TEntity): Promise<TEntity> {
-    this.loggerService.trace(`${this.name}.create`, newEntity);
+  public async create(newEntity: TEntity, options?: { customValidator?: IEntityValidator<TEntity> }): Promise<TEntity> {
+    // trace logging
+    this.loggerService.trace(`${this.name}.create`, newEntity, options);
 
+    // setup
+    options = options || {}; // ensure options is not null
+    const validator = options.customValidator || this.entityValidator;
+
+    // validation
+    validator.validate(newEntity);
+
+    // transfer values to the model
     const createModel: TModel = new this.model();
     Object.assign(createModel, newEntity);
-    return createModel.save();
+
+    // persist
+    return this._dbSave(createModel);
   }
 
   /**
    *
    * @param partialEntity
    */
-  public async patch(patchEntity: Partial<TEntity>): Promise<void> {
-    this.loggerService.trace(`${this.name}.patch`, patchEntity);
+  public async patch(patchEntity: Partial<TEntity>, options?: { customValidator?: IEntityValidator<TEntity> }): Promise<void> {
+    // trace logging
+    this.loggerService.trace(`${this.name}.patch`, patchEntity, options);
 
-    if (!patchEntity.id) throw new AppError(`${this.modelName} id can not be null`);
+    // setup
+    options = options || {}; // ensure options is not null
+    const validator = options.customValidator || this.entityValidator;
 
-    let patchModel = await this.model.findById(patchEntity.id);
-    if (!patchModel) throw new AppError(`No ${this.modelName} found with id ${patchEntity.id}`);
+    // partial validation
+    validator.validate(patchEntity);
 
-    patchModel = _.merge(patchModel, patchEntity);
-    await this.entityValidator.validate(patchModel);
+    // fetch entity
+    let fullModel = await this.model.findById(patchEntity.id);
+    if (!fullModel) throw new AppError(`No ${this.modelName} found with id ${patchEntity.id}`);
 
-    await patchModel.save();
+    // merge values
+    fullModel = _.merge(fullModel, patchEntity);
 
-    this.clearCacheByEntity(patchModel);
+    // full validation
+    await this.entityValidator.validate(fullModel);
+
+    // persist
+    await this._dbSave(fullModel);
+
+    // clear cache
+    this.clearCacheByEntity(fullModel);
   }
 
   /**
    *
    * @param entity
    */
-  public async update(entity: TEntity): Promise<void> {
-    this.loggerService.trace(`${this.name}.update`, entity);
+  public async update(entity: TEntity, options?: { customValidator?: IEntityValidator<TEntity> }): Promise<void> {
+    // trace logging
+    this.loggerService.trace(`${this.name}.update`, entity, options);
 
-    await this.entityValidator.validate(entity);
+    // setup
+    options = options || {}; // ensure options is not null
+    const validator = options.customValidator || this.entityValidator;
 
-    // update. (at some point in the future, consider changing to findOneAndReplace... wasn't in typescript definitions for some reason)
-    await this.model.findByIdAndUpdate(entity.id, entity, {}).exec();
+    // validation
+    await validator.validate(entity);
+
+    // persist. (at some point in the future, consider changing to findOneAndReplace... wasn't in typescript definitions for some reason)
+    await this._dbFindByIdAndUpdate(entity.id, entity);
+
+    // clear cache
     this.clearCacheByEntity(entity);
   }
 
@@ -155,12 +208,21 @@ export abstract class BaseRepo<
    *
    * @param entityId
    */
-  public async delete(conditions: Partial<TEntity>): Promise<void> {
-    this.loggerService.trace(`${this.name}.delete`, conditions);
+  public async delete(conditions: Partial<TEntity>, options?: { customValidator?: IEntityValidator<TEntity> }): Promise<void> {
+    // trace logging
+    this.loggerService.trace(`${this.name}.delete`, conditions, options);
 
-    await this.entityValidator.validate(conditions, [ValidationGroups.QUERY_REQUIRED]);
+    // setup
+    options = options || {}; // ensure options is not null
+    const validator = options.customValidator || this.entityValidator;
 
-    const deletedEntity = await this.model.findOneAndDelete(conditions).exec();
+    // validation
+    await validator.validate(conditions, [ValidationGroups.QUERY_REQUIRED]);
+
+    // persist
+    const deletedEntity = await this._dbFindOneAndDelete(conditions);
+
+    // clear cache
     this.clearCacheByEntity(deletedEntity);
   }
 
@@ -168,16 +230,20 @@ export abstract class BaseRepo<
    *
    * @param cacheKey
    */
-  protected async clearCacheByEntity(entity: TEntity | null) {
-    if (!entity) throw new AppError('entity must not be null to trigger cache clear');
-    await this.entityValidator.validate(entity);
+  protected async clearCacheByEntity(entity: TEntity, options?: { customValidator?: IEntityValidator<TEntity> }) {
+    // setup
+    options = options || {}; // ensure options is not null
+    const validator = options.customValidator || this.entityValidator;
+
+    // validation
+    await validator.validate(entity);
 
     // clear by ID
     this.clearCacheByKey(CachingUtils.makeCacheKeyFromId(entity.id));
 
     // clear by query conditions
-    this.generateValidQueryConditionsForCacheClear(entity).forEach(entity => {
-      this.clearCacheByKey(CachingUtils.makeCacheKeyFromObject(entity));
+    this.generateValidQueryConditionsForCacheClear(entity).forEach(cacheClearEntity => {
+      this.clearCacheByKey(CachingUtils.makeCacheKeyFromObject(cacheClearEntity));
     });
   }
 
@@ -199,7 +265,23 @@ export abstract class BaseRepo<
   //
   // Abstracted Mongoose calls, to allow for easier testing through mocked mongoose calls
   //
-  protected async _mongooseFindOne(conditions: Partial<TEntity>) {
+  protected async _dbFindOne(conditions: Partial<TEntity>) {
     return this.model.findOne(conditions);
+  }
+
+  protected async _dbFind(conditions: Partial<TEntity>) {
+    return this.model.find(conditions);
+  }
+
+  async _dbSave(createModel: TModel) {
+    return createModel.save();
+  }
+
+  protected async _dbFindByIdAndUpdate(id: any, entity: TEntity) {
+    return this.model.findByIdAndUpdate(id, entity, {}).exec();
+  }
+
+  protected async _dbFindOneAndDelete(conditions: Partial<TEntity>) {
+    return this.model.findOneAndDelete(conditions).exec();
   }
 }
