@@ -35,7 +35,7 @@ describe('BaseRepo', () => {
       };
 
       // @ts-ignore
-      jest.spyOn(fooRepo, '_mongooseFindOne').mockImplementation(conditions => {
+      jest.spyOn(fooRepo, '_dbFindOne').mockImplementation(conditions => {
         return fooConditions;
       });
 

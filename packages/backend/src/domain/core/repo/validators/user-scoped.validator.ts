@@ -10,12 +10,14 @@ import { BaseValidator } from './base.validator';
 
 @Injectable()
 export class UserScopedValidator<TEntity extends IEntity> extends BaseValidator<TEntity> {
-  constructor(loggerService: LoggerSharedService) {
-    super(loggerService);
+  constructor(loggerService: LoggerSharedService, entityType: { new (): TEntity }, coalesceType: boolean = true) {
+    super(loggerService, entityType, coalesceType);
   }
 
   public async tryValidate(entity: Partial<TEntity>, validationGroups: string[] = []): Promise<ValidationError[]> {
     const validationErrors: ValidationError[] = [];
+
+    entity = this.prepareEntityForValidation(entity);
 
     if (entity.hasOwnProperty('userId') && !entity['userId']) {
       const error = new ValidationError();

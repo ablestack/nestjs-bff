@@ -1,10 +1,11 @@
 import { UserAndOrgScopedEntity } from '@nestjs-bff/global/lib/entities/core/user-and-org-scoped.entity';
-import { Length } from 'class-validator';
+import { IsDefined, Length } from 'class-validator';
 
 export class FooEntity extends UserAndOrgScopedEntity {
-  @Length(2, 50)
+  @Length(5, 50)
   name?: string;
 
-  @Length(2, 50)
-  slug?: string = undefined;
+  @IsDefined()
+  @Length(2, 20)
+  slug?: string;
 }

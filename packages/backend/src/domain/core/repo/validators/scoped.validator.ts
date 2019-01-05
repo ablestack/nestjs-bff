@@ -17,20 +17,32 @@ export class ScopedValidator<TEntity extends IEntity> extends BaseValidator<TEnt
   private orgScopedValidator: OrgScopedValidator<TEntity>;
   private userScopedValidator: UserScopedValidator<TEntity>;
 
-  constructor(loggerService: LoggerSharedService, private readonly entityType: { new (): TEntity }) {
-    super(loggerService);
+  // @ts-ignore
+  constructor(loggerService: LoggerSharedService, entityType: { new (): TEntity }, coalesceType: boolean = true) {
+    super(loggerService, entityType, coalesceType);
 
-    this.entityValidator = new EntityValidator(loggerService, entityType);
-    this.orgScopedValidator = new OrgScopedValidator(loggerService);
-    this.userScopedValidator = new UserScopedValidator(loggerService);
+    // setup sub-validators
+    this.entityValidator = new EntityValidator(loggerService, entityType, false);
+    this.orgScopedValidator = new OrgScopedValidator(loggerService, entityType, false);
+    this.userScopedValidator = new UserScopedValidator(loggerService, entityType, false);
   }
 
+  /**
+   *
+   *
+   * @param {Partial<TEntity>} entity
+   * @param {string[]} [validationGroups=[]]
+   * @returns {Promise<ValidationError[]>}
+   * @memberof ScopedValidator
+   */
   public async tryValidate(entity: Partial<TEntity>, validationGroups: string[] = []): Promise<ValidationError[]> {
-    const validationErrors: ValidationError[] = [];
+    entity = this.prepareEntityForValidation(entity);
 
-    validationErrors.concat(await this.entityValidator.tryValidate(entity, validationGroups));
-    validationErrors.concat(await this.orgScopedValidator.tryValidate(entity, validationGroups));
-    validationErrors.concat(await this.userScopedValidator.tryValidate(entity, validationGroups));
+    const validationErrors: ValidationError[] = [
+      ...(await this.entityValidator.tryValidate(entity, validationGroups)),
+      ...(await this.orgScopedValidator.tryValidate(entity, validationGroups)),
+      ...(await this.userScopedValidator.tryValidate(entity, validationGroups)),
+    ];
 
     return validationErrors;
   }
