@@ -1,15 +1,15 @@
 import { getLogger } from '../../../../shared/logging/logging.shared.module';
 import { TestingUtils } from '../../../../shared/utils/testing.utils';
 import { FooEntity } from '../../__mocks__/foo/model/foo.entity';
-import { EntityValidatorService } from './entity.validator';
+import { ScopedValidator } from './scoped.validator';
 
 // @ts-ignore
 const logger = getLogger();
 
-describe('GIVEN EntityValidator', () => {
+describe('GIVEN ScopedValidator', () => {
   describe('validateEntity', () => {
     describe('UserAndOrgScopedEntityConditions', () => {
-      const entityValidator = new EntityValidatorService(logger, FooEntity);
+      const entityValidator = new ScopedValidator(logger, FooEntity);
 
       it('WHEN all required parameters are provided, THEN should pass', async () => {
         const fooConditions = {

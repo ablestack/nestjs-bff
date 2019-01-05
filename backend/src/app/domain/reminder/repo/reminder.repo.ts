@@ -1,5 +1,4 @@
 import { BaseRepo } from '@nestjs-bff/backend/lib/domain/core/repo/base.repo';
-import { EntityValidatorService } from '@nestjs-bff/backend/lib/domain/core/repo/validators/entity-validator.service';
 import { AppSharedProviderTokens } from '@nestjs-bff/backend/lib/shared/app/app.shared.constants';
 import { CacheStore } from '@nestjs-bff/backend/lib/shared/caching/cache-store.shared';
 import { CachingProviderTokens } from '@nestjs-bff/backend/lib/shared/caching/caching.shared.constants';
@@ -19,7 +18,7 @@ export class ReminderRepo extends BaseRepo<ReminderEntity, IReminderModel, Remin
     @Inject(AppSharedProviderTokens.Config.App) appConfig: IAppConfig,
     @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
     @Inject(ReminderProviderTokens.Models.Reminder) model: Model<IReminderModel>,
-    entityValidator: EntityValidatorService<ReminderEntity>,
+    entityValidator: ScopedValidator<ReminderEntity>,
   ) {
     super({
       loggerService,

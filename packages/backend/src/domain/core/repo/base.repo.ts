@@ -6,14 +6,14 @@ import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { CachingUtils } from '../../../shared/caching/caching.utils';
 import { AppError } from '../../../shared/exceptions/app.exception';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
-import { IEntityValidator } from './validators/entity-validator.interface';
+import { IScopedValidator } from './validators/entity-validator.interface';
 
 export interface IBaseRepoParams<TEntity extends IEntity, TModel extends Document & TEntity> {
   loggerService: LoggerSharedService;
   model: Model<TModel>;
   cacheStore: CacheStore;
   defaultTTL: number;
-  entityValidator: IEntityValidator<TEntity>;
+  entityValidator: IScopedValidator<TEntity>;
 }
 
 /**
@@ -30,7 +30,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
   protected readonly cacheStore: CacheStore;
   protected readonly defaultTTL: number;
   public readonly modelName: string;
-  public readonly entityValidator: IEntityValidator<TEntity>;
+  public readonly entityValidator: IScopedValidator<TEntity>;
 
   /**
    *
@@ -52,7 +52,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
    */
   public async findOne(
     conditions: Partial<TEntity>,
-    options?: { useCache?: boolean; ttl?: number; customValidator?: IEntityValidator<TEntity> },
+    options?: { useCache?: boolean; ttl?: number; customValidator?: IScopedValidator<TEntity> },
   ): Promise<TEntity> {
     // trace logging
     this.loggerService.trace(`${this.name}.findOne`, conditions, options);
@@ -94,7 +94,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
    */
   public async find(
     conditions: Partial<TEntity>,
-    options?: { useCache?: boolean; ttl?: number; customValidator?: IEntityValidator<TEntity> },
+    options?: { useCache?: boolean; ttl?: number; customValidator?: IScopedValidator<TEntity> },
   ): Promise<TEntity[]> {
     // trace logging
     this.loggerService.trace(`${this.name}.find`, conditions, options);
@@ -131,7 +131,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
    *
    * @param newEntity
    */
-  public async create(newEntity: TEntity, options?: { customValidator?: IEntityValidator<TEntity> }): Promise<TEntity> {
+  public async create(newEntity: TEntity, options?: { customValidator?: IScopedValidator<TEntity> }): Promise<TEntity> {
     // trace logging
     this.loggerService.trace(`${this.name}.create`, newEntity, options);
 
@@ -154,7 +154,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
    *
    * @param partialEntity
    */
-  public async patch(patchEntity: Partial<TEntity>, options?: { customValidator?: IEntityValidator<TEntity> }): Promise<void> {
+  public async patch(patchEntity: Partial<TEntity>, options?: { customValidator?: IScopedValidator<TEntity> }): Promise<void> {
     // trace logging
     this.loggerService.trace(`${this.name}.patch`, patchEntity, options);
 
@@ -186,7 +186,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
    *
    * @param entity
    */
-  public async update(entity: TEntity, options?: { customValidator?: IEntityValidator<TEntity> }): Promise<void> {
+  public async update(entity: TEntity, options?: { customValidator?: IScopedValidator<TEntity> }): Promise<void> {
     // trace logging
     this.loggerService.trace(`${this.name}.update`, entity, options);
 
@@ -208,7 +208,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
    *
    * @param entityId
    */
-  public async delete(conditions: Partial<TEntity>, options?: { customValidator?: IEntityValidator<TEntity> }): Promise<void> {
+  public async delete(conditions: Partial<TEntity>, options?: { customValidator?: IScopedValidator<TEntity> }): Promise<void> {
     // trace logging
     this.loggerService.trace(`${this.name}.delete`, conditions, options);
 
@@ -230,7 +230,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
    *
    * @param cacheKey
    */
-  protected async clearCacheByEntity(entity: TEntity, options?: { customValidator?: IEntityValidator<TEntity> }) {
+  protected async clearCacheByEntity(entity: TEntity, options?: { customValidator?: IScopedValidator<TEntity> }) {
     // setup
     options = options || {}; // ensure options is not null
     const validator = options.customValidator || this.entityValidator;
