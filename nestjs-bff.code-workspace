@@ -8,6 +8,7 @@
     "prettier.printWidth": 140,
     "cSpell.words": [
       "Repo",
+      "authorizationcheck",
       "mockingoose"
     ],
     "tslint.autoFixOnSave": true

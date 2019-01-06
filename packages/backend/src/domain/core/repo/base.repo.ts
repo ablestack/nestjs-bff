@@ -6,7 +6,7 @@ import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { CachingUtils } from '../../../shared/caching/caching.utils';
 import { AppError } from '../../../shared/exceptions/app.exception';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
-import { IEntityValidator } from './validators/entity-validator.interface';
+import { IEntityValidator } from '../validators/entity-validator.interface';
 
 export interface IBaseRepoParams<TEntity extends IEntity, TModel extends Document & TEntity> {
   loggerService: LoggerSharedService;

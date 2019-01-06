@@ -1,7 +1,7 @@
 import { IEntity } from '@nestjs-bff/global/lib/interfaces/entity.interface';
 import { Injectable } from '@nestjs/common';
 import { ValidationError } from 'class-validator';
-import { LoggerSharedService } from '../../../../shared/logging/logger.shared.service';
+import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { BaseValidator } from './base.validator';
 import { EntityValidator } from './entity.validator';
 import { OrgScopedValidator } from './org-scoped.validator';

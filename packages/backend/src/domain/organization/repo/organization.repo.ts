@@ -7,7 +7,7 @@ import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { CachingProviderTokens } from '../../../shared/caching/caching.shared.constants';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { BaseRepo } from '../../core/repo/base.repo';
-import { ScopedValidator } from '../../core/repo/validators/scoped.validator';
+import { ScopedValidator } from '../../core/validators/scoped.validator';
 import { IOrganizationModel } from '../model/organization.model';
 import { OrganizationProviderTokens } from '../organization.constants';
 

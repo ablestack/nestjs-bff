@@ -1,7 +1,7 @@
 import { Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
-import { AuthorizationCheck } from './authorizationcheck.abstract';
+import { IUserCredentials } from '@nestjs-bff/global/lib/interfaces/credentials.interface';
+import { AuthorizationCheck } from './authorizationcheck';
 import { hasRole } from './authorizationcheck.utils';
-import { IAuthorizationCheckData } from './authorizationcheckData.interface';
 
 export class CheckRole extends AuthorizationCheck {
   constructor(private readonly qualifyingRole: string) {
@@ -12,9 +12,9 @@ export class CheckRole extends AuthorizationCheck {
     }
   }
 
-  public async isAuthorized(data: IAuthorizationCheckData): Promise<boolean> {
-    if (!data.requestingEntity) throw Error('No authenticatedEntity found');
+  public async isAuthorized(credentials: IUserCredentials, dataToCheck: any): Promise<boolean> {
+    if (!credentials) throw Error('No authentication credentials found');
 
-    return hasRole(data.requestingEntity, this.qualifyingRole);
+    return hasRole(credentials, this.qualifyingRole);
   }
 }

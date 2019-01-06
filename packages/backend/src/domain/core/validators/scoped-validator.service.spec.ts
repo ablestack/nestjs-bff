@@ -1,7 +1,7 @@
-import { getLogger } from '../../../../shared/logging/logging.shared.module';
-import { TestingUtils } from '../../../../shared/utils/testing.utils';
-import { FooEntity } from '../../__mocks__/foo/model/foo.entity';
-import { EntityValidator } from './entity.validator';
+import { getLogger } from '../../../shared/logging/logging.shared.module';
+import { TestingUtils } from '../../../shared/utils/testing.utils';
+import { FooEntity } from '../__mocks__/foo/model/foo.entity';
+import { ScopedValidator } from './scoped.validator';
 
 // @ts-ignore
 const logger = getLogger();
@@ -9,13 +9,13 @@ const logger = getLogger();
 describe('GIVEN ScopedValidator', () => {
   describe('validateEntity', () => {
     describe('UserAndOrgScopedEntityConditions', () => {
-      const entityValidator = new EntityValidator(logger, FooEntity);
+      const entityValidator = new ScopedValidator(logger, FooEntity);
 
       it('WHEN all required parameters are provided, THEN should pass', async () => {
         const fooConditions = {
+          slug: 'fooman',
           orgId: TestingUtils.generateMongoObjectIdString(),
           userId: TestingUtils.generateMongoObjectIdString(),
-          slug: 'fooman',
         };
 
         let error: any;
@@ -29,11 +29,10 @@ describe('GIVEN ScopedValidator', () => {
         expect(error).toBeUndefined();
       });
 
-      it('WHEN slug is missing THEN should throw error', async () => {
+      it('WHEN orgId missing THEN should throw error', async () => {
         const fooConditions = {
-          orgId: TestingUtils.generateMongoObjectIdString(),
+          slug: 'fooman',
           userId: TestingUtils.generateMongoObjectIdString(),
-          name: 'mr fooman',
         };
 
         let error: any;
@@ -46,12 +45,10 @@ describe('GIVEN ScopedValidator', () => {
         expect(error).not.toBeUndefined();
       });
 
-      it('WHEN name is less than 5 characters THEN should throw error', async () => {
+      it('WHEN userId missing THEN should throw error', async () => {
         const fooConditions = {
-          orgId: TestingUtils.generateMongoObjectIdString(),
-          userId: TestingUtils.generateMongoObjectIdString(),
-          name: 'foo',
           slug: 'fooman',
+          orgId: TestingUtils.generateMongoObjectIdString(),
         };
 
         let error: any;
@@ -62,23 +59,6 @@ describe('GIVEN ScopedValidator', () => {
         }
 
         expect(error).not.toBeUndefined();
-      });
-
-      it('WHEN userId and orgId are undefined THEN should still pass', async () => {
-        const fooConditions = {
-          slug: 'fooman',
-          userId: undefined,
-        };
-
-        let error: any;
-        try {
-          await entityValidator.validate(fooConditions);
-        } catch (e) {
-          error = e;
-          // logger.debug('error', { error, innerErrors: error.metaData.errors });
-        }
-
-        expect(error).toBeUndefined();
       });
     });
   });

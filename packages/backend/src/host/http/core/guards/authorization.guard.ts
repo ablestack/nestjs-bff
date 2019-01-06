@@ -2,7 +2,7 @@ import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorizati
 import { CanActivate, ExecutionContext, Inject, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { INestjsBffConfig } from '../../../../config/nestjs-bff.config';
-import { AuthorizationCheck } from '../../../../domain/authorization/authorizationchecks/authorizationcheck.abstract';
+import { AuthorizationCheck } from '../../../../domain/core/authorizationchecks/authorizationcheck';
 import { OrganizationRepo } from '../../../../domain/organization/repo/organization.repo';
 import { AppSharedProviderTokens } from '../../../../shared/app/app.shared.constants';
 import { CacheStore } from '../../../../shared/caching/cache-store.shared';

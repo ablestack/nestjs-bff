@@ -2,8 +2,8 @@ import { IEntity } from '@nestjs-bff/global/lib/interfaces/entity.interface';
 import { Injectable } from '@nestjs/common';
 import { ValidationError } from 'class-validator';
 import * as _ from 'lodash';
-import { AppError } from '../../../../shared/exceptions/app.exception';
-import { LoggerSharedService } from '../../../../shared/logging/logger.shared.service';
+import { AppError } from '../../../shared/exceptions/app.exception';
+import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { IEntityValidator } from './entity-validator.interface';
 
 @Injectable()
