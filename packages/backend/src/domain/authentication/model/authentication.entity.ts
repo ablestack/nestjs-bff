@@ -1,30 +1,60 @@
 import { BaseEntity } from '@nestjs-bff/global/lib/entities/core/base.entity';
-import { IsMongoId } from 'class-validator';
+import { IsEmail, IsMongoId, IsString, ValidateNested } from 'class-validator';
 
-export class AuthenticationEntity extends BaseEntity {  
+export class AuthenticationEntity extends BaseEntity {
   @IsMongoId()
   userId?: string;
 
-  local?: {
-    email?: string;
-    hashedPassword?: string;
-  };
+  @ValidateNested()
+  local?: Local;
 
-  google?: {
-    id?: string;
-    email?: string;
-    name?: string;
-  };
+  @ValidateNested()
+  google?: Google;
 
-  facebook?: {
-    id?: string;
-    name?: string;
-    email?: string;
-  };
+  @ValidateNested()
+  facebook?: Facebook;
 
-  twitter?: {
-    id?: string;
-    displayName?: string;
-    username?: string;
-  };
+  @ValidateNested()
+  twitter?: Twitter;
+}
+
+class Local {
+  @IsEmail()
+  email?: string;
+
+  @IsString()
+  hashedPassword?: string;
+}
+
+class Google {
+  @IsString()
+  id?: string;
+
+  @IsEmail()
+  email?: string;
+
+  @IsString()
+  name?: string;
+}
+
+class Facebook {
+  @IsString()
+  id?: string;
+
+  @IsString()
+  name?: string;
+
+  @IsEmail()
+  email?: string;
+}
+
+class Twitter {
+  @IsString()
+  id?: string;
+
+  @IsString()
+  displayName?: string;
+
+  @IsEmail()
+  username?: string;
 }
