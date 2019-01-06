@@ -166,7 +166,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     validator.validate(patchEntity);
 
     // fetch entity
-    let fullModel = await this.model.findById(patchEntity.id);
+    let fullModel = await this._dbfindById(patchEntity.id);
     if (!fullModel) throw new AppError(`No ${this.modelName} found with id ${patchEntity.id}`);
 
     // merge values
@@ -275,6 +275,10 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
 
   async _dbSave(createModel: TModel) {
     return createModel.save();
+  }
+
+  protected async _dbFindById(id: any) {
+    return this.model.findById(id);
   }
 
   protected async _dbFindByIdAndUpdate(id: any, entity: TEntity) {

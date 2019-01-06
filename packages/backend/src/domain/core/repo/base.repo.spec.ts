@@ -31,6 +31,12 @@ describe('GIVEN a Repo', () => {
   // -------------------------------------------
   //
 
+  // FindOne Tests
+
+  //
+  // -------------------------------------------
+  //
+
   describe('WHEN findOne is called with an org scoped and user-scoped Repo', () => {
     it(`WITH valid conditions 
         THEN an entity should be returned`, async () => {
@@ -128,6 +134,8 @@ describe('GIVEN a Repo', () => {
   //
   // -------------------------------------------
   //
+
+  // Find Tests
 
   //
   // -------------------------------------------
@@ -231,6 +239,69 @@ describe('GIVEN a Repo', () => {
     expect(result).toBe(fooResult);
   });
 });
+
+//
+// -------------------------------------------
+//
+
+// Patch Tests
+
+//
+// -------------------------------------------
+//
+
+describe('WHEN Patch is called with an org scoped and user-scoped Repo', () => {
+  it(`WITHOUT an orgId 
+      THEN an error should be thrown`, async () => {
+    let error;
+    let result;
+
+    const fooResult = [
+      {
+        id: TestingUtils.generateMongoObjectIdString(),
+        slug: 'fooman',
+        userId: TestingUtils.generateMongoObjectIdString(),
+      },
+    ];
+
+    // @ts-ignore
+    jest.spyOn(fooRepo, '_dbFind').mockImplementation(conditions => {
+      return fooResult;
+    });
+
+    try {
+      result = await fooRepo.find({
+        id: '507f191e810c19729de860ea',
+        userId: fooResult[0].userId,
+      });
+    } catch (e) {
+      error = e;
+    }
+
+    expect(error).not.toBeUndefined();
+    expect(result).not.toBe(fooResult);
+  });
+});
+
+//
+// -------------------------------------------
+//
+
+// Update Tests
+
+//
+// -------------------------------------------
+//
+
+//
+// -------------------------------------------
+//
+
+// Delete Tests
+
+//
+// -------------------------------------------
+//
 
 //
 // Unused Snippets
