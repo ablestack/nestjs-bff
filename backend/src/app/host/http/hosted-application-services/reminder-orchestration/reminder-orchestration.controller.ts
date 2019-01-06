@@ -1,4 +1,4 @@
-import { CheckUserParam } from '@nestjs-bff/backend/lib/domain/core/authorizationchecks/check-user-param.authorizationcheck';
+import { UserAuthCheck } from '@nestjs-bff/backend/lib/domain/core/authchecks/user.authcheck';
 import { Authorization } from '@nestjs-bff/backend/lib/host/http/core/decorators/authorization.decorator';
 import { Body, Controller, Post, Req } from '@nestjs/common';
 import { ReminderOrchestrationService } from '../../../../application/reminder-orchestration/reminder-orchestration.service';
@@ -9,7 +9,7 @@ export class ReminderOrchestrationController {
   constructor(private readonly reminderOrchestrationService: ReminderOrchestrationService) {}
 
   @Post(':userId/sendReminderToArchive')
-  @Authorization([new CheckUserParam()])
+  @Authorization([new UserAuthCheck()])
   public async sendReminderToArchive(@Req() req, @Body() cmd: SendReminderToArchiveCommand) {
     this.reminderOrchestrationService.sendReminderToArchive(cmd);
   }

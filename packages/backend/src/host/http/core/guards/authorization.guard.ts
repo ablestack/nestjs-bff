@@ -2,7 +2,7 @@ import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorizati
 import { CanActivate, ExecutionContext, Inject, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { INestjsBffConfig } from '../../../../config/nestjs-bff.config';
-import { AuthorizationCheck } from '../../../../domain/core/authorizationchecks/authorizationcheck';
+import { AuthCheckContract } from '../../../../domain/core/authchecks/authcheck.contract';
 import { OrganizationRepo } from '../../../../domain/organization/repo/organization.repo';
 import { AppSharedProviderTokens } from '../../../../shared/app/app.shared.constants';
 import { CacheStore } from '../../../../shared/caching/cache-store.shared';
@@ -15,9 +15,9 @@ import { getReqMetadataLite } from '../utils/core.utils';
  *
  *
  * @summary
- *  Checks authorization against a configured authorizationcheck
- *  Defaults false: no authorizationcheck found means no authorization
- *  Looks for authorizationcheck from handler - first on handler method, then on controller
+ *  Checks authorization against a configured authcheck
+ *  Defaults false: no authcheck found means no authorization
+ *  Looks for authcheck from handler - first on handler method, then on controller
  *
  * @export
  * @class ResourceGuard
@@ -67,10 +67,10 @@ export class AuthorizationGuard implements CanActivate {
       // get key date for auth tests
       const orgId: string | undefined = await this.getOrgIdFromSlug(req.params['organizationSlug']);
       const userId: string | undefined = req.params['userId'];
-      const authorizationchecks = await this.getauthorizationchecksFromCache(context);
+      const authchecks = await this.getauthchecksFromCache(context);
 
-      // Default false. No authorizationcheck configured, not authorization
-      if (!authorizationchecks || authorizationchecks.length === 0) {
+      // Default false. No authcheck configured, not authorization
+      if (!authchecks || authchecks.length === 0) {
         this.logger.warn('Request not authorized', {
           request: getReqMetadataLite(req),
           authorization,
@@ -79,15 +79,15 @@ export class AuthorizationGuard implements CanActivate {
       }
 
       // run tests
-      for (const authorizationcheck of authorizationchecks) {
+      for (const authcheck of authchecks) {
         if (
-          !(await authorizationcheck.isAuthorized({
+          !(await authcheck.isAuthorized({
             requestingEntity: authorization,
             orgIdForTargetResource: orgId,
             userIdForTargetResource: userId,
           }))
         ) {
-          this.logger.warn(`authorizationcheck failed for authorizationcheck ${authorizationcheck.constructor.name}`, {
+          this.logger.warn(`authcheck failed for authcheck ${authcheck.constructor.name}`, {
             authorization,
             orgId,
             userId,
@@ -97,7 +97,7 @@ export class AuthorizationGuard implements CanActivate {
       }
 
       // if we made it here we passed all the tests.  return true
-      this.logger.debug(`authorizationcheck passed`, {
+      this.logger.debug(`authcheck passed`, {
         authorization,
         orgId,
       });
@@ -133,22 +133,22 @@ export class AuthorizationGuard implements CanActivate {
     return organization.id;
   }
 
-  private async getauthorizationchecksFromCache(context: ExecutionContext): Promise<AuthorizationCheck[]> {
-    const authorizationcheckCacheKey = `AuthorizationGuard-authorizationcheck?class=${context.getClass()}&handler=${context.getHandler()})`;
+  private async getauthchecksFromCache(context: ExecutionContext): Promise<AuthCheckContract[]> {
+    const authcheckCacheKey = `AuthorizationGuard-authcheck?class=${context.getClass()}&handler=${context.getHandler()})`;
 
-    return this.cacheStore.wrap<AuthorizationCheck | AuthorizationCheck[] | null>(
-      authorizationcheckCacheKey,
-      () => this.getauthorizationcheck(context),
+    return this.cacheStore.wrap<AuthCheckContract | AuthCheckContract[] | null>(
+      authcheckCacheKey,
+      () => this.getauthcheck(context),
       // This configuration does not change dynamically.  Cache for a week
       { ttl: 60 * 60 * 24 * 7 },
     );
   }
 
-  private async getauthorizationcheck(context: ExecutionContext): Promise<AuthorizationCheck[]> {
-    let authorizationchecks = this.reflector.get<AuthorizationCheck[]>('authorization', context.getHandler());
-    if (!authorizationchecks) {
-      authorizationchecks = this.reflector.get<AuthorizationCheck[]>('authorization', context.getClass());
+  private async getauthcheck(context: ExecutionContext): Promise<AuthCheckContract[]> {
+    let authchecks = this.reflector.get<AuthCheckContract[]>('authorization', context.getHandler());
+    if (!authchecks) {
+      authchecks = this.reflector.get<AuthCheckContract[]>('authorization', context.getClass());
     }
-    return authorizationchecks;
+    return authchecks;
   }
 }

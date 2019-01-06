@@ -1,4 +1,4 @@
 import { ReflectMetadata } from '@nestjs/common';
-import { AuthorizationCheck } from '../../../../domain/core/authorizationchecks/authorizationcheck';
+import { AuthCheckContract } from '../../../../domain/core/authchecks/authcheck.contract';
 
-export const Authorization = (authorizationchecks: AuthorizationCheck[]) => ReflectMetadata('authorization', authorizationchecks);
+export const Authorization = (authchecks: AuthCheckContract[]) => ReflectMetadata('authorization', authchecks);

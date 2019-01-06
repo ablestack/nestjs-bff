@@ -1,6 +1,6 @@
 import { IUserCredentials } from '@nestjs-bff/global/lib/interfaces/credentials.interface';
-import { AuthorizationCheck } from './authorizationcheck';
-export abstract class ScopedAuthorizationCheck implements AuthorizationCheck {
+import { AuthCheckContract } from './authcheck.contract';
+export abstract class ScopedAuthCheckContract implements AuthCheckContract {
   abstract isAuthorized(credentials: IUserCredentials, dataToCheck: ScopedData): Promise<boolean>;
 }
 

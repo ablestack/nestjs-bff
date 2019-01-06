@@ -1,8 +1,8 @@
 import { IUserCredentials } from '@nestjs-bff/global/lib/interfaces/credentials.interface';
-import { hasOrganization, isSystemAdmin } from './authorizationcheck.utils';
-import { ScopedAuthorizationCheck, ScopedData } from './scoped-authorizationcheck.interface';
+import { hasOrganization, isSystemAdmin } from './authcheck.utils';
+import { ScopedAuthCheckContract, ScopedData } from './scoped-authcheck.contract';
 
-export class CheckOrgParam implements ScopedAuthorizationCheck {
+export class OrgAuthCheck implements ScopedAuthCheckContract {
   public async isAuthorized(credentials: IUserCredentials, scopedData: ScopedData): Promise<boolean> {
     if (!credentials) throw Error('No authentication credentials found');
     if (!scopedData.orgIdForTargetResource) throw Error('organizationSlugForRequestedResource can not be null');

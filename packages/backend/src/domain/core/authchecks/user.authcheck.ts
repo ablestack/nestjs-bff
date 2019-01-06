@@ -1,9 +1,9 @@
 import { OrganizationRoles } from '@nestjs-bff/global/lib/constants/roles.constants';
 import { IUserCredentials } from '@nestjs-bff/global/lib/interfaces/credentials.interface';
-import { hasOrganizationRole, isSystemAdmin } from './authorizationcheck.utils';
-import { ScopedAuthorizationCheck, ScopedData } from './scoped-authorizationcheck.interface';
+import { hasOrganizationRole, isSystemAdmin } from './authcheck.utils';
+import { ScopedAuthCheckContract, ScopedData } from './scoped-authcheck.contract';
 
-export class CheckUserParam extends ScopedAuthorizationCheck {
+export class UserAuthCheck extends ScopedAuthCheckContract {
   constructor() {
     super();
   }

@@ -1,9 +1,9 @@
 import { Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
 import { IUserCredentials } from '@nestjs-bff/global/lib/interfaces/credentials.interface';
-import { AuthorizationCheck } from './authorizationcheck';
-import { hasRole } from './authorizationcheck.utils';
+import { AuthCheckContract } from './authcheck.contract';
+import { hasRole } from './authcheck.utils';
 
-export class CheckRole extends AuthorizationCheck {
+export class RoleAuthCheck extends AuthCheckContract {
   constructor(private readonly qualifyingRole: string) {
     super();
     // validation
