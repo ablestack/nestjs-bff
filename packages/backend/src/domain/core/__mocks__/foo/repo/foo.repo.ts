@@ -6,7 +6,7 @@ import { CacheStore } from '../../../../../shared/caching/cache-store.shared';
 import { CachingProviderTokens } from '../../../../../shared/caching/caching.shared.constants';
 import { LoggerSharedService } from '../../../../../shared/logging/logger.shared.service';
 import { BaseRepo } from '../../../repo/base.repo';
-import { ScopedValidator } from '../../../repo/validators/scoped.validator';
+import { ScopedValidator } from '../../../validators/scoped.validator';
 import { FooProviderTokens } from '../foo.constants';
 import { FooEntity } from '../model/foo.entity';
 import { IFooModel } from '../model/foo.model';

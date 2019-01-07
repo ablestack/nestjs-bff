@@ -8,7 +8,7 @@ import { UserAuthService } from '../../../application/user-auth/user-auth.servic
 import { INestjsBffConfig } from '../../../config/nestjs-bff.config';
 import { FacebookAuthenticationService } from '../../../domain/authentication/social/facebook-authentication.service';
 import { CheckOrgRoles } from '../../../domain/core/authchecks/org-roles.authcheck';
-import { CheckRole } from '../../../domain/core/authchecks/role.authcheck';
+import { RoleAuthCheck } from '../../../domain/core/authchecks/role.authcheck';
 import { AppSharedProviderTokens } from '../../../shared/app/app.shared.constants';
 import { Authorization } from '../core/decorators/authorization.decorator';
 import { JwtTokenService } from '../core/jwt/jwt-token.service';
@@ -89,7 +89,7 @@ export class AuthController {
   }
 
   @Get('verification/role-protected-group-admin')
-  @Authorization([new CheckRole(Roles.groupAdmin)])
+  @Authorization([new RoleAuthCheck(Roles.groupAdmin)])
   async verificationRoleProtectedGroupAdmin(): Promise<string> {
     return 'hit';
   }

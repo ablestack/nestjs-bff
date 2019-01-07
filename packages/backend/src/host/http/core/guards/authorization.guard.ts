@@ -81,8 +81,7 @@ export class AuthorizationGuard implements CanActivate {
       // run tests
       for (const authcheck of authchecks) {
         if (
-          !(await authcheck.isAuthorized({
-            requestingEntity: authorization,
+          !(await authcheck.isAuthorized(authorization, {
             orgIdForTargetResource: orgId,
             userIdForTargetResource: userId,
           }))
