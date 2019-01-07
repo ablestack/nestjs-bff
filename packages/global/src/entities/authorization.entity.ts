@@ -1,9 +1,9 @@
 import { Roles, OrganizationRoles } from '../constants/roles.constants';
 import { BaseEntity } from './core/base.entity';
 import { IsMongoId, IsArray, ValidateNested, IsBoolean, IsIn } from 'class-validator';
-import { IUserCredentials, IUserOrgCredentials } from '../interfaces/credentials.interface';
+import { UserCredentialsContract, UserOrgCredentialsContract } from '../interfaces/credentials.contract';
 
-export class AuthorizationEntity extends BaseEntity implements IUserCredentials {
+export class AuthorizationEntity extends BaseEntity implements UserCredentialsContract {
   @IsMongoId()
   userId?: string;
 
@@ -15,7 +15,7 @@ export class AuthorizationEntity extends BaseEntity implements IUserCredentials 
   organizations?: OrganizationAuthorization[] = [];
 }
 
-export class OrganizationAuthorization implements IUserOrgCredentials {
+export class OrganizationAuthorization implements UserOrgCredentialsContract {
   @IsBoolean()
   primary?: boolean;
 

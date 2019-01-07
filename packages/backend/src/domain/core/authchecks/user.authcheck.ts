@@ -1,5 +1,5 @@
 import { OrganizationRoles } from '@nestjs-bff/global/lib/constants/roles.constants';
-import { IUserCredentials } from '@nestjs-bff/global/lib/interfaces/credentials.interface';
+import { UserCredentialsContract } from '@nestjs-bff/global/lib/interfaces/credentials.contract';
 import { hasOrganizationRole, isSystemAdmin } from './authcheck.utils';
 import { ScopedAuthCheckContract, ScopedData } from './scoped-authcheck.contract';
 
@@ -8,7 +8,7 @@ export class UserAuthCheck extends ScopedAuthCheckContract {
     super();
   }
 
-  public async isAuthorized(credentials: IUserCredentials, scopedData: ScopedData): Promise<boolean> {
+  public async isAuthorized(credentials: UserCredentialsContract | undefined | null, scopedData: ScopedData): Promise<boolean> {
     if (!credentials) throw Error('No authentication credentials found');
     if (!scopedData.userIdForTargetResource) throw Error('userIdForTargetResource can not be null');
 

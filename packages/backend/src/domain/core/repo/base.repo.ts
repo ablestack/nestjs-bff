@@ -1,11 +1,15 @@
 import { ValidationGroups } from '@nestjs-bff/global/lib/entities/core/core.constants';
+import { UserCredentialsContract } from '@nestjs-bff/global/lib/interfaces/credentials.contract';
 import { IEntity } from '@nestjs-bff/global/lib/interfaces/entity.interface';
 import * as _ from 'lodash';
 import { Document, Model } from 'mongoose';
 import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { CachingUtils } from '../../../shared/caching/caching.utils';
 import { AppError } from '../../../shared/exceptions/app.exception';
+import { UnauthorizedError } from '../../../shared/exceptions/unauthorized.exception';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
+import { EntityAuthCheckContract } from '../authchecks/entity-authcheck.contract';
+import { ScopedEntityAuthCheck } from '../authchecks/scoped-entity.authcheck';
 import { IEntityValidator } from '../validators/entity-validator.interface';
 
 export interface IBaseRepoParams<TEntity extends IEntity, TModel extends Document & TEntity> {
@@ -14,6 +18,7 @@ export interface IBaseRepoParams<TEntity extends IEntity, TModel extends Documen
   cacheStore: CacheStore;
   defaultTTL: number;
   entityValidator: IEntityValidator<TEntity>;
+  entityAuthChecker?: EntityAuthCheckContract;
 }
 
 /**
@@ -31,6 +36,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
   protected readonly defaultTTL: number;
   public readonly modelName: string;
   public readonly entityValidator: IEntityValidator<TEntity>;
+  public readonly entityAuthChecker: EntityAuthCheckContract;
 
   /**
    *
@@ -44,6 +50,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     this.cacheStore = params.cacheStore;
     this.defaultTTL = params.defaultTTL;
     this.entityValidator = params.entityValidator;
+    this.entityAuthChecker = params.entityAuthChecker || new ScopedEntityAuthCheck();
   }
 
   /**
@@ -52,7 +59,13 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
    */
   public async findOne(
     conditions: Partial<TEntity>,
-    options?: { useCache?: boolean; ttl?: number; customValidator?: IEntityValidator<TEntity> },
+    options?: {
+      authorization?: UserCredentialsContract;
+      skipAuthorization?: boolean;
+      useCache?: boolean;
+      ttl?: number;
+      customValidator?: IEntityValidator<TEntity>;
+    },
   ): Promise<TEntity> {
     // trace logging
     this.loggerService.trace(`${this.name}.findOne`, conditions, options);
@@ -84,6 +97,11 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
       this.cacheStore.set(key!, result, { ttl: options.ttl || this.defaultTTL });
     }
 
+    // authorization checks
+    if (!options.skipAuthorization && result && !this.entityAuthChecker.isAuthorized(options.authorization, result)) {
+      throw new UnauthorizedError(`Not Authorized`);
+    }
+
     // Return
     return result;
   }
@@ -94,7 +112,13 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
    */
   public async find(
     conditions: Partial<TEntity>,
-    options?: { useCache?: boolean; ttl?: number; customValidator?: IEntityValidator<TEntity> },
+    options?: {
+      authorization?: UserCredentialsContract;
+      skipAuthorization?: boolean;
+      useCache?: boolean;
+      ttl?: number;
+      customValidator?: IEntityValidator<TEntity>;
+    },
   ): Promise<TEntity[]> {
     // trace logging
     this.loggerService.trace(`${this.name}.find`, conditions, options);
@@ -123,6 +147,16 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
       this.cacheStore.set(key!, result, { ttl: options.ttl || this.defaultTTL });
     }
 
+    // authorization checks
+    if (!options.skipAuthorization && result) {
+      result.forEach(entity => {
+        // tslint:disable-next-line:no-non-null-assertion
+        if (!this.entityAuthChecker.isAuthorized(options!.authorization, entity)) {
+          throw new UnauthorizedError(`Not Authorized`);
+        }
+      });
+    }
+
     // return
     return result;
   }
@@ -131,7 +165,10 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
    *
    * @param newEntity
    */
-  public async create(newEntity: TEntity, options?: { customValidator?: IEntityValidator<TEntity> }): Promise<TEntity> {
+  public async create(
+    newEntity: TEntity,
+    options?: { authorization?: UserCredentialsContract; skipAuthorization?: boolean; customValidator?: IEntityValidator<TEntity> },
+  ): Promise<TEntity> {
     // trace logging
     this.loggerService.trace(`${this.name}.create`, newEntity, options);
 
@@ -141,6 +178,11 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
 
     // validation
     validator.validate(newEntity);
+
+    // authorization checks
+    if (!options.skipAuthorization && newEntity && !this.entityAuthChecker.isAuthorized(options.authorization, newEntity)) {
+      throw new UnauthorizedError(`Not Authorized`);
+    }
 
     // transfer values to the model
     const createModel: TModel = new this.model();
@@ -154,7 +196,10 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
    *
    * @param partialEntity
    */
-  public async patch(patchEntity: Partial<TEntity>, options?: { customValidator?: IEntityValidator<TEntity> }): Promise<void> {
+  public async patch(
+    patchEntity: Partial<TEntity>,
+    options?: { authorization?: UserCredentialsContract; skipAuthorization?: boolean; customValidator?: IEntityValidator<TEntity> },
+  ): Promise<void> {
     // trace logging
     this.loggerService.trace(`${this.name}.patch`, patchEntity, options);
 
@@ -166,7 +211,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     validator.validate(patchEntity);
 
     // fetch entity
-    let fullModel = await this._dbfindById(patchEntity.id);
+    let fullModel = await this._dbFindById(patchEntity.id);
     if (!fullModel) throw new AppError(`No ${this.modelName} found with id ${patchEntity.id}`);
 
     // merge values
@@ -174,6 +219,11 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
 
     // full validation
     await this.entityValidator.validate(fullModel);
+
+    // authorization checks
+    if (!options.skipAuthorization && fullModel && !this.entityAuthChecker.isAuthorized(options.authorization, fullModel)) {
+      throw new UnauthorizedError(`Not Authorized`);
+    }
 
     // persist
     await this._dbSave(fullModel);
@@ -186,7 +236,10 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
    *
    * @param entity
    */
-  public async update(entity: TEntity, options?: { customValidator?: IEntityValidator<TEntity> }): Promise<void> {
+  public async update(
+    entity: TEntity,
+    options?: { authorization?: UserCredentialsContract; skipAuthorization?: boolean; customValidator?: IEntityValidator<TEntity> },
+  ): Promise<void> {
     // trace logging
     this.loggerService.trace(`${this.name}.update`, entity, options);
 
@@ -198,7 +251,12 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     await validator.validate(entity);
 
     // persist. (at some point in the future, consider changing to findOneAndReplace... wasn't in typescript definitions for some reason)
-    await this._dbFindByIdAndUpdate(entity.id, entity);
+    const model = await this._dbFindById(entity.id);
+
+    // authorization checks
+    if (!options.skipAuthorization && model && !this.entityAuthChecker.isAuthorized(options.authorization, model)) {
+      throw new UnauthorizedError(`Not Authorized`);
+    }
 
     // clear cache
     this.clearCacheByEntity(entity);
@@ -208,22 +266,38 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
    *
    * @param entityId
    */
-  public async delete(conditions: Partial<TEntity>, options?: { customValidator?: IEntityValidator<TEntity> }): Promise<void> {
+  public async delete(
+    conditions: Partial<TEntity>,
+    options?: { authorization?: UserCredentialsContract; skipAuthorization?: boolean; customValidator?: IEntityValidator<TEntity> },
+  ): Promise<TEntity | undefined> {
     // trace logging
     this.loggerService.trace(`${this.name}.delete`, conditions, options);
 
     // setup
+    let deletedEntity;
     options = options || {}; // ensure options is not null
     const validator = options.customValidator || this.entityValidator;
 
     // validation
     await validator.validate(conditions, [ValidationGroups.QUERY_REQUIRED]);
 
-    // persist
-    const deletedEntity = await this._dbFindOneAndDelete(conditions);
+    // retrieve
+    const model = await this._dbFindOne(conditions);
 
-    // clear cache
-    this.clearCacheByEntity(deletedEntity);
+    // authorization checks
+    if (!options.skipAuthorization && model && !this.entityAuthChecker.isAuthorized(options.authorization, model)) {
+      throw new UnauthorizedError(`Not Authorized`);
+    }
+
+    if (model) {
+      // persist
+      deletedEntity = await this._dbRemove(model);
+
+      // clear cache
+      this.clearCacheByEntity(deletedEntity);
+    }
+
+    return deletedEntity;
   }
 
   /**
@@ -266,26 +340,22 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
   // Abstracted Mongoose calls, to allow for easier testing through mocked mongoose calls
   //
   protected async _dbFindOne(conditions: Partial<TEntity>) {
-    return this.model.findOne(conditions);
+    return this.model.findOne(conditions).exec();
   }
 
-  protected async _dbFind(conditions: Partial<TEntity>) {
-    return this.model.find(conditions);
+  protected async _dbFind(conditions: Partial<TEntity>): Promise<TModel[]> {
+    return this.model.find(conditions).exec();
   }
 
-  async _dbSave(createModel: TModel) {
+  protected async _dbSave(createModel: TModel): Promise<TModel> {
     return createModel.save();
   }
 
-  protected async _dbFindById(id: any) {
-    return this.model.findById(id);
+  protected async _dbRemove(deleteModel: TModel): Promise<TModel> {
+    return deleteModel.remove();
   }
 
-  protected async _dbFindByIdAndUpdate(id: any, entity: TEntity) {
-    return this.model.findByIdAndUpdate(id, entity, {}).exec();
-  }
-
-  protected async _dbFindOneAndDelete(conditions: Partial<TEntity>) {
-    return this.model.findOneAndDelete(conditions).exec();
+  protected async _dbFindById(id: any): Promise<TModel | null> {
+    return this.model.findById(id).exec();
   }
 }

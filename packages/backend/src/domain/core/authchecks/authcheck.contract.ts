@@ -1,5 +1,5 @@
-import { IUserCredentials } from '@nestjs-bff/global/lib/interfaces/credentials.interface';
+import { UserCredentialsContract } from '@nestjs-bff/global/lib/interfaces/credentials.contract';
 
 export abstract class AuthCheckContract {
-  abstract isAuthorized(credentials: IUserCredentials, dataToCheck: any): Promise<boolean>;
+  abstract isAuthorized(credentials: UserCredentialsContract, dataToCheck?: any): Promise<boolean>;
 }

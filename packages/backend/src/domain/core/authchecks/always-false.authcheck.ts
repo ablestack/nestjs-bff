@@ -1,4 +1,4 @@
-import { IUserCredentials } from '@nestjs-bff/global/lib/interfaces/credentials.interface';
+import { UserCredentialsContract } from '@nestjs-bff/global/lib/interfaces/credentials.contract';
 import { AuthCheckContract } from './authcheck.contract';
 
 export class AlwaysFalseAuthCheck extends AuthCheckContract {
@@ -7,7 +7,7 @@ export class AlwaysFalseAuthCheck extends AuthCheckContract {
   public static get singleton(): AuthCheckContract {
     return AlwaysFalseAuthCheck._singleton;
   }
-  public async isAuthorized(data: IUserCredentials): Promise<boolean> {
+  public async isAuthorized(credentials: UserCredentialsContract | undefined | null): Promise<boolean> {
     return false;
   }
 }

@@ -1,4 +1,4 @@
-import { IUserCredentials } from '@nestjs-bff/global/lib/interfaces/credentials.interface';
+import { UserCredentialsContract } from '@nestjs-bff/global/lib/interfaces/credentials.contract';
 import { IEntity } from '@nestjs-bff/global/lib/interfaces/entity.interface';
 import { AuthCheckContract } from './authcheck.contract';
 import { OrgAuthCheck } from './org.authcheck';
@@ -12,7 +12,7 @@ export class ScopedEntityAuthCheck implements AuthCheckContract {
   private orgAuthCheck = new OrgAuthCheck();
   private userAuthCheck = new UserAuthCheck();
 
-  public async isAuthorized(credentials: IUserCredentials, entity: IEntity): Promise<boolean> {
+  public async isAuthorized(credentials: UserCredentialsContract | undefined | null, entity: IEntity): Promise<boolean> {
     const scopedData = new ScopedData();
 
     scopedData.userIdForTargetResource = entity['userId'];
