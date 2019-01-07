@@ -6,7 +6,7 @@ import { EntityValidator } from './entity.validator';
 // @ts-ignore
 const logger = getLogger();
 
-describe('GIVEN ScopedValidator', () => {
+describe('GIVEN EntityValidator', () => {
   describe('validateEntity', () => {
     describe('UserAndOrgScopedEntityConditions', () => {
       const entityValidator = new EntityValidator(logger, FooEntity);

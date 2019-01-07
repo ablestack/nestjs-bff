@@ -9,7 +9,6 @@ import { IAppConfig } from '../../../../config/app.config';
 import { ReminderArchiveEntity } from '../../../global/entities/reminder-archive.entity';
 import { IReminderArchiveModel } from '../model/reminder-archive.model';
 import { ReminderArchiveProviderTokens } from '../reminder-archive.constants';
-import { ReminderArchiveEntity } from './reminder-archive-query-conditions';
 
 @Injectable()
 export class ReminderArchiveRepo extends BaseRepo<ReminderArchiveEntity, IReminderArchiveModel, ReminderArchiveEntity> {
@@ -18,7 +17,7 @@ export class ReminderArchiveRepo extends BaseRepo<ReminderArchiveEntity, IRemind
     @Inject(AppSharedProviderTokens.Config.App) appConfig: IAppConfig,
     @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
     @Inject(ReminderArchiveProviderTokens.Models.ReminderArchive) model: Model<IReminderArchiveModel>,
-    entityValidator: ScopedValidator<ReminderArchiveEntity>,
+    entityValidator: EntityValidator<ReminderArchiveEntity>,
   ) {
     super({
       loggerService,

@@ -7,7 +7,7 @@ import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { CachingProviderTokens } from '../../../shared/caching/caching.shared.constants';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { BaseRepo } from '../../core/repo/base.repo';
-import { ScopedValidator } from '../../core/validators/scoped.validator';
+import { EntityValidator } from '../../core/validators/entity.validator';
 import { AuthorizationProviderTokens } from '../authorization.constants';
 import { IAuthorizationModel } from '../model/authorization.model';
 
@@ -24,7 +24,7 @@ export class AuthorizationRepo extends BaseRepo<AuthorizationEntity, IAuthorizat
       model,
       cacheStore,
       defaultTTL: nestjsBffConfig.caching.entities.authorization,
-      entityValidator: new ScopedValidator(loggerService, AuthorizationEntity),
+      entityValidator: new EntityValidator(loggerService, AuthorizationEntity),
     });
   }
 

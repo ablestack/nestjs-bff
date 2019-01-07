@@ -18,7 +18,7 @@ export class ReminderRepo extends BaseRepo<ReminderEntity, IReminderModel, Remin
     @Inject(AppSharedProviderTokens.Config.App) appConfig: IAppConfig,
     @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
     @Inject(ReminderProviderTokens.Models.Reminder) model: Model<IReminderModel>,
-    entityValidator: ScopedValidator<ReminderEntity>,
+    entityValidator: EntityValidator<ReminderEntity>,
   ) {
     super({
       loggerService,

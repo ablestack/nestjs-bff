@@ -7,7 +7,7 @@ import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { CachingProviderTokens } from '../../../shared/caching/caching.shared.constants';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { BaseRepo } from '../../core/repo/base.repo';
-import { ScopedValidator } from '../../core/validators/scoped.validator';
+import { EntityValidator } from '../../core/validators/entity.validator';
 import { IUserModel } from '../model/user.model';
 import { UserProviderTokens } from '../user.constants';
 
@@ -23,7 +23,7 @@ export class UserRepo extends BaseRepo<UserEntity, IUserModel> {
       loggerService,
       model,
       cacheStore,
-      entityValidator: new ScopedValidator(loggerService, UserEntity),
+      entityValidator: new EntityValidator(loggerService, UserEntity),
       defaultTTL: nestjsBffConfig.caching.entities.user,
     });
   }
