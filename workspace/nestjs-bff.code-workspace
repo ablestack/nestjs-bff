@@ -1,0 +1,33 @@
+{
+  "folders": [
+    {
+      "path": "..\\backend"
+    },
+    {
+      "path": "..\\cli"
+    },
+    {
+      "path": "..\\devops"
+    },
+    {
+      "path": "..\\docs"
+    },
+    {
+      "path": "..\\frontend"
+    },
+    {
+      "path": "..\\packages\\pkg-backend"
+    },
+    {
+      "path": "..\\packages\\pkg-frontend"
+    },
+    {
+      "path": "..\\packages\\pkg-global"
+    }
+  ],
+  "settings": {
+    "prettier.printWidth": 140,
+    "cSpell.words": ["Repo", "authorizationcheck", "mockingoose", "Injectable", "autosync", "backend", "nestjs", "virtuals"],
+    "tslint.autoFixOnSave": true
+  }
+}
