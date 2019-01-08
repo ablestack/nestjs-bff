@@ -1,15 +1,47 @@
 {
+  "cSpell.userWords": [
+    "Injectable",
+    "chartjs",
+    "firebase",
+    "nestjs",
+    "reactstrap",
+    "redbox",
+    "superset",
+    "tsnode",
+    "workspaces",
+    "signin",
+    "signup"
+  ],
+  "typescript.updateImportsOnFileMove.enabled": "prompt",
+  "typescript.preferences.importModuleSpecifier": "auto",
+  "tslint.autoFixOnSave": true,
+  "editor.formatOnSave": true,
+  "prettier.singleQuote": true,
+  "prettier.printWidth": 180,
+  "typescript.preferences.quoteStyle": "single",
+  "javascript.preferences.quoteStyle": "single",
   "cSpell.words": [
     "CSRF",
     "Repo",
     "ahrnee",
+    "alwaystrue",
     "appsecret",
     "authorizationcheck",
     "authorizationcheck",
     "backend",
+    "fastify",
+    "formbody",
     "maxfile",
     "maxsize",
-    "signin",
-    "signup"
-  ]
+    "microservices",
+    "prestart",
+    "supersecretpassword",
+    "validators",
+    "webapp",
+    "websockets",
+    "winstonlogger"
+  ],
+  "html.format.wrapLineLength": 180,
+  "debug.node.autoAttach": "off",
+  "jest.pathToConfig": "jest.json"
 }

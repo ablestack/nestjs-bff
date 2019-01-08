@@ -59,7 +59,7 @@
       "args": [
         "${relativeFile}",
         "--config",
-        "${workspaceRoot}/jest.json",
+        "${workspaceRoot}\\jest.json",
         "--runInBand",
         "--no-cache",
         "--detectOpenHandles",

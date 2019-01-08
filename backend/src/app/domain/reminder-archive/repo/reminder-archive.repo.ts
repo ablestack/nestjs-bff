@@ -3,10 +3,10 @@ import { AppSharedProviderTokens } from '@nestjs-bff/backend/lib/shared/app/app.
 import { CacheStore } from '@nestjs-bff/backend/lib/shared/caching/cache-store.shared';
 import { CachingProviderTokens } from '@nestjs-bff/backend/lib/shared/caching/caching.shared.constants';
 import { LoggerSharedService } from '@nestjs-bff/backend/lib/shared/logging/logger.shared.service';
+import { ReminderArchiveEntity } from '@nestjs-bff/global/entities/reminder-archive.entity';
 import { Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { IAppConfig } from '../../../../config/app.config';
-import { ReminderArchiveEntity } from '../../../global/entities/reminder-archive.entity';
 import { IReminderArchiveModel } from '../model/reminder-archive.model';
 import { ReminderArchiveProviderTokens } from '../reminder-archive.constants';
 

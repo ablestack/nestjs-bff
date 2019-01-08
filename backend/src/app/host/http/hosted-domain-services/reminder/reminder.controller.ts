@@ -1,8 +1,8 @@
 import { OrgAuthCheck } from '@nestjs-bff/backend/lib/domain/core/authchecks/org.authcheck';
 import { Authorization } from '@nestjs-bff/backend/lib/host/http/core/decorators/authorization.decorator';
+import { ReminderEntity } from '@nestjs-bff/global/entities/reminder.entity';
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
 import { ReminderRepo } from '../../../../domain/reminder/repo/reminder.repo';
-import { ReminderEntity } from '../../../../global/entities/reminder.entity';
 
 /*
   Domain Service Hosted Endpoints are RESTful, with the following best-practice structure

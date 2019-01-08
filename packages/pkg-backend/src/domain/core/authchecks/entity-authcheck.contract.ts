@@ -1,5 +1,5 @@
+import { UserCredentialsContract } from '@nestjs-bff/global/lib/interfaces/credentials.contract';
 import { IEntity } from '@nestjs-bff/global/lib/interfaces/entity.interface';
-import { UserCredentialsContract } from '../../../../../global/lib/interfaces/credentials.contract';
 import { AuthCheckContract } from './authcheck.contract';
 
 export abstract class EntityAuthCheckContract implements AuthCheckContract {

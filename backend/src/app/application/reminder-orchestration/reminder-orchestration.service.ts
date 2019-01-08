@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ReminderArchiveRepo } from '../../domain/reminder-archive/repo/reminder-archive.repo';
 import { ReminderRepo } from '../../domain/reminder/repo/reminder.repo';
-import { SendReminderToArchiveCommand } from '../../global/commands/send-reminder-to-archive.command';
+import { SendReminderToArchiveCommand } from '@nestjs-bff/global/commands/send-reminder-to-archive.command';
 
 @Injectable()
 export class ReminderOrchestrationService {

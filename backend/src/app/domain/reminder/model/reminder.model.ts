@@ -1,4 +1,4 @@
+import { ReminderEntity } from '@nestjs-bff/global/entities/reminder.entity';
 import { Document } from 'mongoose';
-import { ReminderEntity } from '../../../global/entities/reminder.entity';
 
 export interface IReminderModel extends ReminderEntity, Document {}
