@@ -1,4 +1,3 @@
-import { ValidationGroups } from '@nestjs-bff/global/lib/entities/core/core.constants';
 import { UserCredentialsContract } from '@nestjs-bff/global/lib/interfaces/credentials.contract';
 import { IEntity } from '@nestjs-bff/global/lib/interfaces/entity.interface';
 import * as _ from 'lodash';
@@ -64,7 +63,6 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
       skipAuthorization?: boolean;
       skipCache?: boolean;
       ttl?: number;
-      customValidator?: IEntityValidator<TEntity>;
     },
   ): Promise<TEntity> {
     // trace logging
@@ -76,10 +74,6 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     let cachedResult: TEntity | null | undefined;
 
     options = options || {}; // ensure options is not null
-    const validator = options.customValidator || this.entityValidator;
-
-    // validation
-    await validator.validate(conditions, [ValidationGroups.QUERY_REQUIRED]);
 
     // cache access
     if (!options.skipCache === true) {
@@ -123,7 +117,6 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
       skipAuthorization?: boolean;
       skipCache?: boolean;
       ttl?: number;
-      customValidator?: IEntityValidator<TEntity>;
     },
   ): Promise<TEntity[]> {
     // trace logging
@@ -134,10 +127,6 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     let result: TEntity[] | null;
     let cachedResult: TEntity[] | null | undefined;
     options = options || {}; // ensure options is not null
-    const validator = options.customValidator || this.entityValidator;
-
-    // validation
-    await validator.validate(conditions, [ValidationGroups.QUERY_REQUIRED]);
 
     // cache access
     if (!options.skipCache === true) {
@@ -276,20 +265,13 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
    *
    * @param entityId
    */
-  public async delete(
-    conditions: Partial<TEntity>,
-    options?: { authorization?: UserCredentialsContract; skipAuthorization?: boolean; customValidator?: IEntityValidator<TEntity> },
-  ): Promise<TEntity | undefined> {
+  public async delete(conditions: Partial<TEntity>, options?: { authorization?: UserCredentialsContract; skipAuthorization?: boolean }): Promise<TEntity | undefined> {
     // trace logging
     this.loggerService.trace(`${this.name}.delete`, conditions, options);
 
     // setup
     let deletedEntity;
     options = options || {}; // ensure options is not null
-    const validator = options.customValidator || this.entityValidator;
-
-    // validation
-    await validator.validate(conditions, [ValidationGroups.QUERY_REQUIRED]);
 
     // retrieve
     const model = await this._dbFindOne(conditions);
