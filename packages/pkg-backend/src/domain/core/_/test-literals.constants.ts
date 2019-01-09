@@ -63,24 +63,24 @@ export const TestUserLiterals = {
 };
 
 export const TestFooEntityLiterals = {
-  Fa_Ua1Oa: {
+  FE_Ua1Oa: {
     id: TestingUtils.generateMongoObjectIdString(),
-    name: 'Fooman Ua1Oa',
-    slug: 'foo-ua1oa',
+    name: 'Foo Entity Ua1Oa',
+    slug: 'fe-ua1oa',
     orgId: TestOrgLiterals.Oa.id,
     userId: TestUserLiterals.Ua1.id,
   },
-  Fa_Ua2Oa: {
+  FE_Ua2Oa: {
     id: TestingUtils.generateMongoObjectIdString(),
-    name: 'Fooman Ua2Oa',
-    slug: 'foo-ua2oa',
+    name: 'Foo Entity Ua2Oa',
+    slug: 'fe-ua2oa',
     orgId: TestOrgLiterals.Oa.id,
     userId: TestUserLiterals.Ua2.id,
   },
-  Fa_Ub1Ob: {
+  FE_Ub1Ob: {
     id: TestingUtils.generateMongoObjectIdString(),
-    name: 'Fooman Ub1Ob',
-    slug: 'foo-ub1ob',
+    name: 'Foo Entity Ub1Ob',
+    slug: 'fe-ub1ob',
     orgId: TestOrgLiterals.Ob.id,
     userId: TestUserLiterals.Ub1.id,
   },

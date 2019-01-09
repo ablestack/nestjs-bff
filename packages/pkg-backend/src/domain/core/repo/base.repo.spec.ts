@@ -1,4 +1,5 @@
 import * as cacheManager from 'cache-manager';
+import _ = require('lodash');
 import * as mongoose from 'mongoose';
 import { NestjsBffConfig } from '../../../config/nestjs-bff.config';
 import { CacheStore } from '../../../shared/caching/cache-store.shared';
@@ -59,17 +60,17 @@ describe('GIVEN a Repo', () => {
 
       // @ts-ignore
       jest.spyOn(fooRepo, '_dbFindOne').mockImplementation(conditions => {
-        return TestFooEntityLiterals.Fa_Ua2Oa;
+        return TestFooEntityLiterals.FE_Ua2Oa;
       });
 
       try {
-        result = await fooRepo.findOne({ id: TestFooEntityLiterals.Fa_Ua2Oa.id }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        result = await fooRepo.findOne({ id: TestFooEntityLiterals.FE_Ua2Oa.id }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
       } catch (e) {
         error = e;
       }
 
       expect(error).toBeUndefined();
-      expect(result).toBe(TestFooEntityLiterals.Fa_Ua2Oa);
+      expect(result).toEqual(TestFooEntityLiterals.FE_Ua2Oa);
     });
 
     //
@@ -88,13 +89,13 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        result = await fooRepo.findOne({ id: TestFooEntityLiterals.Fa_Ua2Oa.id }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        result = await fooRepo.findOne({ id: TestFooEntityLiterals.FE_Ua2Oa.id }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
       } catch (e) {
         error = e;
       }
 
       expect(error).not.toBeUndefined();
-      expect(result).not.toBe(TestFooEntityLiterals.Fa_Ua2Oa);
+      expect(result).not.toEqual(TestFooEntityLiterals.FE_Ua2Oa);
     });
 
     //
@@ -108,19 +109,19 @@ describe('GIVEN a Repo', () => {
 
       // @ts-ignore
       jest.spyOn(fooRepo, '_dbFindOne').mockImplementation(conditions => {
-        return TestFooEntityLiterals.Fa_Ua2Oa;
+        return TestFooEntityLiterals.FE_Ua2Oa;
       });
 
       try {
         result = await fooRepo.findOne({
-          id: TestFooEntityLiterals.Fa_Ua2Oa.id,
+          id: TestFooEntityLiterals.FE_Ua2Oa.id,
         });
       } catch (e) {
         error = e;
       }
 
       expect(error).not.toBeUndefined();
-      expect(result).not.toBe(TestFooEntityLiterals.Fa_Ua2Oa);
+      expect(result).not.toEqual(TestFooEntityLiterals.FE_Ua2Oa);
     });
 
     //
@@ -135,13 +136,13 @@ describe('GIVEN a Repo', () => {
 
       // @ts-ignore
       jest.spyOn(fooRepo, '_dbFindOne').mockImplementation(conditions => {
-        return TestFooEntityLiterals.Fa_Ua2Oa;
+        return TestFooEntityLiterals.FE_Ua2Oa;
       });
 
       try {
         result = await fooRepo.findOne(
           {
-            id: TestFooEntityLiterals.Fa_Ua2Oa.id,
+            id: TestFooEntityLiterals.FE_Ua2Oa.id,
           },
           { skipAuthorization: true },
         );
@@ -150,7 +151,7 @@ describe('GIVEN a Repo', () => {
       }
 
       expect(error).toBeUndefined();
-      expect(result).toBe(TestFooEntityLiterals.Fa_Ua2Oa);
+      expect(result).toEqual(TestFooEntityLiterals.FE_Ua2Oa);
     });
   });
 
@@ -166,12 +167,12 @@ describe('GIVEN a Repo', () => {
 
       // @ts-ignore
       const spyDbFindOne = jest.spyOn(fooRepo, '_dbFindOne').mockImplementation(conditions => {
-        return TestFooEntityLiterals.Fa_Ua2Oa;
+        return TestFooEntityLiterals.FE_Ua2Oa;
       });
 
       try {
-        await fooRepo.findOne({ id: TestFooEntityLiterals.Fa_Ua2Oa.id }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
-        await fooRepo.findOne({ id: TestFooEntityLiterals.Fa_Ua2Oa.id }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        await fooRepo.findOne({ id: TestFooEntityLiterals.FE_Ua2Oa.id }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        await fooRepo.findOne({ id: TestFooEntityLiterals.FE_Ua2Oa.id }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
       } catch (e) {
         error = e;
       }
@@ -191,12 +192,12 @@ describe('GIVEN a Repo', () => {
 
       // @ts-ignore
       const spyDbFindOne = jest.spyOn(fooRepo, '_dbFindOne').mockImplementation(conditions => {
-        return TestFooEntityLiterals.Fa_Ua2Oa;
+        return TestFooEntityLiterals.FE_Ua2Oa;
       });
 
       try {
-        await fooRepo.findOne({ id: TestFooEntityLiterals.Fa_Ua2Oa.id }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember, skipCache: true });
-        await fooRepo.findOne({ id: TestFooEntityLiterals.Fa_Ua2Oa.id }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember, skipCache: true });
+        await fooRepo.findOne({ id: TestFooEntityLiterals.FE_Ua2Oa.id }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember, skipCache: true });
+        await fooRepo.findOne({ id: TestFooEntityLiterals.FE_Ua2Oa.id }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember, skipCache: true });
       } catch (e) {
         error = e;
       }
@@ -228,17 +229,17 @@ describe('GIVEN a Repo', () => {
 
       // @ts-ignore
       jest.spyOn(fooRepo, '_dbFind').mockImplementation(conditions => {
-        return [TestFooEntityLiterals.Fa_Ua2Oa];
+        return [TestFooEntityLiterals.FE_Ua2Oa];
       });
 
       try {
-        result = await fooRepo.find({ name: TestFooEntityLiterals.Fa_Ua2Oa.name }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        result = await fooRepo.find({ name: TestFooEntityLiterals.FE_Ua2Oa.name }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
       } catch (e) {
         error = e;
       }
 
       expect(error).toBeUndefined();
-      expect(result).toEqual([TestFooEntityLiterals.Fa_Ua2Oa]);
+      expect(result).toEqual([TestFooEntityLiterals.FE_Ua2Oa]);
     });
 
     //
@@ -257,7 +258,7 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        result = await fooRepo.find({ id: TestFooEntityLiterals.Fa_Ua2Oa.id }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        result = await fooRepo.find({ id: TestFooEntityLiterals.FE_Ua2Oa.id }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
       } catch (e) {
         error = e;
       }
@@ -277,17 +278,17 @@ describe('GIVEN a Repo', () => {
 
       // @ts-ignore
       jest.spyOn(fooRepo, '_dbFind').mockImplementation(conditions => {
-        return [TestFooEntityLiterals.Fa_Ua2Oa];
+        return [TestFooEntityLiterals.FE_Ua2Oa];
       });
 
       try {
-        result = await fooRepo.find({ name: TestFooEntityLiterals.Fa_Ua2Oa.name });
+        result = await fooRepo.find({ name: TestFooEntityLiterals.FE_Ua2Oa.name });
       } catch (e) {
         error = e;
       }
 
       expect(error).not.toBeUndefined();
-      expect(result).not.toEqual([TestFooEntityLiterals.Fa_Ua2Oa]);
+      expect(result).not.toEqual([TestFooEntityLiterals.FE_Ua2Oa]);
     });
 
     //
@@ -302,17 +303,17 @@ describe('GIVEN a Repo', () => {
 
       // @ts-ignore
       jest.spyOn(fooRepo, '_dbFind').mockImplementation(conditions => {
-        return [TestFooEntityLiterals.Fa_Ua2Oa];
+        return [TestFooEntityLiterals.FE_Ua2Oa];
       });
 
       try {
-        result = await fooRepo.find({ name: TestFooEntityLiterals.Fa_Ua2Oa.name }, { skipAuthorization: true });
+        result = await fooRepo.find({ name: TestFooEntityLiterals.FE_Ua2Oa.name }, { skipAuthorization: true });
       } catch (e) {
         error = e;
       }
 
       expect(error).toBeUndefined();
-      expect(result).toEqual([TestFooEntityLiterals.Fa_Ua2Oa]);
+      expect(result).toEqual([TestFooEntityLiterals.FE_Ua2Oa]);
     });
   });
 
@@ -328,12 +329,12 @@ describe('GIVEN a Repo', () => {
 
       // @ts-ignore
       const spyDbFind = jest.spyOn(fooRepo, '_dbFind').mockImplementation(conditions => {
-        return [TestFooEntityLiterals.Fa_Ua2Oa];
+        return [TestFooEntityLiterals.FE_Ua2Oa];
       });
 
       try {
-        await fooRepo.find({ name: TestFooEntityLiterals.Fa_Ua2Oa.name }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
-        await fooRepo.find({ name: TestFooEntityLiterals.Fa_Ua2Oa.name }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        await fooRepo.find({ name: TestFooEntityLiterals.FE_Ua2Oa.name }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        await fooRepo.find({ name: TestFooEntityLiterals.FE_Ua2Oa.name }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
       } catch (e) {
         error = e;
       }
@@ -353,12 +354,12 @@ describe('GIVEN a Repo', () => {
 
       // @ts-ignore
       const spyDbFind = jest.spyOn(fooRepo, '_dbFind').mockImplementation(conditions => {
-        return [TestFooEntityLiterals.Fa_Ua2Oa];
+        return [TestFooEntityLiterals.FE_Ua2Oa];
       });
 
       try {
-        await fooRepo.find({ name: TestFooEntityLiterals.Fa_Ua2Oa.name }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember, skipCache: true });
-        await fooRepo.find({ name: TestFooEntityLiterals.Fa_Ua2Oa.name }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember, skipCache: true });
+        await fooRepo.find({ name: TestFooEntityLiterals.FE_Ua2Oa.name }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember, skipCache: true });
+        await fooRepo.find({ name: TestFooEntityLiterals.FE_Ua2Oa.name }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember, skipCache: true });
       } catch (e) {
         error = e;
       }
@@ -372,15 +373,94 @@ describe('GIVEN a Repo', () => {
   // -------------------------------------------
   //
 
-  //
-  // -------------------------------------------
-  //
-
   // Patch Tests
 
   //
   // -------------------------------------------
   //
+
+  describe('WHEN create is called with an org-scoped and user-scoped Repo', () => {
+    it(`WITH valid authorization 
+        THEN a Foo should be returned`, async () => {
+      let error;
+      let result;
+
+      // @ts-ignore
+      jest.spyOn(fooRepo, '_dbSave').mockImplementation(entity => {
+        return entity;
+      });
+
+      const newFoo = _.clone(TestFooEntityLiterals.FE_Ua2Oa);
+      newFoo.id = '';
+
+      try {
+        result = await fooRepo.create(newFoo, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+      } catch (e) {
+        error = e;
+      }
+
+      // delete id, to prep object for
+      delete newFoo.id;
+      newFoo['_id'] = expect.anything;
+
+      expect(error).toBeUndefined();
+      expect(result).toEqual(expect.objectContaining(newFoo));
+    });
+
+    //
+    // -------------------------------------------
+    //
+
+    it(`WITH no authorization 
+        THEN an error should be thrown`, async () => {
+      let error;
+      let result;
+
+      // @ts-ignore
+      jest.spyOn(fooRepo, '_dbSave').mockImplementation(entity => {
+        return entity;
+      });
+
+      const newFoo = _.clone(TestFooEntityLiterals.FE_Ua2Oa);
+      newFoo.id = '';
+
+      try {
+        result = await fooRepo.create(newFoo);
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error).not.toBeUndefined();
+      expect(result).not.toEqual(TestFooEntityLiterals.FE_Ua2Oa);
+    });
+
+    //
+    // -------------------------------------------
+    //
+
+    it(`WITH invalid authorization 
+        THEN an error should be thrown`, async () => {
+      let error;
+      let result;
+
+      // @ts-ignore
+      jest.spyOn(fooRepo, '_dbSave').mockImplementation(entity => {
+        return entity;
+      });
+
+      const newFoo = _.clone(TestFooEntityLiterals.FE_Ua2Oa);
+      newFoo.id = '';
+
+      try {
+        result = await fooRepo.create(newFoo, { authorization: TestAuthorizationLiterals.Az_Ub1user_ObAdmin });
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error).not.toBeUndefined();
+      expect(result).not.toEqual(TestFooEntityLiterals.FE_Ua2Oa);
+    });
+  });
 
   //
   // -------------------------------------------

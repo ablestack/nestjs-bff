@@ -64,7 +64,7 @@ const _NestjsBffConfig = {
   logging: {
     logDir: 'logs',
     console: {
-      levels: [LogLevels.error, LogLevels.warning, LogLevels.info, LogLevels.debug, LogLevels.trace],
+      levels: [LogLevels.error, LogLevels.warning, LogLevels.info, LogLevels.debug], // omitted: LogLevels.trace
     },
     winston: {
       level: 'info',
