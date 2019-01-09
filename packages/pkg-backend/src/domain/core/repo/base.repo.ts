@@ -98,12 +98,8 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     }
 
     // authorization checks
-    try {
-      if (!options.skipAuthorization && result && (await !this.entityAuthChecker.isAuthorized(options.authorization, result))) {
-        throw new UnauthorizedError(`Not Authorized`);
-      }
-    } catch (e) {
-      console.log(e);
+    if (!options.skipAuthorization && result && !(await this.entityAuthChecker.isAuthorized(options.authorization, result))) {
+      throw new UnauthorizedError(`Not Authorized`);
     }
 
     // Return
@@ -154,7 +150,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     // authorization checks
     if (!options.skipAuthorization && result) {
       for (const entity of result) {
-        if (await !this.entityAuthChecker.isAuthorized(options.authorization, entity)) {
+        if (!(await this.entityAuthChecker.isAuthorized(options.authorization, entity))) {
           throw new UnauthorizedError(`Not Authorized`);
         }
       }
@@ -183,7 +179,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     validator.validate(newEntity);
 
     // authorization checks
-    if (!options.skipAuthorization && newEntity && (await !this.entityAuthChecker.isAuthorized(options.authorization, newEntity))) {
+    if (!options.skipAuthorization && newEntity && !(await this.entityAuthChecker.isAuthorized(options.authorization, newEntity))) {
       throw new UnauthorizedError(`Not Authorized`);
     }
 
@@ -224,7 +220,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     await this.entityValidator.validate(fullModel);
 
     // authorization checks
-    if (!options.skipAuthorization && fullModel && (await !this.entityAuthChecker.isAuthorized(options.authorization, fullModel))) {
+    if (!options.skipAuthorization && fullModel && !(await this.entityAuthChecker.isAuthorized(options.authorization, fullModel))) {
       throw new UnauthorizedError(`Not Authorized`);
     }
 
@@ -257,7 +253,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     const model = await this._dbFindById(entity.id);
 
     // authorization checks
-    if (!options.skipAuthorization && model && (await !this.entityAuthChecker.isAuthorized(options.authorization, model))) {
+    if (!options.skipAuthorization && model && !(await this.entityAuthChecker.isAuthorized(options.authorization, model))) {
       throw new UnauthorizedError(`Not Authorized`);
     }
 
@@ -288,7 +284,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     const model = await this._dbFindOne(conditions);
 
     // authorization checks
-    if (!options.skipAuthorization && model && (await !this.entityAuthChecker.isAuthorized(options.authorization, model))) {
+    if (!options.skipAuthorization && model && !(await this.entityAuthChecker.isAuthorized(options.authorization, model))) {
       throw new UnauthorizedError(`Not Authorized`);
     }
 

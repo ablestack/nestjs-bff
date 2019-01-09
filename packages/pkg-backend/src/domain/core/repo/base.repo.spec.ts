@@ -61,13 +61,11 @@ describe('GIVEN a Repo', () => {
       expect(error).not.toBeUndefined();
       expect(result).not.toBe(TestFooEntityLiterals.Fa_Ua2Oa);
     });
-  });
 
-  //
-  // -------------------------------------------
-  //
+    //
+    // -------------------------------------------
+    //
 
-  describe('WHEN findOne is called with an org-scoped and user-scoped Repo', () => {
     it(`WITH valid authorization 
         THEN a Foo should be returned`, async () => {
       let error;
@@ -79,7 +77,7 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        result = await fooRepo.findOne({ id: TestFooEntityLiterals.Fa_Ua2Oa.id }, { authorization: TestAuthorizationLiterals.AzA_Ua1user_Oa1Admin });
+        result = await fooRepo.findOne({ id: TestFooEntityLiterals.Fa_Ua2Oa.id }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
       } catch (e) {
         error = e;
       }
