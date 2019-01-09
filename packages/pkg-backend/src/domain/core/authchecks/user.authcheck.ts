@@ -21,7 +21,10 @@ export class UserAuthCheck extends ScopedAuthCheckContract {
     // if system admin, then true
     if (isStaffAdmin(credentials)) return true;
 
+    // if doesn't have orgId, can't verify access through org scope.  Return false
+    if (!scopedData.orgIdForTargetResource) return false;
+
     // if org admin, then true
-    return hasOrganizationRole(credentials, scopedData.userIdForTargetResource, [OrganizationRoles.facilitator, OrganizationRoles.admin]);
+    return hasOrganizationRole(credentials, scopedData.orgIdForTargetResource, [OrganizationRoles.facilitator, OrganizationRoles.admin]);
   }
 }

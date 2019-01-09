@@ -90,12 +90,12 @@ export const TestAuthorizationLiterals = {
   Az_Ua1user_OaAdmin: {
     userId: TestUserLiterals.Ua1.id,
     roles: [Roles.user],
-    organizations: [{ primary: true, orgId: TestOrgLiterals.Oa.id, organizationRoles: [OrganizationRoles.member] }],
+    organizations: [{ primary: true, orgId: TestOrgLiterals.Oa.id, organizationRoles: [OrganizationRoles.admin] }],
   },
   Az_Ua2User_OaMember: {
     userId: TestUserLiterals.Ua2.id,
     roles: [Roles.user],
-    organizations: [{ primary: true, orgId: TestOrgLiterals.Oa.id, organizationRoles: [OrganizationRoles.admin] }],
+    organizations: [{ primary: true, orgId: TestOrgLiterals.Oa.id, organizationRoles: [OrganizationRoles.member] }],
   },
   Az_Ub1user_ObAdmin: {
     userId: TestUserLiterals.Ub1.id,
