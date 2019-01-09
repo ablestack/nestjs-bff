@@ -62,7 +62,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     options?: {
       authorization?: UserCredentialsContract;
       skipAuthorization?: boolean;
-      useCache?: boolean;
+      skipCache?: boolean;
       ttl?: number;
       customValidator?: IEntityValidator<TEntity>;
     },
@@ -72,6 +72,9 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
 
     // Setup
     let key: string | undefined;
+    let result: TEntity | null;
+    let cachedResult: TEntity | null | undefined;
+
     options = options || {}; // ensure options is not null
     const validator = options.customValidator || this.entityValidator;
 
@@ -79,20 +82,23 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     await validator.validate(conditions, [ValidationGroups.QUERY_REQUIRED]);
 
     // cache access
-    if (!!options.useCache) {
+    if (!options.skipCache === true) {
       key = CachingUtils.makeCacheKeyFromObject(conditions);
-      const cachedResult = await this.cacheStore.get<TEntity>(key);
-      if (cachedResult) return cachedResult;
+      cachedResult = await this.cacheStore.get<TEntity>(key);
     }
 
-    // data store access
-    const result = await this._dbFindOne(conditions);
+    if (cachedResult) {
+      result = cachedResult;
+    } else {
+      // data store access
+      result = await this._dbFindOne(conditions);
+    }
 
-    // validate
+    // validate not null
     if (result == null) throw new AppError(`Could not find entity ${this.name} with conditions ${conditions}`);
 
     // cache population
-    if (!!options.useCache) {
+    if (!options.skipCache === true && result && !cachedResult) {
       // tslint:disable-next-line:no-non-null-assertion
       this.cacheStore.set(key!, result, { ttl: options.ttl || this.defaultTTL });
     }
@@ -115,7 +121,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     options?: {
       authorization?: UserCredentialsContract;
       skipAuthorization?: boolean;
-      useCache?: boolean;
+      skipCache?: boolean;
       ttl?: number;
       customValidator?: IEntityValidator<TEntity>;
     },
@@ -125,6 +131,8 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
 
     // setup
     let key: string | undefined;
+    let result: TEntity[] | null;
+    let cachedResult: TEntity[] | null | undefined;
     options = options || {}; // ensure options is not null
     const validator = options.customValidator || this.entityValidator;
 
@@ -132,17 +140,20 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     await validator.validate(conditions, [ValidationGroups.QUERY_REQUIRED]);
 
     // cache access
-    if (!!options.useCache) {
+    if (!options.skipCache === true) {
       key = CachingUtils.makeCacheKeyFromObject(conditions);
-      const cachedResult = await this.cacheStore.get<TEntity[]>(key);
-      if (cachedResult) return cachedResult;
+      cachedResult = await this.cacheStore.get<TEntity[]>(key);
     }
 
-    // data store access
-    const result = await this._dbFind(conditions);
+    if (cachedResult) {
+      result = cachedResult;
+    } else {
+      // data store access
+      result = await this._dbFind(conditions);
+    }
 
     // cache population
-    if (!!options.useCache) {
+    if (!options.skipCache === true && result && !cachedResult) {
       // tslint:disable-next-line:no-non-null-assertion
       this.cacheStore.set(key!, result, { ttl: options.ttl || this.defaultTTL });
     }

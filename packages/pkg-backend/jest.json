@@ -6,5 +6,6 @@
   "modulePaths": ["<rootDir>/"],
   "collectCoverageFrom": ["<rootDir>/**/*.{js,jsx,tsx,ts}", "!**/node_modules/**", "!**/vendor/**"],
   "coverageReporters": ["json", "lcov"],
-  "coverageDirectory": "coverage"
+  "coverageDirectory": "coverage",
+  "clearMocks": true
 }

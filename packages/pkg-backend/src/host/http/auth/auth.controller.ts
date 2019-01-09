@@ -32,42 +32,30 @@ export class AuthController {
 
   @Post('public/local/signin')
   async localSignIn(@Body() localAuthenticateCmd: LocalAuthenticateCommand): Promise<IAuthenticationToken> {
-    console.log({ localAuthenticateCmd });
     const authenticationEntity = await this.userAuthenticationService.signInWithLocal(localAuthenticateCmd);
-    console.log({ authenticationEntity });
     return this.jwtTokenService.createToken(authenticationEntity);
   }
 
   @Get('public/facebook/oauth2url/sign-in')
   async getOauth2UrlForFacebookSignIn(): Promise<{ redirectUrl: string }> {
-    return this.authFacebookService.getOauth2RedirectUrl(
-      `${this.nestjsBffConfig.http.spaRootUrl}${this.nestjsBffConfig.social.facebook.callbackRelativeURL_signIn}`,
-    );
+    return this.authFacebookService.getOauth2RedirectUrl(`${this.nestjsBffConfig.http.spaRootUrl}${this.nestjsBffConfig.social.facebook.callbackRelativeURL_signIn}`);
   }
 
   @Get('public/facebook/oauth2url/sign-up')
   async getOauth2UrlForFacebookSignUp(): Promise<{ redirectUrl: string }> {
-    return this.authFacebookService.getOauth2RedirectUrl(
-      `${this.nestjsBffConfig.http.spaRootUrl}${this.nestjsBffConfig.social.facebook.callbackRelativeURL_signUp}`,
-    );
+    return this.authFacebookService.getOauth2RedirectUrl(`${this.nestjsBffConfig.http.spaRootUrl}${this.nestjsBffConfig.social.facebook.callbackRelativeURL_signUp}`);
   }
 
   @Post('public/facebook/signUp')
   async signUpWithFacebook(@Body('fbAuthorizationCode') fbAuthorizationCode: string): Promise<IAuthenticationToken> {
-    const authenticationEntity = await this.userAuthenticationService.signUpWithFacebook(
-      fbAuthorizationCode,
-      this.nestjsBffConfig.http.spaRootUrl,
-    );
+    const authenticationEntity = await this.userAuthenticationService.signUpWithFacebook(fbAuthorizationCode, this.nestjsBffConfig.http.spaRootUrl);
 
     return this.jwtTokenService.createToken(authenticationEntity);
   }
 
   @Post('public/facebook/signin')
   async signInWithFacebook(@Body('fbAuthorizationCode') fbAuthorizationCode: string): Promise<IAuthenticationToken> {
-    const authenticationEntity = await this.userAuthenticationService.signInWithFacebook(
-      fbAuthorizationCode,
-      this.nestjsBffConfig.http.spaRootUrl,
-    );
+    const authenticationEntity = await this.userAuthenticationService.signInWithFacebook(fbAuthorizationCode, this.nestjsBffConfig.http.spaRootUrl);
 
     return this.jwtTokenService.createToken(authenticationEntity);
   }
