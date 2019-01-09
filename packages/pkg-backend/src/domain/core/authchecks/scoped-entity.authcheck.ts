@@ -18,9 +18,9 @@ export class ScopedEntityAuthCheck implements AuthCheckContract {
     scopedData.userIdForTargetResource = entity['userId'];
     scopedData.orgIdForTargetResource = entity['orgId'];
 
-    return (
-      (scopedData.userIdForTargetResource ? this.orgAuthCheck.isAuthorized(credentials, scopedData) : true) &&
-      (scopedData.orgIdForTargetResource ? this.userAuthCheck.isAuthorized(credentials, scopedData) : true)
-    );
+    let result = scopedData.userIdForTargetResource ? await this.orgAuthCheck.isAuthorized(credentials, scopedData) : true;
+    result = result && scopedData.orgIdForTargetResource ? await this.userAuthCheck.isAuthorized(credentials, scopedData) : true;
+
+    return result;
   }
 }

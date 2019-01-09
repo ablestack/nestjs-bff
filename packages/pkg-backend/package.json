@@ -21,7 +21,7 @@
   },
   "scripts": {
     "tsc": "tsc",
-    "test": "jest --config=./src/jest.json",
+    "test": "jest --config=./jest.json",
     "copy:template": "cp -rf 'src/shared/migrations/templates/migrationTemplate.ts' 'lib/shared/migrations/templates/' "
   },
   "publishConfig": {
