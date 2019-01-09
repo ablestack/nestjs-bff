@@ -6,22 +6,32 @@ function hasRole(requestingEntity: AuthorizationEntity, qualifyingRole: string):
 }
 
 function isSystemAdmin(authorization: AuthorizationEntity): boolean {
-  return authorization.roles.includes(Roles.systemAdmin);
+  return authorization.roles.includes(Roles.staffAdmin);
+}
+
+function isStaffAdmin(authorization: AuthorizationEntity): boolean {
+  return authorization.roles.includes(Roles.staffAdmin) || authorization.roles.includes(Roles.systemAdmin);
 }
 
 function hasOrganization(authorization: AuthorizationEntity, organizationIDForResource: string): boolean {
-  return !!authorization.organizations && !!authorization.organizations.find(organizationAuth => {
-    return organizationAuth.orgId === organizationIDForResource;
-  });
+  return (
+    !!authorization.organizations &&
+    !!authorization.organizations.find(organizationAuth => {
+      return organizationAuth.orgId === organizationIDForResource;
+    })
+  );
 }
 
-function hasOrganizationRole(authorization: AuthorizationEntity, organizationIDForResource: string, qualifyingRoles: string[]): boolean {
-  return !!authorization.organizations && !!authorization.organizations.find(organizationAuth => {
-    return (
-      // tslint:disable-next-line:triple-equals
-      organizationAuth.orgId == organizationIDForResource && qualifyingRoles.some(role => organizationAuth.organizationRoles.includes(role))
-    );
-  });
+function hasOrganizationRole(credentials: AuthorizationEntity, organizationIDForResource: string, qualifyingRoles: string[]): boolean {
+  return (
+    !!credentials.organizations &&
+    !!credentials.organizations.find(organizationAuth => {
+      return (
+        // tslint:disable-next-line:triple-equals
+        organizationAuth.orgId == organizationIDForResource && qualifyingRoles.some(role => organizationAuth.organizationRoles.includes(role))
+      );
+    })
+  );
 }
 
-export { hasRole, isSystemAdmin, hasOrganization, hasOrganizationRole };
+export { hasRole, isStaffAdmin, isSystemAdmin, hasOrganization, hasOrganizationRole };

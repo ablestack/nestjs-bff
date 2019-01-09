@@ -1,6 +1,6 @@
 import { UserCredentialsContract } from '@nestjs-bff/global/lib/interfaces/credentials.contract';
 import { AppError } from '../../../shared/exceptions/app.exception';
-import { hasOrganization, isSystemAdmin } from './authcheck.utils';
+import { hasOrganization, isStaffAdmin } from './authcheck.utils';
 import { ScopedAuthCheckContract, ScopedData } from './scoped-authcheck.contract';
 
 export class OrgAuthCheck implements ScopedAuthCheckContract {
@@ -8,7 +8,7 @@ export class OrgAuthCheck implements ScopedAuthCheckContract {
     if (!scopedData.orgIdForTargetResource) throw new AppError('organizationSlugForRequestedResource can not be null');
 
     if (!credentials) return false;
-    if (isSystemAdmin(credentials)) return true;
+    if (isStaffAdmin(credentials)) return true;
     return hasOrganization(credentials, scopedData.orgIdForTargetResource);
   }
 }

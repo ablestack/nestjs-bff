@@ -1,13 +1,12 @@
-import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
 import * as cacheManager from 'cache-manager';
 import * as mongoose from 'mongoose';
 import { NestjsBffConfig } from '../../../config/nestjs-bff.config';
 import { LoggerConsoleSharedService } from '../../../shared/logging/console-logger.shared.service';
 import { getLogger } from '../../../shared/logging/logging.shared.module';
-import { TestingUtils } from '../../../shared/utils/testing.utils';
-import { IFooModel } from '../__mocks__/foo/model/foo.model';
-import { FooSchema } from '../__mocks__/foo/model/foo.schema';
-import { FooRepo } from '../__mocks__/foo/repo/foo.repo';
+import { IFooModel } from '../../_foo/model/foo.model';
+import { FooSchema } from '../../_foo/model/foo.schema';
+import { FooRepo } from '../../_foo/repo/foo.repo';
+import { TestAuthorizationLiterals, TestFooEntityLiterals } from '../_/test-literals.constants';
 
 //
 // Global Scoped Variables Setup
@@ -15,40 +14,6 @@ import { FooRepo } from '../__mocks__/foo/repo/foo.repo';
 
 // @ts-ignore
 const logger = getLogger();
-
-const testOrgs = {
-  orgA: {
-    id: TestingUtils.generateMongoObjectIdString(),
-    name: 'org A',
-    slug: 'org-a',
-  },
-};
-
-const testUsers = {
-  userA1: {
-    id: TestingUtils.generateMongoObjectIdString(),
-    username: 'user A1',
-    displayName: 'user-a1',
-  },
-};
-
-const testEntities = {
-  a1Foo: {
-    id: TestingUtils.generateMongoObjectIdString(),
-    name: 'Fooman Chu',
-    slug: 'foo',
-    orgId: testOrgs.orgA.id,
-    userId: testUsers.userA1.id,
-  },
-};
-
-const testAuthorization = {
-  a1Auth: {
-    userId: testUsers.userA1.id,
-    roles: [Roles.user],
-    organizations: [{ primary: true, orgId: testEntities.a1Foo.orgId, organizationRoles: [OrganizationRoles.member] }],
-  },
-};
 
 describe('GIVEN a Repo', () => {
   let fooRepo: FooRepo;
@@ -82,19 +47,19 @@ describe('GIVEN a Repo', () => {
 
       // @ts-ignore
       jest.spyOn(fooRepo, '_dbFindOne').mockImplementation(conditions => {
-        return testEntities.a1Foo;
+        return TestFooEntityLiterals.Fa_Ua2Oa;
       });
 
       try {
         result = await fooRepo.findOne({
-          id: testEntities.a1Foo.id,
+          id: TestFooEntityLiterals.Fa_Ua2Oa.id,
         });
       } catch (e) {
         error = e;
       }
 
       expect(error).not.toBeUndefined();
-      expect(result).not.toBe(testEntities.a1Foo);
+      expect(result).not.toBe(TestFooEntityLiterals.Fa_Ua2Oa);
     });
   });
 
@@ -110,17 +75,17 @@ describe('GIVEN a Repo', () => {
 
       // @ts-ignore
       jest.spyOn(fooRepo, '_dbFindOne').mockImplementation(conditions => {
-        return testEntities.a1Foo;
+        return TestFooEntityLiterals.Fa_Ua2Oa;
       });
 
       try {
-        result = await fooRepo.findOne({ id: testEntities.a1Foo.id }, { authorization: testAuthorization.a1Auth });
+        result = await fooRepo.findOne({ id: TestFooEntityLiterals.Fa_Ua2Oa.id }, { authorization: TestAuthorizationLiterals.AzA_Ua1user_Oa1Admin });
       } catch (e) {
         error = e;
       }
 
       expect(error).toBeUndefined();
-      expect(result).toBe(testEntities.a1Foo);
+      expect(result).toBe(TestFooEntityLiterals.Fa_Ua2Oa);
     });
   });
 

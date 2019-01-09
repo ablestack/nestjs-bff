@@ -7,5 +7,6 @@ export const Roles = {
 
 export const OrganizationRoles = {
   member: 'member',
+  facilitator: 'facilitator',
   admin: 'admin',
 };

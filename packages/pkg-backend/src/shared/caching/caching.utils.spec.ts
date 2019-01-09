@@ -1,4 +1,4 @@
-import { FooEntity } from '../../domain/core/__mocks__/foo/model/foo.entity';
+import { FooEntity } from '../../domain/_foo/model/foo.entity';
 import { getLogger } from '../logging/logging.shared.module';
 import { TestingUtils } from '../utils/testing.utils';
 import { CachingUtils } from './caching.utils';
