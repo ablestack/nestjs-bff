@@ -380,7 +380,7 @@ describe('GIVEN a Repo', () => {
   //
 
   describe('WHEN create is called with an org-scoped and user-scoped Repo', () => {
-    it(`WITH valid authorization 
+    it.only(`WITH valid authorization 
         THEN a Foo should be returned`, async () => {
       let error;
       let result;
@@ -404,7 +404,7 @@ describe('GIVEN a Repo', () => {
       newFoo['_id'] = expect.anything;
 
       expect(error).toBeUndefined();
-      expect(result).toEqual(expect.objectContaining(newFoo));
+      expect(result).toMatchObject(newFoo);
     });
 
     //
