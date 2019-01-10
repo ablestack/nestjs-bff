@@ -6,6 +6,7 @@ import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { LoggerConsoleSharedService } from '../../../shared/logging/console-logger.shared.service';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { getLogger } from '../../../shared/logging/logging.shared.module';
+import { TestingUtils } from '../../../shared/utils/testing.utils';
 import { IFooModel } from '../../_foo/model/foo.model';
 import { FooSchema } from '../../_foo/model/foo.schema';
 import { FooRepo } from '../../_foo/repo/foo.repo';
@@ -380,7 +381,7 @@ describe('GIVEN a Repo', () => {
   //
 
   describe('WHEN create is called with an org-scoped and user-scoped Repo', () => {
-    it.only(`WITH valid authorization 
+    it(`WITH valid authorization 
         THEN a Foo should be returned`, async () => {
       let error;
       let result;
@@ -399,12 +400,11 @@ describe('GIVEN a Repo', () => {
         error = e;
       }
 
-      // delete id, to prep object for
+      // delete id, to prep object for comparison
       delete newFoo.id;
-      newFoo['_id'] = expect.anything;
 
       expect(error).toBeUndefined();
-      expect(result).toMatchObject(newFoo);
+      expect(TestingUtils.objectIdsToStrings(result)).toMatchObject(newFoo);
     });
 
     //

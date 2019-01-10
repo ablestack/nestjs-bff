@@ -13,4 +13,8 @@ export class TestingUtils {
   public static generateMongoObjectIdString() {
     return new ObjectId().toHexString();
   }
+
+  public static objectIdsToStrings(obj: object): object {
+    return JSON.parse(JSON.stringify(obj));
+  }
 }

@@ -1,39 +1,28 @@
+import { ObjectId } from 'mongodb';
+import { TestingUtils } from '../../../shared/utils/testing.utils';
+
 //
 // Testing Jest capabilities
 //
 
-describe('GIVEN a suite of Jest Tests', () => {
-  it(`WHEN using objectContaining, comparing full props/values
-    THEN should pass`, async () => {
-    expect({ x: 0, y: 0 }).toEqual(
-      expect.objectContaining({
-        x: expect.any(Number),
-        y: expect.any(Number),
-      }),
-    );
-  });
+describe('GIVEN an Object with ObjectId types fields', () => {
+  it(`should match an equivalent object with string fields after stringifying and parsing`, async () => {
+    const o = {
+      _id: new ObjectId('5c36b1295ec9e3fbdc3d1062'),
+      name: 'Foo',
+      orgId: new ObjectId('5c36b1295ec9e3fbdc3d1054'),
+    };
 
-  it(`WHEN using objectContaining, comparing partial props/values
-    THEN should pass`, async () => {
-    expect({ x: 0, y: 0 }).toEqual(
-      expect.objectContaining({
-        x: expect.any(Number),
-      }),
-    );
-  });
+    const objectToMatch = {
+      _id: '5c36b1295ec9e3fbdc3d1062',
+      name: 'Foo',
+      orgId: '5c36b1295ec9e3fbdc3d1054',
+    };
 
-  it(`WHEN using toMatchObject, comparing full props/values
-    THEN should pass`, async () => {
-    expect({ x: 0, y: 0 }).toMatchObject({
-      x: expect.any(Number),
-      y: expect.any(Number),
-    });
-  });
+    // convert ObjectIds to Strings
+    const os = TestingUtils.objectIdsToStrings(o);
 
-  it(`WHEN using toMatchObject, comparing partial props/values
-    THEN should pass`, async () => {
-    expect({ x: 0, y: 0 }).toMatchObject({
-      x: expect.any(Number),
-    });
+    expect(o).not.toMatchObject(objectToMatch);
+    expect(os).toMatchObject(objectToMatch);
   });
 });
