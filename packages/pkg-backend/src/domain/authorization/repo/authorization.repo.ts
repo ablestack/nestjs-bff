@@ -24,7 +24,7 @@ export class AuthorizationRepo extends BaseRepo<AuthorizationEntity, IAuthorizat
       model,
       cacheStore,
       defaultTTL: nestjsBffConfig.caching.entities.authorization,
-      entityValidator: new EntityValidator(loggerService, AuthorizationEntity),
+      entityValidator: new ClassValidator(loggerService, AuthorizationEntity),
     });
   }
 

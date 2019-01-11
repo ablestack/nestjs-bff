@@ -132,10 +132,10 @@ export class AuthorizationGuard implements CanActivate {
     return organization.id;
   }
 
-  private async getauthchecksFromCache(context: ExecutionContext): Promise<AuthCheckContract[]> {
+  private async getauthchecksFromCache(context: ExecutionContext): Promise<Array<AuthCheckContract<any>>> {
     const authcheckCacheKey = `AuthorizationGuard-authcheck?class=${context.getClass()}&handler=${context.getHandler()})`;
 
-    return this.cacheStore.wrap<AuthCheckContract | AuthCheckContract[] | null>(
+    return this.cacheStore.wrap<AuthCheckContract<any> | Array<AuthCheckContract<any>> | null>(
       authcheckCacheKey,
       () => this.getauthcheck(context),
       // This configuration does not change dynamically.  Cache for a week
@@ -143,10 +143,10 @@ export class AuthorizationGuard implements CanActivate {
     );
   }
 
-  private async getauthcheck(context: ExecutionContext): Promise<AuthCheckContract[]> {
-    let authchecks = this.reflector.get<AuthCheckContract[]>('authorization', context.getHandler());
+  private async getauthcheck(context: ExecutionContext): Promise<Array<AuthCheckContract<any>>> {
+    let authchecks = this.reflector.get<Array<AuthCheckContract<any>>>('authorization', context.getHandler());
     if (!authchecks) {
-      authchecks = this.reflector.get<AuthCheckContract[]>('authorization', context.getClass());
+      authchecks = this.reflector.get<Array<AuthCheckContract<any>>>('authorization', context.getClass());
     }
     return authchecks;
   }
