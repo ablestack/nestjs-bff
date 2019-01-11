@@ -68,7 +68,7 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        result = await fooRepo.findOne({ id: TestFooEntityLiterals.FE_Ua2Oa.id }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        result = await fooRepo.findOne({ id: TestFooEntityLiterals.FE_Ua2Oa.id }, { credentials: TestAuthorizationLiterals.Az_Ua2User_OaMember });
       } catch (e) {
         error = e;
       }
@@ -93,7 +93,7 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        result = await fooRepo.findOne({ id: TestFooEntityLiterals.FE_Ua2Oa.id }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        result = await fooRepo.findOne({ id: TestFooEntityLiterals.FE_Ua2Oa.id }, { credentials: TestAuthorizationLiterals.Az_Ua2User_OaMember });
       } catch (e) {
         error = e;
       }
@@ -175,8 +175,8 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        await fooRepo.findOne({ id: TestFooEntityLiterals.FE_Ua2Oa.id }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
-        await fooRepo.findOne({ id: TestFooEntityLiterals.FE_Ua2Oa.id }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        await fooRepo.findOne({ id: TestFooEntityLiterals.FE_Ua2Oa.id }, { credentials: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        await fooRepo.findOne({ id: TestFooEntityLiterals.FE_Ua2Oa.id }, { credentials: TestAuthorizationLiterals.Az_Ua2User_OaMember });
       } catch (e) {
         error = e;
       }
@@ -200,8 +200,8 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        await fooRepo.findOne({ id: TestFooEntityLiterals.FE_Ua2Oa.id }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember, skipCache: true });
-        await fooRepo.findOne({ id: TestFooEntityLiterals.FE_Ua2Oa.id }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember, skipCache: true });
+        await fooRepo.findOne({ id: TestFooEntityLiterals.FE_Ua2Oa.id }, { credentials: TestAuthorizationLiterals.Az_Ua2User_OaMember, skipCache: true });
+        await fooRepo.findOne({ id: TestFooEntityLiterals.FE_Ua2Oa.id }, { credentials: TestAuthorizationLiterals.Az_Ua2User_OaMember, skipCache: true });
       } catch (e) {
         error = e;
       }
@@ -237,7 +237,7 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        result = await fooRepo.find({ name: TestFooEntityLiterals.FE_Ua2Oa.name }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        result = await fooRepo.find({ name: TestFooEntityLiterals.FE_Ua2Oa.name }, { credentials: TestAuthorizationLiterals.Az_Ua2User_OaMember });
       } catch (e) {
         error = e;
       }
@@ -262,7 +262,7 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        result = await fooRepo.find({ id: TestFooEntityLiterals.FE_Ua2Oa.id }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        result = await fooRepo.find({ id: TestFooEntityLiterals.FE_Ua2Oa.id }, { credentials: TestAuthorizationLiterals.Az_Ua2User_OaMember });
       } catch (e) {
         error = e;
       }
@@ -337,8 +337,8 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        await fooRepo.find({ name: TestFooEntityLiterals.FE_Ua2Oa.name }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
-        await fooRepo.find({ name: TestFooEntityLiterals.FE_Ua2Oa.name }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        await fooRepo.find({ name: TestFooEntityLiterals.FE_Ua2Oa.name }, { credentials: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        await fooRepo.find({ name: TestFooEntityLiterals.FE_Ua2Oa.name }, { credentials: TestAuthorizationLiterals.Az_Ua2User_OaMember });
       } catch (e) {
         error = e;
       }
@@ -362,8 +362,8 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        await fooRepo.find({ name: TestFooEntityLiterals.FE_Ua2Oa.name }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember, skipCache: true });
-        await fooRepo.find({ name: TestFooEntityLiterals.FE_Ua2Oa.name }, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember, skipCache: true });
+        await fooRepo.find({ name: TestFooEntityLiterals.FE_Ua2Oa.name }, { credentials: TestAuthorizationLiterals.Az_Ua2User_OaMember, skipCache: true });
+        await fooRepo.find({ name: TestFooEntityLiterals.FE_Ua2Oa.name }, { credentials: TestAuthorizationLiterals.Az_Ua2User_OaMember, skipCache: true });
       } catch (e) {
         error = e;
       }
@@ -398,7 +398,7 @@ describe('GIVEN a Repo', () => {
       newFoo.id = '';
 
       try {
-        result = await fooRepo.create(newFoo, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        result = await fooRepo.create(newFoo, { credentials: TestAuthorizationLiterals.Az_Ua2User_OaMember });
       } catch (e) {
         error = e;
       }
@@ -455,7 +455,7 @@ describe('GIVEN a Repo', () => {
       newFoo.id = '';
 
       try {
-        result = await fooRepo.create(newFoo, { authorization: TestAuthorizationLiterals.Az_Ub1user_ObAdmin });
+        result = await fooRepo.create(newFoo, { credentials: TestAuthorizationLiterals.Az_Ub1user_ObAdmin });
       } catch (e) {
         error = e;
       }
@@ -498,7 +498,7 @@ describe('GIVEN a Repo', () => {
       };
 
       try {
-        result = await fooRepo.patch(patchFoo, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        result = await fooRepo.patch(patchFoo, { credentials: TestAuthorizationLiterals.Az_Ua2User_OaMember });
       } catch (e) {
         error = e;
       }
@@ -574,7 +574,7 @@ describe('GIVEN a Repo', () => {
       };
 
       try {
-        result = await fooRepo.patch(patchFoo, { authorization: TestAuthorizationLiterals.Az_Ub1user_ObAdmin });
+        result = await fooRepo.patch(patchFoo, { credentials: TestAuthorizationLiterals.Az_Ub1user_ObAdmin });
       } catch (e) {
         error = e;
         // logger.debug('patch error', JSON.stringify(error, null, 2));
@@ -610,7 +610,7 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        result = await fooRepo.update(TestFooEntityLiterals.FE_Ua2Oa, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        result = await fooRepo.update(TestFooEntityLiterals.FE_Ua2Oa, { credentials: TestAuthorizationLiterals.Az_Ua2User_OaMember });
       } catch (e) {
         error = e;
       }
@@ -637,7 +637,7 @@ describe('GIVEN a Repo', () => {
       delete fooWithMissingOrgId.orgId;
 
       try {
-        result = await fooRepo.update(fooWithMissingOrgId, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        result = await fooRepo.update(fooWithMissingOrgId, { credentials: TestAuthorizationLiterals.Az_Ua2User_OaMember });
       } catch (e) {
         error = e;
       }
@@ -685,7 +685,7 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        result = await fooRepo.update(TestFooEntityLiterals.FE_Ua2Oa, { authorization: TestAuthorizationLiterals.Az_Ub1user_ObAdmin });
+        result = await fooRepo.update(TestFooEntityLiterals.FE_Ua2Oa, { credentials: TestAuthorizationLiterals.Az_Ub1user_ObAdmin });
       } catch (e) {
         error = e;
       }
@@ -721,7 +721,7 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        result = await fooRepo.delete(TestFooEntityLiterals.FE_Ua2Oa.id, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        result = await fooRepo.delete(TestFooEntityLiterals.FE_Ua2Oa.id, { credentials: TestAuthorizationLiterals.Az_Ua2User_OaMember });
       } catch (e) {
         error = e;
       }
@@ -750,7 +750,7 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        result = await fooRepo.delete(TestFooEntityLiterals.FE_Ua2Oa.id, { authorization: TestAuthorizationLiterals.Az_Uc1GroupAdmin_OcMember_OaFacilitator });
+        result = await fooRepo.delete(TestFooEntityLiterals.FE_Ua2Oa.id, { credentials: TestAuthorizationLiterals.Az_Uc1GroupAdmin_OcMember_OaFacilitator });
       } catch (e) {
         error = e;
       }
@@ -807,7 +807,7 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        result = await fooRepo.delete(TestFooEntityLiterals.FE_Ua2Oa.id, { authorization: TestAuthorizationLiterals.Az_Ub1user_ObAdmin });
+        result = await fooRepo.delete(TestFooEntityLiterals.FE_Ua2Oa.id, { credentials: TestAuthorizationLiterals.Az_Ub1user_ObAdmin });
       } catch (e) {
         error = e;
       }

@@ -2,7 +2,7 @@ import { UserAuthCheck } from '@nestjs-bff/backend/lib/domain/core/authchecks/us
 import { Authorization } from '@nestjs-bff/backend/lib/host/http/core/decorators/authorization.decorator';
 import { Body, Controller, Post, Req } from '@nestjs/common';
 import { ReminderOrchestrationService } from '../../../../application/reminder-orchestration/reminder-orchestration.service';
-import { SendReminderToArchiveCommand } from '@nestjs-bff/global/commands/send-reminder-to-archive.command';
+import { SendReminderToArchiveCommand } from '../../../../global/commands/send-reminder-to-archive.command';
 
 @Controller('/reminder/:organizationSlug')
 export class ReminderOrchestrationController {
