@@ -2,13 +2,13 @@ import { UserCredentialsContract } from '@nestjs-bff/global/lib/interfaces/crede
 import { IEntity } from '@nestjs-bff/global/lib/interfaces/entity.interface';
 import { AuthCheckContract } from './authcheck.contract';
 import { OrgAuthCheck } from './org.authcheck';
-import { ScopedData } from './scoped-authcheck.contract';
+import { ScopedData } from './scoped-data';
 import { UserAuthCheck } from './user.authcheck';
 
 //
 // checks permissions against orgId and userId if these attributes exist on an entity
 //
-export class ScopedEntityAuthCheck implements AuthCheckContract {
+export class ScopedEntityAuthCheck extends AuthCheckContract<IEntity> {
   private orgAuthCheck = new OrgAuthCheck();
   private userAuthCheck = new UserAuthCheck();
 

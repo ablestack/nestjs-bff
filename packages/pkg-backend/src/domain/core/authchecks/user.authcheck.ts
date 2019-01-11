@@ -1,10 +1,11 @@
 import { OrganizationRoles } from '@nestjs-bff/global/lib/constants/roles.constants';
 import { UserCredentialsContract } from '@nestjs-bff/global/lib/interfaces/credentials.contract';
 import { AppError } from '../../../shared/exceptions/app.exception';
+import { AuthCheckContract } from './authcheck.contract';
 import { hasOrganizationRole, isStaffAdmin } from './authcheck.utils';
-import { ScopedAuthCheckContract, ScopedData } from './scoped-authcheck.contract';
+import { ScopedData } from './scoped-data';
 
-export class UserAuthCheck extends ScopedAuthCheckContract {
+export class UserAuthCheck extends AuthCheckContract<ScopedData> {
   constructor() {
     super();
   }

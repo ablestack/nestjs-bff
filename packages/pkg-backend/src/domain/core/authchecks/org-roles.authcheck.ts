@@ -2,10 +2,12 @@ import { UserCredentialsContract } from '@nestjs-bff/global/lib/interfaces/crede
 import { AppError } from '../../../shared/exceptions/app.exception';
 import { AuthCheckContract } from './authcheck.contract';
 import { hasOrganizationRole, isStaffAdmin } from './authcheck.utils';
-import { ScopedData } from './scoped-authcheck.contract';
+import { ScopedData } from './scoped-data';
 
-export class CheckOrgRoles implements AuthCheckContract {
-  constructor(private readonly qualifyingRoles: string[]) {}
+export class CheckOrgRoles extends AuthCheckContract<ScopedData> {
+  constructor(private readonly qualifyingRoles: string[]) {
+    super();
+  }
 
   public async isAuthorized(credentials: UserCredentialsContract | undefined | null, scopedData: ScopedData): Promise<boolean> {
     if (!credentials) throw new AppError('No authentication credentials found');

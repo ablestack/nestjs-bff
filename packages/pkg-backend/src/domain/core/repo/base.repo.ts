@@ -5,9 +5,8 @@ import { Document, Model } from 'mongoose';
 import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { CachingUtils } from '../../../shared/caching/caching.utils';
 import { AppError } from '../../../shared/exceptions/app.exception';
-import { UnauthorizedError } from '../../../shared/exceptions/unauthorized.exception';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
-import { EntityAuthCheckContract } from '../authchecks/entity-authcheck.contract';
+import { AuthCheckContract } from '../authchecks/authcheck.contract';
 import { ScopedEntityAuthCheck } from '../authchecks/scoped-entity.authcheck';
 import { IEntityValidator } from '../validators/entity-validator.interface';
 
@@ -17,7 +16,7 @@ export interface IBaseRepoParams<TEntity extends IEntity, TModel extends Documen
   cacheStore: CacheStore;
   defaultTTL: number;
   entityValidator: IEntityValidator<TEntity>;
-  entityAuthChecker?: EntityAuthCheckContract;
+  entityAuthChecker?: AuthCheckContract<IEntity>;
 }
 
 /**
@@ -35,7 +34,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
   protected readonly defaultTTL: number;
   public readonly modelName: string;
   public readonly entityValidator: IEntityValidator<TEntity>;
-  public readonly entityAuthChecker: EntityAuthCheckContract;
+  public readonly entityAuthChecker: AuthCheckContract<IEntity>;
 
   /**
    *
@@ -98,8 +97,8 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     }
 
     // authorization checks
-    if (!options.skipAuthorization && result && !(await this.entityAuthChecker.isAuthorized(options.authorization, result))) {
-      throw new UnauthorizedError(`Not Authorized`);
+    if (!options.skipAuthorization) {
+      await this.entityAuthChecker.ensureAuthorized(options.authorization, result);
     }
 
     // Return
@@ -150,8 +149,8 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     // authorization checks
     if (!options.skipAuthorization && result) {
       for (const entity of result) {
-        if (!(await this.entityAuthChecker.isAuthorized(options.authorization, entity))) {
-          throw new UnauthorizedError(`Not Authorized`);
+        if (!options.skipAuthorization) {
+          await this.entityAuthChecker.ensureAuthorized(options.authorization, entity);
         }
       }
     }
@@ -179,8 +178,8 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     validator.validate(newEntity);
 
     // authorization checks
-    if (!options.skipAuthorization && newEntity && !(await this.entityAuthChecker.isAuthorized(options.authorization, newEntity))) {
-      throw new UnauthorizedError(`Not Authorized`);
+    if (!options.skipAuthorization) {
+      await this.entityAuthChecker.ensureAuthorized(options.authorization, newEntity);
     }
 
     // transfer values to the model
@@ -198,7 +197,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
   public async patch(
     patchEntity: Partial<TEntity>,
     options?: { authorization?: UserCredentialsContract; skipAuthorization?: boolean; customValidator?: IEntityValidator<TEntity> },
-  ): Promise<void> {
+  ): Promise<TEntity> {
     // trace logging
     this.loggerService.trace(`${this.name}.patch`, patchEntity, options);
 
@@ -220,15 +219,17 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     await this.entityValidator.validate(fullModel);
 
     // authorization checks
-    if (!options.skipAuthorization && fullModel && !(await this.entityAuthChecker.isAuthorized(options.authorization, fullModel))) {
-      throw new UnauthorizedError(`Not Authorized`);
+    if (!options.skipAuthorization) {
+      await this.entityAuthChecker.ensureAuthorized(options.authorization, fullModel);
     }
 
     // persist
-    await this._dbSave(fullModel);
+    const savedFoo = await this._dbSave(fullModel);
 
     // clear cache
     this.clearCacheByEntity(fullModel);
+
+    return savedFoo;
   }
 
   /**
@@ -253,8 +254,8 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     const model = await this._dbFindById(entity.id);
 
     // authorization checks
-    if (!options.skipAuthorization && model && !(await this.entityAuthChecker.isAuthorized(options.authorization, model))) {
-      throw new UnauthorizedError(`Not Authorized`);
+    if (!options.skipAuthorization && model) {
+      await this.entityAuthChecker.ensureAuthorized(options.authorization, model);
     }
 
     // clear cache
@@ -277,8 +278,8 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     const model = await this._dbFindOne(conditions);
 
     // authorization checks
-    if (!options.skipAuthorization && model && !(await this.entityAuthChecker.isAuthorized(options.authorization, model))) {
-      throw new UnauthorizedError(`Not Authorized`);
+    if (!options.skipAuthorization && model) {
+      await this.entityAuthChecker.ensureAuthorized(options.authorization, model);
     }
 
     if (model) {

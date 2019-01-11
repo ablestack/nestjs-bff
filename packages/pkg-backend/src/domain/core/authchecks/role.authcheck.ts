@@ -4,7 +4,7 @@ import { AppError } from '../../../shared/exceptions/app.exception';
 import { AuthCheckContract } from './authcheck.contract';
 import { hasRole } from './authcheck.utils';
 
-export class RoleAuthCheck extends AuthCheckContract {
+export class RoleAuthCheck extends AuthCheckContract<any> {
   constructor(private readonly qualifyingRole: string) {
     super();
     // validation
