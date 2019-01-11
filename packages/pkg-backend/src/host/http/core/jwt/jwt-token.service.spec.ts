@@ -1,5 +1,5 @@
 import { Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
-import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
+import { AuthorizationEntity } from '../../../../domain/authorization/model/authorization.entity';
 import { verify, VerifyOptions } from 'jsonwebtoken';
 import { NestjsBffConfig } from '../../../../config/nestjs-bff.config';
 import { getLogger } from '../../../../shared/logging/logging.shared.module';

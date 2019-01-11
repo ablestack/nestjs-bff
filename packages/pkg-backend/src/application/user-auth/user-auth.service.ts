@@ -2,7 +2,7 @@ import { LocalAuthenticateCommand } from '@nestjs-bff/global/lib/commands/auth/l
 import { LocalRegisterCommand } from '@nestjs-bff/global/lib/commands/auth/local-register.command';
 import { PromoteToGroupAdminCommand } from '@nestjs-bff/global/lib/commands/auth/promote-to-group-admin.command';
 import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
-import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
+import { AuthorizationEntity } from '../../domain/authorization/model/authorization.entity';
 import { Injectable } from '@nestjs/common';
 import { AuthenticationRepo } from '../../domain/authentication/repo/authentication.repo';
 import { FacebookAuthenticationService } from '../../domain/authentication/social/facebook-authentication.service';
@@ -32,14 +32,11 @@ export class UserAuthService {
   public async signInWithLocal(cmd: LocalAuthenticateCommand): Promise<AuthorizationEntity> {
     const authenticationEntity = await this.authenticationRepo.findOne({ local: { email: cmd.username } });
 
-    if (!authenticationEntity) throw new ValidationError(['Your login credentials were not correct']);
+    if (!authenticationEntity) throw new ValidationError(['Your login authorizationScope were not correct']);
     if (!authenticationEntity.local)
-      throw new ValidationError([
-        'Your login credentials were not correct or you do not have an account. Perhaps you registered with social login?',
-      ]);
+      throw new ValidationError(['Your login authorizationScope were not correct or you do not have an account. Perhaps you registered with social login?']);
 
-    if (!validPassword(cmd.password, authenticationEntity.local.hashedPassword))
-      throw new ValidationError(['Your login credentials were not correct']);
+    if (!validPassword(cmd.password, authenticationEntity.local.hashedPassword)) throw new ValidationError(['Your login authorizationScope were not correct']);
 
     const authorizationEntity = await this.authorizationRepo.findOne({ userId: authenticationEntity.userId });
 

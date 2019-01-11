@@ -1,8 +1,8 @@
 import { LocalAuthenticateCommand } from '@nestjs-bff/global/lib/commands/auth/local-authenticate.command';
 import { LocalRegisterCommand } from '@nestjs-bff/global/lib/commands/auth/local-register.command';
 import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
-import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
 import { IAuthenticationToken } from '@nestjs-bff/global/lib/interfaces/authentication-token.interface';
+import { AuthorizationScopeContract } from '@nestjs-bff/global/lib/interfaces/authorization-scope.contract';
 import { Body, Controller, Get, Inject, Post, Req } from '@nestjs/common';
 import { UserAuthService } from '../../../application/user-auth/user-auth.service';
 import { INestjsBffConfig } from '../../../config/nestjs-bff.config';
@@ -12,6 +12,7 @@ import { RoleAuthCheck } from '../../../domain/core/authchecks/role.authcheck';
 import { AppSharedProviderTokens } from '../../../shared/app/app.shared.constants';
 import { Authorization } from '../core/decorators/authorization.decorator';
 import { JwtTokenService } from '../core/jwt/jwt-token.service';
+import { BffRequest } from '../core/types/bff-request.contract';
 
 @Controller('auth')
 export class AuthController {
@@ -61,8 +62,8 @@ export class AuthController {
   }
 
   @Get('authorization')
-  public async getAuthorization(@Req() req): Promise<{ authorization: AuthorizationEntity }> {
-    return { authorization: req.authorization };
+  public async getAuthorization(@Req() req: BffRequest): Promise<{ authorizationScope?: AuthorizationScopeContract }> {
+    return { authorizationScope: req.authorizationScope };
   }
 
   // -- SYSTEM VERIFICATION ENDPOINTS --//

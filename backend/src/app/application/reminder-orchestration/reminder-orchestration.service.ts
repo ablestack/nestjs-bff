@@ -1,4 +1,4 @@
-import { UserCredentialsContract } from '@nestjs-bff/global/lib/interfaces/credentials.contract';
+import { AuthorizationScopeContract } from '@nestjs-bff/global/lib/interfaces/authorization-scope.contract';
 import { Injectable } from '@nestjs/common';
 import { ReminderArchiveRepo } from '../../domain/reminder-archive/repo/reminder-archive.repo';
 import { ReminderRepo } from '../../domain/reminder/repo/reminder.repo';
@@ -10,13 +10,13 @@ export class ReminderOrchestrationService {
 
   public async sendReminderToArchive(
     cmd: SendReminderToArchiveCommand,
-    credentials: UserCredentialsContract,
+    authorizationScope?: AuthorizationScopeContract,
   ): Promise<void> {
     // get reminder
     const reminder = await this.reminderRepo.findOne({ id: cmd.reminderId });
 
     // remove from Reminder data store
-    this.reminderRepo.delete(cmd.reminderId, { credentials });
+    this.reminderRepo.delete(cmd.reminderId, { authorizationScope });
 
     // add to ReminderArchive data store
     this.reminderArchiveRepo.create({

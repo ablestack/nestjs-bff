@@ -1,8 +1,9 @@
 import { OrgAuthCheck } from '@nestjs-bff/backend/lib/domain/core/authchecks/org.authcheck';
 import { Authorization } from '@nestjs-bff/backend/lib/host/http/core/decorators/authorization.decorator';
-import { ReminderEntity } from '@nestjs-bff/global/entities/reminder.entity';
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
+import { BffRequest } from '@nestjs-bff/backend/lib/host/http/core/types/bff-request.contract';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Req } from '@nestjs/common';
 import { ReminderRepo } from '../../../../domain/reminder/repo/reminder.repo';
+import { ReminderEntity } from '../../../../global/entities/reminder.entity';
 
 /*
   Domain Service Hosted Endpoints are RESTful, with the following best-practice structure
@@ -33,7 +34,7 @@ export class ReminderController {
     @Param('userId') userId: string,
     id: string,
   ): Promise<ReminderEntity> {
-    return this.reminderRepo.findOne({ _id: id, orgId, userId });
+    return this.reminderRepo.findOne({ id, orgId, userId });
   }
 
   @Post()
@@ -56,7 +57,7 @@ export class ReminderController {
 
   @Delete()
   @Authorization([new OrgAuthCheck()])
-  public async delete(@Param('orgId') orgId: string, @Param('userId') userId: string, id: string) {
-    return this.reminderRepo.delete({ _id: id, orgId, userId });
+  public async delete(@Req() req: BffRequest, @Param('id') id) {
+    return this.reminderRepo.delete(id, { authorizationScope: req.authorizationScope });
   }
 }

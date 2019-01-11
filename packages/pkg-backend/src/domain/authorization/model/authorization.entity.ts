@@ -1,9 +1,9 @@
-import { Roles, OrganizationRoles } from '../constants/roles.constants';
-import { BaseEntity } from './core/base.entity';
-import { IsMongoId, IsArray, ValidateNested, IsBoolean, IsIn } from 'class-validator';
-import { UserCredentialsContract, UserOrgCredentialsContract } from '../interfaces/credentials.contract';
+import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
+import { BaseEntity } from '@nestjs-bff/global/lib/entities/core/base.entity';
+import { AuthorizationScopeContract, UserOrgCredentialsContract } from '@nestjs-bff/global/lib/interfaces/authorization-scope.contract';
+import { IsArray, IsBoolean, IsIn, IsMongoId, ValidateNested } from 'class-validator';
 
-export class AuthorizationEntity extends BaseEntity implements UserCredentialsContract {
+export class AuthorizationEntity extends BaseEntity implements AuthorizationScopeContract {
   @IsMongoId()
   userId?: string;
 

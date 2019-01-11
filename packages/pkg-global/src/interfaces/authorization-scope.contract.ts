@@ -1,4 +1,4 @@
-export abstract class UserCredentialsContract {
+export abstract class AuthorizationScopeContract {
   userId?: string;
   roles: string[] = [];
   organizations?: UserOrgCredentialsContract[];

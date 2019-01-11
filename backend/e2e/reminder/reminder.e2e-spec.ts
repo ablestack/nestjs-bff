@@ -1,7 +1,7 @@
 import { UserAuthService } from '@nestjs-bff/backend/lib/application/user-auth/user-auth.service';
+import { AuthorizationEntity } from '@nestjs-bff/backend/lib/domain/authorization/model/authorization.entity';
 import { JwtTokenService } from '@nestjs-bff/backend/lib/host/http/core/jwt/jwt-token.service';
 import { getLogger } from '@nestjs-bff/backend/lib/shared/logging/logging.shared.module';
-import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
 import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import 'jest';

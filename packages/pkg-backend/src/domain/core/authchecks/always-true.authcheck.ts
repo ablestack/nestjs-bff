@@ -1,4 +1,4 @@
-import { UserCredentialsContract } from '@nestjs-bff/global/lib/interfaces/credentials.contract';
+import { AuthorizationScopeContract } from '@nestjs-bff/global/lib/interfaces/authorization-scope.contract';
 import { AuthCheckContract } from './authcheck.contract';
 
 export class AlwaysTrueAuthCheck extends AuthCheckContract<any> {
@@ -7,7 +7,7 @@ export class AlwaysTrueAuthCheck extends AuthCheckContract<any> {
     return AlwaysTrueAuthCheck._singleton;
   }
 
-  public async isAuthorized(credentials: UserCredentialsContract | undefined | null): Promise<boolean> {
+  public async isAuthorized(authorizationScope: AuthorizationScopeContract | undefined | null): Promise<boolean> {
     return true;
   }
 }

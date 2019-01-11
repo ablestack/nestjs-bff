@@ -1,5 +1,5 @@
 import { Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
-import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
+import { AuthorizationEntity } from '../../authorization/model/authorization.entity';
 
 function hasRole(requestingEntity: AuthorizationEntity, qualifyingRole: string): boolean {
   return !!requestingEntity.roles && requestingEntity.roles.includes(qualifyingRole);
@@ -22,10 +22,10 @@ function hasOrganization(authorization: AuthorizationEntity, organizationIDForRe
   );
 }
 
-function hasOrganizationRole(credentials: AuthorizationEntity, organizationIDForResource: string, qualifyingRoles: string[]): boolean {
+function hasOrganizationRole(authorizationScope: AuthorizationEntity, organizationIDForResource: string, qualifyingRoles: string[]): boolean {
   return (
-    !!credentials.organizations &&
-    !!credentials.organizations.find(organizationAuth => {
+    !!authorizationScope.organizations &&
+    !!authorizationScope.organizations.find(organizationAuth => {
       return (
         // tslint:disable-next-line:triple-equals
         organizationAuth.orgId == organizationIDForResource && qualifyingRoles.some(role => organizationAuth.organizationRoles.includes(role))

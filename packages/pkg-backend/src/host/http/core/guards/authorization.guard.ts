@@ -1,4 +1,4 @@
-import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
+import { AuthorizationScopeContract } from '@nestjs-bff/global/lib/interfaces/authorization-scope.contract';
 import { CanActivate, ExecutionContext, Inject, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { INestjsBffConfig } from '../../../../config/nestjs-bff.config';
@@ -49,7 +49,7 @@ export class AuthorizationGuard implements CanActivate {
       }
 
       // get authorization from request
-      const authorization = req.authorization as AuthorizationEntity;
+      const authorization = req.authorizationScope as AuthorizationScopeContract;
       if (!authorization) {
         this.logger.warn('Route not public, but no authorization found. ', {
           request: getReqMetadataLite(req),

@@ -29,7 +29,7 @@ describe('GIVEN a ScopedEntityAuthCheck', () => {
 
   describe('WHEN calling isAuthorized', () => {
     it(`WITH Org and User Scoped Entity
-        WITH no credentials 
+        WITH no authorizationScope 
         THEN should return false`, async () => {
       let error;
       let result;
@@ -48,7 +48,7 @@ describe('GIVEN a ScopedEntityAuthCheck', () => {
     // -------------------------------------------
     //
 
-    it(`WITH valid credentials 
+    it(`WITH valid authorizationScope 
         WITH Org and User Scoped Entity
         THEN should return true`, async () => {
       let error;

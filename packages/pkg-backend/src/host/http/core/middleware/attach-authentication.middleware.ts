@@ -81,9 +81,9 @@ export class AttachAuthenticationHttpMiddleware implements NestMiddleware {
     this.bffLoggerService.debug(`Attaching authorization to request`, {
       'req.originalUrl': req.originalUrl,
       authorizationEntity,
-      'org': authorizationEntity.organizations,
+      "org": authorizationEntity.organizations,
     });
-    req.authorization = authorizationEntity;
+    req.authorizationScope = authorizationEntity;
   }
 
   /**
@@ -105,10 +105,7 @@ export class AttachAuthenticationHttpMiddleware implements NestMiddleware {
 
     const parsedAuthHdr = parseAuthHeader(authHdr);
     if (!parsedAuthHdr) {
-      throw new BadRequestHttpError(
-        `Malformed auth header found for request: ${req.originalUrl} with authHdr ${authHdr}`,
-        getReqMetadataLite(req),
-      );
+      throw new BadRequestHttpError(`Malformed auth header found for request: ${req.originalUrl} with authHdr ${authHdr}`, getReqMetadataLite(req));
     }
 
     if (parsedAuthHdr.scheme !== AttachAuthenticationHttpMiddleware.BEARER_AUTH_SCHEME) {

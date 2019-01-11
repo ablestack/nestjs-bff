@@ -1,5 +1,5 @@
 import { OrganizationRoles } from '@nestjs-bff/global/lib/constants/roles.constants';
-import { UserCredentialsContract } from '@nestjs-bff/global/lib/interfaces/credentials.contract';
+import { AuthorizationScopeContract } from '@nestjs-bff/global/lib/interfaces/authorization-scope.contract';
 import { AppError } from '../../../shared/exceptions/app.exception';
 import { AuthCheckContract } from './authcheck.contract';
 import { hasOrganizationRole, isStaffAdmin } from './authcheck.utils';
@@ -10,22 +10,22 @@ export class UserAuthCheck extends AuthCheckContract<ScopedData> {
     super();
   }
 
-  public async isAuthorized(credentials: UserCredentialsContract | undefined | null, scopedData: ScopedData): Promise<boolean> {
+  public async isAuthorized(authorizationScope: AuthorizationScopeContract | undefined | null, scopedData: ScopedData): Promise<boolean> {
     if (!scopedData.userIdForTargetResource) throw new AppError('userIdForTargetResource can not be null');
 
-    if (!credentials) return false;
+    if (!authorizationScope) return false;
 
     // if self, then true
     // tslint:disable-next-line:triple-equals - necessary because requestingEntity.userId is actually an mongoId that evaluates to a string
-    if (credentials.userId == scopedData.userIdForTargetResource) return true;
+    if (authorizationScope.userId == scopedData.userIdForTargetResource) return true;
 
     // if system admin, then true
-    if (isStaffAdmin(credentials)) return true;
+    if (isStaffAdmin(authorizationScope)) return true;
 
     // if doesn't have orgId, can't verify access through org scope.  Return false
     if (!scopedData.orgIdForTargetResource) return false;
 
     // if org admin, then true
-    return hasOrganizationRole(credentials, scopedData.orgIdForTargetResource, [OrganizationRoles.facilitator, OrganizationRoles.admin]);
+    return hasOrganizationRole(authorizationScope, scopedData.orgIdForTargetResource, [OrganizationRoles.facilitator, OrganizationRoles.admin]);
   }
 }

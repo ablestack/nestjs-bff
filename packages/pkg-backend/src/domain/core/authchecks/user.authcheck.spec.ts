@@ -27,7 +27,7 @@ describe('GIVEN a UserAuthCheck', () => {
   //
 
   describe('WHEN calling isAuthorized', () => {
-    it(`WITH no credentials 
+    it(`WITH no authorizationScope 
         THEN should return false`, async () => {
       let error;
       let result;
@@ -48,7 +48,7 @@ describe('GIVEN a UserAuthCheck', () => {
   //
 
   describe('WHEN calling isAuthorized', () => {
-    it(`WITH valid credentials 
+    it(`WITH valid authorizationScope 
         THEN should return true`, async () => {
       let error;
       let result;

@@ -1,8 +1,8 @@
 import { OrganizationOrchestrationService } from '@nestjs-bff/backend/lib/application/organization-orchestration/organization-orchestration.service';
 import { UserAuthService } from '@nestjs-bff/backend/lib/application/user-auth/user-auth.service';
+import { AuthorizationEntity } from '@nestjs-bff/backend/lib/domain/authorization/model/authorization.entity';
 import { JwtTokenService } from '@nestjs-bff/backend/lib/host/http/core/jwt/jwt-token.service';
 import { getLogger } from '@nestjs-bff/backend/lib/shared/logging/logging.shared.module';
-import { AuthorizationEntity } from '@nestjs-bff/global/lib/entities/authorization.entity';
 import { INestApplication } from '@nestjs/common/interfaces';
 import { Test } from '@nestjs/testing';
 import { AuthE2eModule } from '../auth/auth-e2e.module';
@@ -67,6 +67,7 @@ export const setupAuth = async globalConfig => {
   // create domainA regular user
   //
   authData.domainA.regularUser.auth = await organizationAppService.createMember({
+    // @ts-ignore
     orgId: authData.domainA.adminUser.auth.organizations[0].orgId,
     username: userData.domainA.regularUser.username,
     displayName: userData.domainA.regularUser.displayName,
@@ -74,7 +75,7 @@ export const setupAuth = async globalConfig => {
   });
   authData.domainA.regularUser.jwt = await jwtTokenService.createToken(authData.domainA.regularUser.auth);
 
-  // logger.debug(
+  logger.debug(
     'authData.domainA.regularUser -----------------------------------------------------------------',
     authData.domainA.regularUser,
   );
@@ -89,7 +90,7 @@ export const setupAuth = async globalConfig => {
   });
   authData.domainB.adminUser.jwt = await jwtTokenService.createToken(authData.domainB.adminUser.auth);
 
-  // logger.debug(
+  logger.debug(
     'authData.domainB.adminUser ---------------------------------------------------------------------',
     authData.domainB.adminUser,
   );
@@ -103,7 +104,7 @@ export const setupAuth = async globalConfig => {
     password: userData.domainGroupAdmin.groupAdminUser.password,
   });
 
-  // logger.debug(
+  logger.debug(
     'authData.domainGroupAdmin.groupAdminUser (pre-promoted)------------------------------------------',
     authData.domainGroupAdmin.groupAdminUser,
   );
@@ -115,7 +116,7 @@ export const setupAuth = async globalConfig => {
     }),
   );
 
-  // logger.debug(
+  logger.debug(
     'authData.domainGroupAdmin.groupAdminUser (promoted) ----------------------------------------------',
     authData.domainGroupAdmin.groupAdminUser,
   );
