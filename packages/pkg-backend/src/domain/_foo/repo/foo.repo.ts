@@ -6,7 +6,7 @@ import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { CachingProviderTokens } from '../../../shared/caching/caching.shared.constants';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { BaseRepo } from '../../core/repo/base.repo';
-import { EntityValidator } from '../../core/validators/entity.validator';
+import { ClassValidator } from '../../core/validators/class-validator';
 import { FooProviderTokens } from '../foo.constants';
 import { FooEntity } from '../model/foo.entity';
 import { IFooModel } from '../model/foo.model';
@@ -24,7 +24,7 @@ export class FooRepo extends BaseRepo<FooEntity, IFooModel> {
       cacheStore,
       defaultTTL: 60 * 1,
       model,
-      entityValidator: new EntityValidator(loggerService, FooEntity),
+      entityValidator: new ClassValidator(loggerService, FooEntity),
     });
   }
 

@@ -3,7 +3,9 @@ import _ = require('lodash');
 import * as mongoose from 'mongoose';
 import { NestjsBffConfig } from '../../../config/nestjs-bff.config';
 import { CacheStore } from '../../../shared/caching/cache-store.shared';
-import { UnauthorizedError } from '../../../shared/exceptions/unauthorized.exception';
+import { AppError } from '../../../shared/exceptions/app.exception';
+import { AuthorizationError } from '../../../shared/exceptions/authorization.exception';
+import { ValidationError } from '../../../shared/exceptions/validation.exception';
 import { LoggerConsoleSharedService } from '../../../shared/logging/console-logger.shared.service';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { getLogger } from '../../../shared/logging/logging.shared.module';
@@ -96,7 +98,7 @@ describe('GIVEN a Repo', () => {
         error = e;
       }
 
-      expect(error).not.toBeUndefined();
+      expect(error).toBeInstanceOf(AppError);
       expect(result).toBeUndefined();
     });
 
@@ -122,7 +124,7 @@ describe('GIVEN a Repo', () => {
         error = e;
       }
 
-      expect(error).not.toBeUndefined();
+      expect(error).toBeInstanceOf(AuthorizationError);
       expect(result).toBeUndefined();
     });
 
@@ -289,7 +291,7 @@ describe('GIVEN a Repo', () => {
         error = e;
       }
 
-      expect(error).not.toBeUndefined();
+      expect(error).toBeInstanceOf(AuthorizationError);
       expect(result).toBeUndefined();
     });
 
@@ -431,7 +433,7 @@ describe('GIVEN a Repo', () => {
         error = e;
       }
 
-      expect(error).not.toBeUndefined();
+      expect(error).toBeInstanceOf(AuthorizationError);
       expect(result).toBeUndefined();
     });
 
@@ -458,7 +460,7 @@ describe('GIVEN a Repo', () => {
         error = e;
       }
 
-      expect(error).not.toBeUndefined();
+      expect(error).toBeInstanceOf(AuthorizationError);
       expect(result).toBeUndefined();
     });
   });
@@ -542,7 +544,7 @@ describe('GIVEN a Repo', () => {
       const expectedFoo = fooToBeUpdated;
       expectedFoo.name = expectedFoo.name + ' updated';
 
-      expect(error).not.toBeUndefined();
+      expect(error).toBeInstanceOf(AuthorizationError);
       expect(result).toBeUndefined();
     });
 
@@ -575,13 +577,13 @@ describe('GIVEN a Repo', () => {
         result = await fooRepo.patch(patchFoo, { authorization: TestAuthorizationLiterals.Az_Ub1user_ObAdmin });
       } catch (e) {
         error = e;
-        logger.debug('patch error', JSON.stringify(error, null, 2));
+        // logger.debug('patch error', JSON.stringify(error, null, 2));
       }
 
       const expectedFoo = fooToBeUpdated;
       expectedFoo.name = expectedFoo.name + ' updated';
 
-      expect(error).toBeInstanceOf(UnauthorizedError);
+      expect(error).toBeInstanceOf(AuthorizationError);
       expect(result).toBeUndefined();
     });
   });
@@ -601,34 +603,47 @@ describe('GIVEN a Repo', () => {
         THEN a Foo should be returned`, async () => {
       let error;
       let result;
-      const fooToBeUpdated = _.clone(TestFooEntityLiterals.FE_Ua2Oa);
 
       // @ts-ignore
-      jest.spyOn(fooRepo, '_dbFindById').mockImplementation(entityId => {
-        return fooToBeUpdated;
-      });
-
-      // @ts-ignore
-      jest.spyOn(fooRepo, '_dbSave').mockImplementation(entity => {
+      jest.spyOn(fooRepo, '_dbFindOneAndReplace').mockImplementation(entity => {
         return entity;
       });
 
-      const patchFoo = {
-        id: fooToBeUpdated.id,
-        name: fooToBeUpdated.name + ' updated',
-      };
-
       try {
-        result = await fooRepo.patch(patchFoo, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        result = await fooRepo.update(TestFooEntityLiterals.FE_Ua2Oa, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
       } catch (e) {
         error = e;
       }
 
-      const expectedFoo = fooToBeUpdated;
-      expectedFoo.name = expectedFoo.name + ' updated';
-
       expect(error).toBeUndefined();
-      expect(TestingUtils.objectIdsToStrings(result)).toMatchObject(expectedFoo);
+      expect(TestingUtils.objectIdsToStrings(result)).toMatchObject(TestFooEntityLiterals.FE_Ua2Oa);
+    });
+
+    //
+    // -------------------------------------------
+    //
+
+    it(`WITH no orgId 
+        THEN a validation error should be thrown`, async () => {
+      let error;
+      let result;
+
+      // @ts-ignore
+      jest.spyOn(fooRepo, '_dbFindOneAndReplace').mockImplementation(entity => {
+        return entity;
+      });
+
+      const fooWithMissingOrgId = _.clone(TestFooEntityLiterals.FE_Ua2Oa);
+      delete fooWithMissingOrgId.orgId;
+
+      try {
+        result = await fooRepo.update(fooWithMissingOrgId, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error).toBeInstanceOf(ValidationError);
+      expect(result).toBeUndefined();
     });
 
     //
@@ -636,36 +651,22 @@ describe('GIVEN a Repo', () => {
     //
 
     it(`WITH no authorization 
-        THEN an error should be thrown`, async () => {
+        THEN an authorization error should be thrown`, async () => {
       let error;
       let result;
-      const fooToBeUpdated = _.clone(TestFooEntityLiterals.FE_Ua2Oa);
 
       // @ts-ignore
-      jest.spyOn(fooRepo, '_dbFindById').mockImplementation(entityId => {
-        return fooToBeUpdated;
-      });
-
-      // @ts-ignore
-      jest.spyOn(fooRepo, '_dbSave').mockImplementation(entity => {
+      jest.spyOn(fooRepo, '_dbFindOneAndReplace').mockImplementation(entity => {
         return entity;
       });
 
-      const patchFoo = {
-        id: fooToBeUpdated.id,
-        name: fooToBeUpdated.name + ' updated',
-      };
-
       try {
-        result = await fooRepo.patch(patchFoo);
+        result = await fooRepo.update(TestFooEntityLiterals.FE_Ua2Oa);
       } catch (e) {
         error = e;
       }
 
-      const expectedFoo = fooToBeUpdated;
-      expectedFoo.name = expectedFoo.name + ' updated';
-
-      expect(error).not.toBeUndefined();
+      expect(error).toBeInstanceOf(AuthorizationError);
       expect(result).toBeUndefined();
     });
 
@@ -674,37 +675,22 @@ describe('GIVEN a Repo', () => {
     //
 
     it(`WITH invalid authorization 
-        THEN an error should be thrown`, async () => {
+        THEN an authorization error should be thrown`, async () => {
       let error;
       let result;
-      const fooToBeUpdated = _.clone(TestFooEntityLiterals.FE_Ua2Oa);
 
       // @ts-ignore
-      jest.spyOn(fooRepo, '_dbFindById').mockImplementation(entityId => {
-        return fooToBeUpdated;
-      });
-
-      // @ts-ignore
-      jest.spyOn(fooRepo, '_dbSave').mockImplementation(entity => {
+      jest.spyOn(fooRepo, '_dbFindOneAndReplace').mockImplementation(entity => {
         return entity;
       });
 
-      const patchFoo = {
-        id: fooToBeUpdated.id,
-        name: fooToBeUpdated.name + ' updated',
-      };
-
       try {
-        result = await fooRepo.patch(patchFoo, { authorization: TestAuthorizationLiterals.Az_Ub1user_ObAdmin });
+        result = await fooRepo.update(TestFooEntityLiterals.FE_Ua2Oa, { authorization: TestAuthorizationLiterals.Az_Ub1user_ObAdmin });
       } catch (e) {
         error = e;
-        logger.debug('patch error', JSON.stringify(error, null, 2));
       }
 
-      const expectedFoo = fooToBeUpdated;
-      expectedFoo.name = expectedFoo.name + ' updated';
-
-      expect(error).toBeInstanceOf(UnauthorizedError);
+      expect(error).toBeInstanceOf(AuthorizationError);
       expect(result).toBeUndefined();
     });
   });
@@ -718,6 +704,117 @@ describe('GIVEN a Repo', () => {
   //
   // -------------------------------------------
   //
+  describe('WHEN delete is called with an id for an org-scoped and user-scoped Repo', () => {
+    it(`WITH valid authorization 
+        THEN a Foo should be returned`, async () => {
+      let error;
+      let result;
+
+      // @ts-ignore
+      jest.spyOn(fooRepo, '_dbFindById').mockImplementation(entityId => {
+        return TestFooEntityLiterals.FE_Ua2Oa;
+      });
+
+      // @ts-ignore
+      jest.spyOn(fooRepo, '_dbRemove').mockImplementation(entity => {
+        return entity;
+      });
+
+      try {
+        result = await fooRepo.delete(TestFooEntityLiterals.FE_Ua2Oa.id, { authorization: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error).toBeUndefined();
+      expect(TestingUtils.objectIdsToStrings(result)).toMatchObject(TestFooEntityLiterals.FE_Ua2Oa);
+    });
+
+    //
+    // -------------------------------------------
+    //
+
+    it(`WITH valid groupAdmin authorization 
+    THEN a Foo should be returned`, async () => {
+      let error;
+      let result;
+
+      // @ts-ignore
+      jest.spyOn(fooRepo, '_dbFindById').mockImplementation(entityId => {
+        return TestFooEntityLiterals.FE_Ua2Oa;
+      });
+
+      // @ts-ignore
+      jest.spyOn(fooRepo, '_dbRemove').mockImplementation(entity => {
+        return entity;
+      });
+
+      try {
+        result = await fooRepo.delete(TestFooEntityLiterals.FE_Ua2Oa.id, { authorization: TestAuthorizationLiterals.Az_Uc1GroupAdmin_OcMember_OaFacilitator });
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error).toBeUndefined();
+      expect(TestingUtils.objectIdsToStrings(result)).toMatchObject(TestFooEntityLiterals.FE_Ua2Oa);
+    });
+
+    //
+    // -------------------------------------------
+    //
+
+    it(`WITH no authorization 
+        THEN an authorization error should be thrown`, async () => {
+      let error;
+      let result;
+
+      // @ts-ignore
+      jest.spyOn(fooRepo, '_dbFindById').mockImplementation(entityId => {
+        return TestFooEntityLiterals.FE_Ua2Oa;
+      });
+
+      // @ts-ignore
+      jest.spyOn(fooRepo, '_dbRemove').mockImplementation(entity => {
+        return entity;
+      });
+
+      try {
+        result = await fooRepo.delete(TestFooEntityLiterals.FE_Ua2Oa.id);
+      } catch (e) {
+        error = e;
+      }
+      expect(error).toBeInstanceOf(AuthorizationError);
+      expect(result).toBeUndefined();
+    });
+
+    //
+    // -------------------------------------------
+    //
+
+    it(`WITH invalid authorization 
+        THEN an authorization error should be thrown`, async () => {
+      let error;
+      let result;
+
+      // @ts-ignore
+      jest.spyOn(fooRepo, '_dbFindById').mockImplementation(entityId => {
+        return TestFooEntityLiterals.FE_Ua2Oa;
+      });
+
+      // @ts-ignore
+      jest.spyOn(fooRepo, '_dbRemove').mockImplementation(entity => {
+        return entity;
+      });
+
+      try {
+        result = await fooRepo.delete(TestFooEntityLiterals.FE_Ua2Oa.id, { authorization: TestAuthorizationLiterals.Az_Ub1user_ObAdmin });
+      } catch (e) {
+        error = e;
+      }
+      expect(error).toBeInstanceOf(AuthorizationError);
+      expect(result).toBeUndefined();
+    });
+  });
 });
 //
 // Unused Snippets

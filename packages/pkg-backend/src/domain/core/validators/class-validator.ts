@@ -9,7 +9,7 @@ export class ClassValidator<T> {
   constructor(protected readonly loggerService: LoggerSharedService, protected readonly entityType: { new (): T }, protected coalesceType: boolean = true) {}
 
   public async validate(obj: Partial<T>, options?: ValidationOptions): Promise<void> {
-    this.loggerService.trace(`EntityValidatorService.validate`, obj);
+    this.loggerService.trace(`ClassValidator.validate`, obj);
 
     const validationError = await this.tryValidate(obj, options);
 

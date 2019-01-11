@@ -8,14 +8,14 @@ import { AppError } from '../../../shared/exceptions/app.exception';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { AuthCheckContract } from '../authchecks/authcheck.contract';
 import { ScopedEntityAuthCheck } from '../authchecks/scoped-entity.authcheck';
-import { IEntityValidator } from '../validators/entity-validator.interface';
+import { ClassValidator } from '../validators/class-validator';
 
 export interface IBaseRepoParams<TEntity extends IEntity, TModel extends Document & TEntity> {
   loggerService: LoggerSharedService;
   model: Model<TModel>;
   cacheStore: CacheStore;
   defaultTTL: number;
-  entityValidator: IEntityValidator<TEntity>;
+  entityValidator: ClassValidator<TEntity>;
   entityAuthChecker?: AuthCheckContract<IEntity>;
 }
 
@@ -33,7 +33,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
   protected readonly cacheStore: CacheStore;
   protected readonly defaultTTL: number;
   public readonly modelName: string;
-  public readonly entityValidator: IEntityValidator<TEntity>;
+  public readonly entityValidator: ClassValidator<TEntity>;
   public readonly entityAuthChecker: AuthCheckContract<IEntity>;
 
   /**
@@ -165,7 +165,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
    */
   public async create(
     newEntity: TEntity,
-    options?: { authorization?: UserCredentialsContract; skipAuthorization?: boolean; customValidator?: IEntityValidator<TEntity> },
+    options?: { authorization?: UserCredentialsContract; skipAuthorization?: boolean; customValidator?: ClassValidator<TEntity> },
   ): Promise<TEntity> {
     // trace logging
     this.loggerService.trace(`${this.name}.create`, newEntity, options);
@@ -196,7 +196,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
    */
   public async patch(
     patchEntity: Partial<TEntity>,
-    options?: { authorization?: UserCredentialsContract; skipAuthorization?: boolean; customValidator?: IEntityValidator<TEntity> },
+    options?: { authorization?: UserCredentialsContract; skipAuthorization?: boolean; customValidator?: ClassValidator<TEntity> },
   ): Promise<TEntity> {
     // trace logging
     this.loggerService.trace(`${this.name}.patch`, patchEntity, options);
@@ -238,8 +238,8 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
    */
   public async update(
     entity: TEntity,
-    options?: { authorization?: UserCredentialsContract; skipAuthorization?: boolean; customValidator?: IEntityValidator<TEntity> },
-  ): Promise<void> {
+    options?: { authorization?: UserCredentialsContract; skipAuthorization?: boolean; customValidator?: ClassValidator<TEntity> },
+  ): Promise<TEntity> {
     // trace logging
     this.loggerService.trace(`${this.name}.update`, entity, options);
 
@@ -248,47 +248,46 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     const validator = options.customValidator || this.entityValidator;
 
     // validation
-    await validator.validate(entity);
+    await validator.validate(entity, { skipMissingProperties: false });
 
     // authorization checks
     if (!options.skipAuthorization) {
-      await this.entityAuthChecker.ensureAuthorized(options.authorization, model);
+      await this.entityAuthChecker.ensureAuthorized(options.authorization, entity);
     }
 
-    // fetch entity
-    const model = await this._dbFindById(entity.id);
-    if (!model) throw new AppError(`No ${this.modelName} found with id ${entity.id}`);
-
     // persist
-    const savedUpdatedModel = await this._dbSave(model);
+    const savedReplacedModel = await this._dbFindOneAndReplace(entity);
 
     // clear cache
-    this.clearCacheByEntity(entity);
+    this.clearCacheByEntity(savedReplacedModel);
+
+    return savedReplacedModel;
   }
 
   /**
    *
    * @param entityId
    */
-  public async delete(conditions: Partial<TEntity>, options?: { authorization?: UserCredentialsContract; skipAuthorization?: boolean }): Promise<TEntity | undefined> {
+  public async delete(id: string, options?: { authorization?: UserCredentialsContract; skipAuthorization?: boolean }): Promise<TEntity | undefined> {
     // trace logging
-    this.loggerService.trace(`${this.name}.delete`, conditions, options);
+    this.loggerService.trace(`${this.name}.delete`, id, options);
 
     // setup
     let deletedEntity;
     options = options || {}; // ensure options is not null
 
     // retrieve
-    const model = await this._dbFindOne(conditions);
+    const deleteModel = await this._dbFindById(id);
+    if (!deleteModel) throw new AppError(`No ${this.modelName} found with id ${id}`);
 
     // authorization checks
-    if (!options.skipAuthorization && model) {
-      await this.entityAuthChecker.ensureAuthorized(options.authorization, model);
+    if (!options.skipAuthorization && deleteModel) {
+      await this.entityAuthChecker.ensureAuthorized(options.authorization, deleteModel);
     }
 
-    if (model) {
-      // persist
-      deletedEntity = await this.model.replaceOne;
+    if (deleteModel) {
+      // persist deletion
+      deletedEntity = await this._dbRemove(deleteModel);
 
       // clear cache
       this.clearCacheByEntity(deletedEntity);
@@ -301,7 +300,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
    *
    * @param cacheKey
    */
-  protected async clearCacheByEntity(entity: TEntity, options?: { customValidator?: IEntityValidator<TEntity> }) {
+  protected async clearCacheByEntity(entity: TEntity, options?: { customValidator?: ClassValidator<TEntity> }) {
     // setup
     options = options || {}; // ensure options is not null
     const validator = options.customValidator || this.entityValidator;
@@ -354,5 +353,10 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
 
   protected async _dbFindById(id: any): Promise<TModel | null> {
     return this.model.findById(id).exec();
+  }
+
+  protected async _dbFindOneAndReplace(conditions: Partial<TEntity>) {
+    // @ts-ignore
+    return this.model.findOneAndReplace(conditions).exec();
   }
 }

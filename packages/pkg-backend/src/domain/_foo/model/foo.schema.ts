@@ -6,7 +6,7 @@ export const FooSchema = new Schema(
       required: true,
       type: Schema.Types.String,
     },
-    slug: {
+    alwaysDefinedSlug: {
       required: true,
       type: Schema.Types.String,
     },
