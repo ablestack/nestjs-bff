@@ -1,26 +1,28 @@
+import { IEntity } from '@nestjs-bff/global/lib/interfaces/entity.interface';
+import { ValidationError } from '../../../shared/exceptions/validation.exception';
 import { getLogger } from '../../../shared/logging/logging.shared.module';
 import { TestingUtils } from '../../../shared/utils/testing.utils';
 import { FooEntity } from '../../_foo/model/foo.entity';
-import { EntityValidator } from './entity.validator';
+import { ClassValidator } from './class-validator';
 
 // @ts-ignore
 const logger = getLogger();
 
-describe('GIVEN EntityValidator', () => {
+describe('GIVEN ClassValidator', () => {
+  const entityValidator = new ClassValidator<IEntity>(logger, FooEntity);
   describe('validateEntity', () => {
     describe('UserAndOrgScopedEntityConditions', () => {
-      const entityValidator = new EntityValidator(logger, FooEntity);
-
       it('WHEN all required parameters are provided, THEN should pass', async () => {
-        const fooConditions = {
+        const foo = {
+          id: TestingUtils.generateMongoObjectIdString(),
           orgId: TestingUtils.generateMongoObjectIdString(),
           userId: TestingUtils.generateMongoObjectIdString(),
-          slug: 'fooman',
+          alwaysDefinedSlug: 'fooman',
         };
 
         let error: any;
         try {
-          await entityValidator.validate(fooConditions);
+          await entityValidator.validate(foo);
         } catch (e) {
           error = e;
           // logger.debug('error', { error, innerErrors: error.metaData.errors });
@@ -29,8 +31,9 @@ describe('GIVEN EntityValidator', () => {
         expect(error).toBeUndefined();
       });
 
-      it('WHEN slug is missing THEN should throw error', async () => {
+      it('WHEN alwaysDefinedSlug is missing THEN should throw error', async () => {
         const fooConditions = {
+          id: TestingUtils.generateMongoObjectIdString(),
           orgId: TestingUtils.generateMongoObjectIdString(),
           userId: TestingUtils.generateMongoObjectIdString(),
           name: 'mr fooman',
@@ -43,15 +46,16 @@ describe('GIVEN EntityValidator', () => {
           error = e;
         }
 
-        expect(error).not.toBeUndefined();
+        expect(error).toBeInstanceOf(ValidationError);
       });
 
       it('WHEN name is less than 5 characters THEN should throw error', async () => {
         const fooConditions = {
+          id: TestingUtils.generateMongoObjectIdString(),
           orgId: TestingUtils.generateMongoObjectIdString(),
           userId: TestingUtils.generateMongoObjectIdString(),
           name: 'foo',
-          slug: 'fooman',
+          alwaysDefinedSlug: 'fooman',
         };
 
         let error: any;
@@ -61,12 +65,13 @@ describe('GIVEN EntityValidator', () => {
           error = e;
         }
 
-        expect(error).not.toBeUndefined();
+        expect(error).toBeInstanceOf(ValidationError);
       });
 
       it('WHEN userId and orgId are undefined THEN should still pass', async () => {
         const fooConditions = {
-          slug: 'fooman',
+          id: TestingUtils.generateMongoObjectIdString(),
+          alwaysDefinedSlug: 'fooman',
           userId: undefined,
         };
 
@@ -79,6 +84,26 @@ describe('GIVEN EntityValidator', () => {
         }
 
         expect(error).toBeUndefined();
+      });
+
+      it(`WHEN userId and orgId are undefined 
+          AND validationOptions.skipMissingProperties = false
+          THEN should throw error`, async () => {
+        const fooConditions = {
+          id: TestingUtils.generateMongoObjectIdString(),
+          alwaysDefinedSlug: 'fooman',
+          userId: undefined,
+        };
+
+        let error: any;
+        try {
+          await entityValidator.validate(fooConditions, { skipMissingProperties: false });
+        } catch (e) {
+          error = e;
+          logger.debug('error', JSON.stringify(error, null, 2));
+        }
+
+        expect(error).toBeInstanceOf(ValidationError);
       });
     });
   });

@@ -77,7 +77,7 @@ describe('CachingUtils', () => {
       qc.id = '507f191e810c19729de860ea';
       qc.orgId = '607f191e810c19729de860ea';
       qc.userId = '707f191e810c19729de860ea';
-      qc.slug = 'foo';
+      qc.alwaysDefinedSlug = 'foo';
 
       const result = CachingUtils.makeCacheKeyFromObject(qc);
       // logger.debug('makeCacheKeyFromObject-result', result);
@@ -90,7 +90,7 @@ describe('CachingUtils', () => {
     it('should return a string', async () => {
       const qc = new FooEntity();
       qc.orgId = '607f191e810c19729de860ea';
-      qc.slug = 'foo';
+      qc.alwaysDefinedSlug = 'foo';
 
       const result = CachingUtils.makeCacheKeyFromObject(qc);
       // logger.debug('makeCacheKeyFromObject-result', result);

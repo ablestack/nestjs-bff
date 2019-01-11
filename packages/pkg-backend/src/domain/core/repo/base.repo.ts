@@ -224,12 +224,12 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     }
 
     // persist
-    const savedFoo = await this._dbSave(fullModel);
+    const savedFullModel = await this._dbSave(fullModel);
 
     // clear cache
     this.clearCacheByEntity(fullModel);
 
-    return savedFoo;
+    return savedFullModel;
   }
 
   /**
@@ -250,13 +250,17 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     // validation
     await validator.validate(entity);
 
-    // persist. (at some point in the future, consider changing to findOneAndReplace... wasn't in typescript definitions for some reason)
-    const model = await this._dbFindById(entity.id);
-
     // authorization checks
-    if (!options.skipAuthorization && model) {
+    if (!options.skipAuthorization) {
       await this.entityAuthChecker.ensureAuthorized(options.authorization, model);
     }
+
+    // fetch entity
+    const model = await this._dbFindById(entity.id);
+    if (!model) throw new AppError(`No ${this.modelName} found with id ${entity.id}`);
+
+    // persist
+    const savedUpdatedModel = await this._dbSave(model);
 
     // clear cache
     this.clearCacheByEntity(entity);
@@ -284,7 +288,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
 
     if (model) {
       // persist
-      deletedEntity = await this._dbRemove(model);
+      deletedEntity = await this.model.replaceOne;
 
       // clear cache
       this.clearCacheByEntity(deletedEntity);

@@ -7,5 +7,5 @@ export class FooEntity extends UserAndOrgScopedEntity {
 
   @IsDefined()
   @Length(2, 20)
-  slug?: string;
+  alwaysDefinedSlug?: string;
 }
