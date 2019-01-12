@@ -11,6 +11,7 @@ import { UserRepo } from '../../domain/user/repo/user.repo';
 import { CrudOperations } from '../../shared/authchecks/crud-operations.enum';
 import { OrgRolesAuthCheck } from '../../shared/authchecks/org-roles.authcheck';
 import { AppError } from '../../shared/exceptions/app.exception';
+import { LoggerSharedService } from '../../shared/logging/logger.shared.service';
 
 @Injectable()
 export class OrganizationOrchestrationService {
@@ -18,6 +19,7 @@ export class OrganizationOrchestrationService {
   private orgAdminAuthCheck = new OrgRolesAuthCheck([OrganizationRoles.admin]);
 
   constructor(
+    private readonly logger: LoggerSharedService,
     private readonly authenticationRepo: AuthenticationRepo,
     private readonly authorizationRepo: AccessPermissionsRepo,
     private readonly userRepo: UserRepo,
@@ -25,6 +27,8 @@ export class OrganizationOrchestrationService {
   ) {}
 
   public async createMember(cmd: CreateOrganizationMemberCommand, accessPermissions?: AccessPermissionsContract): Promise<AccessPermissionsEntity> {
+    this.logger.trace('OrganizationOrchestrationService.createMember', { cmd, accessPermissions });
+
     // Authorization
     this.orgAdminAuthCheck.ensureAuthorized({
       accessPermissions,
@@ -35,7 +39,7 @@ export class OrganizationOrchestrationService {
 
     // setup commands
     const newAuthenticationEntity = {
-      userId: '',
+      userId: undefined,
       local: {
         email: cmd.username,
         hashedPassword: generateHashedPassword(cmd.password),
@@ -49,8 +53,8 @@ export class OrganizationOrchestrationService {
     this.authenticationRepo.entityValidator.validate(newAuthenticationEntity);
 
     // validate organization exists
-    if (!(await this.organizationRepo.findOne({ id: cmd.orgId }))) {
-      throw new AppError(`Could not find organization for Id ${cmd.orgId}`);
+    if (!(await this.organizationRepo.tryfindOne({ _id: cmd.orgId }, { skipAuthorization: true }))) {
+      throw new AppError(`Create Member: Could not find organization for Id ${cmd.orgId}`);
     }
 
     // create new user
@@ -60,12 +64,12 @@ export class OrganizationOrchestrationService {
     });
 
     // create authentication
-    newAuthenticationEntity.userId = user.id;
+    newAuthenticationEntity.userId = user._id;
     this.authenticationRepo.create(newAuthenticationEntity);
 
     // create authorization
     const authorizationEntity = this.authorizationRepo.create({
-      userId: user.id,
+      userId: user._id,
       roles: [Roles.user],
       organizations: [
         {

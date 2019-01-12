@@ -1,4 +1,4 @@
-import { AccessPermissionsContract } from '../../../packages/pkg-global/lib/interfaces/access-permissions.contract';
+import { AccessPermissionsContract } from '@nestjs-bff/global/lib/interfaces/access-permissions.contract';
 import { Injectable } from '@nestjs/common';
 import { ReminderArchiveRepo } from '../../domain/reminder-archive/repo/reminder-archive.repo';
 import { ReminderRepo } from '../../domain/reminder/repo/reminder.repo';
@@ -13,7 +13,7 @@ export class ReminderOrchestrationService {
     accessPermissions?: AccessPermissionsContract,
   ): Promise<void> {
     // get reminder
-    const reminder = await this.reminderRepo.findOne({ id: cmd.reminderId });
+    const reminder = await this.reminderRepo.findOne({ _id: cmd.reminderId });
 
     // remove from Reminder data store
     this.reminderRepo.delete(cmd.reminderId, { accessPermissions });

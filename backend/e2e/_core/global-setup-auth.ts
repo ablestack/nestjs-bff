@@ -131,10 +131,13 @@ export const setupAuth = async globalConfig => {
   );
 
   authData.domainGroupAdmin.groupAdminUser.jwt = await jwtTokenService.createToken(
-    await authService.promoteToGroupAdmin({
-      // tslint:disable-next-line:no-non-null-assertion
-      userId: authData.domainGroupAdmin.groupAdminUser.auth.userId!,
-    }),
+    await authService.promoteToGroupAdmin(
+      {
+        // tslint:disable-next-line:no-non-null-assertion
+        userId: authData.domainGroupAdmin.groupAdminUser.auth.userId!,
+      },
+      accessPermissionsData.systemAdmin,
+    ),
   );
 
   logger.debug(

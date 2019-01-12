@@ -40,7 +40,7 @@ NHAlRUQ161mqPZh/hg4ARYQoSkwmwZHA4xvEcYeyjm0GPkK5nKtI8RcCAwEAAQ==
   describe('createToken', () => {
     it('should return a jwt Token', async () => {
       const authorizationEntity = {
-        id: '507f1f77bcf86cd799439011',
+        _id: '507f1f77bcf86cd799439011',
         roles: [Roles.user],
       } as AccessPermissionsEntity;
 

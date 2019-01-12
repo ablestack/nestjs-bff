@@ -21,7 +21,7 @@ export class JwtTokenService {
 
   public async createToken(authorizationEntity: AccessPermissionsEntity): Promise<IAuthenticationToken> {
     const jwtPayload: Partial<IJwtPayload> = {
-      sub: authorizationEntity.id,
+      sub: authorizationEntity._id,
       roles: authorizationEntity.roles,
     };
     const token: string = sign(

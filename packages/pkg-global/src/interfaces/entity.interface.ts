@@ -1,4 +1,4 @@
 export interface IEntity {
   // fields
-  id?: any;
+  _id?: any;
 }

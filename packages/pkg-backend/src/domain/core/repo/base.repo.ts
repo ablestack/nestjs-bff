@@ -37,10 +37,28 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
   public readonly entityValidator: ClassValidator<TEntity>;
   public readonly entityAuthChecker: AuthCheckContract<IEntity, CrudOperations>;
 
-  /**
-   *
-   * @param options
-   */
+  //
+  // findOne
+  //
+
+  public async findOne(
+    conditions: Partial<TEntity>,
+    options?: {
+      accessPermissions?: AccessPermissionsContract;
+      skipAuthorization?: boolean;
+      skipCache?: boolean;
+      ttl?: number;
+    },
+  ): Promise<TEntity> {
+    const result = await this.tryfindOne(conditions, options);
+
+    // validate not null
+    if (!result) throw new AppError(`Could not find entity ${this.name} with conditions ${JSON.stringify(conditions)}`, options);
+
+    // Return
+    return result;
+  }
+
   constructor(params: IBaseRepoParams<TEntity, TModel>) {
     this.loggerService = params.loggerService;
     this.model = params.model;
@@ -52,11 +70,11 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     this.entityAuthChecker = params.entityAuthChecker || new ScopedEntityAuthCheck();
   }
 
-  /**
-   *
-   * @param conditions
-   */
-  public async findOne(
+  //
+  // tryFindOne
+  //
+
+  public async tryfindOne(
     conditions: Partial<TEntity>,
     options?: {
       accessPermissions?: AccessPermissionsContract;
@@ -64,7 +82,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
       skipCache?: boolean;
       ttl?: number;
     },
-  ): Promise<TEntity> {
+  ): Promise<TEntity | null> {
     // trace logging
     this.loggerService.trace(`${this.name}.findOne`, conditions, options);
 
@@ -88,9 +106,6 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
       result = await this._dbFindOne(conditions);
     }
 
-    // validate not null
-    if (result == null) throw new AppError(`Could not find entity ${this.name} with conditions ${conditions}`);
-
     // cache population
     if (!options.skipCache === true && result && !cachedResult) {
       // tslint:disable-next-line:no-non-null-assertion
@@ -98,7 +113,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     }
 
     // authorization checks
-    if (!options.skipAuthorization) {
+    if (!options.skipAuthorization && result) {
       await this.entityAuthChecker.ensureAuthorized({ accessPermissions: options.accessPermissions, origin: this.name, targetResource: result, operation: CrudOperations.read });
     }
 
@@ -106,10 +121,10 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     return result;
   }
 
-  /**
-   *
-   * @param conditions
-   */
+  //
+  // find
+  //
+
   public async find(
     conditions: Partial<TEntity>,
     options?: {
@@ -165,12 +180,12 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     return result;
   }
 
-  /**
-   *
-   * @param newEntity
-   */
+  //
+  // create
+  //
+
   public async create(
-    newEntity: TEntity,
+    newEntity: Partial<TEntity>,
     options?: { accessPermissions?: AccessPermissionsContract; skipAuthorization?: boolean; customValidator?: ClassValidator<TEntity> },
   ): Promise<TEntity> {
     // trace logging
@@ -201,10 +216,10 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     return this._dbSave(createModel);
   }
 
-  /**
-   *
-   * @param partialEntity
-   */
+  //
+  // patch
+  //
+
   public async patch(
     patchEntity: Partial<TEntity>,
     options?: { accessPermissions?: AccessPermissionsContract; skipAuthorization?: boolean; customValidator?: ClassValidator<TEntity> },
@@ -220,8 +235,8 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     validator.validate(patchEntity);
 
     // fetch entity
-    let fullModel = await this._dbFindById(patchEntity.id);
-    if (!fullModel) throw new AppError(`No ${this.modelName} found with id ${patchEntity.id}`);
+    let fullModel = await this._dbFindById(patchEntity._id);
+    if (!fullModel) throw new AppError(`No ${this.modelName} found with id ${patchEntity._id}`);
 
     // merge values
     fullModel = _.merge(fullModel, patchEntity);
@@ -248,10 +263,10 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     return savedFullModel;
   }
 
-  /**
-   *
-   * @param entity
-   */
+  //
+  // update
+  //
+
   public async update(
     entity: TEntity,
     options?: { accessPermissions?: AccessPermissionsContract; skipAuthorization?: boolean; customValidator?: ClassValidator<TEntity> },
@@ -280,10 +295,10 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     return savedReplacedModel;
   }
 
-  /**
-   *
-   * @param entityId
-   */
+  //
+  // delete
+  //
+
   public async delete(id: string, options?: { accessPermissions?: AccessPermissionsContract; skipAuthorization?: boolean }): Promise<TEntity | undefined> {
     // trace logging
     this.loggerService.trace(`${this.name}.delete`, id, options);
@@ -317,10 +332,10 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     return deletedEntity;
   }
 
-  /**
-   *
-   * @param cacheKey
-   */
+  //
+  // utility methods
+  //
+
   protected async clearCacheByEntity(entity: TEntity, options?: { customValidator?: ClassValidator<TEntity> }) {
     // setup
     options = options || {}; // ensure options is not null
@@ -330,7 +345,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     await validator.validate(entity);
 
     // clear by ID
-    this.clearCacheByKey(CachingUtils.makeCacheKeyFromId(entity.id));
+    this.clearCacheByKey(CachingUtils.makeCacheKeyFromId(entity._id));
 
     // clear by query conditions
     this.generateValidQueryConditionsForCacheClear(entity).forEach(cacheClearEntity => {
@@ -338,45 +353,43 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     });
   }
 
-  /**
-   *
-   * @param cacheKey
-   */
   protected clearCacheByKey(cacheKey: string) {
     if (cacheKey.trim.length > 0) throw new AppError('cacheKey can not be null or whitespace');
     return this.cacheStore.del(cacheKey);
   }
 
-  /**
-   *
-   * @param entity
-   */
   protected abstract generateValidQueryConditionsForCacheClear(entity: TEntity): Array<Partial<TEntity>>;
 
   //
   // Abstracted Mongoose calls, to allow for easier testing through mocked mongoose calls
   //
   protected async _dbFindOne(conditions: Partial<TEntity>) {
+    this.loggerService.trace(`${this.name}._dbFindOne`, conditions);
     return this.model.findOne(conditions).exec();
   }
 
   protected async _dbFind(conditions: Partial<TEntity>): Promise<TModel[]> {
+    this.loggerService.trace(`${this.name}._dbFind`, conditions);
     return this.model.find(conditions).exec();
   }
 
   protected async _dbSave(createModel: TModel): Promise<TModel> {
+    this.loggerService.trace(`${this.name}._dbSave`, createModel);
     return createModel.save();
   }
 
   protected async _dbRemove(deleteModel: TModel): Promise<TModel> {
+    this.loggerService.trace(`${this.name}._dbRemove`, deleteModel);
     return deleteModel.remove();
   }
 
   protected async _dbFindById(id: any): Promise<TModel | null> {
+    this.loggerService.trace(`${this.name}._dbFindById`, id);
     return this.model.findById(id).exec();
   }
 
   protected async _dbFindOneAndReplace(conditions: Partial<TEntity>) {
+    this.loggerService.trace(`${this.name}._dbFindOneAndReplace`, conditions);
     // @ts-ignore
     return this.model.findOneAndReplace(conditions).exec();
   }

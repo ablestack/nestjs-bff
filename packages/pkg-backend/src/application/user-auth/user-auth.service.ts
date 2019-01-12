@@ -35,12 +35,9 @@ export class UserAuthService {
 
     if (!authenticationEntity) throw new ValidationError(['Your login accessPermissions were not correct']);
     if (!authenticationEntity.local)
-      throw new ValidationError([
-        'Your login accessPermissions were not correct or you do not have an account. Perhaps you registered with social login?',
-      ]);
+      throw new ValidationError(['Your login accessPermissions were not correct or you do not have an account. Perhaps you registered with social login?']);
 
-    if (!validPassword(cmd.password, authenticationEntity.local.hashedPassword))
-      throw new ValidationError(['Your login accessPermissions were not correct']);
+    if (!validPassword(cmd.password, authenticationEntity.local.hashedPassword)) throw new ValidationError(['Your login accessPermissions were not correct']);
 
     const authorizationEntity = await this.authorizationRepo.findOne({ userId: authenticationEntity.userId }, { skipAuthorization: true });
 
@@ -87,7 +84,7 @@ export class UserAuthService {
     );
 
     // create authentication
-    newAuthenticationEntity.userId = user.id;
+    newAuthenticationEntity.userId = user._id;
     this.authenticationRepo.create(newAuthenticationEntity, { skipAuthorization: true });
 
     // create organization
@@ -102,12 +99,12 @@ export class UserAuthService {
     // create authorization
     const authorizationEntity = this.authorizationRepo.create(
       {
-        userId: user.id,
+        userId: user._id,
         roles: [Roles.user],
         organizations: [
           {
             primary: true,
-            orgId: organization.id,
+            orgId: organization._id,
             organizationRoles: [OrganizationRoles.member, OrganizationRoles.admin],
           },
         ],
@@ -122,10 +119,7 @@ export class UserAuthService {
    *
    * @param cmd
    */
-  public async promoteToGroupAdmin(
-    cmd: PromoteToGroupAdminCommand,
-    accessPermissions: AccessPermissionsContract,
-  ): Promise<AccessPermissionsEntity> {
+  public async promoteToGroupAdmin(cmd: PromoteToGroupAdminCommand, accessPermissions: AccessPermissionsContract): Promise<AccessPermissionsEntity> {
     const authorizationEntity = await this.authorizationRepo.findOne({ userId: cmd.userId }, { accessPermissions });
 
     // Validate
@@ -167,7 +161,7 @@ export class UserAuthService {
     // create authentication
     this.authenticationRepo.create(
       {
-        userId: user.id,
+        userId: user._id,
         local: undefined,
         facebook: {
           id: fbProfile.id,
@@ -183,7 +177,7 @@ export class UserAuthService {
     // create authorization
     const authorizationEntity = this.authorizationRepo.create(
       {
-        userId: user.id,
+        userId: user._id,
         roles: [Roles.user],
         organizations: [],
       },

@@ -9,11 +9,11 @@ import { ValidationError } from '../../../shared/exceptions/validation.exception
 import { LoggerConsoleSharedService } from '../../../shared/logging/console-logger.shared.service';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { getLogger } from '../../../shared/logging/logging.shared.module';
+import { TestAuthorizationLiterals, TestFooEntityLiterals } from '../../../shared/testing/test-literals.constants';
 import { TestingUtils } from '../../../shared/utils/testing.utils';
 import { IFooModel } from '../../_foo/model/foo.model';
 import { FooSchema } from '../../_foo/model/foo.schema';
 import { FooRepo } from '../../_foo/repo/foo.repo';
-import { TestAuthorizationLiterals, TestFooEntityLiterals } from '../../../shared/testing/test-literals.constants';
 
 //
 // Global Scoped Variables Setup
@@ -68,7 +68,7 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        result = await fooRepo.findOne({ id: TestFooEntityLiterals.FE_Ua2Oa.id }, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        result = await fooRepo.findOne({ _id: TestFooEntityLiterals.FE_Ua2Oa._id }, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember });
       } catch (e) {
         error = e;
       }
@@ -93,7 +93,7 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        result = await fooRepo.findOne({ id: TestFooEntityLiterals.FE_Ua2Oa.id }, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        result = await fooRepo.findOne({ _id: TestFooEntityLiterals.FE_Ua2Oa._id }, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember });
       } catch (e) {
         error = e;
       }
@@ -118,7 +118,7 @@ describe('GIVEN a Repo', () => {
 
       try {
         result = await fooRepo.findOne({
-          id: TestFooEntityLiterals.FE_Ua2Oa.id,
+          _id: TestFooEntityLiterals.FE_Ua2Oa._id,
         });
       } catch (e) {
         error = e;
@@ -146,7 +146,7 @@ describe('GIVEN a Repo', () => {
       try {
         result = await fooRepo.findOne(
           {
-            id: TestFooEntityLiterals.FE_Ua2Oa.id,
+            _id: TestFooEntityLiterals.FE_Ua2Oa._id,
           },
           { skipAuthorization: true },
         );
@@ -175,8 +175,8 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        await fooRepo.findOne({ id: TestFooEntityLiterals.FE_Ua2Oa.id }, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember });
-        await fooRepo.findOne({ id: TestFooEntityLiterals.FE_Ua2Oa.id }, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        await fooRepo.findOne({ _id: TestFooEntityLiterals.FE_Ua2Oa._id }, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        await fooRepo.findOne({ _id: TestFooEntityLiterals.FE_Ua2Oa._id }, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember });
       } catch (e) {
         error = e;
       }
@@ -200,8 +200,8 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        await fooRepo.findOne({ id: TestFooEntityLiterals.FE_Ua2Oa.id }, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember, skipCache: true });
-        await fooRepo.findOne({ id: TestFooEntityLiterals.FE_Ua2Oa.id }, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember, skipCache: true });
+        await fooRepo.findOne({ _id: TestFooEntityLiterals.FE_Ua2Oa._id }, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember, skipCache: true });
+        await fooRepo.findOne({ _id: TestFooEntityLiterals.FE_Ua2Oa._id }, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember, skipCache: true });
       } catch (e) {
         error = e;
       }
@@ -262,7 +262,7 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        result = await fooRepo.find({ id: TestFooEntityLiterals.FE_Ua2Oa.id }, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        result = await fooRepo.find({ _id: TestFooEntityLiterals.FE_Ua2Oa._id }, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember });
       } catch (e) {
         error = e;
       }
@@ -395,7 +395,7 @@ describe('GIVEN a Repo', () => {
       });
 
       const newFoo = _.clone(TestFooEntityLiterals.FE_Ua2Oa);
-      newFoo.id = '';
+      newFoo._id = '';
 
       try {
         result = await fooRepo.create(newFoo, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember });
@@ -404,7 +404,7 @@ describe('GIVEN a Repo', () => {
       }
 
       // delete id, to prep object for comparison
-      delete newFoo.id;
+      delete newFoo._id;
 
       expect(error).toBeUndefined();
       expect(TestingUtils.objectIdsToStrings(result)).toMatchObject(newFoo);
@@ -425,7 +425,7 @@ describe('GIVEN a Repo', () => {
       });
 
       const newFoo = _.clone(TestFooEntityLiterals.FE_Ua2Oa);
-      newFoo.id = '';
+      newFoo._id = '';
 
       try {
         result = await fooRepo.create(newFoo);
@@ -452,7 +452,7 @@ describe('GIVEN a Repo', () => {
       });
 
       const newFoo = _.clone(TestFooEntityLiterals.FE_Ua2Oa);
-      newFoo.id = '';
+      newFoo._id = '';
 
       try {
         result = await fooRepo.create(newFoo, { accessPermissions: TestAuthorizationLiterals.Az_Ub1user_ObAdmin });
@@ -493,7 +493,7 @@ describe('GIVEN a Repo', () => {
       });
 
       const patchFoo = {
-        id: fooToBeUpdated.id,
+        _id: fooToBeUpdated._id,
         name: fooToBeUpdated.name + ' updated',
       };
 
@@ -531,7 +531,7 @@ describe('GIVEN a Repo', () => {
       });
 
       const patchFoo = {
-        id: fooToBeUpdated.id,
+        _id: fooToBeUpdated._id,
         name: fooToBeUpdated.name + ' updated',
       };
 
@@ -569,7 +569,7 @@ describe('GIVEN a Repo', () => {
       });
 
       const patchFoo = {
-        id: fooToBeUpdated.id,
+        _id: fooToBeUpdated._id,
         name: fooToBeUpdated.name + ' updated',
       };
 
@@ -721,7 +721,7 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        result = await fooRepo.delete(TestFooEntityLiterals.FE_Ua2Oa.id, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        result = await fooRepo.delete(TestFooEntityLiterals.FE_Ua2Oa._id, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember });
       } catch (e) {
         error = e;
       }
@@ -750,7 +750,7 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        result = await fooRepo.delete(TestFooEntityLiterals.FE_Ua2Oa.id, { accessPermissions: TestAuthorizationLiterals.Az_Uc1GroupAdmin_OcMember_OaFacilitator });
+        result = await fooRepo.delete(TestFooEntityLiterals.FE_Ua2Oa._id, { accessPermissions: TestAuthorizationLiterals.Az_Uc1GroupAdmin_OcMember_OaFacilitator });
       } catch (e) {
         error = e;
       }
@@ -779,7 +779,7 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        result = await fooRepo.delete(TestFooEntityLiterals.FE_Ua2Oa.id);
+        result = await fooRepo.delete(TestFooEntityLiterals.FE_Ua2Oa._id);
       } catch (e) {
         error = e;
       }
@@ -807,7 +807,7 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        result = await fooRepo.delete(TestFooEntityLiterals.FE_Ua2Oa.id, { accessPermissions: TestAuthorizationLiterals.Az_Ub1user_ObAdmin });
+        result = await fooRepo.delete(TestFooEntityLiterals.FE_Ua2Oa._id, { accessPermissions: TestAuthorizationLiterals.Az_Ub1user_ObAdmin });
       } catch (e) {
         error = e;
       }

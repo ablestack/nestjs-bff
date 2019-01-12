@@ -73,7 +73,7 @@ export class AttachAuthenticationHttpMiddleware implements NestMiddleware {
     const jwtPayload = verify(jwtToken, this.nestjsBffConfig.jwt.jwtPublicKey, this.verifyOptions) as IJwtPayload;
     if (!jwtPayload) throw new BadRequestHttpError('Invalid JWT token', getReqMetadataLite(req));
 
-    const authorizationEntity = await this.authorizationService.findOne({ id: jwtPayload.sub });
+    const authorizationEntity = await this.authorizationService.findOne({ _id: jwtPayload.sub });
     if (!authorizationEntity) {
       throw new BadRequestHttpError(`No authentication data found for request: ${req.originalUrl}`);
     }

@@ -1,5 +1,5 @@
 import { IEntity } from '../../interfaces/entity.interface';
 
 export abstract class BaseEntity implements IEntity {
-  id?: any;
+  _id: any;
 }
