@@ -13,7 +13,7 @@ export class RoleAuthCheck extends AuthCheckContract<any> {
     }
   }
 
-  public async isAuthorized(accessPermissions: AccessPermissionsContract | undefined | null, dataToCheck: any): Promise<boolean> {
+  public async isAuthorized(accessPermissions: AccessPermissionsContract | undefined | null, target: any): Promise<boolean> {
     if (!accessPermissions) throw new AppError('No authentication accessPermissions found');
 
     return hasRole(accessPermissions, this.qualifyingRole);

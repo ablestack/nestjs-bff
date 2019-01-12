@@ -2,6 +2,7 @@ import { AccessPermissionsContract } from '../../../../../pkg-global/lib/interfa
 import { AppError } from '../../../shared/exceptions/app.exception';
 import { AuthCheckContract } from './authcheck.contract';
 import { hasOrganizationRole, isStaffAdmin } from './authcheck.utils';
+import { AuthorizationTarget } from './authorization-target';
 import { ScopedData } from './scoped-data';
 
 export class CheckOrgRoles extends AuthCheckContract<ScopedData> {
@@ -9,11 +10,11 @@ export class CheckOrgRoles extends AuthCheckContract<ScopedData> {
     super();
   }
 
-  public async isAuthorized(accessPermissions: AccessPermissionsContract | undefined | null, scopedData: ScopedData): Promise<boolean> {
+  public async isAuthorized(accessPermissions: AccessPermissionsContract | undefined | null, target: AuthorizationTarget<ScopedData>): Promise<boolean> {
     if (!accessPermissions) throw new AppError('No authentication accessPermissions found');
-    if (!scopedData.orgIdForTargetResource) throw new AppError('orgIdForTargetResource can not be null');
+    if (!target || !target.resource || !target.resource.orgIdForTargetResource) throw new AppError('orgIdForTargetResource can not be null');
 
     if (isStaffAdmin(accessPermissions)) return true;
-    return hasOrganizationRole(accessPermissions, scopedData.orgIdForTargetResource, this.qualifyingRoles);
+    return hasOrganizationRole(accessPermissions, target.resource.orgIdForTargetResource, this.qualifyingRoles);
   }
 }

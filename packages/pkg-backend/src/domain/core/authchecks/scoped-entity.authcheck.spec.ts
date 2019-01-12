@@ -35,7 +35,7 @@ describe('GIVEN a ScopedEntityAuthCheck', () => {
       let result;
 
       try {
-        result = await scopedEntityAuthCheck.isAuthorized(null, TestFooEntityLiterals.FE_Ua2Oa);
+        result = await scopedEntityAuthCheck.isAuthorized(null, { resource: TestFooEntityLiterals.FE_Ua2Oa });
       } catch (e) {
         error = e;
       }
@@ -55,7 +55,7 @@ describe('GIVEN a ScopedEntityAuthCheck', () => {
       let result;
 
       try {
-        result = await scopedEntityAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ua2User_OaMember, TestFooEntityLiterals.FE_Ua2Oa);
+        result = await scopedEntityAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ua2User_OaMember, { resource: TestFooEntityLiterals.FE_Ua2Oa });
       } catch (e) {
         error = e;
       }
@@ -76,7 +76,7 @@ describe('GIVEN a ScopedEntityAuthCheck', () => {
       let result;
 
       try {
-        result = await scopedEntityAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ub1user_ObAdmin, TestFooEntityLiterals.FE_Ua2Oa);
+        result = await scopedEntityAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ub1user_ObAdmin, { resource: TestFooEntityLiterals.FE_Ua2Oa });
       } catch (e) {
         error = e;
       }
@@ -97,7 +97,7 @@ describe('GIVEN a ScopedEntityAuthCheck', () => {
       let result;
 
       try {
-        result = await scopedEntityAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ua2User_OaMember, TestFooEntityLiterals.FE_Ua1Oa);
+        result = await scopedEntityAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ua2User_OaMember, { resource: TestFooEntityLiterals.FE_Ua1Oa });
       } catch (e) {
         error = e;
       }
@@ -118,7 +118,7 @@ describe('GIVEN a ScopedEntityAuthCheck', () => {
       let result;
 
       try {
-        result = await scopedEntityAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ua1user_OaAdmin, TestFooEntityLiterals.FE_Ua2Oa);
+        result = await scopedEntityAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ua1user_OaAdmin, { resource: TestFooEntityLiterals.FE_Ua2Oa });
       } catch (e) {
         error = e;
       }
@@ -140,7 +140,7 @@ describe('GIVEN a ScopedEntityAuthCheck', () => {
       let result;
 
       try {
-        result = await scopedEntityAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Uc1GroupAdmin_OcMember_OaFacilitator, TestFooEntityLiterals.FE_Ua2Oa);
+        result = await scopedEntityAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Uc1GroupAdmin_OcMember_OaFacilitator, { resource: TestFooEntityLiterals.FE_Ua2Oa });
       } catch (e) {
         error = e;
       }
@@ -161,7 +161,7 @@ describe('GIVEN a ScopedEntityAuthCheck', () => {
       let result;
 
       try {
-        result = await scopedEntityAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Uz2StaffAdmin_OzMember, TestFooEntityLiterals.FE_Ua2Oa);
+        result = await scopedEntityAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Uz2StaffAdmin_OzMember, { resource: TestFooEntityLiterals.FE_Ua2Oa });
       } catch (e) {
         error = e;
       }
@@ -182,7 +182,7 @@ describe('GIVEN a ScopedEntityAuthCheck', () => {
       let result;
 
       try {
-        result = await scopedEntityAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Uz1SystemAdmin_OzMember, TestFooEntityLiterals.FE_Ua2Oa);
+        result = await scopedEntityAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Uz1SystemAdmin_OzMember, { resource: TestFooEntityLiterals.FE_Ua2Oa });
       } catch (e) {
         error = e;
       }
@@ -207,7 +207,7 @@ describe('GIVEN a ScopedEntityAuthCheck', () => {
       };
 
       try {
-        result = await scopedEntityAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ua2User_OaMember, orgScopedEntity);
+        result = await scopedEntityAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ua2User_OaMember, { resource: orgScopedEntity });
       } catch (e) {
         error = e;
       }
@@ -232,7 +232,7 @@ describe('GIVEN a ScopedEntityAuthCheck', () => {
       };
 
       try {
-        result = await scopedEntityAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ua2User_OaMember, userScopedEntity);
+        result = await scopedEntityAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ua2User_OaMember, { resource: userScopedEntity });
       } catch (e) {
         error = e;
       }
@@ -258,7 +258,7 @@ describe('GIVEN a ScopedEntityAuthCheck', () => {
       };
 
       try {
-        result = await scopedEntityAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ua1user_OaAdmin, userScopedEntity);
+        result = await scopedEntityAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ua1user_OaAdmin, { resource: userScopedEntity });
       } catch (e) {
         error = e;
       }

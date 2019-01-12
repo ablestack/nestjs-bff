@@ -1,7 +1,7 @@
-import { AccessPermissionsContract } from '../../../../../pkg-global/lib/interfaces/access-permissions.contract';
 import { IEntity } from '@nestjs-bff/global/lib/interfaces/entity.interface';
 import * as _ from 'lodash';
 import { Document, Model } from 'mongoose';
+import { AccessPermissionsContract } from '../../../../../pkg-global/lib/interfaces/access-permissions.contract';
 import { CacheStore } from '../../../shared/caching/cache-store.shared';
 import { CachingUtils } from '../../../shared/caching/caching.utils';
 import { AppError } from '../../../shared/exceptions/app.exception';
@@ -98,7 +98,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
 
     // authorization checks
     if (!options.skipAuthorization) {
-      await this.entityAuthChecker.ensureAuthorized(options.accessPermissions, result);
+      await this.entityAuthChecker.ensureAuthorized(options.accessPermissions, { resource: result });
     }
 
     // Return
@@ -150,7 +150,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     if (!options.skipAuthorization && result) {
       for (const entity of result) {
         if (!options.skipAuthorization) {
-          await this.entityAuthChecker.ensureAuthorized(options.accessPermissions, entity);
+          await this.entityAuthChecker.ensureAuthorized(options.accessPermissions, { resource: entity });
         }
       }
     }
@@ -179,7 +179,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
 
     // authorization checks
     if (!options.skipAuthorization) {
-      await this.entityAuthChecker.ensureAuthorized(options.accessPermissions, newEntity);
+      await this.entityAuthChecker.ensureAuthorized(options.accessPermissions, { resource: newEntity });
     }
 
     // transfer values to the model
@@ -220,7 +220,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
 
     // authorization checks
     if (!options.skipAuthorization) {
-      await this.entityAuthChecker.ensureAuthorized(options.accessPermissions, fullModel);
+      await this.entityAuthChecker.ensureAuthorized(options.accessPermissions, { resource: fullModel });
     }
 
     // persist
@@ -252,7 +252,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
 
     // authorization checks
     if (!options.skipAuthorization) {
-      await this.entityAuthChecker.ensureAuthorized(options.accessPermissions, entity);
+      await this.entityAuthChecker.ensureAuthorized(options.accessPermissions, { resource: entity });
     }
 
     // persist
@@ -282,7 +282,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
 
     // authorization checks
     if (!options.skipAuthorization && deleteModel) {
-      await this.entityAuthChecker.ensureAuthorized(options.accessPermissions, deleteModel);
+      await this.entityAuthChecker.ensureAuthorized(options.accessPermissions, { resource: deleteModel });
     }
 
     if (deleteModel) {

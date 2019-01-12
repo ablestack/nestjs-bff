@@ -33,7 +33,7 @@ describe('GIVEN a UserAuthCheck', () => {
       let result;
 
       try {
-        result = await userAuthCheck.isAuthorized(null, TestScopedDataLiterals.Sc_Ua1Oa);
+        result = await userAuthCheck.isAuthorized(null, { resource: TestScopedDataLiterals.Sc_Ua1Oa });
       } catch (e) {
         error = e;
       }
@@ -54,7 +54,7 @@ describe('GIVEN a UserAuthCheck', () => {
       let result;
 
       try {
-        result = await userAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ua1user_OaAdmin, TestScopedDataLiterals.Sc_Ua1Oa);
+        result = await userAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ua1user_OaAdmin, { resource: TestScopedDataLiterals.Sc_Ua1Oa });
       } catch (e) {
         error = e;
       }
@@ -75,7 +75,7 @@ describe('GIVEN a UserAuthCheck', () => {
       let result;
 
       try {
-        result = await userAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ua1user_OaAdmin, TestScopedDataLiterals.Sc_UxOa);
+        result = await userAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ua1user_OaAdmin, { resource: TestScopedDataLiterals.Sc_UxOa });
       } catch (e) {
         error = e;
       }
