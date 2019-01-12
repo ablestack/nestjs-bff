@@ -5,9 +5,6 @@ import { UserAuthCheck } from './user.authcheck';
 // Global Scoped Variables Setup
 //
 
-// @ts-ignore
-const logger = getLogger();
-
 describe('GIVEN a UserAuthCheck', () => {
   let userAuthCheck: UserAuthCheck;
 

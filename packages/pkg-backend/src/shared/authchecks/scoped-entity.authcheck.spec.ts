@@ -5,10 +5,6 @@ import { ScopedEntityAuthCheck } from './scoped-entity.authcheck';
 //
 // Global Scoped Variables Setup
 //
-
-// @ts-ignore
-const logger = getLogger();
-
 describe('GIVEN a ScopedEntityAuthCheck', () => {
   let scopedEntityAuthCheck: ScopedEntityAuthCheck;
 
