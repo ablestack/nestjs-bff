@@ -3,7 +3,7 @@ import { BaseEntity } from '@nestjs-bff/global/lib/entities/core/base.entity';
 import { AuthorizationScopeContract, UserOrgCredentialsContract } from '@nestjs-bff/global/lib/interfaces/authorization-scope.contract';
 import { IsArray, IsBoolean, IsIn, IsMongoId, ValidateNested } from 'class-validator';
 
-export class AuthorizationEntity extends BaseEntity implements AuthorizationScopeContract {
+export class UserPermissionsEntity extends BaseEntity implements AuthorizationScopeContract {
   @IsMongoId()
   userId?: string;
 

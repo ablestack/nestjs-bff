@@ -1,5 +1,5 @@
 import { Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
-import { AuthorizationEntity } from '../../../../domain/authorization/model/authorization.entity';
+import { UserPermissionsEntity } from '../../../../domain/authorization/model/user-permissions.entity';
 import { verify, VerifyOptions } from 'jsonwebtoken';
 import { NestjsBffConfig } from '../../../../config/nestjs-bff.config';
 import { getLogger } from '../../../../shared/logging/logging.shared.module';
@@ -42,7 +42,7 @@ NHAlRUQ161mqPZh/hg4ARYQoSkwmwZHA4xvEcYeyjm0GPkK5nKtI8RcCAwEAAQ==
       const authorizationEntity = {
         id: '507f1f77bcf86cd799439011',
         roles: [Roles.user],
-      } as AuthorizationEntity;
+      } as UserPermissionsEntity;
 
       const authToken = await jwtTokenService.createToken(authorizationEntity);
       expect(authToken).toBeDefined();

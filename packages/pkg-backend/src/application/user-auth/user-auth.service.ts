@@ -7,8 +7,8 @@ import { AuthenticationRepo } from '../../domain/authentication/repo/authenticat
 import { FacebookAuthenticationService } from '../../domain/authentication/social/facebook-authentication.service';
 import { FacebookProfileService } from '../../domain/authentication/social/facebook-profile..service';
 import { generateHashedPassword, validPassword } from '../../domain/authentication/utils/encryption.util';
-import { AuthorizationEntity } from '../../domain/authorization/model/authorization.entity';
-import { AuthorizationRepo } from '../../domain/authorization/repo/authorization.repo';
+import { UserPermissionsEntity } from '../../domain/authorization/model/user-permissions.entity';
+import { UserPermissionsRepo } from '../../domain/authorization/repo/user-permissions.repo';
 import { OrganizationRepo } from '../../domain/organization/repo/organization.repo';
 import { UserRepo } from '../../domain/user/repo/user.repo';
 import { AppError } from '../../shared/exceptions/app.exception';
@@ -20,7 +20,7 @@ export class UserAuthService {
     private readonly fbAuthenticationService: FacebookAuthenticationService,
     private readonly fbProfileService: FacebookProfileService,
     private readonly authenticationRepo: AuthenticationRepo,
-    private readonly authorizationRepo: AuthorizationRepo,
+    private readonly authorizationRepo: UserPermissionsRepo,
     private readonly userRepo: UserRepo,
     private readonly organizationRepo: OrganizationRepo,
   ) {}
@@ -29,17 +29,14 @@ export class UserAuthService {
    *
    * @param cmd
    */
-  public async signInWithLocal(cmd: LocalAuthenticateCommand): Promise<AuthorizationEntity> {
+  public async signInWithLocal(cmd: LocalAuthenticateCommand): Promise<UserPermissionsEntity> {
     const authenticationEntity = await this.authenticationRepo.findOne({ local: { email: cmd.username } });
 
     if (!authenticationEntity) throw new ValidationError(['Your login authorizationScope were not correct']);
     if (!authenticationEntity.local)
-      throw new ValidationError([
-        'Your login authorizationScope were not correct or you do not have an account. Perhaps you registered with social login?',
-      ]);
+      throw new ValidationError(['Your login authorizationScope were not correct or you do not have an account. Perhaps you registered with social login?']);
 
-    if (!validPassword(cmd.password, authenticationEntity.local.hashedPassword))
-      throw new ValidationError(['Your login authorizationScope were not correct']);
+    if (!validPassword(cmd.password, authenticationEntity.local.hashedPassword)) throw new ValidationError(['Your login authorizationScope were not correct']);
 
     const authorizationEntity = await this.authorizationRepo.findOne({ userId: authenticationEntity.userId });
 
@@ -52,7 +49,7 @@ export class UserAuthService {
    *
    * @param cmd
    */
-  public async signUpWithLocal(cmd: LocalRegisterCommand): Promise<AuthorizationEntity> {
+  public async signUpWithLocal(cmd: LocalRegisterCommand): Promise<UserPermissionsEntity> {
     //
     // setup commands
     //
@@ -84,7 +81,7 @@ export class UserAuthService {
 
     // create authentication
     newAuthenticationEntity.userId = user.id;
-    this.authenticationRepo.create(newAuthenticationEntity);
+    this.authenticationRepo.create(newAuthenticationEntity, { skipAuthorization: true });
 
     // create organization
     const organization = await this.organizationRepo.create({
@@ -93,17 +90,20 @@ export class UserAuthService {
     });
 
     // create authorization
-    const authorizationEntity = this.authorizationRepo.create({
-      userId: user.id,
-      roles: [Roles.user],
-      organizations: [
-        {
-          primary: true,
-          orgId: organization.id,
-          organizationRoles: [OrganizationRoles.member, OrganizationRoles.admin],
-        },
-      ],
-    });
+    const authorizationEntity = this.authorizationRepo.create(
+      {
+        userId: user.id,
+        roles: [Roles.user],
+        organizations: [
+          {
+            primary: true,
+            orgId: organization.id,
+            organizationRoles: [OrganizationRoles.member, OrganizationRoles.admin],
+          },
+        ],
+      },
+      { skipAuthorization: true },
+    );
 
     return authorizationEntity;
   }
@@ -112,7 +112,7 @@ export class UserAuthService {
    *
    * @param cmd
    */
-  public async promoteToGroupAdmin(cmd: PromoteToGroupAdminCommand): Promise<AuthorizationEntity> {
+  public async promoteToGroupAdmin(cmd: PromoteToGroupAdminCommand): Promise<UserPermissionsEntity> {
     const authorizationEntity = await this.authorizationRepo.findOne({ userId: cmd.userId });
 
     // Validate
@@ -131,7 +131,7 @@ export class UserAuthService {
    * @param fbAuthorizationCode
    * @param spaRootUrl
    */
-  public async signUpWithFacebook(fbAuthorizationCode: string, spaRootUrl: string): Promise<AuthorizationEntity> {
+  public async signUpWithFacebook(fbAuthorizationCode: string, spaRootUrl: string): Promise<UserPermissionsEntity> {
     // get fb auth token using fb access token
     const fbAuthorizationToken = await this.fbAuthenticationService.getOauthAccessToken(fbAuthorizationCode, spaRootUrl);
 
@@ -176,7 +176,7 @@ export class UserAuthService {
    * @param fbAuthorizationCode
    * @param spaRootUrl
    */
-  public async signInWithFacebook(fbAuthorizationCode: string, spaRootUrl: string): Promise<AuthorizationEntity> {
+  public async signInWithFacebook(fbAuthorizationCode: string, spaRootUrl: string): Promise<UserPermissionsEntity> {
     // get fb auth token using fb access token
     const fbAuthorizationToken = await this.fbAuthenticationService.getOauthAccessToken(fbAuthorizationCode, spaRootUrl);
 

@@ -1,4 +1,3 @@
-import { AuthorizationEntity } from '../model/authorization.entity';
 import { Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { INestjsBffConfig } from '../../../config/nestjs-bff.config';
@@ -8,14 +7,15 @@ import { CachingProviderTokens } from '../../../shared/caching/caching.shared.co
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { BaseRepo } from '../../core/repo/base.repo';
 import { ClassValidator } from '../../core/validators/class-validator';
-import { AuthorizationProviderTokens } from '../authorization.constants';
-import { IAuthorizationModel } from '../model/authorization.model';
+import { UserPermissionsEntity } from '../model/user-permissions.entity';
+import { IUserPermissionsModel } from '../model/user-permissions.model';
+import { UserPermissionsProviderTokens } from '../user-permissions.constants';
 
 @Injectable()
-export class AuthorizationRepo extends BaseRepo<AuthorizationEntity, IAuthorizationModel> {
+export class UserPermissionsRepo extends BaseRepo<UserPermissionsEntity, IUserPermissionsModel> {
   constructor(
     readonly loggerService: LoggerSharedService,
-    @Inject(AuthorizationProviderTokens.Models.Authorization) model: Model<IAuthorizationModel>,
+    @Inject(UserPermissionsProviderTokens.Models.UserPermissions) model: Model<IUserPermissionsModel>,
     @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
     @Inject(AppSharedProviderTokens.Config.App) nestjsBffConfig: INestjsBffConfig,
   ) {
@@ -24,11 +24,11 @@ export class AuthorizationRepo extends BaseRepo<AuthorizationEntity, IAuthorizat
       model,
       cacheStore,
       defaultTTL: nestjsBffConfig.caching.entities.authorization,
-      entityValidator: new ClassValidator(loggerService, AuthorizationEntity),
+      entityValidator: new ClassValidator(loggerService, UserPermissionsEntity),
     });
   }
 
-  protected generateValidQueryConditionsForCacheClear(entity: AuthorizationEntity): Array<Partial<AuthorizationEntity>> {
+  protected generateValidQueryConditionsForCacheClear(entity: UserPermissionsEntity): Array<Partial<UserPermissionsEntity>> {
     throw new Error('Method not implemented.');
   }
 }

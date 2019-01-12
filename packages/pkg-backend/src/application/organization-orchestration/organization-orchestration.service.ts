@@ -3,8 +3,8 @@ import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/constants/roles
 import { Injectable } from '@nestjs/common';
 import { AuthenticationRepo } from '../../domain/authentication/repo/authentication.repo';
 import { generateHashedPassword } from '../../domain/authentication/utils/encryption.util';
-import { AuthorizationEntity } from '../../domain/authorization/model/authorization.entity';
-import { AuthorizationRepo } from '../../domain/authorization/repo/authorization.repo';
+import { UserPermissionsEntity } from '../../domain/authorization/model/user-permissions.entity';
+import { UserPermissionsRepo } from '../../domain/authorization/repo/user-permissions.repo';
 import { OrganizationRepo } from '../../domain/organization/repo/organization.repo';
 import { UserRepo } from '../../domain/user/repo/user.repo';
 import { AppError } from '../../shared/exceptions/app.exception';
@@ -13,12 +13,12 @@ import { AppError } from '../../shared/exceptions/app.exception';
 export class OrganizationOrchestrationService {
   constructor(
     private readonly authenticationRepo: AuthenticationRepo,
-    private readonly authorizationRepo: AuthorizationRepo,
+    private readonly authorizationRepo: UserPermissionsRepo,
     private readonly userRepo: UserRepo,
     private readonly organizationRepo: OrganizationRepo,
   ) {}
 
-  public async createMember(cmd: CreateOrganizationMemberCommand): Promise<AuthorizationEntity> {
+  public async createMember(cmd: CreateOrganizationMemberCommand): Promise<UserPermissionsEntity> {
     // setup commands
     const newAuthenticationEntity = {
       userId: '',
