@@ -1,6 +1,6 @@
-import { IsEmail, IsMongoId, IsString, Length } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString, Length } from 'class-validator';
 export class CreateOrganizationMemberCommand {
-  @IsMongoId()
+  @IsNotEmpty()
   public readonly orgId: string = '';
 
   @IsEmail()

@@ -1,5 +1,5 @@
 import { UserAuthService } from '@nestjs-bff/backend/lib/application/user-auth/user-auth.service';
-import { AuthorizationEntity } from '../../../packages/pkg-backend/lib/domain/user-permissions/model/user-permissions.entity';
+import { AccessPermissionsEntity } from '@nestjs-bff/backend/lib/domain/access-permissions/model/access-permissions.entity';
 import { JwtTokenService } from '@nestjs-bff/backend/lib/host/http/core/jwt/jwt-token.service';
 import { getLogger } from '@nestjs-bff/backend/lib/shared/logging/logging.shared.module';
 import { INestApplication } from '@nestjs/common';
@@ -19,11 +19,11 @@ global.nestjs_bff = { AppConfig };
 export const authData = {
   domainA: {
     adminUser: {
-      auth: new AuthorizationEntity(),
+      auth: new AccessPermissionsEntity(),
       jwt: { token: '' },
     },
     regularUser: {
-      auth: new AuthorizationEntity(),
+      auth: new AccessPermissionsEntity(),
       jwt: { token: '' },
     },
   },

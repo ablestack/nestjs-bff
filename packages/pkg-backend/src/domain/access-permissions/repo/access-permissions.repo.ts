@@ -10,6 +10,7 @@ import { ClassValidator } from '../../core/validators/class-validator';
 import { AccessPermissionsProviderTokens } from '../access-permissions.constants';
 import { AccessPermissionsEntity } from '../model/access-permissions.entity';
 import { IAccessPermissionsModel } from '../model/access-permissions.model';
+import { AccessPermissionsEntityAuthCheck } from './access-permissions-entity.authcheck';
 
 @Injectable()
 export class AccessPermissionsRepo extends BaseRepo<AccessPermissionsEntity, IAccessPermissionsModel> {
@@ -25,10 +26,11 @@ export class AccessPermissionsRepo extends BaseRepo<AccessPermissionsEntity, IAc
       cacheStore,
       defaultTTL: nestjsBffConfig.caching.entities.authorization,
       entityValidator: new ClassValidator(loggerService, AccessPermissionsEntity),
+      entityAuthChecker: new AccessPermissionsEntityAuthCheck(),
     });
   }
 
   protected generateValidQueryConditionsForCacheClear(entity: AccessPermissionsEntity): Array<Partial<AccessPermissionsEntity>> {
-    throw new Error('Method not implemented.');
+    return [{ _id: entity._id, userId: entity.userId }];
   }
 }

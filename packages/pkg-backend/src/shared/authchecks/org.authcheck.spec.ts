@@ -5,7 +5,7 @@ import { OrgAccessAuthCheck } from './org-access.authcheck';
 // Global Scoped Variables Setup
 //
 
-describe('GIVEN a OrgAuthCheck', () => {
+describe('GIVEN a OrgAccessAuthCheck', () => {
   let orgAuthCheck: OrgAccessAuthCheck;
 
   beforeAll(async () => {

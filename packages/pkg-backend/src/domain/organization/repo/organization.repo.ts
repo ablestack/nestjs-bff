@@ -29,6 +29,6 @@ export class OrganizationRepo extends BaseRepo<OrganizationEntity, IOrganization
   }
 
   protected generateValidQueryConditionsForCacheClear(entity: OrganizationEntity): Array<Partial<OrganizationEntity>> {
-    throw new Error('Method not implemented.');
+    return [{ slug: entity.slug }];
   }
 }

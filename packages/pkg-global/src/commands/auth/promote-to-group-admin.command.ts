@@ -1,6 +1,6 @@
-import { IsMongoId } from 'class-validator';
+import { IsNotEmpty } from 'class-validator';
 
 export class PromoteToGroupAdminCommand {
-  @IsMongoId()
+  @IsNotEmpty()
   public readonly userId: string = '';
 }

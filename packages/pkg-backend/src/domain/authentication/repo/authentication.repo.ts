@@ -29,6 +29,6 @@ export class AuthenticationRepo extends BaseRepo<AuthenticationEntity, IAuthenti
   }
 
   protected generateValidQueryConditionsForCacheClear(entity: AuthenticationEntity): Array<Partial<AuthenticationEntity>> {
-    throw new Error('Method not implemented.');
+    return [{ _id: entity._id, userId: entity.userId }];
   }
 }

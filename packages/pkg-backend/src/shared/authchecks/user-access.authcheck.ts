@@ -1,5 +1,5 @@
 import { OrganizationRoles } from '@nestjs-bff/global/lib/constants/roles.constants';
-import { AppError } from '../exceptions/app.exception';
+import { AuthorizationCheckError } from '../exceptions/authorization-check.exception';
 import { AuthCheckContract } from './authcheck.contract';
 import { hasOrganizationRole, isStaffAdmin } from './authcheck.utils';
 import { AuthorizationCheckParams } from './authorization-params';
@@ -11,7 +11,7 @@ export class UserAccessAuthCheck extends AuthCheckContract<ScopedData, any> {
   }
 
   public async isAuthorized(params: AuthorizationCheckParams<ScopedData, any>): Promise<boolean> {
-    if (!params || !params.targetResource || !params.targetResource.userId) throw new AppError('userId can not be null');
+    if (!params || !params.targetResource || !params.targetResource.userId) throw new AuthorizationCheckError(params, 'userId can not be null');
 
     if (!params.accessPermissions) return false;
 

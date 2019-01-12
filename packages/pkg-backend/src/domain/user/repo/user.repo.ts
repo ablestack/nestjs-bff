@@ -29,6 +29,6 @@ export class UserRepo extends BaseRepo<UserEntity, IUserModel> {
   }
 
   protected generateValidQueryConditionsForCacheClear(entity: UserEntity): Array<Partial<UserEntity>> {
-    throw new Error('Method not implemented.');
+    return [{ username: entity.username }];
   }
 }

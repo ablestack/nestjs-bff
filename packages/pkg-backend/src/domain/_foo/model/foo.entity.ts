@@ -1,12 +1,12 @@
 // import { UserAndOrgScopedEntity } from '@nestjs-bff/global/lib/entities/core/user-and-org-scoped.entity';
 import { BaseEntity } from '@nestjs-bff/global/lib/entities/core/base.entity';
-import { IsDefined, IsMongoId, Length } from 'class-validator';
+import { IsDefined, IsNotEmpty, Length } from 'class-validator';
 
 export class FooEntity extends BaseEntity {
-  @IsMongoId()
+  @IsNotEmpty()
   public userId: string | undefined = undefined;
 
-  @IsMongoId()
+  @IsNotEmpty()
   public orgId: string | undefined = undefined;
 
   @Length(5, 50)

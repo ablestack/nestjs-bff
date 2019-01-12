@@ -29,6 +29,6 @@ export class FooRepo extends BaseRepo<FooEntity, IFooModel> {
   }
 
   protected generateValidQueryConditionsForCacheClear(entity: FooEntity): FooEntity[] {
-    throw new Error('Method not implemented.');
+    return [{ _id: entity._id, userId: entity.userId, orgId: entity.orgId }];
   }
 }

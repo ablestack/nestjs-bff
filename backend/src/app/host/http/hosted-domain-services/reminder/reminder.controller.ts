@@ -1,6 +1,6 @@
-import { OrgAuthCheck } from '@nestjs-bff/backend/lib/shared/authchecks/org.authcheck';
 import { Authorization } from '@nestjs-bff/backend/lib/host/http/core/decorators/authorization.decorator';
 import { BffRequest } from '@nestjs-bff/backend/lib/host/http/core/types/bff-request.contract';
+import { OrgAccessAuthCheck } from '@nestjs-bff/backend/lib/shared/authchecks/org-access.authcheck';
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Req } from '@nestjs/common';
 import { ReminderRepo } from '../../../../domain/reminder/repo/reminder.repo';
 import { ReminderEntity } from '../../../../global/entities/reminder.entity';
@@ -22,41 +22,37 @@ export class ReminderController {
   constructor(private readonly reminderRepo: ReminderRepo) {}
 
   @Get()
-  @Authorization([new OrgAuthCheck()])
-  public async getItems(@Param('orgId') orgId: string, @Param('userId') userId: string): Promise<ReminderEntity[]> {
-    return this.reminderRepo.find({ userId, orgId });
+  @Authorization([new OrgAccessAuthCheck()])
+  public async getItems(@Req() req: BffRequest, string, @Body() entity: ReminderEntity): Promise<ReminderEntity[]> {
+    return this.reminderRepo.find(entity, { accessPermissions: req.accessPermissions });
   }
 
   @Get(':id')
-  @Authorization([new OrgAuthCheck()])
-  public async getItem(
-    @Param('orgId') orgId: string,
-    @Param('userId') userId: string,
-    id: string,
-  ): Promise<ReminderEntity> {
-    return this.reminderRepo.findOne({ id, orgId, userId });
+  @Authorization([new OrgAccessAuthCheck()])
+  public async getItem(@Req() req: BffRequest, @Param('id') _id: string, id: string): Promise<ReminderEntity> {
+    return this.reminderRepo.findOne({ _id }, { accessPermissions: req.accessPermissions });
   }
 
   @Post()
-  @Authorization([new OrgAuthCheck()])
-  public async create(@Body() entity: ReminderEntity) {
-    return this.reminderRepo.create(entity);
+  @Authorization([new OrgAccessAuthCheck()])
+  public async create(@Req() req: BffRequest, @Body() entity: ReminderEntity) {
+    return this.reminderRepo.create(entity, { accessPermissions: req.accessPermissions });
   }
 
   @Put()
-  @Authorization([new OrgAuthCheck()])
-  public async update(@Body() entity: ReminderEntity) {
-    return this.reminderRepo.update(entity);
+  @Authorization([new OrgAccessAuthCheck()])
+  public async update(@Req() req: BffRequest, @Body() entity: ReminderEntity) {
+    return this.reminderRepo.update(entity, { accessPermissions: req.accessPermissions });
   }
 
   @Patch()
-  @Authorization([new OrgAuthCheck()])
-  public async partialUpdate(@Body() entity: Partial<ReminderEntity>) {
-    return this.reminderRepo.patch(entity);
+  @Authorization([new OrgAccessAuthCheck()])
+  public async partialUpdate(@Req() req: BffRequest, @Body() entity: Partial<ReminderEntity>) {
+    return this.reminderRepo.patch(entity, { accessPermissions: req.accessPermissions });
   }
 
   @Delete()
-  @Authorization([new OrgAuthCheck()])
+  @Authorization([new OrgAccessAuthCheck()])
   public async delete(@Req() req: BffRequest, @Param('id') id) {
     return this.reminderRepo.delete(id, { accessPermissions: req.accessPermissions });
   }

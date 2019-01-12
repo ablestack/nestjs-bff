@@ -1,4 +1,4 @@
-import { AppError } from '../exceptions/app.exception';
+import { AuthorizationCheckError } from '../exceptions/authorization-check.exception';
 import { AuthCheckContract } from './authcheck.contract';
 import { hasOrganizationRole, isStaffAdmin } from './authcheck.utils';
 import { AuthorizationCheckParams } from './authorization-params';
@@ -10,7 +10,7 @@ export class OrgRolesAuthCheck extends AuthCheckContract<ScopedData, any> {
   }
 
   public async isAuthorized(params: AuthorizationCheckParams<any, any>): Promise<boolean> {
-    if (!!params.targetResource || !params.targetResource.orgId) throw new AppError('orgId can not be null');
+    if (!params.targetResource || !params.targetResource.orgId) throw new AuthorizationCheckError(params, 'orgId can not be null');
 
     if (!params.accessPermissions) return false;
 

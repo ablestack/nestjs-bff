@@ -388,9 +388,10 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     return this.model.findById(id).exec();
   }
 
-  protected async _dbFindOneAndReplace(conditions: Partial<TEntity>) {
-    this.loggerService.trace(`${this.name}._dbFindOneAndReplace`, conditions);
-    // @ts-ignore
-    return this.model.findOneAndReplace(conditions).exec();
+  protected async _dbFindOneAndReplace(entity: Partial<TEntity>) {
+    this.loggerService.trace(`${this.name}._dbFindOneAndReplace`, entity);
+    const result = await this.model.collection.findOneAndReplace({ _id: entity._id }, entity, { returnOriginal: false });
+    // this.loggerService.debug(`${this.name}._dbFindOneAndReplace`, JSON.stringify(result, null, 2))
+    return result.value;
   }
 }

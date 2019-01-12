@@ -21,7 +21,7 @@ export class OrganizationOrchestrationService {
   constructor(
     private readonly logger: LoggerSharedService,
     private readonly authenticationRepo: AuthenticationRepo,
-    private readonly authorizationRepo: AccessPermissionsRepo,
+    private readonly accessPermissionsRepo: AccessPermissionsRepo,
     private readonly userRepo: UserRepo,
     private readonly organizationRepo: OrganizationRepo,
   ) {}
@@ -53,33 +53,39 @@ export class OrganizationOrchestrationService {
     this.authenticationRepo.entityValidator.validate(newAuthenticationEntity);
 
     // validate organization exists
-    if (!(await this.organizationRepo.tryfindOne({ _id: cmd.orgId }, { skipAuthorization: true }))) {
+    if (!(await this.organizationRepo.tryfindOne({ _id: cmd.orgId }, { accessPermissions }))) {
       throw new AppError(`Create Member: Could not find organization for Id ${cmd.orgId}`);
     }
 
     // create new user
-    const user = await this.userRepo.create({
-      username: cmd.username,
-      displayName: cmd.displayName,
-    });
+    const user = await this.userRepo.create(
+      {
+        username: cmd.username,
+        displayName: cmd.displayName,
+      },
+      { accessPermissions },
+    );
 
     // create authentication
     newAuthenticationEntity.userId = user._id;
-    this.authenticationRepo.create(newAuthenticationEntity);
+    this.authenticationRepo.create(newAuthenticationEntity, { accessPermissions });
 
     // create authorization
-    const authorizationEntity = this.authorizationRepo.create({
-      userId: user._id,
-      roles: [Roles.user],
-      organizations: [
-        {
-          primary: true,
-          orgId: cmd.orgId,
-          organizationRoles: [OrganizationRoles.member],
-        },
-      ],
-    });
+    const accessPermissionsEntity = this.accessPermissionsRepo.create(
+      {
+        userId: user._id,
+        roles: [Roles.user],
+        organizations: [
+          {
+            primary: true,
+            orgId: cmd.orgId,
+            organizationRoles: [OrganizationRoles.member],
+          },
+        ],
+      },
+      { accessPermissions },
+    );
 
-    return authorizationEntity;
+    return accessPermissionsEntity;
   }
 }

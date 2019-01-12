@@ -1,10 +1,10 @@
 import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
 import { BaseEntity } from '@nestjs-bff/global/lib/entities/core/base.entity';
 import { AccessPermissionsContract, UserOrgPermissionsContract } from '@nestjs-bff/global/lib/interfaces/access-permissions.contract';
-import { IsArray, IsBoolean, IsIn, IsMongoId, ValidateNested } from 'class-validator';
+import { IsArray, IsBoolean, IsIn, IsNotEmpty, ValidateNested } from 'class-validator';
 
 export class AccessPermissionsEntity extends BaseEntity implements AccessPermissionsContract {
-  @IsMongoId()
+  @IsNotEmpty()
   userId?: string;
 
   @IsArray()
@@ -19,7 +19,7 @@ export class OrganizationAuthorization implements UserOrgPermissionsContract {
   @IsBoolean()
   primary?: boolean;
 
-  @IsMongoId()
+  @IsNotEmpty()
   orgId?: string;
 
   @IsArray()

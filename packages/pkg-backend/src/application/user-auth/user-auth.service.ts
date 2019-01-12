@@ -31,7 +31,7 @@ export class UserAuthService {
    * @param cmd
    */
   public async signInWithLocal(cmd: LocalAuthenticateCommand): Promise<AccessPermissionsEntity> {
-    const authenticationEntity = await this.authenticationRepo.findOne({ local: { email: cmd.username } });
+    const authenticationEntity = await this.authenticationRepo.findOne({ local: { email: cmd.username } }, { skipAuthorization: true });
 
     if (!authenticationEntity) throw new ValidationError(['Your login accessPermissions were not correct']);
     if (!authenticationEntity.local)
@@ -130,7 +130,7 @@ export class UserAuthService {
     authorizationEntity.roles.push(Roles.groupAdmin);
 
     // Persist
-    return this.authorizationRepo.update(authorizationEntity).then(() => authorizationEntity);
+    return this.authorizationRepo.update(authorizationEntity, { accessPermissions }).then(() => authorizationEntity);
   }
 
   /**

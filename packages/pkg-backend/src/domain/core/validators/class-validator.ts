@@ -37,7 +37,7 @@ export class ClassValidator<T> {
       classValidatorValidationErrors.forEach(valErr => {
         validationErrorMessages.push(`Property '${valErr.property}' can not contain value '${valErr.value}'`);
       });
-      validationError = new ValidationError(validationErrorMessages, classValidatorValidationErrors);
+      validationError = new ValidationError(validationErrorMessages, { target: obj, options, data: classValidatorValidationErrors });
     }
 
     // return exception object

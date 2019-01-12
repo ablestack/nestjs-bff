@@ -1,8 +1,8 @@
 import { BaseEntity } from '@nestjs-bff/global/lib/entities/core/base.entity';
-import { IsEmail, IsMongoId, IsString, ValidateNested } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
 
 export class AuthenticationEntity extends BaseEntity {
-  @IsMongoId()
+  @IsNotEmpty()
   userId?: string;
 
   @ValidateNested()

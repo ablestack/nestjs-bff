@@ -13,19 +13,22 @@ export class ReminderOrchestrationService {
     accessPermissions?: AccessPermissionsContract,
   ): Promise<void> {
     // get reminder
-    const reminder = await this.reminderRepo.findOne({ _id: cmd.reminderId });
+    const reminder = await this.reminderRepo.findOne({ _id: cmd.reminderId }, { accessPermissions });
 
     // remove from Reminder data store
     this.reminderRepo.delete(cmd.reminderId, { accessPermissions });
 
     // add to ReminderArchive data store
-    this.reminderArchiveRepo.create({
-      Title: reminder.Title,
-      Deadline: reminder.Deadline,
-      Completed: reminder.Completed,
-      userId: reminder.userId,
-      orgId: reminder.orgId,
-      archivedDate: new Date(),
-    });
+    this.reminderArchiveRepo.create(
+      {
+        Title: reminder.Title,
+        Deadline: reminder.Deadline,
+        Completed: reminder.Completed,
+        userId: reminder.userId,
+        orgId: reminder.orgId,
+        archivedDate: new Date(),
+      },
+      { accessPermissions },
+    );
   }
 }

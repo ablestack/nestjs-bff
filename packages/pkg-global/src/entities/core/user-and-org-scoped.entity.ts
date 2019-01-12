@@ -1,7 +1,7 @@
 import { OrgScopedEntity } from './org-scoped.entity';
-import { IsMongoId } from 'class-validator';
+import { IsNotEmpty } from 'class-validator';
 
 export abstract class UserAndOrgScopedEntity extends OrgScopedEntity {
-  @IsMongoId()
+  @IsNotEmpty()
   public userId: string | undefined = undefined;
 }

@@ -29,6 +29,6 @@ export class ReminderRepo extends BaseRepo<ReminderEntity, IReminderModel> {
   }
 
   protected generateValidQueryConditionsForCacheClear(entity: ReminderEntity): ReminderEntity[] {
-    throw new Error('Method not implemented.');
+    return [{ _id: entity._id, userId: entity.userId, orgId: entity.orgId }];
   }
 }
