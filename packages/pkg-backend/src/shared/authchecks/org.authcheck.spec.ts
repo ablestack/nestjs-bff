@@ -1,5 +1,4 @@
-import { getLogger } from '../../../shared/logging/logging.shared.module';
-import { TestAuthorizationLiterals, TestScopedDataLiterals } from '../_/test-literals.constants';
+import { TestAuthorizationLiterals, TestScopedDataLiterals } from '../testing/test-literals.constants';
 import { OrgAuthCheck } from './org.authcheck';
 
 //
@@ -33,7 +32,7 @@ describe('GIVEN a OrgAuthCheck', () => {
       let result;
 
       try {
-        result = await orgAuthCheck.isAuthorized(null, TestScopedDataLiterals.Sc_Ua2Oa);
+        result = await orgAuthCheck.isAuthorized({ accessPermissions: null, origin: __filename, targetResource: TestScopedDataLiterals.Sc_Ua2Oa });
       } catch (e) {
         error = e;
       }
@@ -54,7 +53,11 @@ describe('GIVEN a OrgAuthCheck', () => {
       let result;
 
       try {
-        result = await orgAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ua2User_OaMember, TestScopedDataLiterals.Sc_Ua1Oa);
+        result = await orgAuthCheck.isAuthorized({
+          accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember,
+          origin: __filename,
+          targetResource: TestScopedDataLiterals.Sc_Ua1Oa,
+        });
       } catch (e) {
         error = e;
       }
@@ -75,7 +78,11 @@ describe('GIVEN a OrgAuthCheck', () => {
       let result;
 
       try {
-        result = await orgAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ua1user_OaAdmin, TestScopedDataLiterals.Sc_Ua2Ox);
+        result = await orgAuthCheck.isAuthorized({
+          accessPermissions: TestAuthorizationLiterals.Az_Ua1user_OaAdmin,
+          origin: __filename,
+          targetResource: TestScopedDataLiterals.Sc_Ua2Ox,
+        });
       } catch (e) {
         error = e;
       }

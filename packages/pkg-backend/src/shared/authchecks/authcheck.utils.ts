@@ -1,19 +1,19 @@
 import { Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
-import { AccessPermissionsEntity } from '../../access-permissions/model/access-permissions.entity';
+import { AccessPermissionsContract } from '@nestjs-bff/global/lib/interfaces/access-permissions.contract';
 
-function hasRole(requestingEntity: AccessPermissionsEntity, qualifyingRole: string): boolean {
+function hasRole(requestingEntity: AccessPermissionsContract, qualifyingRole: string): boolean {
   return !!requestingEntity.roles && requestingEntity.roles.includes(qualifyingRole);
 }
 
-function isSystemAdmin(authorization: AccessPermissionsEntity): boolean {
+function isSystemAdmin(authorization: AccessPermissionsContract): boolean {
   return authorization.roles.includes(Roles.staffAdmin);
 }
 
-function isStaffAdmin(authorization: AccessPermissionsEntity): boolean {
+function isStaffAdmin(authorization: AccessPermissionsContract): boolean {
   return authorization.roles.includes(Roles.staffAdmin) || authorization.roles.includes(Roles.systemAdmin);
 }
 
-function hasOrganization(authorization: AccessPermissionsEntity, organizationIDForResource: string): boolean {
+function hasOrganization(authorization: AccessPermissionsContract, organizationIDForResource: string): boolean {
   return (
     !!authorization.organizations &&
     !!authorization.organizations.find(organizationAuth => {
@@ -22,7 +22,7 @@ function hasOrganization(authorization: AccessPermissionsEntity, organizationIDF
   );
 }
 
-function hasOrganizationRole(accessPermissions: AccessPermissionsEntity, organizationIDForResource: string, qualifyingRoles: string[]): boolean {
+function hasOrganizationRole(accessPermissions: AccessPermissionsContract, organizationIDForResource: string, qualifyingRoles: string[]): boolean {
   return (
     !!accessPermissions.organizations &&
     !!accessPermissions.organizations.find(organizationAuth => {

@@ -1,6 +1,5 @@
-import { getLogger } from '../../../shared/logging/logging.shared.module';
-import { TestingUtils } from '../../../shared/utils/testing.utils';
-import { TestAuthorizationLiterals, TestFooEntityLiterals, TestOrgLiterals, TestUserLiterals } from '../_/test-literals.constants';
+import { TestAuthorizationLiterals, TestFooEntityLiterals, TestOrgLiterals, TestUserLiterals } from '../testing/test-literals.constants';
+import { TestingUtils } from '../utils/testing.utils';
 import { ScopedEntityAuthCheck } from './scoped-entity.authcheck';
 
 //
@@ -35,7 +34,7 @@ describe('GIVEN a ScopedEntityAuthCheck', () => {
       let result;
 
       try {
-        result = await scopedEntityAuthCheck.isAuthorized(null, { resource: TestFooEntityLiterals.FE_Ua2Oa });
+        result = await scopedEntityAuthCheck.isAuthorized({ accessPermissions: null, origin: __filename, targetResource: TestFooEntityLiterals.FE_Ua2Oa });
       } catch (e) {
         error = e;
       }
@@ -55,7 +54,11 @@ describe('GIVEN a ScopedEntityAuthCheck', () => {
       let result;
 
       try {
-        result = await scopedEntityAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ua2User_OaMember, { resource: TestFooEntityLiterals.FE_Ua2Oa });
+        result = await scopedEntityAuthCheck.isAuthorized({
+          accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember,
+          origin: __filename,
+          targetResource: TestFooEntityLiterals.FE_Ua2Oa,
+        });
       } catch (e) {
         error = e;
       }
@@ -76,7 +79,11 @@ describe('GIVEN a ScopedEntityAuthCheck', () => {
       let result;
 
       try {
-        result = await scopedEntityAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ub1user_ObAdmin, { resource: TestFooEntityLiterals.FE_Ua2Oa });
+        result = await scopedEntityAuthCheck.isAuthorized({
+          accessPermissions: TestAuthorizationLiterals.Az_Ub1user_ObAdmin,
+          origin: __filename,
+          targetResource: TestFooEntityLiterals.FE_Ua2Oa,
+        });
       } catch (e) {
         error = e;
       }
@@ -97,7 +104,11 @@ describe('GIVEN a ScopedEntityAuthCheck', () => {
       let result;
 
       try {
-        result = await scopedEntityAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ua2User_OaMember, { resource: TestFooEntityLiterals.FE_Ua1Oa });
+        result = await scopedEntityAuthCheck.isAuthorized({
+          accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember,
+          origin: __filename,
+          targetResource: TestFooEntityLiterals.FE_Ua1Oa,
+        });
       } catch (e) {
         error = e;
       }
@@ -118,7 +129,11 @@ describe('GIVEN a ScopedEntityAuthCheck', () => {
       let result;
 
       try {
-        result = await scopedEntityAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ua1user_OaAdmin, { resource: TestFooEntityLiterals.FE_Ua2Oa });
+        result = await scopedEntityAuthCheck.isAuthorized({
+          accessPermissions: TestAuthorizationLiterals.Az_Ua1user_OaAdmin,
+          origin: __filename,
+          targetResource: TestFooEntityLiterals.FE_Ua2Oa,
+        });
       } catch (e) {
         error = e;
       }
@@ -140,7 +155,11 @@ describe('GIVEN a ScopedEntityAuthCheck', () => {
       let result;
 
       try {
-        result = await scopedEntityAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Uc1GroupAdmin_OcMember_OaFacilitator, { resource: TestFooEntityLiterals.FE_Ua2Oa });
+        result = await scopedEntityAuthCheck.isAuthorized({
+          accessPermissions: TestAuthorizationLiterals.Az_Uc1GroupAdmin_OcMember_OaFacilitator,
+          origin: __filename,
+          targetResource: TestFooEntityLiterals.FE_Ua2Oa,
+        });
       } catch (e) {
         error = e;
       }
@@ -161,7 +180,11 @@ describe('GIVEN a ScopedEntityAuthCheck', () => {
       let result;
 
       try {
-        result = await scopedEntityAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Uz2StaffAdmin_OzMember, { resource: TestFooEntityLiterals.FE_Ua2Oa });
+        result = await scopedEntityAuthCheck.isAuthorized({
+          accessPermissions: TestAuthorizationLiterals.Az_Uz2StaffAdmin_OzMember,
+          origin: __filename,
+          targetResource: TestFooEntityLiterals.FE_Ua2Oa,
+        });
       } catch (e) {
         error = e;
       }
@@ -182,7 +205,11 @@ describe('GIVEN a ScopedEntityAuthCheck', () => {
       let result;
 
       try {
-        result = await scopedEntityAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Uz1SystemAdmin_OzMember, { resource: TestFooEntityLiterals.FE_Ua2Oa });
+        result = await scopedEntityAuthCheck.isAuthorized({
+          accessPermissions: TestAuthorizationLiterals.Az_Uz1SystemAdmin_OzMember,
+          origin: __filename,
+          targetResource: TestFooEntityLiterals.FE_Ua2Oa,
+        });
       } catch (e) {
         error = e;
       }
@@ -207,7 +234,11 @@ describe('GIVEN a ScopedEntityAuthCheck', () => {
       };
 
       try {
-        result = await scopedEntityAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ua2User_OaMember, { resource: orgScopedEntity });
+        result = await scopedEntityAuthCheck.isAuthorized({
+          accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember,
+          origin: __filename,
+          targetResource: orgScopedEntity,
+        });
       } catch (e) {
         error = e;
       }
@@ -232,7 +263,11 @@ describe('GIVEN a ScopedEntityAuthCheck', () => {
       };
 
       try {
-        result = await scopedEntityAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ua2User_OaMember, { resource: userScopedEntity });
+        result = await scopedEntityAuthCheck.isAuthorized({
+          accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember,
+          origin: __filename,
+          targetResource: userScopedEntity,
+        });
       } catch (e) {
         error = e;
       }
@@ -258,7 +293,11 @@ describe('GIVEN a ScopedEntityAuthCheck', () => {
       };
 
       try {
-        result = await scopedEntityAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ua1user_OaAdmin, { resource: userScopedEntity });
+        result = await scopedEntityAuthCheck.isAuthorized({
+          accessPermissions: TestAuthorizationLiterals.Az_Ua1user_OaAdmin,
+          origin: __filename,
+          targetResource: userScopedEntity,
+        });
       } catch (e) {
         error = e;
       }

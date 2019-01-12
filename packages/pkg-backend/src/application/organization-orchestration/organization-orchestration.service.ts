@@ -1,16 +1,20 @@
 import { CreateOrganizationMemberCommand } from '@nestjs-bff/global/lib/commands/auth/create-organization-member.command';
 import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
+import { AccessPermissionsContract } from '@nestjs-bff/global/lib/interfaces/access-permissions.contract';
 import { Injectable } from '@nestjs/common';
-import { AuthenticationRepo } from '../../domain/authentication/repo/authentication.repo';
-import { generateHashedPassword } from '../../domain/authentication/utils/encryption.util';
 import { AccessPermissionsEntity } from '../../domain/access-permissions/model/access-permissions.entity';
 import { AccessPermissionsRepo } from '../../domain/access-permissions/repo/access-permissions.repo';
+import { AuthenticationRepo } from '../../domain/authentication/repo/authentication.repo';
+import { generateHashedPassword } from '../../domain/authentication/utils/encryption.util';
+import { AuthCheckContract } from '../../domain/core/authchecks/authcheck.contract';
 import { OrganizationRepo } from '../../domain/organization/repo/organization.repo';
 import { UserRepo } from '../../domain/user/repo/user.repo';
 import { AppError } from '../../shared/exceptions/app.exception';
 
 @Injectable()
 export class OrganizationOrchestrationService {
+  authChecks: AuthCheckContract[];
+
   constructor(
     private readonly authenticationRepo: AuthenticationRepo,
     private readonly authorizationRepo: AccessPermissionsRepo,
@@ -18,7 +22,9 @@ export class OrganizationOrchestrationService {
     private readonly organizationRepo: OrganizationRepo,
   ) {}
 
-  public async createMember(cmd: CreateOrganizationMemberCommand): Promise<AccessPermissionsEntity> {
+  public async createMember(cmd: CreateOrganizationMemberCommand, accessPermissions: AccessPermissionsContract): Promise<AccessPermissionsEntity> {
+    // Authorization
+
     // setup commands
     const newAuthenticationEntity = {
       userId: '',

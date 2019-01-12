@@ -1,4 +1,4 @@
-import { AccessPermissionsEntity } from './domain/access-permissions/model/access-permissions.entity';
+import { AccessPermissionsContract } from '@nestjs-bff/global/lib/interfaces/access-permissions.contract';
 
 declare module '*.json' {
   const value: any;
@@ -8,7 +8,7 @@ declare module '*.json' {
 declare global {
   namespace Express {
     export interface Request {
-      authorization?: AccessPermissionsEntity;
+      accessPermissions?: AccessPermissionsContract;
     }
   }
 }

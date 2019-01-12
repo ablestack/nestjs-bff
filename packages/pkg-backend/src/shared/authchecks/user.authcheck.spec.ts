@@ -1,5 +1,4 @@
-import { getLogger } from '../../../shared/logging/logging.shared.module';
-import { TestAuthorizationLiterals, TestScopedDataLiterals } from '../_/test-literals.constants';
+import { TestAuthorizationLiterals } from '../testing/test-literals.constants';
 import { UserAuthCheck } from './user.authcheck';
 
 //
@@ -33,7 +32,7 @@ describe('GIVEN a UserAuthCheck', () => {
       let result;
 
       try {
-        result = await userAuthCheck.isAuthorized(null, { resource: TestScopedDataLiterals.Sc_Ua1Oa });
+        result = await userAuthCheck.isAuthorized(null, { targetResource: TestScopedDataLiterals.Sc_Ua1Oa });
       } catch (e) {
         error = e;
       }
@@ -54,7 +53,7 @@ describe('GIVEN a UserAuthCheck', () => {
       let result;
 
       try {
-        result = await userAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ua1user_OaAdmin, { resource: TestScopedDataLiterals.Sc_Ua1Oa });
+        result = await userAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ua1user_OaAdmin, { targetResource: TestScopedDataLiterals.Sc_Ua1Oa });
       } catch (e) {
         error = e;
       }
@@ -75,7 +74,7 @@ describe('GIVEN a UserAuthCheck', () => {
       let result;
 
       try {
-        result = await userAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ua1user_OaAdmin, { resource: TestScopedDataLiterals.Sc_UxOa });
+        result = await userAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ua1user_OaAdmin, { targetResource: TestScopedDataLiterals.Sc_UxOa });
       } catch (e) {
         error = e;
       }

@@ -13,7 +13,7 @@ import { TestingUtils } from '../../../shared/utils/testing.utils';
 import { IFooModel } from '../../_foo/model/foo.model';
 import { FooSchema } from '../../_foo/model/foo.schema';
 import { FooRepo } from '../../_foo/repo/foo.repo';
-import { TestAuthorizationLiterals, TestFooEntityLiterals } from '../_/test-literals.constants';
+import { TestAuthorizationLiterals, TestFooEntityLiterals } from '../../../shared/testing/test-literals.constants';
 
 //
 // Global Scoped Variables Setup

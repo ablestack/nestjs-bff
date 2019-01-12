@@ -1,6 +1,6 @@
-import { AccessPermissionsContract } from '../../../../../../pkg-global/lib/interfaces/access-permissions.contract';
 import { CanActivate, ExecutionContext, Inject, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
+import { AccessPermissionsContract } from '../../../../../../pkg-global/lib/interfaces/access-permissions.contract';
 import { INestjsBffConfig } from '../../../../config/nestjs-bff.config';
 import { AuthCheckContract } from '../../../../domain/core/authchecks/authcheck.contract';
 import { OrganizationRepo } from '../../../../domain/organization/repo/organization.repo';
@@ -82,8 +82,10 @@ export class AuthorizationGuard implements CanActivate {
       for (const authcheck of authchecks) {
         if (
           !(await authcheck.isAuthorized(authorization, {
-            orgIdForTargetResource: orgId,
-            userIdForTargetResource: userId,
+            resource: {
+              orgIdForTargetResource: orgId,
+              userIdForTargetResource: userId,
+            },
           }))
         ) {
           this.logger.warn(`authcheck failed for authcheck ${authcheck.constructor.name}`, {
@@ -132,10 +134,10 @@ export class AuthorizationGuard implements CanActivate {
     return organization.id;
   }
 
-  private async getauthchecksFromCache(context: ExecutionContext): Promise<Array<AuthCheckContract<any>>> {
+  private async getauthchecksFromCache(context: ExecutionContext): Promise<Array<AuthCheckContract<any, any>>> {
     const authcheckCacheKey = `AuthorizationGuard-authcheck?class=${context.getClass()}&handler=${context.getHandler()})`;
 
-    return this.cacheStore.wrap<AuthCheckContract<any> | Array<AuthCheckContract<any>> | null>(
+    return this.cacheStore.wrap<AuthCheckContract<any, any> | Array<AuthCheckContract<any, any>> | null>(
       authcheckCacheKey,
       () => this.getauthcheck(context),
       // This configuration does not change dynamically.  Cache for a week
@@ -143,10 +145,10 @@ export class AuthorizationGuard implements CanActivate {
     );
   }
 
-  private async getauthcheck(context: ExecutionContext): Promise<Array<AuthCheckContract<any>>> {
-    let authchecks = this.reflector.get<Array<AuthCheckContract<any>>>('authorization', context.getHandler());
+  private async getauthcheck(context: ExecutionContext): Promise<Array<AuthCheckContract<any, any>>> {
+    let authchecks = this.reflector.get<Array<AuthCheckContract<any, any>>>('authorization', context.getHandler());
     if (!authchecks) {
-      authchecks = this.reflector.get<Array<AuthCheckContract<any>>>('authorization', context.getClass());
+      authchecks = this.reflector.get<Array<AuthCheckContract<any, any>>>('authorization', context.getClass());
     }
     return authchecks;
   }

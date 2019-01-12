@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import { TestingUtils } from '../../../shared/utils/testing.utils';
+import { TestingUtils } from '../utils/testing.utils';
 
 //
 // Testing Jest capabilities

@@ -7,6 +7,7 @@ import { CachingUtils } from '../../../shared/caching/caching.utils';
 import { AppError } from '../../../shared/exceptions/app.exception';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { AuthCheckContract } from '../authchecks/authcheck.contract';
+import { CrudOperations } from '../authchecks/crud-operations.enum';
 import { ScopedEntityAuthCheck } from '../authchecks/scoped-entity.authcheck';
 import { ClassValidator } from '../validators/class-validator';
 
@@ -16,7 +17,7 @@ export interface IBaseRepoParams<TEntity extends IEntity, TModel extends Documen
   cacheStore: CacheStore;
   defaultTTL: number;
   entityValidator: ClassValidator<TEntity>;
-  entityAuthChecker?: AuthCheckContract<IEntity>;
+  entityAuthChecker?: AuthCheckContract<IEntity, CrudOperations>;
 }
 
 /**
@@ -34,7 +35,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
   protected readonly defaultTTL: number;
   public readonly modelName: string;
   public readonly entityValidator: ClassValidator<TEntity>;
-  public readonly entityAuthChecker: AuthCheckContract<IEntity>;
+  public readonly entityAuthChecker: AuthCheckContract<IEntity, CrudOperations>;
 
   /**
    *
@@ -98,7 +99,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
 
     // authorization checks
     if (!options.skipAuthorization) {
-      await this.entityAuthChecker.ensureAuthorized(options.accessPermissions, { resource: result });
+      await this.entityAuthChecker.ensureAuthorized(options.accessPermissions, { resource: result, operation: CrudOperations.read });
     }
 
     // Return
@@ -150,7 +151,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     if (!options.skipAuthorization && result) {
       for (const entity of result) {
         if (!options.skipAuthorization) {
-          await this.entityAuthChecker.ensureAuthorized(options.accessPermissions, { resource: entity });
+          await this.entityAuthChecker.ensureAuthorized(options.accessPermissions, { resource: entity, operation: CrudOperations.read });
         }
       }
     }
@@ -179,7 +180,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
 
     // authorization checks
     if (!options.skipAuthorization) {
-      await this.entityAuthChecker.ensureAuthorized(options.accessPermissions, { resource: newEntity });
+      await this.entityAuthChecker.ensureAuthorized(options.accessPermissions, { resource: newEntity, operation: CrudOperations.create });
     }
 
     // transfer values to the model
@@ -220,7 +221,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
 
     // authorization checks
     if (!options.skipAuthorization) {
-      await this.entityAuthChecker.ensureAuthorized(options.accessPermissions, { resource: fullModel });
+      await this.entityAuthChecker.ensureAuthorized(options.accessPermissions, { resource: fullModel, operation: CrudOperations.update });
     }
 
     // persist
@@ -252,7 +253,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
 
     // authorization checks
     if (!options.skipAuthorization) {
-      await this.entityAuthChecker.ensureAuthorized(options.accessPermissions, { resource: entity });
+      await this.entityAuthChecker.ensureAuthorized(options.accessPermissions, { resource: entity, operation: CrudOperations.update });
     }
 
     // persist
@@ -282,7 +283,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
 
     // authorization checks
     if (!options.skipAuthorization && deleteModel) {
-      await this.entityAuthChecker.ensureAuthorized(options.accessPermissions, { resource: deleteModel });
+      await this.entityAuthChecker.ensureAuthorized(options.accessPermissions, { resource: deleteModel, operation: CrudOperations.delete });
     }
 
     if (deleteModel) {
