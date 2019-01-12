@@ -1,6 +1,6 @@
 import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
 import { BaseEntity } from '@nestjs-bff/global/lib/entities/core/base.entity';
-import { AccessPermissionsContract, UserOrgPermissionsContract } from '../../../../../pkg-global/lib/interfaces/access-permissions.contract';
+import { AccessPermissionsContract, UserOrgPermissionsContract } from '@nestjs-bff/global/lib/interfaces/access-permissions.contract';
 import { IsArray, IsBoolean, IsIn, IsMongoId, ValidateNested } from 'class-validator';
 
 export class AccessPermissionsEntity extends BaseEntity implements AccessPermissionsContract {

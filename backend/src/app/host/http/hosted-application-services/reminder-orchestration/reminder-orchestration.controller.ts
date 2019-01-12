@@ -1,4 +1,4 @@
-import { UserAuthCheck } from '@nestjs-bff/backend/lib/domain/core/authchecks/user.authcheck';
+import { UserAuthCheck } from '@nestjs-bff/backend/lib/shared/authchecks/user.authcheck';
 import { Authorization } from '@nestjs-bff/backend/lib/host/http/core/decorators/authorization.decorator';
 import { BffRequest } from '@nestjs-bff/backend/lib/host/http/core/types/bff-request.contract';
 import { Body, Controller, Post, Req } from '@nestjs/common';

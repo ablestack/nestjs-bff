@@ -1,4 +1,4 @@
-import { TestAuthorizationLiterals } from '../testing/test-literals.constants';
+import { TestAuthorizationLiterals, TestScopedDataLiterals } from '../testing/test-literals.constants';
 import { UserAuthCheck } from './user.authcheck';
 
 //
@@ -32,7 +32,7 @@ describe('GIVEN a UserAuthCheck', () => {
       let result;
 
       try {
-        result = await userAuthCheck.isAuthorized(null, { targetResource: TestScopedDataLiterals.Sc_Ua1Oa });
+        result = await userAuthCheck.isAuthorized({ accessPermissions: null, origin: __filename, targetResource: TestScopedDataLiterals.Sc_Ua1Oa });
       } catch (e) {
         error = e;
       }
@@ -53,7 +53,11 @@ describe('GIVEN a UserAuthCheck', () => {
       let result;
 
       try {
-        result = await userAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ua1user_OaAdmin, { targetResource: TestScopedDataLiterals.Sc_Ua1Oa });
+        result = await userAuthCheck.isAuthorized({
+          accessPermissions: TestAuthorizationLiterals.Az_Ua1user_OaAdmin,
+          origin: __filename,
+          targetResource: TestScopedDataLiterals.Sc_Ua1Oa,
+        });
       } catch (e) {
         error = e;
       }
@@ -74,7 +78,11 @@ describe('GIVEN a UserAuthCheck', () => {
       let result;
 
       try {
-        result = await userAuthCheck.isAuthorized(TestAuthorizationLiterals.Az_Ua1user_OaAdmin, { targetResource: TestScopedDataLiterals.Sc_UxOa });
+        result = await userAuthCheck.isAuthorized({
+          accessPermissions: TestAuthorizationLiterals.Az_Ua1user_OaAdmin,
+          origin: __filename,
+          targetResource: TestScopedDataLiterals.Sc_UxOa,
+        });
       } catch (e) {
         error = e;
       }

@@ -15,6 +15,6 @@ export class RoleAuthCheck extends AuthCheckContract<any, any> {
   public async isAuthorized(params: AuthorizationCheckParams<any, any>): Promise<boolean> {
     if (!params.accessPermissions) return false;
 
-    return hasRole(params.accessPermissionsaccessPermissions, this.qualifyingRole);
+    return hasRole(params.accessPermissions, this.qualifyingRole);
   }
 }

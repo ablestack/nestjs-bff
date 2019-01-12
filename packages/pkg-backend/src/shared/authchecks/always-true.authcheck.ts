@@ -1,4 +1,5 @@
 import { AuthCheckContract } from './authcheck.contract';
+import { AuthorizationCheckParams } from './authorization-params';
 
 export class AlwaysTrueAuthCheck extends AuthCheckContract<any, any> {
   private static _singleton: AuthCheckContract<any, any> = new AlwaysTrueAuthCheck();

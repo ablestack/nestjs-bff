@@ -15,6 +15,6 @@ export class CheckOrgRoles extends AuthCheckContract<ScopedData, any> {
     if (!params.accessPermissions) return false;
 
     if (isStaffAdmin(params.accessPermissions)) return true;
-    return hasOrganizationRole(params.accessPermissions, target.targetResource.orgIdForTargetResource, this.qualifyingRoles);
+    return hasOrganizationRole(params.accessPermissions, params.targetResource.orgIdForTargetResource, this.qualifyingRoles);
   }
 }

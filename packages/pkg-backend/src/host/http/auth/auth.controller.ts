@@ -1,15 +1,15 @@
 import { LocalAuthenticateCommand } from '@nestjs-bff/global/lib/commands/auth/local-authenticate.command';
 import { LocalRegisterCommand } from '@nestjs-bff/global/lib/commands/auth/local-register.command';
 import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
+import { AccessPermissionsContract } from '@nestjs-bff/global/lib/interfaces/access-permissions.contract';
 import { IAuthenticationToken } from '@nestjs-bff/global/lib/interfaces/authentication-token.interface';
-import { AccessPermissionsContract } from '../../../../../pkg-global/lib/interfaces/access-permissions.contract';
 import { Body, Controller, Get, Inject, Post, Req } from '@nestjs/common';
 import { UserAuthService } from '../../../application/user-auth/user-auth.service';
 import { INestjsBffConfig } from '../../../config/nestjs-bff.config';
 import { FacebookAuthenticationService } from '../../../domain/authentication/social/facebook-authentication.service';
-import { CheckOrgRoles } from '../../../domain/core/authchecks/org-roles.authcheck';
-import { RoleAuthCheck } from '../../../domain/core/authchecks/role.authcheck';
 import { AppSharedProviderTokens } from '../../../shared/app/app.shared.constants';
+import { CheckOrgRoles } from '../../../shared/authchecks/org-roles.authcheck';
+import { RoleAuthCheck } from '../../../shared/authchecks/role.authcheck';
 import { Authorization } from '../core/decorators/authorization.decorator';
 import { JwtTokenService } from '../core/jwt/jwt-token.service';
 import { BffRequest } from '../core/types/bff-request.contract';

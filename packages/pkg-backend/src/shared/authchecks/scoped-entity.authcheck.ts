@@ -1,4 +1,3 @@
-import { AccessPermissionsContract } from '@nestjs-bff/global/lib/interfaces/access-permissions.contract';
 import { IEntity } from '@nestjs-bff/global/lib/interfaces/entity.interface';
 import { AppError } from '../exceptions/app.exception';
 import { AuthCheckContract } from './authcheck.contract';

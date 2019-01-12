@@ -6,14 +6,13 @@ import { AccessPermissionsEntity } from '../../domain/access-permissions/model/a
 import { AccessPermissionsRepo } from '../../domain/access-permissions/repo/access-permissions.repo';
 import { AuthenticationRepo } from '../../domain/authentication/repo/authentication.repo';
 import { generateHashedPassword } from '../../domain/authentication/utils/encryption.util';
-import { AuthCheckContract } from '../../domain/core/authchecks/authcheck.contract';
 import { OrganizationRepo } from '../../domain/organization/repo/organization.repo';
 import { UserRepo } from '../../domain/user/repo/user.repo';
 import { AppError } from '../../shared/exceptions/app.exception';
 
 @Injectable()
 export class OrganizationOrchestrationService {
-  authChecks: AuthCheckContract[];
+  // private authChecks: Array<AuthCheckContract<any, any>> = [];
 
   constructor(
     private readonly authenticationRepo: AuthenticationRepo,
@@ -22,7 +21,7 @@ export class OrganizationOrchestrationService {
     private readonly organizationRepo: OrganizationRepo,
   ) {}
 
-  public async createMember(cmd: CreateOrganizationMemberCommand, accessPermissions: AccessPermissionsContract): Promise<AccessPermissionsEntity> {
+  public async createMember(cmd: CreateOrganizationMemberCommand, accessPermissions?: AccessPermissionsContract): Promise<AccessPermissionsEntity> {
     // Authorization
 
     // setup commands

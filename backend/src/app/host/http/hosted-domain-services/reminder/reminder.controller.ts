@@ -1,4 +1,4 @@
-import { OrgAuthCheck } from '@nestjs-bff/backend/lib/domain/core/authchecks/org.authcheck';
+import { OrgAuthCheck } from '@nestjs-bff/backend/lib/shared/authchecks/org.authcheck';
 import { Authorization } from '@nestjs-bff/backend/lib/host/http/core/decorators/authorization.decorator';
 import { BffRequest } from '@nestjs-bff/backend/lib/host/http/core/types/bff-request.contract';
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Req } from '@nestjs/common';

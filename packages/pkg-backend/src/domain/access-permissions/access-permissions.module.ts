@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { MongoSharedProviderTokens } from '../../shared/database/mongo/mongo.shared.constants';
 import { DomainCoreModule } from '../core/core.module';
+import { AccessPermissionsProviderTokens } from './access-permissions.constants';
 import { AccessPermissionsSchema } from './model/access-permissions.schema';
 import { AccessPermissionsRepo } from './repo/access-permissions.repo';
-import { AccessPermissionsProviderTokens } from './access-permissions.constants';
 
 const AccessPermissionsModel = {
   provide: AccessPermissionsProviderTokens.Models.AccessPermissions,

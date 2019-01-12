@@ -1,10 +1,10 @@
+import { AccessPermissionsContract } from '@nestjs-bff/global/lib/interfaces/access-permissions.contract';
 import { CanActivate, ExecutionContext, Inject, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { AccessPermissionsContract } from '../../../../../../pkg-global/lib/interfaces/access-permissions.contract';
 import { INestjsBffConfig } from '../../../../config/nestjs-bff.config';
-import { AuthCheckContract } from '../../../../domain/core/authchecks/authcheck.contract';
 import { OrganizationRepo } from '../../../../domain/organization/repo/organization.repo';
 import { AppSharedProviderTokens } from '../../../../shared/app/app.shared.constants';
+import { AuthCheckContract } from '../../../../shared/authchecks/authcheck.contract';
 import { CacheStore } from '../../../../shared/caching/cache-store.shared';
 import { CachingProviderTokens } from '../../../../shared/caching/caching.shared.constants';
 import { LoggerSharedService } from '../../../../shared/logging/logger.shared.service';
@@ -49,8 +49,8 @@ export class AuthorizationGuard implements CanActivate {
       }
 
       // get authorization from request
-      const authorization = req.accessPermissions as AccessPermissionsContract;
-      if (!authorization) {
+      const accessPermissions = req.accessPermissions as AccessPermissionsContract;
+      if (!accessPermissions) {
         this.logger.warn('Route not public, but no authorization found. ', {
           request: getReqMetadataLite(req),
         });
@@ -61,7 +61,7 @@ export class AuthorizationGuard implements CanActivate {
       this.logger.debug('AuthorizationGuard', {
         'req.params': req.params,
         'req.route': req.route,
-        authorization,
+        accessPermissions,
       });
 
       // get key date for auth tests
@@ -73,7 +73,7 @@ export class AuthorizationGuard implements CanActivate {
       if (!authchecks || authchecks.length === 0) {
         this.logger.warn('Request not authorized', {
           request: getReqMetadataLite(req),
-          authorization,
+          authorization: accessPermissions,
         });
         return false;
       }
@@ -81,15 +81,17 @@ export class AuthorizationGuard implements CanActivate {
       // run tests
       for (const authcheck of authchecks) {
         if (
-          !(await authcheck.isAuthorized(authorization, {
-            resource: {
+          !(await authcheck.isAuthorized({
+            origin: 'AuthorizationGuard',
+            accessPermissions,
+            targetResource: {
               orgIdForTargetResource: orgId,
               userIdForTargetResource: userId,
             },
           }))
         ) {
           this.logger.warn(`authcheck failed for authcheck ${authcheck.constructor.name}`, {
-            authorization,
+            authorization: accessPermissions,
             orgId,
             userId,
           });
@@ -99,7 +101,7 @@ export class AuthorizationGuard implements CanActivate {
 
       // if we made it here we passed all the tests.  return true
       this.logger.debug(`authcheck passed`, {
-        authorization,
+        authorization: accessPermissions,
         orgId,
       });
       return true;
