@@ -2,12 +2,12 @@ import { LocalAuthenticateCommand } from '@nestjs-bff/global/lib/commands/auth/l
 import { LocalRegisterCommand } from '@nestjs-bff/global/lib/commands/auth/local-register.command';
 import { PromoteToGroupAdminCommand } from '@nestjs-bff/global/lib/commands/auth/promote-to-group-admin.command';
 import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
-import { AuthorizationEntity } from '../../domain/authorization/model/authorization.entity';
 import { Injectable } from '@nestjs/common';
 import { AuthenticationRepo } from '../../domain/authentication/repo/authentication.repo';
 import { FacebookAuthenticationService } from '../../domain/authentication/social/facebook-authentication.service';
 import { FacebookProfileService } from '../../domain/authentication/social/facebook-profile..service';
 import { generateHashedPassword, validPassword } from '../../domain/authentication/utils/encryption.util';
+import { AuthorizationEntity } from '../../domain/authorization/model/authorization.entity';
 import { AuthorizationRepo } from '../../domain/authorization/repo/authorization.repo';
 import { OrganizationRepo } from '../../domain/organization/repo/organization.repo';
 import { UserRepo } from '../../domain/user/repo/user.repo';
@@ -34,9 +34,12 @@ export class UserAuthService {
 
     if (!authenticationEntity) throw new ValidationError(['Your login authorizationScope were not correct']);
     if (!authenticationEntity.local)
-      throw new ValidationError(['Your login authorizationScope were not correct or you do not have an account. Perhaps you registered with social login?']);
+      throw new ValidationError([
+        'Your login authorizationScope were not correct or you do not have an account. Perhaps you registered with social login?',
+      ]);
 
-    if (!validPassword(cmd.password, authenticationEntity.local.hashedPassword)) throw new ValidationError(['Your login authorizationScope were not correct']);
+    if (!validPassword(cmd.password, authenticationEntity.local.hashedPassword))
+      throw new ValidationError(['Your login authorizationScope were not correct']);
 
     const authorizationEntity = await this.authorizationRepo.findOne({ userId: authenticationEntity.userId });
 
@@ -59,6 +62,9 @@ export class UserAuthService {
         email: cmd.username,
         hashedPassword: generateHashedPassword(cmd.password),
       },
+      google: undefined,
+      facebook: undefined,
+      twitter: undefined,
     };
 
     //
@@ -145,11 +151,14 @@ export class UserAuthService {
     // create authentication
     this.authenticationRepo.create({
       userId: user.id,
+      local: undefined,
       facebook: {
         id: fbProfile.id,
         email: fbProfile.email,
         name: fbProfile.name,
       },
+      google: undefined,
+      twitter: undefined,
     });
 
     // create authorization

@@ -6,19 +6,19 @@ export class AuthenticationEntity extends BaseEntity {
   userId?: string;
 
   @ValidateNested()
-  local?: Local;
+  local: LocalAuth | undefined;
 
   @ValidateNested()
-  google?: Google;
+  google: GoogleAuth | undefined;
 
   @ValidateNested()
-  facebook?: Facebook;
+  facebook: FacebookAuth | undefined;
 
   @ValidateNested()
-  twitter?: Twitter;
+  twitter: TwitterAuth | undefined;
 }
 
-class Local {
+export class LocalAuth {
   @IsEmail()
   email?: string;
 
@@ -26,7 +26,7 @@ class Local {
   hashedPassword?: string;
 }
 
-class Google {
+export class GoogleAuth {
   @IsString()
   id?: string;
 
@@ -37,7 +37,7 @@ class Google {
   name?: string;
 }
 
-class Facebook {
+export class FacebookAuth {
   @IsString()
   id?: string;
 
@@ -48,7 +48,7 @@ class Facebook {
   email?: string;
 }
 
-class Twitter {
+export class TwitterAuth {
   @IsString()
   id?: string;
 

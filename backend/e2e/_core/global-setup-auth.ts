@@ -1,5 +1,12 @@
 import { OrganizationOrchestrationService } from '@nestjs-bff/backend/lib/application/organization-orchestration/organization-orchestration.service';
 import { UserAuthService } from '@nestjs-bff/backend/lib/application/user-auth/user-auth.service';
+import {
+  AuthenticationEntity,
+  FacebookAuth,
+  GoogleAuth,
+  LocalAuth,
+  TwitterAuth,
+} from '@nestjs-bff/backend/lib/domain/authentication/model/authentication.entity';
 import { AuthorizationEntity } from '@nestjs-bff/backend/lib/domain/authorization/model/authorization.entity';
 import { JwtTokenService } from '@nestjs-bff/backend/lib/host/http/core/jwt/jwt-token.service';
 import { getLogger } from '@nestjs-bff/backend/lib/shared/logging/logging.shared.module';
@@ -7,6 +14,12 @@ import { INestApplication } from '@nestjs/common/interfaces';
 import { Test } from '@nestjs/testing';
 import { AuthE2eModule } from '../auth/auth-e2e.module';
 import { userData } from '../shared/user-data';
+
+const authInitializer = new AuthenticationEntity();
+authInitializer.local = new LocalAuth();
+authInitializer.google = new GoogleAuth();
+authInitializer.facebook = new FacebookAuth();
+authInitializer.twitter = new TwitterAuth();
 
 const authData = {
   domainA: {

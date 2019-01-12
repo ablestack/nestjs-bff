@@ -1,9 +1,9 @@
 import { CreateOrganizationMemberCommand } from '@nestjs-bff/global/lib/commands/auth/create-organization-member.command';
 import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
-import { AuthorizationEntity } from '../../domain/authorization/model/authorization.entity';
 import { Injectable } from '@nestjs/common';
 import { AuthenticationRepo } from '../../domain/authentication/repo/authentication.repo';
 import { generateHashedPassword } from '../../domain/authentication/utils/encryption.util';
+import { AuthorizationEntity } from '../../domain/authorization/model/authorization.entity';
 import { AuthorizationRepo } from '../../domain/authorization/repo/authorization.repo';
 import { OrganizationRepo } from '../../domain/organization/repo/organization.repo';
 import { UserRepo } from '../../domain/user/repo/user.repo';
@@ -26,6 +26,9 @@ export class OrganizationOrchestrationService {
         email: cmd.username,
         hashedPassword: generateHashedPassword(cmd.password),
       },
+      google: undefined,
+      facebook: undefined,
+      twitter: undefined,
     };
 
     // validate
