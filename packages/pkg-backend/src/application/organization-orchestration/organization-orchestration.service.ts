@@ -8,11 +8,14 @@ import { AuthenticationRepo } from '../../domain/authentication/repo/authenticat
 import { generateHashedPassword } from '../../domain/authentication/utils/encryption.util';
 import { OrganizationRepo } from '../../domain/organization/repo/organization.repo';
 import { UserRepo } from '../../domain/user/repo/user.repo';
+import { CrudOperations } from '../../shared/authchecks/crud-operations.enum';
+import { OrgRolesAuthCheck } from '../../shared/authchecks/org-roles.authcheck';
 import { AppError } from '../../shared/exceptions/app.exception';
 
 @Injectable()
 export class OrganizationOrchestrationService {
-  // private authChecks: Array<AuthCheckContract<any, any>> = [];
+  // private orgUserAuthCheck = new OrgRolesAuthCheck([OrganizationRoles.member]);
+  private orgAdminAuthCheck = new OrgRolesAuthCheck([OrganizationRoles.admin]);
 
   constructor(
     private readonly authenticationRepo: AuthenticationRepo,
@@ -23,6 +26,12 @@ export class OrganizationOrchestrationService {
 
   public async createMember(cmd: CreateOrganizationMemberCommand, accessPermissions?: AccessPermissionsContract): Promise<AccessPermissionsEntity> {
     // Authorization
+    this.orgAdminAuthCheck.ensureAuthorized({
+      accessPermissions,
+      origin: 'OrganizationOrchestrationService',
+      targetResource: { orgId: cmd.orgId },
+      operation: CrudOperations.create,
+    });
 
     // setup commands
     const newAuthenticationEntity = {

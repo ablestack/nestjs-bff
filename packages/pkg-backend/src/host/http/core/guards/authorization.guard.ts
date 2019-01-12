@@ -85,8 +85,8 @@ export class AuthorizationGuard implements CanActivate {
             origin: 'AuthorizationGuard',
             accessPermissions,
             targetResource: {
-              orgIdForTargetResource: orgId,
-              userIdForTargetResource: userId,
+              orgId: orgId,
+              userId: userId,
             },
           }))
         ) {

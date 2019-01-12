@@ -3,16 +3,16 @@ import { AppError } from '../exceptions/app.exception';
 import { AuthCheckContract } from './authcheck.contract';
 import { AuthorizationCheckParams } from './authorization-params';
 import { CrudOperations } from './crud-operations.enum';
-import { OrgAuthCheck } from './org.authcheck';
+import { OrgAccessAuthCheck } from './org-access.authcheck';
 import { ScopedData } from './scoped-data';
-import { UserAuthCheck } from './user.authcheck';
+import { UserAccessAuthCheck } from './user-access.authcheck';
 
 //
 // checks permissions against orgId and userId if these attributes exist on an entity
 //
 export class ScopedEntityAuthCheck extends AuthCheckContract<IEntity, CrudOperations> {
-  private orgAuthCheck = new OrgAuthCheck();
-  private userAuthCheck = new UserAuthCheck();
+  private orgAuthCheck = new OrgAccessAuthCheck();
+  private userAuthCheck = new UserAccessAuthCheck();
 
   public async isAuthorized(params: AuthorizationCheckParams<IEntity, CrudOperations>): Promise<boolean> {
     if (!params.targetResource || !params.targetResource) throw new AppError('target.resource can not be null');
@@ -25,18 +25,18 @@ export class ScopedEntityAuthCheck extends AuthCheckContract<IEntity, CrudOperat
       data: params.data,
     };
 
-    scopedParams.targetResource.userIdForTargetResource = params.targetResource['userId'];
-    scopedParams.targetResource.orgIdForTargetResource = params.targetResource['orgId'];
+    scopedParams.targetResource.userId = params.targetResource['userId'];
+    scopedParams.targetResource.orgId = params.targetResource['orgId'];
 
     // if entity has an orgId, and the accessPermissions don't allow access to this org, then deny authorization (return false)
-    if (scopedParams.targetResource.orgIdForTargetResource) {
+    if (scopedParams.targetResource.orgId) {
       if (!(await this.orgAuthCheck.isAuthorized(scopedParams))) {
         return false;
       }
     }
 
     // if entity has a userId, and the accessPermissions don't allow access to this user, then deny authorization (return false)
-    if (scopedParams.targetResource.userIdForTargetResource) {
+    if (scopedParams.targetResource.userId) {
       if (!(await this.userAuthCheck.isAuthorized(scopedParams))) {
         return false;
       }

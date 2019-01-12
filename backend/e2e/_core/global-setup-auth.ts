@@ -1,5 +1,6 @@
 import { OrganizationOrchestrationService } from '@nestjs-bff/backend/lib/application/organization-orchestration/organization-orchestration.service';
 import { UserAuthService } from '@nestjs-bff/backend/lib/application/user-auth/user-auth.service';
+import { AccessPermissionsEntity } from '@nestjs-bff/backend/lib/domain/access-permissions/model/access-permissions.entity';
 import {
   AuthenticationEntity,
   FacebookAuth,
@@ -7,9 +8,9 @@ import {
   LocalAuth,
   TwitterAuth,
 } from '@nestjs-bff/backend/lib/domain/authentication/model/authentication.entity';
-import { AuthorizationEntity } from '../../../packages/pkg-backend/lib/domain/user-permissions/model/user-permissions.entity';
 import { JwtTokenService } from '@nestjs-bff/backend/lib/host/http/core/jwt/jwt-token.service';
 import { getLogger } from '@nestjs-bff/backend/lib/shared/logging/logging.shared.module';
+import { Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
 import { INestApplication } from '@nestjs/common/interfaces';
 import { Test } from '@nestjs/testing';
 import { AuthE2eModule } from '../auth/auth-e2e.module';
@@ -21,26 +22,30 @@ authInitializer.google = new GoogleAuth();
 authInitializer.facebook = new FacebookAuth();
 authInitializer.twitter = new TwitterAuth();
 
+const accessPermissionsData = {
+  systemAdmin: { roles: [Roles.systemAdmin] },
+};
+
 const authData = {
   domainA: {
     adminUser: {
-      auth: new AuthorizationEntity(),
+      auth: new AccessPermissionsEntity(),
       jwt: { token: '' },
     },
     regularUser: {
-      auth: new AuthorizationEntity(),
+      auth: new AccessPermissionsEntity(),
       jwt: { token: '' },
     },
   },
   domainB: {
     adminUser: {
-      auth: new AuthorizationEntity(),
+      auth: new AccessPermissionsEntity(),
       jwt: { token: '' },
     },
   },
   domainGroupAdmin: {
     groupAdminUser: {
-      auth: new AuthorizationEntity(),
+      auth: new AccessPermissionsEntity(),
       jwt: { token: '' },
     },
   },
@@ -79,13 +84,16 @@ export const setupAuth = async globalConfig => {
   //
   // create domainA regular user
   //
-  authData.domainA.regularUser.auth = await organizationAppService.createMember({
-    // @ts-ignore
-    orgId: authData.domainA.adminUser.auth.organizations[0].orgId,
-    username: userData.domainA.regularUser.username,
-    displayName: userData.domainA.regularUser.displayName,
-    password: userData.domainA.regularUser.password,
-  });
+  authData.domainA.regularUser.auth = await organizationAppService.createMember(
+    {
+      // @ts-ignore
+      orgId: authData.domainA.adminUser.auth.organizations[0].orgId,
+      username: userData.domainA.regularUser.username,
+      displayName: userData.domainA.regularUser.displayName,
+      password: userData.domainA.regularUser.password,
+    },
+    accessPermissionsData.systemAdmin,
+  );
   authData.domainA.regularUser.jwt = await jwtTokenService.createToken(authData.domainA.regularUser.auth);
 
   logger.debug(

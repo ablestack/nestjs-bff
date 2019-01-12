@@ -7,9 +7,9 @@ import { CachingProviderTokens } from '../../../shared/caching/caching.shared.co
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { BaseRepo } from '../../core/repo/base.repo';
 import { ClassValidator } from '../../core/validators/class-validator';
+import { AccessPermissionsProviderTokens } from '../access-permissions.constants';
 import { AccessPermissionsEntity } from '../model/access-permissions.entity';
 import { IAccessPermissionsModel } from '../model/access-permissions.model';
-import { AccessPermissionsProviderTokens } from '../access-permissions.constants';
 
 @Injectable()
 export class AccessPermissionsRepo extends BaseRepo<AccessPermissionsEntity, IAccessPermissionsModel> {

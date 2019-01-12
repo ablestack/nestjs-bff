@@ -16,4 +16,4 @@ const AccessPermissionsModel = {
   providers: [AccessPermissionsModel, AccessPermissionsRepo],
   exports: [AccessPermissionsRepo],
 })
-export class DomainAuthorizationModule {}
+export class DomainAccessPermissionsModule {}

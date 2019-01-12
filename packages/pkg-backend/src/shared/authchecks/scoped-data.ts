@@ -1,4 +1,4 @@
 export class ScopedData {
-  orgIdForTargetResource?: string;
-  userIdForTargetResource?: string;
+  orgId?: string;
+  userId?: string;
 }

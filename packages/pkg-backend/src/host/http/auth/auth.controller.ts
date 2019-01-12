@@ -8,7 +8,7 @@ import { UserAuthService } from '../../../application/user-auth/user-auth.servic
 import { INestjsBffConfig } from '../../../config/nestjs-bff.config';
 import { FacebookAuthenticationService } from '../../../domain/authentication/social/facebook-authentication.service';
 import { AppSharedProviderTokens } from '../../../shared/app/app.shared.constants';
-import { CheckOrgRoles } from '../../../shared/authchecks/org-roles.authcheck';
+import { OrgRolesAuthCheck } from '../../../shared/authchecks/org-roles.authcheck';
 import { RoleAuthCheck } from '../../../shared/authchecks/role.authcheck';
 import { Authorization } from '../core/decorators/authorization.decorator';
 import { JwtTokenService } from '../core/jwt/jwt-token.service';
@@ -84,13 +84,13 @@ export class AuthController {
   }
 
   @Get(':organizationSlug/verification/organization-protected-member')
-  @Authorization([new CheckOrgRoles([OrganizationRoles.member])])
+  @Authorization([new OrgRolesAuthCheck([OrganizationRoles.member])])
   async verificationOrganizationProtectedMember(): Promise<string> {
     return 'hit';
   }
 
   @Get(':organizationSlug/verification/organization-protected-admin')
-  @Authorization([new CheckOrgRoles([OrganizationRoles.admin])])
+  @Authorization([new OrgRolesAuthCheck([OrganizationRoles.admin])])
   async verificationOrganizationProtectedAdmin(): Promise<string> {
     return 'hit';
   }

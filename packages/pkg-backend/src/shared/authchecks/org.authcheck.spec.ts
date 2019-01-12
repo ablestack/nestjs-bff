@@ -1,15 +1,15 @@
 import { TestAuthorizationLiterals, TestScopedDataLiterals } from '../testing/test-literals.constants';
-import { OrgAuthCheck } from './org.authcheck';
+import { OrgAccessAuthCheck } from './org-access.authcheck';
 
 //
 // Global Scoped Variables Setup
 //
 
 describe('GIVEN a OrgAuthCheck', () => {
-  let orgAuthCheck: OrgAuthCheck;
+  let orgAuthCheck: OrgAccessAuthCheck;
 
   beforeAll(async () => {
-    orgAuthCheck = new OrgAuthCheck();
+    orgAuthCheck = new OrgAccessAuthCheck();
   });
 
   //

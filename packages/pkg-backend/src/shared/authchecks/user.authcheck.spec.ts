@@ -1,15 +1,15 @@
 import { TestAuthorizationLiterals, TestScopedDataLiterals } from '../testing/test-literals.constants';
-import { UserAuthCheck } from './user.authcheck';
+import { UserAccessAuthCheck } from './user-access.authcheck';
 
 //
 // Global Scoped Variables Setup
 //
 
 describe('GIVEN a UserAuthCheck', () => {
-  let userAuthCheck: UserAuthCheck;
+  let userAuthCheck: UserAccessAuthCheck;
 
   beforeAll(async () => {
-    userAuthCheck = new UserAuthCheck();
+    userAuthCheck = new UserAccessAuthCheck();
   });
 
   //

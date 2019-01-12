@@ -129,18 +129,18 @@ export const TestAuthorizationLiterals = {
 
 export const TestScopedDataLiterals = {
   Sc_Ua1Oa: {
-    userIdForTargetResource: TestUserLiterals.Ua1.id,
-    orgIdForTargetResource: TestOrgLiterals.Oa.id,
+    userId: TestUserLiterals.Ua1.id,
+    orgId: TestOrgLiterals.Oa.id,
   },
   Sc_Ua2Oa: {
-    userIdForTargetResource: TestUserLiterals.Ua2.id,
-    orgIdForTargetResource: TestOrgLiterals.Oa.id,
+    userId: TestUserLiterals.Ua2.id,
+    orgId: TestOrgLiterals.Oa.id,
   },
   Sc_Ua2Ox: {
-    userIdForTargetResource: TestUserLiterals.Ua2.id,
+    userId: TestUserLiterals.Ua2.id,
   },
   Sc_UxOa: {
-    orgIdForTargetResource: TestOrgLiterals.Oa.id,
+    orgId: TestOrgLiterals.Oa.id,
   },
   Sc_UxOx: {},
 };

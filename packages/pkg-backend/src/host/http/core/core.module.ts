@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { DomainAuthorizationModule } from '../../../domain/access-permissions/access-permissions.module';
+import { DomainAccessPermissionsModule } from '../../../domain/access-permissions/access-permissions.module';
 import { DomainOrganizationModule } from '../../../domain/organization/organization.module';
 import { AppSharedModule } from '../../../shared/app/app.shared.module';
 import { CachingSharedModule } from '../../../shared/caching/caching.shared.module';
@@ -9,7 +9,7 @@ import { JwtTokenService } from './jwt/jwt-token.service';
 import { AttachAuthenticationHttpMiddleware } from './middleware/attach-authentication.middleware';
 
 @Module({
-  imports: [AppSharedModule, DomainAuthorizationModule, DomainOrganizationModule, LoggingSharedModule, CachingSharedModule],
+  imports: [AppSharedModule, DomainAccessPermissionsModule, DomainOrganizationModule, LoggingSharedModule, CachingSharedModule],
   providers: [AuthorizationGuard, AttachAuthenticationHttpMiddleware, JwtTokenService],
   exports: [LoggingSharedModule, AttachAuthenticationHttpMiddleware, JwtTokenService],
 })
