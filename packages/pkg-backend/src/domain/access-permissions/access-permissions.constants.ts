@@ -1,6 +1,6 @@
-export const UserPermissionsProviderTokens = {
+export const AccessPermissionsProviderTokens = {
   Models: {
-    UserPermissions: 'UserPermissionsModelToken',
+    AccessPermissions: 'AccessPermissionsModelToken',
   },
 };
 

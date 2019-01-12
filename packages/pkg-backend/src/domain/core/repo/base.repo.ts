@@ -1,4 +1,4 @@
-import { AuthorizationScopeContract } from '@nestjs-bff/global/lib/interfaces/authorization-scope.contract';
+import { AccessPermissionsContract } from '../../../../../pkg-global/lib/interfaces/access-permissions.contract';
 import { IEntity } from '@nestjs-bff/global/lib/interfaces/entity.interface';
 import * as _ from 'lodash';
 import { Document, Model } from 'mongoose';
@@ -58,7 +58,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
   public async findOne(
     conditions: Partial<TEntity>,
     options?: {
-      authorizationScope?: AuthorizationScopeContract;
+      accessPermissions?: AccessPermissionsContract;
       skipAuthorization?: boolean;
       skipCache?: boolean;
       ttl?: number;
@@ -98,7 +98,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
 
     // authorization checks
     if (!options.skipAuthorization) {
-      await this.entityAuthChecker.ensureAuthorized(options.authorizationScope, result);
+      await this.entityAuthChecker.ensureAuthorized(options.accessPermissions, result);
     }
 
     // Return
@@ -112,7 +112,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
   public async find(
     conditions: Partial<TEntity>,
     options?: {
-      authorizationScope?: AuthorizationScopeContract;
+      accessPermissions?: AccessPermissionsContract;
       skipAuthorization?: boolean;
       skipCache?: boolean;
       ttl?: number;
@@ -150,7 +150,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     if (!options.skipAuthorization && result) {
       for (const entity of result) {
         if (!options.skipAuthorization) {
-          await this.entityAuthChecker.ensureAuthorized(options.authorizationScope, entity);
+          await this.entityAuthChecker.ensureAuthorized(options.accessPermissions, entity);
         }
       }
     }
@@ -165,7 +165,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
    */
   public async create(
     newEntity: TEntity,
-    options?: { authorizationScope?: AuthorizationScopeContract; skipAuthorization?: boolean; customValidator?: ClassValidator<TEntity> },
+    options?: { accessPermissions?: AccessPermissionsContract; skipAuthorization?: boolean; customValidator?: ClassValidator<TEntity> },
   ): Promise<TEntity> {
     // trace logging
     this.loggerService.trace(`${this.name}.create`, newEntity, options);
@@ -179,7 +179,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
 
     // authorization checks
     if (!options.skipAuthorization) {
-      await this.entityAuthChecker.ensureAuthorized(options.authorizationScope, newEntity);
+      await this.entityAuthChecker.ensureAuthorized(options.accessPermissions, newEntity);
     }
 
     // transfer values to the model
@@ -196,7 +196,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
    */
   public async patch(
     patchEntity: Partial<TEntity>,
-    options?: { authorizationScope?: AuthorizationScopeContract; skipAuthorization?: boolean; customValidator?: ClassValidator<TEntity> },
+    options?: { accessPermissions?: AccessPermissionsContract; skipAuthorization?: boolean; customValidator?: ClassValidator<TEntity> },
   ): Promise<TEntity> {
     // trace logging
     this.loggerService.trace(`${this.name}.patch`, patchEntity, options);
@@ -220,7 +220,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
 
     // authorization checks
     if (!options.skipAuthorization) {
-      await this.entityAuthChecker.ensureAuthorized(options.authorizationScope, fullModel);
+      await this.entityAuthChecker.ensureAuthorized(options.accessPermissions, fullModel);
     }
 
     // persist
@@ -238,7 +238,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
    */
   public async update(
     entity: TEntity,
-    options?: { authorizationScope?: AuthorizationScopeContract; skipAuthorization?: boolean; customValidator?: ClassValidator<TEntity> },
+    options?: { accessPermissions?: AccessPermissionsContract; skipAuthorization?: boolean; customValidator?: ClassValidator<TEntity> },
   ): Promise<TEntity> {
     // trace logging
     this.loggerService.trace(`${this.name}.update`, entity, options);
@@ -252,7 +252,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
 
     // authorization checks
     if (!options.skipAuthorization) {
-      await this.entityAuthChecker.ensureAuthorized(options.authorizationScope, entity);
+      await this.entityAuthChecker.ensureAuthorized(options.accessPermissions, entity);
     }
 
     // persist
@@ -268,7 +268,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
    *
    * @param entityId
    */
-  public async delete(id: string, options?: { authorizationScope?: AuthorizationScopeContract; skipAuthorization?: boolean }): Promise<TEntity | undefined> {
+  public async delete(id: string, options?: { accessPermissions?: AccessPermissionsContract; skipAuthorization?: boolean }): Promise<TEntity | undefined> {
     // trace logging
     this.loggerService.trace(`${this.name}.delete`, id, options);
 
@@ -282,7 +282,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
 
     // authorization checks
     if (!options.skipAuthorization && deleteModel) {
-      await this.entityAuthChecker.ensureAuthorized(options.authorizationScope, deleteModel);
+      await this.entityAuthChecker.ensureAuthorized(options.accessPermissions, deleteModel);
     }
 
     if (deleteModel) {

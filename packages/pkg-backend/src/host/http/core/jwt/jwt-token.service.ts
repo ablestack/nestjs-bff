@@ -1,4 +1,4 @@
-import { UserPermissionsEntity } from '../../../../domain/authorization/model/user-permissions.entity';
+import { AccessPermissionsEntity } from '../../../../domain/access-permissions/model/access-permissions.entity';
 import { IAuthenticationToken } from '@nestjs-bff/global/lib/interfaces/authentication-token.interface';
 import { Inject, Injectable } from '@nestjs/common';
 import { sign, SignOptions } from 'jsonwebtoken';
@@ -19,7 +19,7 @@ export class JwtTokenService {
     };
   }
 
-  public async createToken(authorizationEntity: UserPermissionsEntity): Promise<IAuthenticationToken> {
+  public async createToken(authorizationEntity: AccessPermissionsEntity): Promise<IAuthenticationToken> {
     const jwtPayload: Partial<IJwtPayload> = {
       sub: authorizationEntity.id,
       roles: authorizationEntity.roles,

@@ -27,7 +27,7 @@ describe('GIVEN a OrgAuthCheck', () => {
   //
 
   describe('WHEN calling isAuthorized', () => {
-    it(`WITH no authorizationScope 
+    it(`WITH no accessPermissions 
         THEN should return false`, async () => {
       let error;
       let result;
@@ -48,7 +48,7 @@ describe('GIVEN a OrgAuthCheck', () => {
   //
 
   describe('WHEN calling isAuthorized', () => {
-    it(`WITH valid authorizationScope 
+    it(`WITH valid accessPermissions 
         THEN should return true`, async () => {
       let error;
       let result;

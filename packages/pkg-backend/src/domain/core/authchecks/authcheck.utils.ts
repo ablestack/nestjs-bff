@@ -1,19 +1,19 @@
 import { Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
-import { UserPermissionsEntity } from '../../authorization/model/user-permissions.entity';
+import { AccessPermissionsEntity } from '../../access-permissions/model/access-permissions.entity';
 
-function hasRole(requestingEntity: UserPermissionsEntity, qualifyingRole: string): boolean {
+function hasRole(requestingEntity: AccessPermissionsEntity, qualifyingRole: string): boolean {
   return !!requestingEntity.roles && requestingEntity.roles.includes(qualifyingRole);
 }
 
-function isSystemAdmin(authorization: UserPermissionsEntity): boolean {
+function isSystemAdmin(authorization: AccessPermissionsEntity): boolean {
   return authorization.roles.includes(Roles.staffAdmin);
 }
 
-function isStaffAdmin(authorization: UserPermissionsEntity): boolean {
+function isStaffAdmin(authorization: AccessPermissionsEntity): boolean {
   return authorization.roles.includes(Roles.staffAdmin) || authorization.roles.includes(Roles.systemAdmin);
 }
 
-function hasOrganization(authorization: UserPermissionsEntity, organizationIDForResource: string): boolean {
+function hasOrganization(authorization: AccessPermissionsEntity, organizationIDForResource: string): boolean {
   return (
     !!authorization.organizations &&
     !!authorization.organizations.find(organizationAuth => {
@@ -22,10 +22,10 @@ function hasOrganization(authorization: UserPermissionsEntity, organizationIDFor
   );
 }
 
-function hasOrganizationRole(authorizationScope: UserPermissionsEntity, organizationIDForResource: string, qualifyingRoles: string[]): boolean {
+function hasOrganizationRole(accessPermissions: AccessPermissionsEntity, organizationIDForResource: string, qualifyingRoles: string[]): boolean {
   return (
-    !!authorizationScope.organizations &&
-    !!authorizationScope.organizations.find(organizationAuth => {
+    !!accessPermissions.organizations &&
+    !!accessPermissions.organizations.find(organizationAuth => {
       return (
         // tslint:disable-next-line:triple-equals
         organizationAuth.orgId == organizationIDForResource && qualifyingRoles.some(role => organizationAuth.organizationRoles.includes(role))

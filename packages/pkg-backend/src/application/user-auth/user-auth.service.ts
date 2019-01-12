@@ -7,8 +7,8 @@ import { AuthenticationRepo } from '../../domain/authentication/repo/authenticat
 import { FacebookAuthenticationService } from '../../domain/authentication/social/facebook-authentication.service';
 import { FacebookProfileService } from '../../domain/authentication/social/facebook-profile..service';
 import { generateHashedPassword, validPassword } from '../../domain/authentication/utils/encryption.util';
-import { UserPermissionsEntity } from '../../domain/authorization/model/user-permissions.entity';
-import { UserPermissionsRepo } from '../../domain/authorization/repo/user-permissions.repo';
+import { AccessPermissionsEntity } from '../../domain/access-permissions/model/access-permissions.entity';
+import { AccessPermissionsRepo } from '../../domain/access-permissions/repo/access-permissions.repo';
 import { OrganizationRepo } from '../../domain/organization/repo/organization.repo';
 import { UserRepo } from '../../domain/user/repo/user.repo';
 import { AppError } from '../../shared/exceptions/app.exception';
@@ -20,7 +20,7 @@ export class UserAuthService {
     private readonly fbAuthenticationService: FacebookAuthenticationService,
     private readonly fbProfileService: FacebookProfileService,
     private readonly authenticationRepo: AuthenticationRepo,
-    private readonly authorizationRepo: UserPermissionsRepo,
+    private readonly authorizationRepo: AccessPermissionsRepo,
     private readonly userRepo: UserRepo,
     private readonly organizationRepo: OrganizationRepo,
   ) {}
@@ -29,14 +29,14 @@ export class UserAuthService {
    *
    * @param cmd
    */
-  public async signInWithLocal(cmd: LocalAuthenticateCommand): Promise<UserPermissionsEntity> {
+  public async signInWithLocal(cmd: LocalAuthenticateCommand): Promise<AccessPermissionsEntity> {
     const authenticationEntity = await this.authenticationRepo.findOne({ local: { email: cmd.username } });
 
-    if (!authenticationEntity) throw new ValidationError(['Your login authorizationScope were not correct']);
+    if (!authenticationEntity) throw new ValidationError(['Your login accessPermissions were not correct']);
     if (!authenticationEntity.local)
-      throw new ValidationError(['Your login authorizationScope were not correct or you do not have an account. Perhaps you registered with social login?']);
+      throw new ValidationError(['Your login accessPermissions were not correct or you do not have an account. Perhaps you registered with social login?']);
 
-    if (!validPassword(cmd.password, authenticationEntity.local.hashedPassword)) throw new ValidationError(['Your login authorizationScope were not correct']);
+    if (!validPassword(cmd.password, authenticationEntity.local.hashedPassword)) throw new ValidationError(['Your login accessPermissions were not correct']);
 
     const authorizationEntity = await this.authorizationRepo.findOne({ userId: authenticationEntity.userId });
 
@@ -49,7 +49,7 @@ export class UserAuthService {
    *
    * @param cmd
    */
-  public async signUpWithLocal(cmd: LocalRegisterCommand): Promise<UserPermissionsEntity> {
+  public async signUpWithLocal(cmd: LocalRegisterCommand): Promise<AccessPermissionsEntity> {
     //
     // setup commands
     //
@@ -112,7 +112,7 @@ export class UserAuthService {
    *
    * @param cmd
    */
-  public async promoteToGroupAdmin(cmd: PromoteToGroupAdminCommand): Promise<UserPermissionsEntity> {
+  public async promoteToGroupAdmin(cmd: PromoteToGroupAdminCommand): Promise<AccessPermissionsEntity> {
     const authorizationEntity = await this.authorizationRepo.findOne({ userId: cmd.userId });
 
     // Validate
@@ -131,7 +131,7 @@ export class UserAuthService {
    * @param fbAuthorizationCode
    * @param spaRootUrl
    */
-  public async signUpWithFacebook(fbAuthorizationCode: string, spaRootUrl: string): Promise<UserPermissionsEntity> {
+  public async signUpWithFacebook(fbAuthorizationCode: string, spaRootUrl: string): Promise<AccessPermissionsEntity> {
     // get fb auth token using fb access token
     const fbAuthorizationToken = await this.fbAuthenticationService.getOauthAccessToken(fbAuthorizationCode, spaRootUrl);
 
@@ -176,7 +176,7 @@ export class UserAuthService {
    * @param fbAuthorizationCode
    * @param spaRootUrl
    */
-  public async signInWithFacebook(fbAuthorizationCode: string, spaRootUrl: string): Promise<UserPermissionsEntity> {
+  public async signInWithFacebook(fbAuthorizationCode: string, spaRootUrl: string): Promise<AccessPermissionsEntity> {
     // get fb auth token using fb access token
     const fbAuthorizationToken = await this.fbAuthenticationService.getOauthAccessToken(fbAuthorizationCode, spaRootUrl);
 

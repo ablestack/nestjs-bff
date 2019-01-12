@@ -12,6 +12,6 @@ export class ReminderOrchestrationController {
   @Post(':userId/sendReminderToArchive')
   @Authorization([new UserAuthCheck()])
   public async sendReminderToArchive(@Req() req: BffRequest, @Body() cmd: SendReminderToArchiveCommand) {
-    this.reminderOrchestrationService.sendReminderToArchive(cmd, req.authorizationScope);
+    this.reminderOrchestrationService.sendReminderToArchive(cmd, req.accessPermissions);
   }
 }

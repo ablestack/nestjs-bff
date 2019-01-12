@@ -1,4 +1,4 @@
-import { DomainAuthorizationModule } from '@nestjs-bff/backend/lib/domain/authorization/authorization.module';
+import { DomainAuthorizationModule } from '@nestjs-bff/backend/lib/domain/access-permissions/authorization.module';
 import { HttpCoreModule } from '@nestjs-bff/backend/lib/host/http/core/core.module';
 import { Module } from '@nestjs/common';
 import { DomainReminderModule } from '../../../../domain/reminder/reminder.module';

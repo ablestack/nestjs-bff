@@ -2,7 +2,7 @@ import { LocalAuthenticateCommand } from '@nestjs-bff/global/lib/commands/auth/l
 import { LocalRegisterCommand } from '@nestjs-bff/global/lib/commands/auth/local-register.command';
 import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
 import { IAuthenticationToken } from '@nestjs-bff/global/lib/interfaces/authentication-token.interface';
-import { AuthorizationScopeContract } from '@nestjs-bff/global/lib/interfaces/authorization-scope.contract';
+import { AccessPermissionsContract } from '../../../../../pkg-global/lib/interfaces/access-permissions.contract';
 import { Body, Controller, Get, Inject, Post, Req } from '@nestjs/common';
 import { UserAuthService } from '../../../application/user-auth/user-auth.service';
 import { INestjsBffConfig } from '../../../config/nestjs-bff.config';
@@ -62,8 +62,8 @@ export class AuthController {
   }
 
   @Get('authorization')
-  public async getAuthorization(@Req() req: BffRequest): Promise<{ authorizationScope?: AuthorizationScopeContract }> {
-    return { authorizationScope: req.authorizationScope };
+  public async getAuthorization(@Req() req: BffRequest): Promise<{ accessPermissions?: AccessPermissionsContract }> {
+    return { accessPermissions: req.accessPermissions };
   }
 
   // -- SYSTEM VERIFICATION ENDPOINTS --//

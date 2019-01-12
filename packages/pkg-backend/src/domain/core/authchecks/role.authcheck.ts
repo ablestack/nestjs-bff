@@ -1,5 +1,5 @@
 import { Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
-import { AuthorizationScopeContract } from '@nestjs-bff/global/lib/interfaces/authorization-scope.contract';
+import { AccessPermissionsContract } from '../../../../../pkg-global/lib/interfaces/access-permissions.contract';
 import { AppError } from '../../../shared/exceptions/app.exception';
 import { AuthCheckContract } from './authcheck.contract';
 import { hasRole } from './authcheck.utils';
@@ -13,9 +13,9 @@ export class RoleAuthCheck extends AuthCheckContract<any> {
     }
   }
 
-  public async isAuthorized(authorizationScope: AuthorizationScopeContract | undefined | null, dataToCheck: any): Promise<boolean> {
-    if (!authorizationScope) throw new AppError('No authentication authorizationScope found');
+  public async isAuthorized(accessPermissions: AccessPermissionsContract | undefined | null, dataToCheck: any): Promise<boolean> {
+    if (!accessPermissions) throw new AppError('No authentication accessPermissions found');
 
-    return hasRole(authorizationScope, this.qualifyingRole);
+    return hasRole(accessPermissions, this.qualifyingRole);
   }
 }

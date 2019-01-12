@@ -1,4 +1,4 @@
-import { AuthorizationScopeContract } from '@nestjs-bff/global/lib/interfaces/authorization-scope.contract';
+import { AccessPermissionsContract } from '../../../../../pkg-global/lib/interfaces/access-permissions.contract';
 import { AppError } from '../../../shared/exceptions/app.exception';
 import { AuthCheckContract } from './authcheck.contract';
 import { hasOrganizationRole, isStaffAdmin } from './authcheck.utils';
@@ -9,11 +9,11 @@ export class CheckOrgRoles extends AuthCheckContract<ScopedData> {
     super();
   }
 
-  public async isAuthorized(authorizationScope: AuthorizationScopeContract | undefined | null, scopedData: ScopedData): Promise<boolean> {
-    if (!authorizationScope) throw new AppError('No authentication authorizationScope found');
+  public async isAuthorized(accessPermissions: AccessPermissionsContract | undefined | null, scopedData: ScopedData): Promise<boolean> {
+    if (!accessPermissions) throw new AppError('No authentication accessPermissions found');
     if (!scopedData.orgIdForTargetResource) throw new AppError('orgIdForTargetResource can not be null');
 
-    if (isStaffAdmin(authorizationScope)) return true;
-    return hasOrganizationRole(authorizationScope, scopedData.orgIdForTargetResource, this.qualifyingRoles);
+    if (isStaffAdmin(accessPermissions)) return true;
+    return hasOrganizationRole(accessPermissions, scopedData.orgIdForTargetResource, this.qualifyingRoles);
   }
 }

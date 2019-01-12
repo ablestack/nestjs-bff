@@ -1,4 +1,4 @@
-import { AuthorizationScopeContract } from '@nestjs-bff/global/lib/interfaces/authorization-scope.contract';
+import { AccessPermissionsContract } from '../../../packages/pkg-global/lib/interfaces/access-permissions.contract';
 import { Injectable } from '@nestjs/common';
 import { ReminderArchiveRepo } from '../../domain/reminder-archive/repo/reminder-archive.repo';
 import { ReminderRepo } from '../../domain/reminder/repo/reminder.repo';
@@ -10,13 +10,13 @@ export class ReminderOrchestrationService {
 
   public async sendReminderToArchive(
     cmd: SendReminderToArchiveCommand,
-    authorizationScope?: AuthorizationScopeContract,
+    accessPermissions?: AccessPermissionsContract,
   ): Promise<void> {
     // get reminder
     const reminder = await this.reminderRepo.findOne({ id: cmd.reminderId });
 
     // remove from Reminder data store
-    this.reminderRepo.delete(cmd.reminderId, { authorizationScope });
+    this.reminderRepo.delete(cmd.reminderId, { accessPermissions });
 
     // add to ReminderArchive data store
     this.reminderArchiveRepo.create({

@@ -58,6 +58,6 @@ export class ReminderController {
   @Delete()
   @Authorization([new OrgAuthCheck()])
   public async delete(@Req() req: BffRequest, @Param('id') id) {
-    return this.reminderRepo.delete(id, { authorizationScope: req.authorizationScope });
+    return this.reminderRepo.delete(id, { accessPermissions: req.accessPermissions });
   }
 }

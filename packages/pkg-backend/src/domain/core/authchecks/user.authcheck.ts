@@ -1,5 +1,5 @@
 import { OrganizationRoles } from '@nestjs-bff/global/lib/constants/roles.constants';
-import { AuthorizationScopeContract } from '@nestjs-bff/global/lib/interfaces/authorization-scope.contract';
+import { AccessPermissionsContract } from '../../../../../pkg-global/lib/interfaces/access-permissions.contract';
 import { AppError } from '../../../shared/exceptions/app.exception';
 import { AuthCheckContract } from './authcheck.contract';
 import { hasOrganizationRole, isStaffAdmin } from './authcheck.utils';
@@ -10,22 +10,22 @@ export class UserAuthCheck extends AuthCheckContract<ScopedData> {
     super();
   }
 
-  public async isAuthorized(authorizationScope: AuthorizationScopeContract | undefined | null, scopedData: ScopedData): Promise<boolean> {
+  public async isAuthorized(accessPermissions: AccessPermissionsContract | undefined | null, scopedData: ScopedData): Promise<boolean> {
     if (!scopedData.userIdForTargetResource) throw new AppError('userIdForTargetResource can not be null');
 
-    if (!authorizationScope) return false;
+    if (!accessPermissions) return false;
 
     // if self, then true
     // tslint:disable-next-line:triple-equals - necessary because requestingEntity.userId is actually an mongoId that evaluates to a string
-    if (authorizationScope.userId == scopedData.userIdForTargetResource) return true;
+    if (accessPermissions.userId == scopedData.userIdForTargetResource) return true;
 
     // if system admin, then true
-    if (isStaffAdmin(authorizationScope)) return true;
+    if (isStaffAdmin(accessPermissions)) return true;
 
     // if doesn't have orgId, can't verify access through org scope.  Return false
     if (!scopedData.orgIdForTargetResource) return false;
 
     // if org admin, then true
-    return hasOrganizationRole(authorizationScope, scopedData.orgIdForTargetResource, [OrganizationRoles.facilitator, OrganizationRoles.admin]);
+    return hasOrganizationRole(accessPermissions, scopedData.orgIdForTargetResource, [OrganizationRoles.facilitator, OrganizationRoles.admin]);
   }
 }

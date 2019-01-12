@@ -7,15 +7,15 @@ import { CachingProviderTokens } from '../../../shared/caching/caching.shared.co
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { BaseRepo } from '../../core/repo/base.repo';
 import { ClassValidator } from '../../core/validators/class-validator';
-import { UserPermissionsEntity } from '../model/user-permissions.entity';
-import { IUserPermissionsModel } from '../model/user-permissions.model';
-import { UserPermissionsProviderTokens } from '../user-permissions.constants';
+import { AccessPermissionsEntity } from '../model/access-permissions.entity';
+import { IAccessPermissionsModel } from '../model/access-permissions.model';
+import { AccessPermissionsProviderTokens } from '../access-permissions.constants';
 
 @Injectable()
-export class UserPermissionsRepo extends BaseRepo<UserPermissionsEntity, IUserPermissionsModel> {
+export class AccessPermissionsRepo extends BaseRepo<AccessPermissionsEntity, IAccessPermissionsModel> {
   constructor(
     readonly loggerService: LoggerSharedService,
-    @Inject(UserPermissionsProviderTokens.Models.UserPermissions) model: Model<IUserPermissionsModel>,
+    @Inject(AccessPermissionsProviderTokens.Models.AccessPermissions) model: Model<IAccessPermissionsModel>,
     @Inject(CachingProviderTokens.Services.CacheStore) cacheStore: CacheStore,
     @Inject(AppSharedProviderTokens.Config.App) nestjsBffConfig: INestjsBffConfig,
   ) {
@@ -24,11 +24,11 @@ export class UserPermissionsRepo extends BaseRepo<UserPermissionsEntity, IUserPe
       model,
       cacheStore,
       defaultTTL: nestjsBffConfig.caching.entities.authorization,
-      entityValidator: new ClassValidator(loggerService, UserPermissionsEntity),
+      entityValidator: new ClassValidator(loggerService, AccessPermissionsEntity),
     });
   }
 
-  protected generateValidQueryConditionsForCacheClear(entity: UserPermissionsEntity): Array<Partial<UserPermissionsEntity>> {
+  protected generateValidQueryConditionsForCacheClear(entity: AccessPermissionsEntity): Array<Partial<AccessPermissionsEntity>> {
     throw new Error('Method not implemented.');
   }
 }

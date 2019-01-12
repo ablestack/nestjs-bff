@@ -1,5 +1,5 @@
 import { AuthenticationSchema } from '@nestjs-bff/backend/lib/domain/authentication/model/authentication.schema';
-import { AuthorizationSchema } from '@nestjs-bff/backend/lib/domain/authorization/model/authorization.schema';
+import { AuthorizationSchema } from '@nestjs-bff/backend/lib/domain/access-permissions/model/authorization.schema';
 import { OrganizationSchema } from '@nestjs-bff/backend/lib/domain/organization/model/organization.schema';
 import { UserSchema } from '@nestjs-bff/backend/lib/domain/user/model/user.schema';
 import { LoggerSharedService } from '@nestjs-bff/backend/lib/shared/logging/logger.shared.service';

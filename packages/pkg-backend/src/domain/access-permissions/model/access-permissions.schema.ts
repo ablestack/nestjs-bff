@@ -17,7 +17,7 @@ const UserOrgPermissionsSchema: Schema = new Schema({
   },
 });
 
-export const UserPermissionsSchema: Schema = new Schema(
+export const AccessPermissionsSchema: Schema = new Schema(
   {
     userId: {
       type: Schema.Types.ObjectId,
@@ -35,6 +35,6 @@ export const UserPermissionsSchema: Schema = new Schema(
   },
   {
     timestamps: true,
-    collection: 'userpermissions',
+    collection: 'accesspermissions',
   },
 );

@@ -1,4 +1,4 @@
-import { UserPermissionsEntity } from './domain/authorization/model/user-permissions.entity';
+import { AccessPermissionsEntity } from './domain/access-permissions/model/access-permissions.entity';
 
 declare module '*.json' {
   const value: any;
@@ -8,7 +8,7 @@ declare module '*.json' {
 declare global {
   namespace Express {
     export interface Request {
-      authorization?: UserPermissionsEntity;
+      authorization?: AccessPermissionsEntity;
     }
   }
 }

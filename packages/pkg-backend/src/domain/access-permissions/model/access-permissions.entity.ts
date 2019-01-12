@@ -1,9 +1,9 @@
 import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
 import { BaseEntity } from '@nestjs-bff/global/lib/entities/core/base.entity';
-import { AuthorizationScopeContract, UserOrgCredentialsContract } from '@nestjs-bff/global/lib/interfaces/authorization-scope.contract';
+import { AccessPermissionsContract, UserOrgPermissionsContract } from '../../../../../pkg-global/lib/interfaces/access-permissions.contract';
 import { IsArray, IsBoolean, IsIn, IsMongoId, ValidateNested } from 'class-validator';
 
-export class UserPermissionsEntity extends BaseEntity implements AuthorizationScopeContract {
+export class AccessPermissionsEntity extends BaseEntity implements AccessPermissionsContract {
   @IsMongoId()
   userId?: string;
 
@@ -15,7 +15,7 @@ export class UserPermissionsEntity extends BaseEntity implements AuthorizationSc
   organizations?: OrganizationAuthorization[] = [];
 }
 
-export class OrganizationAuthorization implements UserOrgCredentialsContract {
+export class OrganizationAuthorization implements UserOrgPermissionsContract {
   @IsBoolean()
   primary?: boolean;
 

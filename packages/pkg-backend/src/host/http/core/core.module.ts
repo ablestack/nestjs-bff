@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { DomainAuthorizationModule } from '../../../domain/authorization/user-permissions.module';
+import { DomainAuthorizationModule } from '../../../domain/access-permissions/access-permissions.module';
 import { DomainOrganizationModule } from '../../../domain/organization/organization.module';
 import { AppSharedModule } from '../../../shared/app/app.shared.module';
 import { CachingSharedModule } from '../../../shared/caching/caching.shared.module';
