@@ -28,6 +28,8 @@
   "settings": {
     "prettier.printWidth": 140,
     "cSpell.words": ["Repo", "authorizationcheck", "mockingoose", "Injectable", "autosync", "backend", "nestjs", "virtuals"],
-    "tslint.autoFixOnSave": true
+    "tslint.autoFixOnSave": true,
+    "typescript.preferences.quoteStyle": "single",
+    "prettier.singleQuote": true
   }
 }

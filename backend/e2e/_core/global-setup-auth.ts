@@ -78,7 +78,7 @@ export const setupAuth = async globalConfig => {
 
   logger.log(
     'authData.domainA.adminUser ------------------------------------------------------------------',
-    authData.domainA.adminUser,
+    JSON.stringify(authData.domainA.adminUser, null, 2),
   );
 
   //
@@ -98,7 +98,7 @@ export const setupAuth = async globalConfig => {
 
   logger.debug(
     'authData.domainA.regularUser -----------------------------------------------------------------',
-    authData.domainA.regularUser,
+    JSON.stringify(authData.domainA.regularUser, null, 2),
   );
 
   //
@@ -113,7 +113,7 @@ export const setupAuth = async globalConfig => {
 
   logger.debug(
     'authData.domainB.adminUser ---------------------------------------------------------------------',
-    authData.domainB.adminUser,
+    JSON.stringify(authData.domainB.adminUser, null, 2),
   );
 
   //
@@ -127,7 +127,7 @@ export const setupAuth = async globalConfig => {
 
   logger.debug(
     'authData.domainGroupAdmin.groupAdminUser (pre-promoted)------------------------------------------',
-    authData.domainGroupAdmin.groupAdminUser,
+    JSON.stringify(authData.domainGroupAdmin.groupAdminUser, null, 2),
   );
 
   authData.domainGroupAdmin.groupAdminUser.jwt = await jwtTokenService.createToken(
@@ -142,6 +142,6 @@ export const setupAuth = async globalConfig => {
 
   logger.debug(
     'authData.domainGroupAdmin.groupAdminUser (promoted) ----------------------------------------------',
-    authData.domainGroupAdmin.groupAdminUser,
+    JSON.stringify(authData.domainGroupAdmin.groupAdminUser, null, 2),
   );
 };

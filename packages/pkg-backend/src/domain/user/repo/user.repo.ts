@@ -28,7 +28,7 @@ export class UserRepo extends BaseRepo<UserEntity, IUserModel> {
     });
   }
 
-  protected generateValidQueryConditionsForCacheClear(entity: UserEntity): Array<Partial<UserEntity>> {
+  protected generateValidQueryConditionsForCacheClear(entity: UserEntity): object[] {
     return [{ username: entity.username }];
   }
 }

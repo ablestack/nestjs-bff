@@ -42,7 +42,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
   //
 
   public async findOne(
-    conditions: Partial<TEntity>,
+    conditions: object,
     options?: {
       accessPermissions?: AccessPermissionsContract;
       skipAuthorization?: boolean;
@@ -50,7 +50,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
       ttl?: number;
     },
   ): Promise<TEntity> {
-    const result = await this.tryfindOne(conditions, options);
+    const result = await this.tryFindOne(conditions, options);
 
     // validate not null
     if (!result) throw new AppError(`Could not find entity ${this.name} with conditions ${JSON.stringify(conditions)}`, options);
@@ -74,8 +74,8 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
   // tryFindOne
   //
 
-  public async tryfindOne(
-    conditions: Partial<TEntity>,
+  public async tryFindOne(
+    conditions: object,
     options?: {
       accessPermissions?: AccessPermissionsContract;
       skipAuthorization?: boolean;
@@ -114,7 +114,12 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
 
     // authorization checks
     if (!options.skipAuthorization && result) {
-      await this.entityAuthChecker.ensureAuthorized({ accessPermissions: options.accessPermissions, origin: this.name, targetResource: result, operation: CrudOperations.read });
+      await this.entityAuthChecker.ensureAuthorized({
+        accessPermissions: options.accessPermissions,
+        origin: this.name,
+        targetResource: result,
+        operation: CrudOperations.read,
+      });
     }
 
     // Return
@@ -126,7 +131,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
   //
 
   public async find(
-    conditions: Partial<TEntity>,
+    conditions: object,
     options?: {
       accessPermissions?: AccessPermissionsContract;
       skipAuthorization?: boolean;
@@ -283,7 +288,12 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
 
     // authorization checks
     if (!options.skipAuthorization) {
-      await this.entityAuthChecker.ensureAuthorized({ accessPermissions: options.accessPermissions, origin: this.name, targetResource: entity, operation: CrudOperations.update });
+      await this.entityAuthChecker.ensureAuthorized({
+        accessPermissions: options.accessPermissions,
+        origin: this.name,
+        targetResource: entity,
+        operation: CrudOperations.update,
+      });
     }
 
     // persist
@@ -358,17 +368,25 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     return this.cacheStore.del(cacheKey);
   }
 
-  protected abstract generateValidQueryConditionsForCacheClear(entity: TEntity): Array<Partial<TEntity>>;
+  protected abstract generateValidQueryConditionsForCacheClear(entity: TEntity): object[];
 
   //
   // Abstracted Mongoose calls, to allow for easier testing through mocked mongoose calls
   //
-  protected async _dbFindOne(conditions: Partial<TEntity>) {
+  protected async _dbFindOne(conditions: object) {
     this.loggerService.trace(`${this.name}._dbFindOne`, conditions);
-    return this.model.findOne(conditions).exec();
+    let result: any;
+
+    try {
+      result = await this.model.findOne(conditions).exec();
+    } catch (error) {
+      this.loggerService.error(`${this.name}._dbFindOne`, error);
+    }
+
+    return result;
   }
 
-  protected async _dbFind(conditions: Partial<TEntity>): Promise<TModel[]> {
+  protected async _dbFind(conditions: object): Promise<TModel[]> {
     this.loggerService.trace(`${this.name}._dbFind`, conditions);
     return this.model.find(conditions).exec();
   }

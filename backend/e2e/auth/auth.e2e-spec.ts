@@ -187,7 +187,7 @@ describe('Auth', () => {
     expect(response.status).toEqual(403);
   });
 
-  it(`GIVEN a organization member role protected endpoint 
+  it.only(`GIVEN a organization member role protected endpoint 
         AND authorization that includes member role authorization for that organization
         WHEN a get request is made 
         THEN the request is successful`, async () => {

@@ -1,13 +1,13 @@
 export const orgData = {
   domainA: {
-    slug: 'admin@domain.com',
+    slug: 'domaina',
   },
 
   domainB: {
-    slug: 'admin@domain-b.com',
+    slug: 'domainb',
   },
 
   domainGroupAdmin: {
-    slug: 'group-admin@group-admin-domain.com',
+    slug: 'group-admin-domain',
   },
 };

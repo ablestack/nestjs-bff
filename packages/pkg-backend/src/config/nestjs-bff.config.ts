@@ -31,7 +31,7 @@ const _NestjsBffConfig = {
 
   db: {
     mongo: {
-      debugLogging: false,
+      debugLogging: true,
       options: {
         useNewUrlParser: true,
         useCreateIndex: true,
@@ -64,7 +64,7 @@ const _NestjsBffConfig = {
   logging: {
     logDir: 'logs',
     console: {
-      levels: [LogLevels.error, LogLevels.warning, LogLevels.info, LogLevels.debug], // omitted: LogLevels.trace
+      levels: [LogLevels.error, LogLevels.warning, LogLevels.info, LogLevels.debug, LogLevels.trace], // options: LogLevels.error, LogLevels.warning, LogLevels.info, LogLevels.debug, LogLevels.trace
     },
     winston: {
       level: 'info',

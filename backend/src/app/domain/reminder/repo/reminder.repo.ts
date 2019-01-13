@@ -28,7 +28,7 @@ export class ReminderRepo extends BaseRepo<ReminderEntity, IReminderModel> {
     });
   }
 
-  protected generateValidQueryConditionsForCacheClear(entity: ReminderEntity): ReminderEntity[] {
+  protected generateValidQueryConditionsForCacheClear(entity: ReminderEntity): object[] {
     return [{ _id: entity._id, userId: entity.userId, orgId: entity.orgId }];
   }
 }

@@ -27,7 +27,7 @@ import { getReqMetadataLite } from '../utils/core.utils';
 export class AuthorizationGuard implements CanActivate {
   constructor(
     private readonly reflector: Reflector,
-    private readonly organizationCache: OrganizationRepo,
+    private readonly organizationRepo: OrganizationRepo,
     @Inject(CachingProviderTokens.Services.CacheStore) private readonly cacheStore: CacheStore,
     @Inject(AppSharedProviderTokens.Config.App) private readonly nestjsBffConfig: INestjsBffConfig,
     private readonly logger: LoggerSharedService,
@@ -85,13 +85,13 @@ export class AuthorizationGuard implements CanActivate {
             origin: 'AuthorizationGuard',
             accessPermissions,
             targetResource: {
-              orgId: orgId,
-              userId: userId,
+              orgId,
+              userId,
             },
           }))
         ) {
-          this.logger.warn(`authcheck failed for authcheck ${authcheck.constructor.name}`, {
-            authorization: accessPermissions,
+          this.logger.warn(`authcheck failed for ${authcheck.constructor.name}`, {
+            authorization: JSON.stringify(accessPermissions),
             orgId,
             userId,
           });
@@ -106,7 +106,7 @@ export class AuthorizationGuard implements CanActivate {
       });
       return true;
     } catch (error) {
-      this.logger.error('Error in ResourceGuard', error);
+      this.logger.error('Error in AuthorizationGuard', error);
       return false;
     }
   }
@@ -123,7 +123,7 @@ export class AuthorizationGuard implements CanActivate {
 
     this.logger.debug('organizationSlug found', organizationSlug);
 
-    const organization = await this.organizationCache.findOne({ slug: organizationSlug });
+    const organization = await this.organizationRepo.findOne({ slug: organizationSlug }, { skipAuthorization: true });
     if (!organization) {
       this.logger.debug('orgId not found for slug', organizationSlug);
       return undefined;

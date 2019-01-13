@@ -28,7 +28,7 @@ export class AuthenticationRepo extends BaseRepo<AuthenticationEntity, IAuthenti
     });
   }
 
-  protected generateValidQueryConditionsForCacheClear(entity: AuthenticationEntity): Array<Partial<AuthenticationEntity>> {
+  protected generateValidQueryConditionsForCacheClear(entity: AuthenticationEntity): object[] {
     return [{ _id: entity._id, userId: entity.userId }];
   }
 }

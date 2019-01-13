@@ -28,7 +28,7 @@ export class OrganizationRepo extends BaseRepo<OrganizationEntity, IOrganization
     });
   }
 
-  protected generateValidQueryConditionsForCacheClear(entity: OrganizationEntity): Array<Partial<OrganizationEntity>> {
+  protected generateValidQueryConditionsForCacheClear(entity: OrganizationEntity): object[] {
     return [{ slug: entity.slug }];
   }
 }

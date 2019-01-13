@@ -1,8 +1,8 @@
-import { AccessPermissionsEntity } from '../../../../domain/access-permissions/model/access-permissions.entity';
 import { IAuthenticationToken } from '@nestjs-bff/global/lib/interfaces/authentication-token.interface';
 import { Inject, Injectable } from '@nestjs/common';
 import { sign, SignOptions } from 'jsonwebtoken';
 import { INestjsBffConfig } from '../../../../config/nestjs-bff.config';
+import { AccessPermissionsEntity } from '../../../../domain/access-permissions/model/access-permissions.entity';
 import { AppSharedProviderTokens } from '../../../../shared/app/app.shared.constants';
 import { IJwtPayload } from './i-jwt-payload';
 

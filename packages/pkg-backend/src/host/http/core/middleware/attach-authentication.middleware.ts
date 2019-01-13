@@ -1,6 +1,7 @@
 import { Inject, Injectable, MiddlewareFunction, NestMiddleware } from '@nestjs/common';
 import { verify, VerifyOptions } from 'jsonwebtoken';
 import { INestjsBffConfig } from '../../../../config/nestjs-bff.config';
+import { AccessPermissionsEntity } from '../../../../domain/access-permissions/model/access-permissions.entity';
 import { AccessPermissionsRepo } from '../../../../domain/access-permissions/repo/access-permissions.repo';
 import { AppSharedProviderTokens } from '../../../../shared/app/app.shared.constants';
 import { LoggerSharedService } from '../../../../shared/logging/logger.shared.service';
@@ -19,7 +20,7 @@ export class AttachAuthenticationHttpMiddleware implements NestMiddleware {
     private readonly bffLoggerService: LoggerSharedService,
     @Inject(AppSharedProviderTokens.Config.App)
     private readonly nestjsBffConfig: INestjsBffConfig,
-    private readonly authorizationService: AccessPermissionsRepo,
+    private readonly accessPermissionsRepo: AccessPermissionsRepo,
   ) {
     this.verifyOptions = {
       issuer: nestjsBffConfig.jwt.issuer,
@@ -73,15 +74,17 @@ export class AttachAuthenticationHttpMiddleware implements NestMiddleware {
     const jwtPayload = verify(jwtToken, this.nestjsBffConfig.jwt.jwtPublicKey, this.verifyOptions) as IJwtPayload;
     if (!jwtPayload) throw new BadRequestHttpError('Invalid JWT token', getReqMetadataLite(req));
 
-    const authorizationEntity = await this.authorizationService.findOne({ _id: jwtPayload.sub });
-    if (!authorizationEntity) {
-      throw new BadRequestHttpError(`No authentication data found for request: ${req.originalUrl}`);
+    let authorizationEntity: AccessPermissionsEntity;
+    try {
+      authorizationEntity = await this.accessPermissionsRepo.findOne({ _id: jwtPayload.sub }, { skipAuthorization: true });
+    } catch (error) {
+      throw new BadRequestHttpError(`No authentication data found for request: ${req.originalUrl}`, error);
     }
 
     this.bffLoggerService.debug(`Attaching authorization to request`, {
       'req.originalUrl': req.originalUrl,
       authorizationEntity,
-      org: authorizationEntity.organizations,
+      'org': authorizationEntity.organizations,
     });
     req.accessPermissions = authorizationEntity;
   }

@@ -31,13 +31,16 @@ export class UserAuthService {
    * @param cmd
    */
   public async signInWithLocal(cmd: LocalAuthenticateCommand): Promise<AccessPermissionsEntity> {
-    const authenticationEntity = await this.authenticationRepo.findOne({ local: { email: cmd.username } }, { skipAuthorization: true });
+    const authenticationEntity = await this.authenticationRepo.findOne({ 'local.email': cmd.username }, { skipAuthorization: true });
 
     if (!authenticationEntity) throw new ValidationError(['Your login accessPermissions were not correct']);
     if (!authenticationEntity.local)
-      throw new ValidationError(['Your login accessPermissions were not correct or you do not have an account. Perhaps you registered with social login?']);
+      throw new ValidationError([
+        'Your login accessPermissions were not correct or you do not have an account. Perhaps you registered with social login?',
+      ]);
 
-    if (!validPassword(cmd.password, authenticationEntity.local.hashedPassword)) throw new ValidationError(['Your login accessPermissions were not correct']);
+    if (!validPassword(cmd.password, authenticationEntity.local.hashedPassword))
+      throw new ValidationError(['Your login accessPermissions were not correct']);
 
     const authorizationEntity = await this.authorizationRepo.findOne({ userId: authenticationEntity.userId }, { skipAuthorization: true });
 
@@ -119,7 +122,10 @@ export class UserAuthService {
    *
    * @param cmd
    */
-  public async promoteToGroupAdmin(cmd: PromoteToGroupAdminCommand, accessPermissions: AccessPermissionsContract): Promise<AccessPermissionsEntity> {
+  public async promoteToGroupAdmin(
+    cmd: PromoteToGroupAdminCommand,
+    accessPermissions: AccessPermissionsContract,
+  ): Promise<AccessPermissionsEntity> {
     const authorizationEntity = await this.authorizationRepo.findOne({ userId: cmd.userId }, { accessPermissions });
 
     // Validate
