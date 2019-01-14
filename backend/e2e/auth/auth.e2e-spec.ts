@@ -62,19 +62,19 @@ describe('Auth', () => {
     //
 
     authData.domainA.adminUser.jwt = await jwtTokenService.createToken(
-      await authService.signInWithLocal(userData.domainA.adminUser),
+      await authService.signInWithLocal(userData.Oa.UaOb),
     );
 
     authData.domainA.regularUser.jwt = await jwtTokenService.createToken(
-      await authService.signInWithLocal(userData.domainA.regularUser),
+      await authService.signInWithLocal(userData.Oa.UaOa),
     );
 
     authData.domainB.adminUser.jwt = await jwtTokenService.createToken(
-      await authService.signInWithLocal(userData.domainB.adminUser),
+      await authService.signInWithLocal(userData.Ob.adminUser),
     );
 
     authData.domainGroupAdmin.groupAdminUser.jwt = await jwtTokenService.createToken(
-      await authService.signInWithLocal(userData.domainGroupAdmin.groupAdminUser),
+      await authService.signInWithLocal(userData.Oc.groupAdminUser),
     );
   }, 5 * 60 * 1000);
 
@@ -87,7 +87,7 @@ describe('Auth', () => {
     const response = await supertest(app.getHttpServer())
       .post('/auth/public/local/signin')
       .send({
-        username: userData.domainA.regularUser.username,
+        username: userData.Oa.UaOa.username,
         password: 'bad-password',
       });
 
@@ -103,8 +103,8 @@ describe('Auth', () => {
     const response = await supertest(app.getHttpServer())
       .post('/auth/public/local/signin')
       .send({
-        username: userData.domainA.regularUser.username,
-        password: userData.domainA.regularUser.password,
+        username: userData.Oa.UaOa.username,
+        password: userData.Oa.UaOa.password,
       });
 
     expect(response.status).toEqual(201);
@@ -181,7 +181,7 @@ describe('Auth', () => {
         WHEN a get request is made 
         THEN access is denied`, async () => {
     const response = await supertest(app.getHttpServer())
-      .get(`/auth/${orgData.domainA.slug}/verification/organization-protected-member`)
+      .get(`/auth/${orgData.Oa.slug}/verification/organization-protected-member`)
       .set('authorization', `Bearer ${authData.domainB.adminUser.jwt.token}`);
 
     expect(response.status).toEqual(403);
@@ -192,7 +192,7 @@ describe('Auth', () => {
         WHEN a get request is made 
         THEN the request is successful`, async () => {
     const response = await supertest(app.getHttpServer())
-      .get(`/auth/${orgData.domainA.slug}/verification/organization-protected-member`)
+      .get(`/auth/${orgData.Oa.slug}/verification/organization-protected-member`)
       .set('authorization', `Bearer ${authData.domainA.regularUser.jwt.token}`);
 
     // expect(response.status).toEqual(200);
@@ -204,7 +204,7 @@ describe('Auth', () => {
         WHEN a get request is made 
         THEN access is denied`, async () => {
     const response = await supertest(app.getHttpServer())
-      .get(`/auth/${orgData.domainA.slug}/verification/organization-protected-admin`)
+      .get(`/auth/${orgData.Oa.slug}/verification/organization-protected-admin`)
       .set('authorization', `Bearer ${authData.domainA.regularUser.jwt.token}`);
 
     expect(response.status).toEqual(403);
@@ -215,7 +215,7 @@ describe('Auth', () => {
         WHEN a get request is made 
         THEN access is denied`, async () => {
     const response = await supertest(app.getHttpServer())
-      .get(`/auth/${orgData.domainA.slug}/verification/organization-protected-admin`)
+      .get(`/auth/${orgData.Oa.slug}/verification/organization-protected-admin`)
       .set('authorization', `Bearer ${authData.domainA.regularUser.jwt.token}`);
 
     expect(response.status).toEqual(403);
@@ -226,7 +226,7 @@ describe('Auth', () => {
         WHEN a get request is made 
         THEN request is successful`, async () => {
     const response = await supertest(app.getHttpServer())
-      .get(`/auth/${orgData.domainA.slug}/verification/organization-protected-admin`)
+      .get(`/auth/${orgData.Oa.slug}/verification/organization-protected-admin`)
       .set('authorization', `Bearer ${authData.domainA.adminUser.jwt.token}`);
 
     expect(response.status).toEqual(200);

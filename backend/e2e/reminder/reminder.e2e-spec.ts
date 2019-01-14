@@ -34,7 +34,7 @@ export const authData = {
 
 export const reminderData = {
   RMa1_Uar: {
-    userId: userData.domainA.regularUser,
+    userId: userData.Oa.UaOa,
     orgId: 'todo',
     title: 'Test Reminder',
     deadline: moment()
@@ -72,10 +72,10 @@ describe('Reminder', () => {
     //
     // authenticate for required users
     //
-    authData.domainA.adminUser.auth = await authService.signInWithLocal(userData.domainA.adminUser);
+    authData.domainA.adminUser.auth = await authService.signInWithLocal(userData.Oa.UaOb);
     authData.domainA.adminUser.jwt = await jwtTokenService.createToken(authData.domainA.adminUser.auth);
 
-    authData.domainA.regularUser.auth = await authService.signInWithLocal(userData.domainA.regularUser);
+    authData.domainA.regularUser.auth = await authService.signInWithLocal(userData.Oa.UaOa);
     authData.domainA.regularUser.jwt = await jwtTokenService.createToken(authData.domainA.regularUser.auth);
 
     // add test reminder
@@ -92,7 +92,7 @@ describe('Reminder', () => {
         WHEN a get request is made
         THEN access is denied`, async () => {
     const response = await supertest(app.getHttpServer()).get(
-      `/Reminder/${orgData.domainA.slug}/${authData.domainA.regularUser.auth.userId}`,
+      `/Reminder/${orgData.Oa.slug}/${authData.domainA.regularUser.auth.userId}`,
     );
 
     expect(response.status).toEqual(403);
@@ -104,7 +104,7 @@ describe('Reminder', () => {
         WHEN a get request is made
         THEN a successful response is returned`, async () => {
     const response = await supertest(app.getHttpServer())
-      .get(`/Reminder/${orgData.domainA.slug}/${authData.domainA.regularUser.auth.userId}`)
+      .get(`/Reminder/${orgData.Oa.slug}/${authData.domainA.regularUser.auth.userId}`)
       .set('authorization', `Bearer ${authData.domainA.regularUser.jwt.token}`);
 
     expect(response.status).toEqual(200);
