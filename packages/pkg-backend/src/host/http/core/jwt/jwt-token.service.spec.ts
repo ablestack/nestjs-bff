@@ -1,7 +1,7 @@
 import { Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
-import { AccessPermissionsEntity } from '../../../../domain/access-permissions/model/access-permissions.entity';
 import { verify, VerifyOptions } from 'jsonwebtoken';
 import { NestjsBffConfig } from '../../../../config/nestjs-bff.config';
+import { AccessPermissionsEntity } from '../../../../domain/access-permissions/model/access-permissions.entity';
 import { getLogger } from '../../../../shared/logging/logging.shared.module';
 import { JwtTokenService } from './jwt-token.service';
 

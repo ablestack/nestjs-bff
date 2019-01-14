@@ -16,7 +16,26 @@ const logger = getLogger();
 export const globalSetup = async globalConfig => {
   logger.trace('-- Global Setup Start -- ', Date.now().toLocaleString());
 
+  // catch and highlight any unhandled exceptions
+  process
+    .on('unhandledRejection', (reason, p) => {
+      console.error(
+        reason,
+        '--------------------------------------------------------------------------- Unhandled Rejection at Promise',
+        p,
+      );
+    })
+    .on('uncaughtException', err => {
+      console.error(
+        err,
+        '------------------------------------------------------------------------------- Uncaught Exception thrown',
+      );
+    });
+
+  // setup DB
   await setupDB(globalConfig);
+
+  // add test users and auth
   await setupAuth(globalConfig);
 
   logger.trace('-- Global Setup End -- ');

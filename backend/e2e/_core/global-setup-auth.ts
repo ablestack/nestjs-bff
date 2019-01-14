@@ -10,10 +10,10 @@ import {
 } from '@nestjs-bff/backend/lib/domain/authentication/model/authentication.entity';
 import { JwtTokenService } from '@nestjs-bff/backend/lib/host/http/core/jwt/jwt-token.service';
 import { getLogger } from '@nestjs-bff/backend/lib/shared/logging/logging.shared.module';
-import { Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
 import { INestApplication } from '@nestjs/common/interfaces';
 import { Test } from '@nestjs/testing';
 import { AuthE2eModule } from '../auth/auth-e2e.module';
+import { accessPermissionsData } from '../shared/access-permission-data';
 import { userData } from '../shared/user-data';
 
 const authInitializer = new AuthenticationEntity();
@@ -21,10 +21,6 @@ authInitializer.local = new LocalAuth();
 authInitializer.google = new GoogleAuth();
 authInitializer.facebook = new FacebookAuth();
 authInitializer.twitter = new TwitterAuth();
-
-const accessPermissionsData = {
-  systemAdmin: { roles: [Roles.systemAdmin] },
-};
 
 const authData = {
   domainA: {
@@ -76,10 +72,10 @@ export const setupAuth = async globalConfig => {
   });
   authData.domainA.adminUser.jwt = await jwtTokenService.createToken(authData.domainA.adminUser.auth);
 
-  logger.log(
-    'authData.domainA.adminUser ------------------------------------------------------------------',
-    JSON.stringify(authData.domainA.adminUser, null, 2),
-  );
+  // logger.log(
+  //   'authData.domainA.adminUser ------------------------------------------------------------------',
+  //   JSON.stringify(authData.domainA.adminUser, null, 2),
+  // );
 
   //
   // create domainA regular user
@@ -96,10 +92,10 @@ export const setupAuth = async globalConfig => {
   );
   authData.domainA.regularUser.jwt = await jwtTokenService.createToken(authData.domainA.regularUser.auth);
 
-  logger.debug(
-    'authData.domainA.regularUser -----------------------------------------------------------------',
-    JSON.stringify(authData.domainA.regularUser, null, 2),
-  );
+  // logger.debug(
+  //   'authData.domainA.regularUser -----------------------------------------------------------------',
+  //   JSON.stringify(authData.domainA.regularUser, null, 2),
+  // );
 
   //
   // create domainB admin user
@@ -111,10 +107,10 @@ export const setupAuth = async globalConfig => {
   });
   authData.domainB.adminUser.jwt = await jwtTokenService.createToken(authData.domainB.adminUser.auth);
 
-  logger.debug(
-    'authData.domainB.adminUser ---------------------------------------------------------------------',
-    JSON.stringify(authData.domainB.adminUser, null, 2),
-  );
+  // logger.debug(
+  //   'authData.domainB.adminUser ---------------------------------------------------------------------',
+  //   JSON.stringify(authData.domainB.adminUser, null, 2),
+  // );
 
   //
   // create groupAdmin user (create then promote)
@@ -125,10 +121,10 @@ export const setupAuth = async globalConfig => {
     password: userData.domainGroupAdmin.groupAdminUser.password,
   });
 
-  logger.debug(
-    'authData.domainGroupAdmin.groupAdminUser (pre-promoted)------------------------------------------',
-    JSON.stringify(authData.domainGroupAdmin.groupAdminUser, null, 2),
-  );
+  // logger.debug(
+  //   'authData.domainGroupAdmin.groupAdminUser (pre-promoted)------------------------------------------',
+  //   JSON.stringify(authData.domainGroupAdmin.groupAdminUser, null, 2),
+  // );
 
   authData.domainGroupAdmin.groupAdminUser.jwt = await jwtTokenService.createToken(
     await authService.promoteToGroupAdmin(
@@ -140,8 +136,16 @@ export const setupAuth = async globalConfig => {
     ),
   );
 
+  // logger.debug(
+  //   'authData.domainGroupAdmin.groupAdminUser (promoted) ----------------------------------------------',
+  //   JSON.stringify(authData.domainGroupAdmin.groupAdminUser, null, 2),
+  // );
+
   logger.debug(
-    'authData.domainGroupAdmin.groupAdminUser (promoted) ----------------------------------------------',
-    JSON.stringify(authData.domainGroupAdmin.groupAdminUser, null, 2),
+    `Users Created: ----------------------------------------------
+    ${userData.domainA.adminUser.username}
+    ${userData.domainA.regularUser.username}
+    ${userData.domainB.adminUser.username}
+    ${userData.domainGroupAdmin.groupAdminUser.username}`,
   );
 };

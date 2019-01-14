@@ -3,11 +3,11 @@ import { IsBoolean, IsDate, Length } from 'class-validator';
 
 export class ReminderEntity extends UserAndOrgScopedEntity {
   @Length(2, 50)
-  Title?: string;
+  title?: string;
 
   @IsDate()
-  Deadline?: Date;
+  deadline?: Date;
 
   @IsBoolean()
-  Completed?: boolean;
+  completed?: boolean;
 }

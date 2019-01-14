@@ -12,26 +12,15 @@ export class LoggerConsoleSharedService implements LoggerSharedService {
   private startSeparator = '\n';
   private endSeparator = '\n\n---------------';
 
-  private logError: boolean = this.nestjsBffConfig.logging.console.levels.includes(
-    LogLevels.error,
-  );
-  private logWarn: boolean = this.nestjsBffConfig.logging.console.levels.includes(
-    LogLevels.warning,
-  );
-  private logInfo: boolean = this.nestjsBffConfig.logging.console.levels.includes(
-    LogLevels.info,
-  );
-  private logDebug: boolean = this.nestjsBffConfig.logging.console.levels.includes(
-    LogLevels.debug,
-  );
-  private logTrace: boolean = this.nestjsBffConfig.logging.console.levels.includes(
-    LogLevels.trace,
-  );
+  private logError: boolean = this.nestjsBffConfig.logging.console.levels.includes(LogLevels.error);
+  private logWarn: boolean = this.nestjsBffConfig.logging.console.levels.includes(LogLevels.warning);
+  private logInfo: boolean = this.nestjsBffConfig.logging.console.levels.includes(LogLevels.info);
+  private logDebug: boolean = this.nestjsBffConfig.logging.console.levels.includes(LogLevels.debug);
+  private logTrace: boolean = this.nestjsBffConfig.logging.console.levels.includes(LogLevels.trace);
 
   public log(msg: string, ...logObjects: any[]): void {
     // tslint:disable-next-line:no-console
-    if (this.logInfo)
-      console.log(this.startSeparator, msg, ...logObjects, this.endSeparator);
+    if (this.logInfo) console.log(this.startSeparator, msg, ...logObjects, this.endSeparator);
     // tslint:disable-next-line:no-console
     // console.trace();
   }
@@ -54,8 +43,7 @@ export class LoggerConsoleSharedService implements LoggerSharedService {
 
   public warn(msg: string, ...logObjects: any[]): void {
     // tslint:disable-next-line:no-console
-    if (this.logWarn)
-      console.warn(this.startSeparator, msg, ...logObjects, this.endSeparator);
+    if (this.logWarn) console.warn(this.startSeparator, msg, ...logObjects, this.endSeparator);
   }
 
   public debug(msg: string, ...logObjects: any[]): void {
@@ -69,7 +57,6 @@ export class LoggerConsoleSharedService implements LoggerSharedService {
 
   public trace(msg: string, ...logObjects: any[]): void {
     // tslint:disable-next-line:no-console
-    if (this.logTrace)
-      console.log(this.startSeparator, msg, ...logObjects, this.endSeparator);
+    if (this.logTrace) console.log(this.startSeparator, msg, ...logObjects, this.endSeparator);
   }
 }

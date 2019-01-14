@@ -95,10 +95,10 @@ export class AuthorizationGuard implements CanActivate {
       }
 
       // if we made it here we passed all the tests.  return true
-      this.logger.debug(`authcheck passed`, {
-        authorization: accessPermissions,
-        orgId,
-      });
+      // this.logger.debug(`authcheck passed`, {
+      //   authorization: accessPermissions,
+      //   orgId,
+      // });
       return true;
     } catch (error) {
       this.logger.error('Error in AuthorizationGuard', error);
@@ -116,7 +116,7 @@ export class AuthorizationGuard implements CanActivate {
       return undefined;
     }
 
-    this.logger.debug('organizationSlug found', organizationSlug);
+    // this.logger.debug('organizationSlug found', organizationSlug);
 
     const organization = await this.organizationRepo.findOne({ slug: organizationSlug }, { skipAuthorization: true });
     if (!organization) {

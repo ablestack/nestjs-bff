@@ -47,15 +47,6 @@ describe('Auth', () => {
   beforeAll(async () => {
     logger.trace('---- Starting Auth e2e ----');
 
-    process
-      .on('unhandledRejection', (reason, p) => {
-        console.error(reason, '--------------------------- Unhandled Rejection at Promise', p);
-      })
-      .on('uncaughtException', err => {
-        console.error(err, '------------------------------ Uncaught Exception thrown');
-        process.exit(1);
-      });
-
     const module = await Test.createTestingModule({
       imports: [AuthE2eModule],
     }).compile();

@@ -81,11 +81,11 @@ export class AttachAuthenticationHttpMiddleware implements NestMiddleware {
       throw new BadRequestHttpError(`No authentication data found for request: ${req.originalUrl}`, error);
     }
 
-    this.bffLoggerService.debug(`Attaching authorization to request`, {
-      'req.originalUrl': req.originalUrl,
-      authorizationEntity,
-      'org': authorizationEntity.organizations,
-    });
+    // this.bffLoggerService.debug(`Attaching authorization to request`, {
+    //   'req.originalUrl': req.originalUrl,
+    //   authorizationEntity,
+    //   'org': authorizationEntity.organizations,
+    // });
     req.accessPermissions = authorizationEntity;
   }
 

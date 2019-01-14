@@ -19,41 +19,41 @@ import { ReminderEntity } from '../../../../global/entities/reminder.entity';
 
 @Controller('/reminder/:organizationSlug/:userId')
 export class ReminderController {
-  constructor(private readonly reminderRepo: ReminderRepo) {}
+  constructor(private readonly entityRepo: ReminderRepo) {}
 
   @Get()
   @Authorization([new OrgAccessAuthCheck()])
-  public async getItems(@Req() req: BffRequest, string, @Body() entity: ReminderEntity): Promise<ReminderEntity[]> {
-    return this.reminderRepo.find(entity, { accessPermissions: req.accessPermissions });
+  public async getItems(@Req() req: BffRequest, @Param('userId') userId): Promise<ReminderEntity[]> {
+    return this.entityRepo.find({ userId }, { accessPermissions: req.accessPermissions });
   }
 
   @Get(':id')
   @Authorization([new OrgAccessAuthCheck()])
   public async getItem(@Req() req: BffRequest, @Param('id') _id: string, id: string): Promise<ReminderEntity> {
-    return this.reminderRepo.findOne({ _id }, { accessPermissions: req.accessPermissions });
+    return this.entityRepo.findOne({ _id }, { accessPermissions: req.accessPermissions });
   }
 
   @Post()
   @Authorization([new OrgAccessAuthCheck()])
   public async create(@Req() req: BffRequest, @Body() entity: ReminderEntity) {
-    return this.reminderRepo.create(entity, { accessPermissions: req.accessPermissions });
+    return this.entityRepo.create(entity, { accessPermissions: req.accessPermissions });
   }
 
   @Put()
   @Authorization([new OrgAccessAuthCheck()])
   public async update(@Req() req: BffRequest, @Body() entity: ReminderEntity) {
-    return this.reminderRepo.update(entity, { accessPermissions: req.accessPermissions });
+    return this.entityRepo.update(entity, { accessPermissions: req.accessPermissions });
   }
 
   @Patch()
   @Authorization([new OrgAccessAuthCheck()])
   public async partialUpdate(@Req() req: BffRequest, @Body() entity: Partial<ReminderEntity>) {
-    return this.reminderRepo.patch(entity, { accessPermissions: req.accessPermissions });
+    return this.entityRepo.patch(entity, { accessPermissions: req.accessPermissions });
   }
 
   @Delete()
   @Authorization([new OrgAccessAuthCheck()])
   public async delete(@Req() req: BffRequest, @Param('id') id) {
-    return this.reminderRepo.delete(id, { accessPermissions: req.accessPermissions });
+    return this.entityRepo.delete(id, { accessPermissions: req.accessPermissions });
   }
 }

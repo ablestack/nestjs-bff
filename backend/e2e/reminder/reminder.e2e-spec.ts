@@ -5,8 +5,11 @@ import { getLogger } from '@nestjs-bff/backend/lib/shared/logging/logging.shared
 import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import 'jest';
+import * as moment from 'moment';
 import * as supertest from 'supertest';
+import { ReminderRepo } from '../../src/app/domain/reminder/repo/reminder.repo';
 import { AppConfig } from '../../src/config/app.config';
+import { accessPermissionsData } from '../shared/access-permission-data';
 import { orgData } from '../shared/org-data';
 import { userData } from '../shared/user-data';
 import { ReminderE2eModule } from './reminder-e2e.module';
@@ -26,6 +29,18 @@ export const authData = {
       auth: new AccessPermissionsEntity(),
       jwt: { token: '' },
     },
+  },
+};
+
+export const reminderData = {
+  RMa1_Uar: {
+    userId: userData.domainA.regularUser,
+    orgId: 'todo',
+    title: 'Test Reminder',
+    deadline: moment()
+      .add(1, 'month')
+      .toDate(),
+    completed: false,
   },
 };
 
@@ -52,6 +67,7 @@ describe('Reminder', () => {
 
     const authService = await app.get(UserAuthService);
     const jwtTokenService = await app.get(JwtTokenService);
+    const reminderRepo = await app.get(ReminderRepo);
 
     //
     // authenticate for required users
@@ -61,6 +77,9 @@ describe('Reminder', () => {
 
     authData.domainA.regularUser.auth = await authService.signInWithLocal(userData.domainA.regularUser);
     authData.domainA.regularUser.jwt = await jwtTokenService.createToken(authData.domainA.regularUser.auth);
+
+    // add test reminder
+    reminderRepo.create(reminderData.RMa1_Uar, { accessPermissions: accessPermissionsData.systemAdmin });
   }, 5 * 60 * 1000);
 
   //

@@ -83,8 +83,8 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
       ttl?: number;
     },
   ): Promise<TEntity | null> {
-    // trace logging
-    this.loggerService.trace(`${this.name}.findOne`, conditions, options);
+    // debug logging
+    this.loggerService.debug(`${this.name}.findOne`, conditions, options);
 
     // Setup
     let key: string | undefined;
@@ -139,8 +139,8 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
       ttl?: number;
     },
   ): Promise<TEntity[]> {
-    // trace logging
-    this.loggerService.trace(`${this.name}.find`, conditions, options);
+    // debug logging
+    this.loggerService.debug(`${this.name}.find`, conditions, options);
 
     // setup
     let key: string | undefined;
@@ -193,8 +193,8 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     newEntity: Partial<TEntity>,
     options?: { accessPermissions?: AccessPermissionsContract; skipAuthorization?: boolean; customValidator?: ClassValidator<TEntity> },
   ): Promise<TEntity> {
-    // trace logging
-    this.loggerService.trace(`${this.name}.create`, newEntity, options);
+    // debug logging
+    this.loggerService.debug(`${this.name}.create`, newEntity, options);
 
     // setup
     options = options || {}; // ensure options is not null
@@ -229,8 +229,8 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     patchEntity: Partial<TEntity>,
     options?: { accessPermissions?: AccessPermissionsContract; skipAuthorization?: boolean; customValidator?: ClassValidator<TEntity> },
   ): Promise<TEntity> {
-    // trace logging
-    this.loggerService.trace(`${this.name}.patch`, patchEntity, options);
+    // debug logging
+    this.loggerService.debug(`${this.name}.patch`, patchEntity, options);
 
     // setup
     options = options || {}; // ensure options is not null
@@ -276,8 +276,8 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     entity: TEntity,
     options?: { accessPermissions?: AccessPermissionsContract; skipAuthorization?: boolean; customValidator?: ClassValidator<TEntity> },
   ): Promise<TEntity> {
-    // trace logging
-    this.loggerService.trace(`${this.name}.update`, entity, options);
+    // debug logging
+    this.loggerService.debug(`${this.name}.update`, entity, options);
 
     // setup
     options = options || {}; // ensure options is not null
@@ -309,9 +309,12 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
   // delete
   //
 
-  public async delete(id: string, options?: { accessPermissions?: AccessPermissionsContract; skipAuthorization?: boolean }): Promise<TEntity | undefined> {
-    // trace logging
-    this.loggerService.trace(`${this.name}.delete`, id, options);
+  public async delete(
+    id: string,
+    options?: { accessPermissions?: AccessPermissionsContract; skipAuthorization?: boolean },
+  ): Promise<TEntity | undefined> {
+    // debug logging
+    this.loggerService.debug(`${this.name}.delete`, id, options);
 
     // setup
     let deletedEntity;
@@ -374,42 +377,34 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
   // Abstracted Mongoose calls, to allow for easier testing through mocked mongoose calls
   //
   protected async _dbFindOne(conditions: object) {
-    this.loggerService.trace(`${this.name}._dbFindOne`, conditions);
-    let result: any;
-
-    try {
-      result = await this.model.findOne(conditions).exec();
-    } catch (error) {
-      this.loggerService.error(`${this.name}._dbFindOne`, error);
-    }
-
+    this.loggerService.debug(`${this.name}._dbFindOne`, conditions);
+    result = await this.model.findOne(conditions).exec();
     return result;
   }
 
   protected async _dbFind(conditions: object): Promise<TModel[]> {
-    this.loggerService.trace(`${this.name}._dbFind`, conditions);
+    this.loggerService.debug(`${this.name}._dbFind`, conditions);
     return this.model.find(conditions).exec();
   }
 
   protected async _dbSave(createModel: TModel): Promise<TModel> {
-    this.loggerService.trace(`${this.name}._dbSave`, createModel);
+    this.loggerService.debug(`${this.name}._dbSave`, createModel);
     return createModel.save();
   }
 
   protected async _dbRemove(deleteModel: TModel): Promise<TModel> {
-    this.loggerService.trace(`${this.name}._dbRemove`, deleteModel);
+    this.loggerService.debug(`${this.name}._dbRemove`, deleteModel);
     return deleteModel.remove();
   }
 
   protected async _dbFindById(id: any): Promise<TModel | null> {
-    this.loggerService.trace(`${this.name}._dbFindById`, id);
+    this.loggerService.debug(`${this.name}._dbFindById`, id);
     return this.model.findById(id).exec();
   }
 
   protected async _dbFindOneAndReplace(entity: Partial<TEntity>) {
-    this.loggerService.trace(`${this.name}._dbFindOneAndReplace`, entity);
+    this.loggerService.debug(`${this.name}._dbFindOneAndReplace`, entity);
     const result = await this.model.collection.findOneAndReplace({ _id: entity._id }, entity, { returnOriginal: false });
-    // this.loggerService.debug(`${this.name}._dbFindOneAndReplace`, JSON.stringify(result, null, 2))
     return result.value;
   }
 }
