@@ -53,12 +53,44 @@ export const setupAuth = async globalConfig => {
     skipAuthorization: true,
   });
 
-  // testData.orgA.users.adminUser.jwt = await jwtTokenService.createToken(testData.orgA.users.adminUser.accessPermissionsEntity);
+  // OrgA Regular User
+  await userRepo.create(testData.orgA.users.regularUser.userEntity, { skipAuthorization: true });
+  await authenticationRepo.create(testData.orgA.users.regularUser.authenticationEntity, { skipAuthorization: true });
+  await accessPermissionsRepo.create(testData.orgA.users.regularUser.accessPermissionsEntity, {
+    skipAuthorization: true,
+  });
 
-  logger.debug(
-    'created OrgA userA ------------------------------------------------------------------',
-    JSON.stringify(testData.orgA.users.adminUser, null, 2),
-  );
+  // OrgA
+  await organizationRepo.create(testData.orgB.orgEntity, { skipAuthorization: true });
+
+  // OrgB Admin User
+  await userRepo.create(testData.orgB.users.adminUser.userEntity, { skipAuthorization: true });
+  await authenticationRepo.create(testData.orgB.users.adminUser.authenticationEntity, { skipAuthorization: true });
+  await accessPermissionsRepo.create(testData.orgB.users.adminUser.accessPermissionsEntity, {
+    skipAuthorization: true,
+  });
+
+  // OrgC
+  await organizationRepo.create(testData.orgC.orgEntity, { skipAuthorization: true });
+
+  // OrgC GroupAdmin User
+  await userRepo.create(testData.orgC.users.groupAdminUser.userEntity, { skipAuthorization: true });
+  await authenticationRepo.create(testData.orgC.users.groupAdminUser.authenticationEntity, { skipAuthorization: true });
+  await accessPermissionsRepo.create(testData.orgC.users.groupAdminUser.accessPermissionsEntity, {
+    skipAuthorization: true,
+  });
+
+  // OrgZ
+  await organizationRepo.create(testData.orgZ.orgEntity, { skipAuthorization: true });
+
+  // OrgZ SystemAdmin User
+  await userRepo.create(testData.orgZ.users.systemAdminUser.userEntity, { skipAuthorization: true });
+  await authenticationRepo.create(testData.orgZ.users.systemAdminUser.authenticationEntity, {
+    skipAuthorization: true,
+  });
+  await accessPermissionsRepo.create(testData.orgZ.users.systemAdminUser.accessPermissionsEntity, {
+    skipAuthorization: true,
+  });
 
   logger.info(
     `Users Created: ----------------------------------------------

@@ -1,8 +1,12 @@
 import { generateHashedPassword } from '@nestjs-bff/backend/lib/domain/authentication/utils/encryption.util';
+import { JwtTokenService } from '@nestjs-bff/backend/lib/host/http/core/jwt/jwt-token.service';
 import { TestingUtils } from '@nestjs-bff/backend/lib/shared/utils/testing.utils';
 import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
+import { AppConfig } from '../../dist/config/app.config';
 
-export const testData = {
+const jwtTokenService = new JwtTokenService(AppConfig);
+
+const testData = {
   orgA: {
     orgEntity: {
       _id: TestingUtils.generateMongoObjectIdString(),
@@ -17,10 +21,16 @@ export const testData = {
           displayName: 'first-name last-name',
         },
         authenticationEntity: {
-          userId: () => testData.orgA.users.adminUser.userEntity._id,
+          get userId() {
+            return testData.orgA.users.adminUser.userEntity._id;
+          },
           local: {
-            email: () => testData.orgA.users.adminUser.userEntity.username,
-            hashedPassword: () => generateHashedPassword(testData.orgA.users.adminUser.password),
+            get email() {
+              return testData.orgA.users.adminUser.userEntity.username;
+            },
+            get hashedPassword() {
+              return generateHashedPassword(testData.orgA.users.adminUser.password);
+            },
           },
           google: undefined,
           facebook: undefined,
@@ -28,12 +38,16 @@ export const testData = {
         },
         accessPermissionsEntity: {
           _id: TestingUtils.generateMongoObjectIdString(),
-          userId: () => testData.orgA.users.adminUser.userEntity._id,
+          get userId() {
+            return testData.orgA.users.adminUser.userEntity._id;
+          },
           roles: [Roles.user],
           organizations: [
             {
               primary: true,
-              orgId: () => testData.orgA.orgEntity._id,
+              get orgId() {
+                return testData.orgA.orgEntity._id;
+              },
               organizationRoles: [OrganizationRoles.admin],
             },
           ],
@@ -48,7 +62,9 @@ export const testData = {
           displayName: 'first-name last-name',
         },
         authenticationEntity: {
-          userId: () => testData.orgA.users.regularUser.userEntity._id,
+          get userId() {
+            return testData.orgA.users.regularUser.userEntity._id;
+          },
           local: {
             email: () => testData.orgA.users.regularUser.userEntity.username,
             hashedPassword: () => generateHashedPassword(testData.orgA.users.regularUser.password),
@@ -59,12 +75,14 @@ export const testData = {
         },
         accessPermissionsEntity: {
           _id: TestingUtils.generateMongoObjectIdString(),
-          userId: () => testData.orgA.users.regularUser.userEntity._id,
+          get userId() {
+            return testData.orgA.users.regularUser.userEntity._id;
+          },
           roles: [Roles.user],
           organizations: [
             {
               primary: true,
-              orgId: () => testData.orgA.orgEntity._id,
+              get orgId() { return testData.orgA.orgEntity._id;},
               organizationRoles: [OrganizationRoles.member],
             },
           ],
@@ -88,7 +106,9 @@ export const testData = {
           displayName: 'regular user',
         },
         authenticationEntity: {
-          userId: () => testData.orgB.users.adminUser.userEntity._id,
+          get userId() {
+            return testData.orgB.users.adminUser.userEntity._id;
+          },
           local: {
             email: () => testData.orgB.users.adminUser.userEntity.username,
             hashedPassword: () => generateHashedPassword(testData.orgB.users.adminUser.password),
@@ -99,12 +119,14 @@ export const testData = {
         },
         accessPermissionsEntity: {
           _id: TestingUtils.generateMongoObjectIdString(),
-          userId: () => testData.orgB.users.adminUser.userEntity._id,
+          get userId() {
+            return testData.orgB.users.adminUser.userEntity._id;
+          },
           roles: [Roles.user],
           organizations: [
             {
               primary: true,
-              orgId: () => testData.orgB.orgEntity._id,
+              get orgId() { return testData.orgB.orgEntity._id;},
               organizationRoles: [OrganizationRoles.admin],
             },
           ],
@@ -128,7 +150,9 @@ export const testData = {
           displayName: 'first-name last-name',
         },
         authenticationEntity: {
-          userId: () => testData.orgC.users.adminUser.userEntity._id,
+          get userId() {
+            return testData.orgC.users.adminUser.userEntity._id;
+          },
           local: {
             email: () => testData.orgC.users.adminUser.userEntity.username,
             hashedPassword: () => generateHashedPassword(testData.orgC.users.adminUser.password),
@@ -139,18 +163,20 @@ export const testData = {
         },
         accessPermissionsEntity: {
           _id: TestingUtils.generateMongoObjectIdString(),
-          userId: () => testData.orgC.users.groupAdminUser.userEntity._id,
+          get userId() {
+            return testData.orgC.users.groupAdminUser.userEntity._id;
+          },
           roles: [Roles.groupAdmin],
           organizations: [
             {
               primary: true,
-              orgId: () => testData.orgC.orgEntity._id,
+              get orgId() { return testData.orgC.orgEntity._id;},
               organizationRoles: [OrganizationRoles.admin],
             },
             ,
             {
               primary: true,
-              orgId: () => testData.orgA.orgEntity._id,
+              get orgId() { return testData.orgA.orgEntity._id;},
               organizationRoles: [OrganizationRoles.facilitator],
             },
           ],
@@ -175,12 +201,14 @@ export const testData = {
         },
         accessPermissionsEntity: {
           _id: TestingUtils.generateMongoObjectIdString(),
-          userId: () => testData.orgZ.users.systemAdminUser.userEntity._id,
+          get userId() {
+            return testData.orgZ.users.systemAdminUser.userEntity._id;
+          },
           roles: [Roles.systemAdmin],
           organizations: [
             {
               primary: true,
-              orgId: () => testData.orgZ.orgEntity._id,
+              get orgId() { return testData.orgZ.orgEntity._id;},
               organizationRoles: [OrganizationRoles.admin],
             },
           ],
@@ -189,3 +217,25 @@ export const testData = {
     },
   },
 };
+
+testData.orgA.users.adminUser.jwt.token = jwtTokenService.createToken(
+  testData.orgA.users.adminUser.accessPermissionsEntity,
+);
+
+testData.orgA.users.regularUser.jwt.token = jwtTokenService.createToken(
+  testData.orgA.users.regularUser.accessPermissionsEntity,
+);
+
+testData.orgB.users.adminUser.jwt.token = jwtTokenService.createToken(
+  testData.orgB.users.adminUser.accessPermissionsEntity,
+);
+
+testData.orgC.users.groupAdminUser.jwt.token = jwtTokenService.createToken(
+  testData.orgC.users.groupAdminUser.accessPermissionsEntity,
+);
+
+testData.orgA.users.systemAdminUser.jwt.token = jwtTokenService.createToken(
+  testData.orgA.users.systemAdminUser.accessPermissionsEntity,
+);
+
+export { testData };

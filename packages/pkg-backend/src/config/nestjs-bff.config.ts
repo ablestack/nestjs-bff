@@ -3,15 +3,6 @@ import { LogLevels } from '../shared/logging/log-levels.const';
 import { INestjsBffConfigEnv } from './nestjs.config.env.interface';
 import { NestjsBffConfigEnv } from './nestjs.config.test';
 
-const _Env = process.env.NODE_ENV || 'dev';
-
-export const keyFiles = {
-  jwt: {
-    private: `${process.cwd()}\\src\\config\\keys\\jwt.private-key.${_Env}.pem`,
-    public: `${process.cwd()}\\src\\config\\keys\\jwt.public-key.${_Env}.pem`,
-  },
-};
-
 const _NestjsBffConfig = {
   orgName: 'my-org',
   appName: 'my-app',
