@@ -378,7 +378,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
   //
   protected async _dbFindOne(conditions: object) {
     this.loggerService.debug(`${this.name}._dbFindOne`, conditions);
-    result = await this.model.findOne(conditions).exec();
+    const result = await this.model.findOne(conditions).exec();
     return result;
   }
 
