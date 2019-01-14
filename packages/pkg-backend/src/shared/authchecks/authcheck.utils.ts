@@ -17,7 +17,7 @@ function hasOrganization(authorization: AccessPermissionsContract, organizationI
   return (
     !!authorization.organizations &&
     !!authorization.organizations.find(organizationAuth => {
-      return organizationAuth.orgId === organizationIDForResource;
+      return !!organizationAuth.orgId && organizationAuth.orgId.toString() === organizationIDForResource.toString();
     })
   );
 }
@@ -28,7 +28,9 @@ function hasOrganizationRole(accessPermissions: AccessPermissionsContract, organ
     !!accessPermissions.organizations.find(organizationAuth => {
       return (
         // tslint:disable-next-line:triple-equals
-        organizationAuth.orgId == organizationIDForResource && qualifyingRoles.some(role => organizationAuth.organizationRoles.includes(role))
+        !!organizationAuth.orgId &&
+        organizationAuth.orgId.toString() === organizationIDForResource.toString() &&
+        qualifyingRoles.some(role => organizationAuth.organizationRoles.includes(role))
       );
     })
   );

@@ -80,21 +80,16 @@ export class AuthorizationGuard implements CanActivate {
 
       // run tests
       for (const authcheck of authchecks) {
-        if (
-          !(await authcheck.isAuthorized({
-            origin: 'AuthorizationGuard',
-            accessPermissions,
-            targetResource: {
-              orgId,
-              userId,
-            },
-          }))
-        ) {
-          this.logger.warn(`authcheck failed for ${authcheck.constructor.name}`, {
-            authorization: JSON.stringify(accessPermissions),
+        const authCheckData = {
+          origin: 'AuthorizationGuard',
+          accessPermissions,
+          targetResource: {
             orgId,
             userId,
-          });
+          },
+        };
+        if (!(await authcheck.isAuthorized(authCheckData))) {
+          this.logger.warn(`authcheck failed for ${authcheck.constructor.name}: ${JSON.stringify({ authcheck, authCheckData }, null, 2)}`);
           return false;
         }
       }
