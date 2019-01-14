@@ -6,8 +6,6 @@ import { Test } from '@nestjs/testing';
 import 'jest';
 import * as supertest from 'supertest';
 import { AppConfig } from '../../src/config/app.config';
-import { orgData } from '../shared/org-data';
-import { userData } from '../shared/user-data';
 import { AuthE2eModule } from './auth-e2e.module';
 
 // Config

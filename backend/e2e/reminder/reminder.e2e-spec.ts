@@ -9,9 +9,6 @@ import * as moment from 'moment';
 import * as supertest from 'supertest';
 import { ReminderRepo } from '../../src/app/domain/reminder/repo/reminder.repo';
 import { AppConfig } from '../../src/config/app.config';
-import { accessPermissionsData } from '../shared/access-permission-data';
-import { orgData } from '../shared/org-data';
-import { userData } from '../shared/user-data';
 import { ReminderE2eModule } from './reminder-e2e.module';
 
 // Config

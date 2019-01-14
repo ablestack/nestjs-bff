@@ -1,3 +1,4 @@
+import { generateHashedPassword } from '@nestjs-bff/backend/lib/domain/authentication/utils/encryption.util';
 import { TestingUtils } from '@nestjs-bff/backend/lib/shared/utils/testing.utils';
 import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
 
@@ -15,6 +16,16 @@ export const testData = {
           username: 'admin@domain.com',
           displayName: 'first-name last-name',
         },
+        authenticationEntity: {
+          userId: () => testData.orgA.users.adminUser.userEntity._id,
+          local: {
+            email: () => testData.orgA.users.adminUser.userEntity.username,
+            hashedPassword: () => generateHashedPassword(testData.orgA.users.adminUser.password),
+          },
+          google: undefined,
+          facebook: undefined,
+          twitter: undefined,
+        },
         accessPermissionsEntity: {
           _id: TestingUtils.generateMongoObjectIdString(),
           userId: () => testData.orgA.users.adminUser.userEntity._id,
@@ -28,12 +39,23 @@ export const testData = {
           ],
         },
         password: 'pa55word',
+        jwt: { token: '' },
       },
       regularUser: {
         userEntity: {
           _id: TestingUtils.generateMongoObjectIdString(),
           username: 'user@domain.com',
           displayName: 'first-name last-name',
+        },
+        authenticationEntity: {
+          userId: () => testData.orgA.users.regularUser.userEntity._id,
+          local: {
+            email: () => testData.orgA.users.regularUser.userEntity.username,
+            hashedPassword: () => generateHashedPassword(testData.orgA.users.regularUser.password),
+          },
+          google: undefined,
+          facebook: undefined,
+          twitter: undefined,
         },
         accessPermissionsEntity: {
           _id: TestingUtils.generateMongoObjectIdString(),
@@ -48,6 +70,7 @@ export const testData = {
           ],
         },
         password: 'pa55word',
+        jwt: { token: '' },
       },
     },
   },
@@ -64,6 +87,16 @@ export const testData = {
           username: 'admin@domain-b.com',
           displayName: 'regular user',
         },
+        authenticationEntity: {
+          userId: () => testData.orgB.users.adminUser.userEntity._id,
+          local: {
+            email: () => testData.orgB.users.adminUser.userEntity.username,
+            hashedPassword: () => generateHashedPassword(testData.orgB.users.adminUser.password),
+          },
+          google: undefined,
+          facebook: undefined,
+          twitter: undefined,
+        },
         accessPermissionsEntity: {
           _id: TestingUtils.generateMongoObjectIdString(),
           userId: () => testData.orgB.users.adminUser.userEntity._id,
@@ -77,6 +110,7 @@ export const testData = {
           ],
         },
         password: 'pa55word',
+        jwt: { token: '' },
       },
     },
   },
@@ -92,6 +126,16 @@ export const testData = {
           _id: TestingUtils.generateMongoObjectIdString(),
           username: 'group-admin@group-admin-domain.com',
           displayName: 'first-name last-name',
+        },
+        authenticationEntity: {
+          userId: () => testData.orgC.users.adminUser.userEntity._id,
+          local: {
+            email: () => testData.orgC.users.adminUser.userEntity.username,
+            hashedPassword: () => generateHashedPassword(testData.orgC.users.adminUser.password),
+          },
+          google: undefined,
+          facebook: undefined,
+          twitter: undefined,
         },
         accessPermissionsEntity: {
           _id: TestingUtils.generateMongoObjectIdString(),
@@ -112,6 +156,7 @@ export const testData = {
           ],
         },
         password: 'pa55word',
+        jwt: { token: '' },
       },
     },
   },
@@ -140,7 +185,6 @@ export const testData = {
             },
           ],
         },
-        password: 'pa55word',
       },
     },
   },
