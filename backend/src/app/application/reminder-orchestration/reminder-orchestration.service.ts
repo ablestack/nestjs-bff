@@ -21,9 +21,9 @@ export class ReminderOrchestrationService {
     // add to ReminderArchive data store
     this.reminderArchiveRepo.create(
       {
-        Title: reminder.Title,
-        Deadline: reminder.Deadline,
-        Completed: reminder.Completed,
+        Title: reminder.title,
+        Deadline: reminder.deadline,
+        Completed: reminder.completed,
         userId: reminder.userId,
         orgId: reminder.orgId,
         archivedDate: new Date(),

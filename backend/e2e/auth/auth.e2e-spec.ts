@@ -4,7 +4,7 @@ import { Test } from '@nestjs/testing';
 import 'jest';
 import * as supertest from 'supertest';
 import { AppConfig } from '../../src/config/app.config';
-import { setupTestDataLiterals as setupTestDataJwtTokens, testData } from '../shared/test-object-literals.constants';
+import { setupTestDataJwtTokens, testData } from '../shared/test-object-literals.constants';
 import { AuthE2eModule } from './auth-e2e.module';
 
 // Config

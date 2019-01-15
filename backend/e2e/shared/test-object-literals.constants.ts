@@ -227,7 +227,7 @@ const testData = {
   },
 };
 
-export const setupTestDataLiterals = async () => {
+export const setupTestDataJwtTokens = async () => {
   testData.orgA.users.adminUser.jwt = await jwtTokenService.createToken(
     testData.orgA.users.adminUser.accessPermissionsEntity,
   );
