@@ -23,6 +23,7 @@ authInitializer.twitter = new TwitterAuth();
 
 export const setupAuth = async globalConfig => {
   const logger = getLogger();
+
   //
   // Setup
   //

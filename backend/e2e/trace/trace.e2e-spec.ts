@@ -1,6 +1,6 @@
 import { getLogger } from '@nestjs-bff/backend/lib/shared/logging/logging.shared.module';
 
-describe('Auth', () => {
+describe('Trace', () => {
   const logger = getLogger();
 
   beforeAll(async () => {

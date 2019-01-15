@@ -1,5 +1,6 @@
 import { getLogger } from '@nestjs-bff/backend/lib/shared/logging/logging.shared.module';
 import { AppConfig } from '../../src/config/app.config';
+import { setupTestDataLiterals } from '../shared/test-object-literals.constants';
 import { setupAuth } from './global-setup-auth';
 import { setupDB } from './global-setup-db';
 
@@ -27,6 +28,9 @@ export const globalSetup = async globalConfig => {
 
   // setup DB
   await setupDB(globalConfig);
+
+  // setup test data literals
+  await setupTestDataLiterals();
 
   // add test users and auth
   await setupAuth(globalConfig);

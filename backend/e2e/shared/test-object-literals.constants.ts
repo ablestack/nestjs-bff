@@ -227,20 +227,22 @@ const testData = {
   },
 };
 
-testData.orgA.users.adminUser.jwt.token = jwtTokenService.createToken(
-  testData.orgA.users.adminUser.accessPermissionsEntity,
-);
+export const setupTestDataLiterals = async () => {
+  testData.orgA.users.adminUser.jwt = await jwtTokenService.createToken(
+    testData.orgA.users.adminUser.accessPermissionsEntity,
+  );
 
-testData.orgA.users.regularUser.jwt.token = jwtTokenService.createToken(
-  testData.orgA.users.regularUser.accessPermissionsEntity,
-);
+  testData.orgA.users.regularUser.jwt = await jwtTokenService.createToken(
+    testData.orgA.users.regularUser.accessPermissionsEntity,
+  );
 
-testData.orgB.users.adminUser.jwt.token = jwtTokenService.createToken(
-  testData.orgB.users.adminUser.accessPermissionsEntity,
-);
+  testData.orgB.users.adminUser.jwt = await jwtTokenService.createToken(
+    testData.orgB.users.adminUser.accessPermissionsEntity,
+  );
 
-testData.orgC.users.groupAdminUser.jwt.token = jwtTokenService.createToken(
-  testData.orgC.users.groupAdminUser.accessPermissionsEntity,
-);
+  testData.orgC.users.groupAdminUser.jwt = await jwtTokenService.createToken(
+    testData.orgC.users.groupAdminUser.accessPermissionsEntity,
+  );
+};
 
 export { testData };

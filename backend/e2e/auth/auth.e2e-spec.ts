@@ -4,7 +4,7 @@ import { Test } from '@nestjs/testing';
 import 'jest';
 import * as supertest from 'supertest';
 import { AppConfig } from '../../src/config/app.config';
-import { testData } from '../shared/test-object-literals.constants';
+import { setupTestDataLiterals as setupTestDataJwtTokens, testData } from '../shared/test-object-literals.constants';
 import { AuthE2eModule } from './auth-e2e.module';
 
 // Config
@@ -21,6 +21,10 @@ describe('Auth', () => {
   //
   beforeAll(async () => {
     logger.trace('---- Starting Auth e2e ----');
+
+    await setupTestDataJwtTokens();
+
+    console.log('Auth-testData', JSON.stringify(testData, null, 2));
 
     const module = await Test.createTestingModule({
       imports: [AuthE2eModule],
