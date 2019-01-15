@@ -12,7 +12,7 @@ const UserOrgPermissionsSchema: Schema = new Schema({
   },
   organizationRoles: {
     type: [Schema.Types.String],
-    enum: [OrganizationRoles.member, OrganizationRoles.admin],
+    enum: [OrganizationRoles.member, OrganizationRoles.admin, OrganizationRoles.facilitator],
     required: true,
   },
 });

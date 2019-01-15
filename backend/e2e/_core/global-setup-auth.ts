@@ -21,9 +21,8 @@ authInitializer.google = new GoogleAuth();
 authInitializer.facebook = new FacebookAuth();
 authInitializer.twitter = new TwitterAuth();
 
-const logger = getLogger();
-
 export const setupAuth = async globalConfig => {
+  const logger = getLogger();
   //
   // Setup
   //
@@ -85,9 +84,6 @@ export const setupAuth = async globalConfig => {
 
   // OrgZ SystemAdmin User
   await userRepo.create(testData.orgZ.users.systemAdminUser.userEntity, { skipAuthorization: true });
-  await authenticationRepo.create(testData.orgZ.users.systemAdminUser.authenticationEntity, {
-    skipAuthorization: true,
-  });
   await accessPermissionsRepo.create(testData.orgZ.users.systemAdminUser.accessPermissionsEntity, {
     skipAuthorization: true,
   });

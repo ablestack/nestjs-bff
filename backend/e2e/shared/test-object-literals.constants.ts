@@ -82,7 +82,9 @@ const testData = {
           organizations: [
             {
               primary: true,
-              get orgId() { return testData.orgA.orgEntity._id;},
+              get orgId() {
+                return testData.orgA.orgEntity._id;
+              },
               organizationRoles: [OrganizationRoles.member],
             },
           ],
@@ -126,7 +128,9 @@ const testData = {
           organizations: [
             {
               primary: true,
-              get orgId() { return testData.orgB.orgEntity._id;},
+              get orgId() {
+                return testData.orgB.orgEntity._id;
+              },
               organizationRoles: [OrganizationRoles.admin],
             },
           ],
@@ -151,11 +155,11 @@ const testData = {
         },
         authenticationEntity: {
           get userId() {
-            return testData.orgC.users.adminUser.userEntity._id;
+            return testData.orgC.users.groupAdminUser.userEntity._id;
           },
           local: {
-            email: () => testData.orgC.users.adminUser.userEntity.username,
-            hashedPassword: () => generateHashedPassword(testData.orgC.users.adminUser.password),
+            email: () => testData.orgC.users.groupAdminUser.userEntity.username,
+            hashedPassword: () => generateHashedPassword(testData.orgC.users.groupAdminUser.password),
           },
           google: undefined,
           facebook: undefined,
@@ -170,13 +174,16 @@ const testData = {
           organizations: [
             {
               primary: true,
-              get orgId() { return testData.orgC.orgEntity._id;},
+              get orgId() {
+                return testData.orgC.orgEntity._id;
+              },
               organizationRoles: [OrganizationRoles.admin],
             },
-            ,
             {
-              primary: true,
-              get orgId() { return testData.orgA.orgEntity._id;},
+              primary: false,
+              get orgId() {
+                return testData.orgA.orgEntity._id;
+              },
               organizationRoles: [OrganizationRoles.facilitator],
             },
           ],
@@ -208,7 +215,9 @@ const testData = {
           organizations: [
             {
               primary: true,
-              get orgId() { return testData.orgZ.orgEntity._id;},
+              get orgId() {
+                return testData.orgZ.orgEntity._id;
+              },
               organizationRoles: [OrganizationRoles.admin],
             },
           ],
@@ -232,10 +241,6 @@ testData.orgB.users.adminUser.jwt.token = jwtTokenService.createToken(
 
 testData.orgC.users.groupAdminUser.jwt.token = jwtTokenService.createToken(
   testData.orgC.users.groupAdminUser.accessPermissionsEntity,
-);
-
-testData.orgA.users.systemAdminUser.jwt.token = jwtTokenService.createToken(
-  testData.orgA.users.systemAdminUser.accessPermissionsEntity,
 );
 
 export { testData };

@@ -53,26 +53,26 @@ const verifyIsDisposableDb = async () => {
   }
 
   if (isDisposableTestDb) logger.info(`-- Database verified as disposable: ${AppConfig.db.mongo.options.dbName}`);
-  else logger.info(`-- Database either does not exist or is not disposable: ${AppConfig.db.mongo.options.dbName}`);
+  else logger.info(`Database either does not exist or is not disposable: ${AppConfig.db.mongo.options.dbName}`);
 
   return isDisposableTestDb;
 };
 
 // Database Reset
 const resetDataInTestDb = async () => {
-  logger.info(`-- Resetting data in disposable test DB ${AppConfig.db.mongo.options.dbName}`);
+  logger.info(`Resetting data in disposable test DB ${AppConfig.db.mongo.options.dbName}`);
   await deleteDb();
   return createDisposableTestDb();
 };
 
 // Database Delete
 const deleteDb = async () => {
-  logger.info(`-- Dropping DB ${AppConfig.db.mongo.options.dbName}`);
+  logger.info(`Dropping DB ${AppConfig.db.mongo.options.dbName}`);
   return mongoose.connection.db.dropDatabase();
 };
 
 // Database Create
 const createDisposableTestDb = async () => {
-  logger.info(`-- Creating disposable test DB ${AppConfig.db.mongo.options.dbName}`);
+  logger.info(`Creating disposable test DB ${AppConfig.db.mongo.options.dbName}`);
   return mongoose.connection.createCollection(DISPOSABLE_DB_MARKER_TABLE_NAME);
 };

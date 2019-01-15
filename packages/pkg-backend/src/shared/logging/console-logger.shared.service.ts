@@ -18,21 +18,21 @@ export class LoggerConsoleSharedService implements LoggerSharedService {
   private logDebug: boolean = this.nestjsBffConfig.logging.console.levels.includes(LogLevels.debug);
   private logTrace: boolean = this.nestjsBffConfig.logging.console.levels.includes(LogLevels.trace);
 
-  public log(msg: string, ...logObjects: any[]): void {
+  public async log(msg: string, ...logObjects: any[]) {
     // tslint:disable-next-line:no-console
     if (this.logInfo) console.log(this.startSeparator, msg, ...logObjects, this.endSeparator);
     // tslint:disable-next-line:no-console
     // console.trace();
   }
 
-  public info(msg: string, ...logObjects: any[]): void {
+  public async info(msg: string, ...logObjects: any[]) {
     if (this.logInfo) {
       // tslint:disable-next-line:no-console
       console.info(this.startSeparator, msg, ...logObjects, this.endSeparator);
     }
   }
 
-  public error(msg: string, ...logObjects: any[]): void {
+  public async error(msg: string, ...logObjects: any[]) {
     // tslint:disable-next-line:no-console
     if (this.logError) {
       console.error(this.startSeparator, msg, ...logObjects, this.endSeparator);
@@ -41,12 +41,12 @@ export class LoggerConsoleSharedService implements LoggerSharedService {
     }
   }
 
-  public warn(msg: string, ...logObjects: any[]): void {
+  public async warn(msg: string, ...logObjects: any[]) {
     // tslint:disable-next-line:no-console
     if (this.logWarn) console.warn(this.startSeparator, msg, ...logObjects, this.endSeparator);
   }
 
-  public debug(msg: string, ...logObjects: any[]): void {
+  public async debug(msg: string, ...logObjects: any[]) {
     if (this.logDebug) {
       // tslint:disable-next-line:no-console
       console.debug(this.startSeparator, msg, ...logObjects, this.endSeparator);
@@ -55,7 +55,7 @@ export class LoggerConsoleSharedService implements LoggerSharedService {
     // console.trace();
   }
 
-  public trace(msg: string, ...logObjects: any[]): void {
+  public async trace(msg: string, ...logObjects: any[]) {
     // tslint:disable-next-line:no-console
     if (this.logTrace) console.log(this.startSeparator, msg, ...logObjects, this.endSeparator);
   }
