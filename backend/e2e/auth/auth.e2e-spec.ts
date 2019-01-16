@@ -123,7 +123,7 @@ describe('Auth', () => {
         THEN access is denied`, async () => {
     const response = await supertest(app.getHttpServer())
       .get('/auth/verification/role-protected-group-admin')
-      .set('authorization', `Bearer ${testData.orgC.users.domainGroupAdmin.jwt.token}`);
+      .set('authorization', `Bearer ${testData.orgC.users.groupAdminUser.jwt.token}`);
 
     expect(response.status).toEqual(200);
   });

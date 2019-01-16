@@ -1,6 +1,5 @@
 import { generateHashedPassword } from '@nestjs-bff/backend/lib/domain/authentication/utils/encryption.util';
 import { JwtTokenService } from '@nestjs-bff/backend/lib/host/http/core/jwt/jwt-token.service';
-import { TestingUtils } from '@nestjs-bff/backend/lib/shared/utils/testing.utils';
 import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
 import { AppConfig } from '../../dist/config/app.config';
 
@@ -9,14 +8,14 @@ const jwtTokenService = new JwtTokenService(AppConfig);
 const testData = {
   orgA: {
     orgEntity: {
-      _id: TestingUtils.generateMongoObjectIdString(),
+      _id: 'A00000000000000000000000',
       name: 'Org A',
       slug: 'admin@domain.com',
     },
     users: {
       adminUser: {
         userEntity: {
-          _id: TestingUtils.generateMongoObjectIdString(),
+          _id: 'A00000000000000000000001',
           username: 'admin@domain.com',
           displayName: 'first-name last-name',
         },
@@ -37,7 +36,7 @@ const testData = {
           twitter: undefined,
         },
         accessPermissionsEntity: {
-          _id: TestingUtils.generateMongoObjectIdString(),
+          _id: 'A00000000000000000000011',
           get userId() {
             return testData.orgA.users.adminUser.userEntity._id;
           },
@@ -57,7 +56,7 @@ const testData = {
       },
       regularUser: {
         userEntity: {
-          _id: TestingUtils.generateMongoObjectIdString(),
+          _id: 'A00000000000000000000002',
           username: 'user@domain.com',
           displayName: 'first-name last-name',
         },
@@ -74,7 +73,7 @@ const testData = {
           twitter: undefined,
         },
         accessPermissionsEntity: {
-          _id: TestingUtils.generateMongoObjectIdString(),
+          _id: 'A00000000000000000000022',
           get userId() {
             return testData.orgA.users.regularUser.userEntity._id;
           },
@@ -96,14 +95,14 @@ const testData = {
   },
   orgB: {
     orgEntity: {
-      _id: TestingUtils.generateMongoObjectIdString(),
+      _id: 'B00000000000000000000000',
       name: 'Org B',
       slug: 'admin@domain-b.com',
     },
     users: {
       adminUser: {
         userEntity: {
-          _id: TestingUtils.generateMongoObjectIdString(),
+          _id: 'B00000000000000000000001',
           username: 'admin@domain-b.com',
           displayName: 'regular user',
         },
@@ -120,7 +119,7 @@ const testData = {
           twitter: undefined,
         },
         accessPermissionsEntity: {
-          _id: TestingUtils.generateMongoObjectIdString(),
+          _id: 'B00000000000000000000011',
           get userId() {
             return testData.orgB.users.adminUser.userEntity._id;
           },
@@ -142,14 +141,14 @@ const testData = {
   },
   orgC: {
     orgEntity: {
-      _id: TestingUtils.generateMongoObjectIdString(),
+      _id: 'C00000000000000000000000',
       name: 'Org C',
       slug: 'group-admin@group-admin-domain.com',
     },
     users: {
       groupAdminUser: {
         userEntity: {
-          _id: TestingUtils.generateMongoObjectIdString(),
+          _id: 'C00000000000000000000001',
           username: 'group-admin@group-admin-domain.com',
           displayName: 'first-name last-name',
         },
@@ -166,7 +165,7 @@ const testData = {
           twitter: undefined,
         },
         accessPermissionsEntity: {
-          _id: TestingUtils.generateMongoObjectIdString(),
+          _id: 'C00000000000000000000011',
           get userId() {
             return testData.orgC.users.groupAdminUser.userEntity._id;
           },
@@ -195,19 +194,19 @@ const testData = {
   },
   orgZ: {
     orgEntity: {
-      _id: TestingUtils.generateMongoObjectIdString(),
+      _id: 'F00000000000000000000000',
       name: 'Org Z',
       slug: 'sys-admin@sys-admin-domain.com',
     },
     users: {
       systemAdminUser: {
         userEntity: {
-          _id: TestingUtils.generateMongoObjectIdString(),
+          _id: 'F00000000000000000000001',
           username: 'sys-admin@sys-admin-domain.com',
           displayName: 'first-name last-name',
         },
         accessPermissionsEntity: {
-          _id: TestingUtils.generateMongoObjectIdString(),
+          _id: 'F00000000000000000000011',
           get userId() {
             return testData.orgZ.users.systemAdminUser.userEntity._id;
           },
