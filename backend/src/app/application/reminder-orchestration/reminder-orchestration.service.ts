@@ -13,7 +13,7 @@ export class ReminderOrchestrationService {
     accessPermissions?: AccessPermissionsContract,
   ): Promise<void> {
     // get reminder
-    const reminder = await this.reminderRepo.findOne({ _id: cmd.reminderId }, { accessPermissions });
+    const reminder = await this.reminderRepo.findById(cmd.reminderId, { accessPermissions });
 
     // remove from Reminder data store
     this.reminderRepo.delete(cmd.reminderId, { accessPermissions });

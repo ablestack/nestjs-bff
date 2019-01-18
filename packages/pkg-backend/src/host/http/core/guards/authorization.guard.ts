@@ -126,9 +126,9 @@ export class AuthorizationGuard implements CanActivate {
 
     this.logger.debug('orgId found for slug', {
       organizationSlug,
-      orgId: organization._id,
+      orgId: organization.id,
     });
-    return organization._id;
+    return organization.id;
   }
 
   private async getauthchecksFromCache(context: ExecutionContext): Promise<Array<AuthCheckContract<any, any>>> {

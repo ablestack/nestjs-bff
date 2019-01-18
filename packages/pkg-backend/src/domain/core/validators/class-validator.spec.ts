@@ -14,7 +14,7 @@ describe('GIVEN ClassValidator', () => {
     describe('UserAndOrgScopedEntityConditions', () => {
       it('WHEN all required parameters are provided, THEN should pass', async () => {
         const foo = {
-          _id: TestingUtils.generateMongoObjectIdString(),
+          id: TestingUtils.generateMongoObjectIdString(),
           orgId: TestingUtils.generateMongoObjectIdString(),
           userId: TestingUtils.generateMongoObjectIdString(),
           alwaysDefinedSlug: 'fooman',
@@ -33,7 +33,7 @@ describe('GIVEN ClassValidator', () => {
 
       it('WHEN alwaysDefinedSlug is missing THEN should throw error', async () => {
         const fooEntity = {
-          _id: TestingUtils.generateMongoObjectIdString(),
+          id: TestingUtils.generateMongoObjectIdString(),
           orgId: TestingUtils.generateMongoObjectIdString(),
           userId: TestingUtils.generateMongoObjectIdString(),
           name: 'Mr Fooman',
@@ -51,7 +51,7 @@ describe('GIVEN ClassValidator', () => {
 
       it('WHEN name is less than 5 characters THEN should throw error', async () => {
         const fooEntity = {
-          _id: TestingUtils.generateMongoObjectIdString(),
+          id: TestingUtils.generateMongoObjectIdString(),
           orgId: TestingUtils.generateMongoObjectIdString(),
           userId: TestingUtils.generateMongoObjectIdString(),
           name: 'Foo',
@@ -70,7 +70,7 @@ describe('GIVEN ClassValidator', () => {
 
       it('WHEN userId and orgId are undefined THEN should still pass', async () => {
         const fooEntity = {
-          _id: TestingUtils.generateMongoObjectIdString(),
+          id: TestingUtils.generateMongoObjectIdString(),
           alwaysDefinedSlug: 'fooman',
           userId: undefined,
         };
@@ -90,7 +90,7 @@ describe('GIVEN ClassValidator', () => {
           AND validationOptions.skipMissingProperties = false
           THEN should throw error`, async () => {
         const fooEntity = {
-          _id: TestingUtils.generateMongoObjectIdString(),
+          id: TestingUtils.generateMongoObjectIdString(),
           alwaysDefinedSlug: 'fooman',
           name: 'Mr Fooman',
         };
@@ -110,7 +110,7 @@ describe('GIVEN ClassValidator', () => {
           AND validationOptions.skipMissingProperties = false
           THEN should throw error`, async () => {
         const fooEntity = {
-          _id: TestingUtils.generateMongoObjectIdString(),
+          id: TestingUtils.generateMongoObjectIdString(),
           alwaysDefinedSlug: 'fooman',
           userId: TestingUtils.generateMongoObjectIdString(),
           name: 'Mr Fooman',

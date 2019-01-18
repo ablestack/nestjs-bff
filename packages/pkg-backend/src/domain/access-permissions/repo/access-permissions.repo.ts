@@ -31,6 +31,6 @@ export class AccessPermissionsRepo extends BaseRepo<AccessPermissionsEntity, IAc
   }
 
   protected generateValidQueryConditionsForCacheClear(entity: AccessPermissionsEntity): object[] {
-    return [{ _id: entity._id, userId: entity.userId }];
+    return [{ id: entity.id, userId: entity.userId }];
   }
 }

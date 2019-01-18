@@ -15,8 +15,8 @@ global.nestjs_bff = { AppConfig };
 
 export const reminderData = {
   RMa1_Uar: {
-    userId: testData.orgA.users.regularUser.userEntity._id,
-    orgId: testData.orgA.orgEntity._id,
+    userId: testData.orgA.users.regularUser.userEntity.id,
+    orgId: testData.orgA.orgEntity.id,
     title: 'Test Reminder',
     deadline: moment()
       .add(1, 'month')
@@ -68,7 +68,7 @@ describe('Reminder', () => {
         WHEN a get request is made
         THEN access is denied`, async () => {
     const response = await supertest(httpServer).get(
-      `/Reminder/${testData.orgA.orgEntity.slug}/${testData.orgA.users.regularUser.userEntity._id}`,
+      `/Reminder/${testData.orgA.orgEntity.slug}/${testData.orgA.users.regularUser.userEntity.id}`,
     );
 
     expect(response.status).toEqual(403);
@@ -80,7 +80,7 @@ describe('Reminder', () => {
         WHEN a get request is made
         THEN a successful response is returned`, async () => {
     const response = await supertest(httpServer)
-      .get(`/Reminder/${testData.orgA.orgEntity.slug}/${testData.orgA.users.regularUser.userEntity._id}`)
+      .get(`/Reminder/${testData.orgA.orgEntity.slug}/${testData.orgA.users.regularUser.userEntity.id}`)
       .set('authorization', `Bearer ${testData.orgA.users.regularUser.jwt.token}`);
 
     expect(response.status).toEqual(200);

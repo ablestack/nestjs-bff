@@ -29,8 +29,8 @@ export class ReminderController {
 
   @Get(':id')
   @Authorization([new OrgAndUserAccessAuthCheck()])
-  public async getItem(@Req() req: BffRequest, @Param('id') _id: string, id: string): Promise<ReminderEntity> {
-    return this.entityRepo.findOne({ _id }, { accessPermissions: req.accessPermissions });
+  public async getItem(@Req() req: BffRequest, @Param('id') id: string): Promise<ReminderEntity> {
+    return this.entityRepo.findById(id, { accessPermissions: req.accessPermissions });
   }
 
   @Post()

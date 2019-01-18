@@ -39,12 +39,12 @@ NHAlRUQ161mqPZh/hg4ARYQoSkwmwZHA4xvEcYeyjm0GPkK5nKtI8RcCAwEAAQ==
 
   describe('createToken', () => {
     it('should return a jwt Token', async () => {
-      const authorizationEntity = {
-        _id: '507f1f77bcf86cd799439011',
+      const accessPermissionsEntity = {
+        id: '507f1f77bcf86cd799439011',
         roles: [Roles.user],
       } as AccessPermissionsEntity;
 
-      const authToken = await jwtTokenService.createToken(authorizationEntity);
+      const authToken = await jwtTokenService.createToken(accessPermissionsEntity);
       expect(authToken).toBeDefined();
       expect(authToken).toHaveProperty('token');
 

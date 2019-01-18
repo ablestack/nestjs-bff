@@ -74,19 +74,19 @@ export class AttachAuthenticationHttpMiddleware implements NestMiddleware {
     const jwtPayload = verify(jwtToken, this.nestjsBffConfig.jwt.jwtPublicKey, this.verifyOptions) as IJwtPayload;
     if (!jwtPayload) throw new BadRequestHttpError('Invalid JWT token', getReqMetadataLite(req));
 
-    let authorizationEntity: AccessPermissionsEntity;
+    let accessPermissionsEntity: AccessPermissionsEntity;
     try {
-      authorizationEntity = await this.accessPermissionsRepo.findOne({ _id: jwtPayload.sub }, { skipAuthorization: true });
+      accessPermissionsEntity = await this.accessPermissionsRepo.findById(jwtPayload.sub, { skipAuthorization: true });
     } catch (error) {
-      throw new BadRequestHttpError(`No authentication data found for request: ${req.originalUrl}`, error);
+      throw new BadRequestHttpError(`No authentication data found for request: ${req.originalUrl}, jwtPayload: ${JSON.stringify(jwtPayload)}`, error);
     }
 
     // this.bffLoggerService.debug(`Attaching authorization to request`, {
     //   'req.originalUrl': req.originalUrl,
-    //   authorizationEntity,
-    //   'org': authorizationEntity.organizations,
+    //   accessPermissionsEntity,
+    //   'org': accessPermissionsEntity.organizations,
     // });
-    req.accessPermissions = authorizationEntity;
+    req.accessPermissions = accessPermissionsEntity;
   }
 
   /**

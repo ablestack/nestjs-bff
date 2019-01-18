@@ -225,8 +225,8 @@ describe('GIVEN a ScopedEntityAuthCheck', () => {
       let result;
 
       const orgScopedEntity = {
-        _id: TestingUtils.generateMongoObjectIdString(),
-        orgId: TestOrgLiterals.Oa._id,
+        id: TestingUtils.generateMongoObjectIdString(),
+        orgId: TestOrgLiterals.Oa.id,
       };
 
       try {
@@ -254,8 +254,8 @@ describe('GIVEN a ScopedEntityAuthCheck', () => {
       let result;
 
       const userScopedEntity = {
-        _id: TestingUtils.generateMongoObjectIdString(),
-        userId: TestUserLiterals.Ua2._id,
+        id: TestingUtils.generateMongoObjectIdString(),
+        userId: TestUserLiterals.Ua2.id,
       };
 
       try {
@@ -284,8 +284,8 @@ describe('GIVEN a ScopedEntityAuthCheck', () => {
       let result;
 
       const userScopedEntity = {
-        _id: TestingUtils.generateMongoObjectIdString(),
-        userId: TestUserLiterals.Ua2._id,
+        id: TestingUtils.generateMongoObjectIdString(),
+        userId: TestUserLiterals.Ua2.id,
       };
 
       try {

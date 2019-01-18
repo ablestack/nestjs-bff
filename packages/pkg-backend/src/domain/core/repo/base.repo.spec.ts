@@ -45,6 +45,166 @@ describe('GIVEN a Repo', () => {
     });
     fooRepo = new FooRepo(loggerService, NestjsBffConfig, memCache, fooModel);
   });
+  //
+  // -------------------------------------------
+  //
+
+  // FindById Tests
+
+  //
+  // -------------------------------------------
+  //
+
+  describe('WHEN findById is called with an org-scoped and user-scoped Repo', () => {
+    it(`WITH valid authorization 
+        THEN a Foo should be returned`, async () => {
+      let error;
+      let result;
+
+      // @ts-ignore
+      jest.spyOn(fooRepo, '_dbFindById').mockImplementation(id => {
+        return TestFooEntityLiterals.FE_Ua2Oa;
+      });
+
+      try {
+        result = await fooRepo.findById(TestFooEntityLiterals.FE_Ua2Oa.id, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error).toBeUndefined();
+      expect(result).toEqual(TestFooEntityLiterals.FE_Ua2Oa);
+    });
+
+    //
+    // -------------------------------------------
+    //
+
+    it(`WITH valid authorization
+        FOR an entity that does not exist 
+        THEN an error should be thrown`, async () => {
+      let error;
+      let result;
+
+      // @ts-ignore
+      jest.spyOn(fooRepo, '_dbFindById').mockImplementation(id => {
+        return null;
+      });
+
+      try {
+        result = await fooRepo.findById(TestFooEntityLiterals.FE_Ua2Oa.id, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error).toBeInstanceOf(AppError);
+      expect(result).toBeUndefined();
+    });
+
+    //
+    // -------------------------------------------
+    //
+
+    it(`WITH no authorization 
+        THEN an error should be thrown`, async () => {
+      let error;
+      let result;
+
+      // @ts-ignore
+      jest.spyOn(fooRepo, '_dbFindById').mockImplementation(id => {
+        return TestFooEntityLiterals.FE_Ua2Oa;
+      });
+
+      try {
+        result = await fooRepo.findById(TestFooEntityLiterals.FE_Ua2Oa.id);
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error).toBeInstanceOf(AuthorizationError);
+      expect(result).toBeUndefined();
+    });
+
+    //
+    // -------------------------------------------
+    //
+
+    it(`WITH no authorization
+        WITH options.skipAuthorization = true 
+        THEN an Foo should be returned`, async () => {
+      let error;
+      let result;
+
+      // @ts-ignore
+      jest.spyOn(fooRepo, '_dbFindById').mockImplementation(id => {
+        return TestFooEntityLiterals.FE_Ua2Oa;
+      });
+
+      try {
+        result = await fooRepo.findById(TestFooEntityLiterals.FE_Ua2Oa.id, { skipAuthorization: true });
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error).toBeUndefined();
+      expect(result).toEqual(TestFooEntityLiterals.FE_Ua2Oa);
+    });
+  });
+
+  //
+  // -------------------------------------------
+  // -------------------------------------------
+  //
+
+  describe('WHEN findOne is called twice with an org-scoped and user-scoped Repo', () => {
+    it(`WITH valid authorization 
+        THEN _dbFindOne should only be triggered once (the other is from cache) `, async () => {
+      let error;
+
+      // @ts-ignore
+      const spyDbFindOne = jest.spyOn(fooRepo, '_dbFindById').mockImplementation(conditions => {
+        return TestFooEntityLiterals.FE_Ua2Oa;
+      });
+
+      try {
+        await fooRepo.findById(TestFooEntityLiterals.FE_Ua2Oa.id, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        await fooRepo.findById(TestFooEntityLiterals.FE_Ua2Oa.id, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error).toBeUndefined();
+      expect(spyDbFindOne).toBeCalledTimes(1);
+    });
+
+    //
+    // -------------------------------------------
+    //
+
+    it(`WITH valid authorization
+        AND options.skipCache = true 
+        THEN _dbFindOne should be triggered twice (cache not used) `, async () => {
+      let error;
+
+      // @ts-ignore
+      const spyDbFindOne = jest.spyOn(fooRepo, '_dbFindById').mockImplementation(conditions => {
+        return TestFooEntityLiterals.FE_Ua2Oa;
+      });
+
+      try {
+        await fooRepo.findById(TestFooEntityLiterals.FE_Ua2Oa.id, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember, skipCache: true });
+        await fooRepo.findById(TestFooEntityLiterals.FE_Ua2Oa.id, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember, skipCache: true });
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error).toBeUndefined();
+      expect(spyDbFindOne).toBeCalledTimes(2);
+    });
+  });
+
+  //
+  // -------------------------------------------
 
   //
   // -------------------------------------------
@@ -68,7 +228,10 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        result = await fooRepo.findOne({ _id: TestFooEntityLiterals.FE_Ua2Oa._id }, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        result = await fooRepo.findOne(
+          { alwaysDefinedSlug: TestFooEntityLiterals.FE_Ua2Oa.alwaysDefinedSlug },
+          { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember },
+        );
       } catch (e) {
         error = e;
       }
@@ -93,7 +256,10 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        result = await fooRepo.findOne({ _id: TestFooEntityLiterals.FE_Ua2Oa._id }, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        result = await fooRepo.findOne(
+          { alwaysDefinedSlug: TestFooEntityLiterals.FE_Ua2Oa.alwaysDefinedSlug },
+          { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember },
+        );
       } catch (e) {
         error = e;
       }
@@ -117,9 +283,7 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        result = await fooRepo.findOne({
-          _id: TestFooEntityLiterals.FE_Ua2Oa._id,
-        });
+        result = await fooRepo.findOne({ alwaysDefinedSlug: TestFooEntityLiterals.FE_Ua2Oa.alwaysDefinedSlug });
       } catch (e) {
         error = e;
       }
@@ -144,12 +308,7 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        result = await fooRepo.findOne(
-          {
-            _id: TestFooEntityLiterals.FE_Ua2Oa._id,
-          },
-          { skipAuthorization: true },
-        );
+        result = await fooRepo.findOne({ alwaysDefinedSlug: TestFooEntityLiterals.FE_Ua2Oa.alwaysDefinedSlug }, { skipAuthorization: true });
       } catch (e) {
         error = e;
       }
@@ -164,7 +323,7 @@ describe('GIVEN a Repo', () => {
   // -------------------------------------------
   //
 
-  describe('WHEN find is called twice with an org-scoped and user-scoped Repo', () => {
+  describe('WHEN findOne is called twice with an org-scoped and user-scoped Repo', () => {
     it(`WITH valid authorization 
         THEN _dbFindOne should only be triggered once (the other is from cache) `, async () => {
       let error;
@@ -175,8 +334,8 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        await fooRepo.findOne({ _id: TestFooEntityLiterals.FE_Ua2Oa._id }, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember });
-        await fooRepo.findOne({ _id: TestFooEntityLiterals.FE_Ua2Oa._id }, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        await fooRepo.findOne({ alwaysDefinedSlug: TestFooEntityLiterals.FE_Ua2Oa.alwaysDefinedSlug }, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        await fooRepo.findOne({ alwaysDefinedSlug: TestFooEntityLiterals.FE_Ua2Oa.alwaysDefinedSlug }, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember });
       } catch (e) {
         error = e;
       }
@@ -200,8 +359,14 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        await fooRepo.findOne({ _id: TestFooEntityLiterals.FE_Ua2Oa._id }, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember, skipCache: true });
-        await fooRepo.findOne({ _id: TestFooEntityLiterals.FE_Ua2Oa._id }, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember, skipCache: true });
+        await fooRepo.findOne(
+          { alwaysDefinedSlug: TestFooEntityLiterals.FE_Ua2Oa.alwaysDefinedSlug },
+          { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember, skipCache: true },
+        );
+        await fooRepo.findOne(
+          { alwaysDefinedSlug: TestFooEntityLiterals.FE_Ua2Oa.alwaysDefinedSlug },
+          { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember, skipCache: true },
+        );
       } catch (e) {
         error = e;
       }
@@ -262,7 +427,7 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        result = await fooRepo.find({ _id: TestFooEntityLiterals.FE_Ua2Oa._id }, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        result = await fooRepo.find({ id: TestFooEntityLiterals.FE_Ua2Oa.id }, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember });
       } catch (e) {
         error = e;
       }
@@ -395,7 +560,7 @@ describe('GIVEN a Repo', () => {
       });
 
       const newFoo = _.clone(TestFooEntityLiterals.FE_Ua2Oa);
-      newFoo._id = '';
+      newFoo.id = '';
 
       try {
         result = await fooRepo.create(newFoo, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember });
@@ -404,7 +569,7 @@ describe('GIVEN a Repo', () => {
       }
 
       // delete id, to prep object for comparison
-      delete newFoo._id;
+      delete newFoo.id;
 
       expect(error).toBeUndefined();
       expect(TestingUtils.objectIdsToStrings(result)).toMatchObject(newFoo);
@@ -425,7 +590,7 @@ describe('GIVEN a Repo', () => {
       });
 
       const newFoo = _.clone(TestFooEntityLiterals.FE_Ua2Oa);
-      newFoo._id = '';
+      newFoo.id = '';
 
       try {
         result = await fooRepo.create(newFoo);
@@ -452,7 +617,7 @@ describe('GIVEN a Repo', () => {
       });
 
       const newFoo = _.clone(TestFooEntityLiterals.FE_Ua2Oa);
-      newFoo._id = '';
+      newFoo.id = '';
 
       try {
         result = await fooRepo.create(newFoo, { accessPermissions: TestAuthorizationLiterals.Az_Ub1user_ObAdmin });
@@ -493,7 +658,7 @@ describe('GIVEN a Repo', () => {
       });
 
       const patchFoo = {
-        _id: fooToBeUpdated._id,
+        id: fooToBeUpdated.id,
         name: fooToBeUpdated.name + ' updated',
       };
 
@@ -531,7 +696,7 @@ describe('GIVEN a Repo', () => {
       });
 
       const patchFoo = {
-        _id: fooToBeUpdated._id,
+        id: fooToBeUpdated.id,
         name: fooToBeUpdated.name + ' updated',
       };
 
@@ -569,7 +734,7 @@ describe('GIVEN a Repo', () => {
       });
 
       const patchFoo = {
-        _id: fooToBeUpdated._id,
+        id: fooToBeUpdated.id,
         name: fooToBeUpdated.name + ' updated',
       };
 
@@ -721,7 +886,7 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        result = await fooRepo.delete(TestFooEntityLiterals.FE_Ua2Oa._id, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember });
+        result = await fooRepo.delete(TestFooEntityLiterals.FE_Ua2Oa.id, { accessPermissions: TestAuthorizationLiterals.Az_Ua2User_OaMember });
       } catch (e) {
         error = e;
       }
@@ -750,7 +915,7 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        result = await fooRepo.delete(TestFooEntityLiterals.FE_Ua2Oa._id, { accessPermissions: TestAuthorizationLiterals.Az_Uc1GroupAdmin_OcMember_OaFacilitator });
+        result = await fooRepo.delete(TestFooEntityLiterals.FE_Ua2Oa.id, { accessPermissions: TestAuthorizationLiterals.Az_Uc1GroupAdmin_OcMember_OaFacilitator });
       } catch (e) {
         error = e;
       }
@@ -779,7 +944,7 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        result = await fooRepo.delete(TestFooEntityLiterals.FE_Ua2Oa._id);
+        result = await fooRepo.delete(TestFooEntityLiterals.FE_Ua2Oa.id);
       } catch (e) {
         error = e;
       }
@@ -807,7 +972,7 @@ describe('GIVEN a Repo', () => {
       });
 
       try {
-        result = await fooRepo.delete(TestFooEntityLiterals.FE_Ua2Oa._id, { accessPermissions: TestAuthorizationLiterals.Az_Ub1user_ObAdmin });
+        result = await fooRepo.delete(TestFooEntityLiterals.FE_Ua2Oa.id, { accessPermissions: TestAuthorizationLiterals.Az_Ub1user_ObAdmin });
       } catch (e) {
         error = e;
       }

@@ -22,10 +22,8 @@ describe('Auth', () => {
   //
   beforeAll(async () => {
     logger.trace('---- Starting Auth e2e ----');
-
     await setupTestDataJwtTokens();
-
-    console.log('Auth-testData', JSON.stringify(testData, null, 2));
+    // console.log('Auth-testData', JSON.stringify(testData, null, 2));
 
     const module = await Test.createTestingModule({
       imports: [AuthE2eModule],
@@ -122,7 +120,7 @@ describe('Auth', () => {
   it(`GIVEN a groupAdmin role protected endpoint 
         AND authorization that includes groupAdmin role 
         WHEN get request is made
-        THEN access is denied`, async () => {
+        THEN the request is successful`, async () => {
     const response = await supertest(httpServer)
       .get('/auth/verification/role-protected-group-admin')
       .set('authorization', `Bearer ${testData.orgC.users.groupAdminUser.jwt.token}`);
@@ -192,6 +190,7 @@ describe('Auth', () => {
 
   afterAll(async () => {
     logger.trace('---- Ending Auth e2e ----');
+    if (httpServer) await httpServer.close();
     if (app) await app.close();
   });
 });

@@ -19,10 +19,10 @@ export class JwtTokenService {
     };
   }
 
-  public async createToken(authorizationEntity: AccessPermissionsEntity): Promise<IAuthenticationToken> {
+  public async createToken(accessPermissionsEntity: AccessPermissionsEntity): Promise<IAuthenticationToken> {
     const jwtPayload: Partial<IJwtPayload> = {
-      sub: authorizationEntity._id,
-      roles: authorizationEntity.roles,
+      sub: accessPermissionsEntity.id,
+      roles: accessPermissionsEntity.roles,
     };
     const token: string = sign(
       jwtPayload,

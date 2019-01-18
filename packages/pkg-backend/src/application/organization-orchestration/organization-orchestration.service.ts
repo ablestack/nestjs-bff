@@ -53,7 +53,7 @@ export class OrganizationOrchestrationService {
     this.authenticationRepo.entityValidator.validate(newAuthenticationEntity);
 
     // validate organization exists
-    if (!(await this.organizationRepo.tryFindOne({ _id: cmd.orgId }, { accessPermissions }))) {
+    if (!(await this.organizationRepo.tryFindOne({ id: cmd.orgId }, { accessPermissions }))) {
       throw new AppError(`Create Member: Could not find organization for Id ${cmd.orgId}`);
     }
 
@@ -67,13 +67,13 @@ export class OrganizationOrchestrationService {
     );
 
     // create authentication
-    newAuthenticationEntity.userId = user._id;
+    newAuthenticationEntity.userId = user.id;
     this.authenticationRepo.create(newAuthenticationEntity, { accessPermissions });
 
     // create authorization
     const accessPermissionsEntity = this.accessPermissionsRepo.create(
       {
-        userId: user._id,
+        userId: user.id,
         roles: [Roles.user],
         organizations: [
           {

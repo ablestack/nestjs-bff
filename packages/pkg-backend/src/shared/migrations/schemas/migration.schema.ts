@@ -15,7 +15,7 @@ export const MigrationSchema = new Schema(
     toJSON: {
       virtuals: true,
       transform: (doc, ret, options) => {
-        delete ret._id;
+        delete ret.id;
         delete ret.id;
         delete ret.__v;
         return ret;

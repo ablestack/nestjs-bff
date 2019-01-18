@@ -1,10 +1,7 @@
 import { LocalAuthenticateCommand } from '@nestjs-bff/global/lib/commands/auth/local-authenticate.command';
 import { LocalRegisterCommand } from '@nestjs-bff/global/lib/commands/auth/local-register.command';
 import { PromoteToGroupAdminCommand } from '@nestjs-bff/global/lib/commands/auth/promote-to-group-admin.command';
-import {
-  OrganizationRoles,
-  Roles,
-} from '@nestjs-bff/global/lib/constants/roles.constants';
+import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
 import { AccessPermissionsContract } from '@nestjs-bff/global/lib/interfaces/access-permissions.contract';
 import { Injectable } from '@nestjs/common';
 import { AccessPermissionsEntity } from '../../domain/access-permissions/model/access-permissions.entity';
@@ -12,10 +9,7 @@ import { AccessPermissionsRepo } from '../../domain/access-permissions/repo/acce
 import { AuthenticationRepo } from '../../domain/authentication/repo/authentication.repo';
 import { FacebookAuthenticationService } from '../../domain/authentication/social/facebook-authentication.service';
 import { FacebookProfileService } from '../../domain/authentication/social/facebook-profile..service';
-import {
-  generateHashedPassword,
-  validPassword,
-} from '../../domain/authentication/utils/encryption.util';
+import { generateHashedPassword, validPassword } from '../../domain/authentication/utils/encryption.util';
 import { OrganizationRepo } from '../../domain/organization/repo/organization.repo';
 import { UserRepo } from '../../domain/user/repo/user.repo';
 import { AppError } from '../../shared/exceptions/app.exception';
@@ -24,6 +18,7 @@ import { ValidationError } from '../../shared/exceptions/validation.exception';
 @Injectable()
 export class UserAuthService {
   constructor(
+    // private readonly logger: LoggerSharedService,
     private readonly fbAuthenticationService: FacebookAuthenticationService,
     private readonly fbProfileService: FacebookProfileService,
     private readonly authenticationRepo: AuthenticationRepo,
@@ -36,46 +31,28 @@ export class UserAuthService {
    *
    * @param cmd
    */
-  public async signInWithLocal(
-    cmd: LocalAuthenticateCommand,
-  ): Promise<AccessPermissionsEntity> {
-    const authenticationEntity = await this.authenticationRepo.findOne(
-      { 'local.email': cmd.username },
-      { skipAuthorization: true },
-    );
+  public async signInWithLocal(cmd: LocalAuthenticateCommand): Promise<AccessPermissionsEntity> {
+    const authenticationEntity = await this.authenticationRepo.findOne({ 'local.email': cmd.username }, { skipAuthorization: true });
 
-    if (!authenticationEntity)
-      throw new ValidationError([
-        'Your login accessPermissions were not correct',
-      ]);
+    if (!authenticationEntity) throw new ValidationError(['Your login accessPermissions were not correct']);
     if (!authenticationEntity.local)
-      throw new ValidationError([
-        'Your login accessPermissions were not correct or you do not have an account. Perhaps you registered with social login?',
-      ]);
+      throw new ValidationError(['Your login accessPermissions were not correct or you do not have an account. Perhaps you registered with social login?']);
+    if (!authenticationEntity.userId) throw new AppError('UserId can not be null');
 
-    if (!validPassword(cmd.password, authenticationEntity.local.hashedPassword))
-      throw new ValidationError([
-        'Your login accessPermissions were not correct',
-      ]);
+    if (!validPassword(cmd.password, authenticationEntity.local.hashedPassword)) throw new ValidationError(['Your login accessPermissions were not correct']);
 
-    const authorizationEntity = await this.accessPermissionsRepo.findOne(
-      { userId: authenticationEntity.userId },
-      { skipAuthorization: true },
-    );
+    const accessPermissionsEntity = await this.accessPermissionsRepo.findOne({ userId: authenticationEntity.userId }, { skipAuthorization: true });
 
-    if (!authorizationEntity)
-      throw new AppError('Could not find authorization information for signIn');
+    if (!accessPermissionsEntity) throw new AppError('Could not find authorization information for signIn');
 
-    return authorizationEntity;
+    return accessPermissionsEntity;
   }
 
   /**
    *
    * @param cmd
    */
-  public async signUpWithLocal(
-    cmd: LocalRegisterCommand,
-  ): Promise<AccessPermissionsEntity> {
+  public async signUpWithLocal(cmd: LocalRegisterCommand): Promise<AccessPermissionsEntity> {
     //
     // setup commands
     //
@@ -109,7 +86,7 @@ export class UserAuthService {
     );
 
     // create authentication
-    newAuthenticationEntity.userId = user._id;
+    newAuthenticationEntity.userId = user.id;
     this.authenticationRepo.create(newAuthenticationEntity, {
       skipAuthorization: true,
     });
@@ -124,55 +101,40 @@ export class UserAuthService {
     );
 
     // create authorization
-    const authorizationEntity = this.accessPermissionsRepo.create(
+    const accessPermissionsEntity = this.accessPermissionsRepo.create(
       {
-        userId: user._id,
+        userId: user.id,
         roles: [Roles.user],
         organizations: [
           {
             primary: true,
-            orgId: organization._id,
-            organizationRoles: [
-              OrganizationRoles.member,
-              OrganizationRoles.admin,
-            ],
+            orgId: organization.id,
+            organizationRoles: [OrganizationRoles.member, OrganizationRoles.admin],
           },
         ],
       },
       { skipAuthorization: true },
     );
 
-    return authorizationEntity;
+    return accessPermissionsEntity;
   }
 
   /**
    *
    * @param cmd
    */
-  public async promoteToGroupAdmin(
-    cmd: PromoteToGroupAdminCommand,
-    accessPermissions: AccessPermissionsContract,
-  ): Promise<AccessPermissionsEntity> {
-    const authorizationEntity = await this.accessPermissionsRepo.findOne(
-      { userId: cmd.userId },
-      { accessPermissions },
-    );
+  public async promoteToGroupAdmin(cmd: PromoteToGroupAdminCommand, accessPermissions: AccessPermissionsContract): Promise<AccessPermissionsEntity> {
+    const accessPermissionsEntity = await this.accessPermissionsRepo.findById(cmd.userId, { accessPermissions });
 
     // Validate
-    if (!authorizationEntity)
-      throw new AppError(
-        `Could not find authorizationEntity for userId ${cmd.userId}`,
-      );
-    if (authorizationEntity.roles.includes(Roles.groupAdmin))
-      throw new AppError(`User already GroupAdmin (userId ${cmd.userId})`);
+    if (!accessPermissionsEntity) throw new AppError(`Could not find accessPermissionsEntity for userId ${cmd.userId}`);
+    if (accessPermissionsEntity.roles.includes(Roles.groupAdmin)) throw new AppError(`User already GroupAdmin (userId ${cmd.userId})`);
 
     // Update
-    authorizationEntity.roles.push(Roles.groupAdmin);
+    accessPermissionsEntity.roles.push(Roles.groupAdmin);
 
     // Persist
-    return this.accessPermissionsRepo
-      .update(authorizationEntity, { accessPermissions })
-      .then(() => authorizationEntity);
+    return this.accessPermissionsRepo.update(accessPermissionsEntity, { accessPermissions }).then(() => accessPermissionsEntity);
   }
 
   /**
@@ -180,28 +142,16 @@ export class UserAuthService {
    * @param fbAuthorizationCode
    * @param spaRootUrl
    */
-  public async signUpWithFacebook(
-    fbAuthorizationCode: string,
-    spaRootUrl: string,
-  ): Promise<AccessPermissionsEntity> {
+  public async signUpWithFacebook(fbAuthorizationCode: string, spaRootUrl: string): Promise<AccessPermissionsEntity> {
     // get fb auth token using fb access token
-    const fbAuthorizationToken = await this.fbAuthenticationService.getOauthAccessToken(
-      fbAuthorizationCode,
-      spaRootUrl,
-    );
+    const fbAuthorizationToken = await this.fbAuthenticationService.getOauthAccessToken(fbAuthorizationCode, spaRootUrl);
 
     // get fb profile
-    const fbProfile = await this.fbProfileService.getProfile(
-      fbAuthorizationToken,
-    );
+    const fbProfile = await this.fbProfileService.getProfile(fbAuthorizationToken);
 
     // find Authentication Entity
-    const authenticationEntity = await this.authenticationRepo.findOne(
-      { facebook: { id: fbProfile.id } },
-      { skipAuthorization: true },
-    );
-    if (authenticationEntity)
-      throw new AppError('Could not find authorization information for signIn');
+    const authenticationEntity = await this.authenticationRepo.findOne({ facebook: { id: fbProfile.id } }, { skipAuthorization: true });
+    if (authenticationEntity) throw new AppError('Could not find authorization information for signIn');
 
     // create new user
     const user = await this.userRepo.create(
@@ -215,7 +165,7 @@ export class UserAuthService {
     // create authentication
     this.authenticationRepo.create(
       {
-        userId: user._id,
+        userId: user.id,
         local: undefined,
         facebook: {
           id: fbProfile.id,
@@ -229,16 +179,16 @@ export class UserAuthService {
     );
 
     // create authorization
-    const authorizationEntity = this.accessPermissionsRepo.create(
+    const accessPermissionsEntity = this.accessPermissionsRepo.create(
       {
-        userId: user._id,
+        userId: user.id,
         roles: [Roles.user],
         organizations: [],
       },
       { skipAuthorization: true },
     );
 
-    return authorizationEntity;
+    return accessPermissionsEntity;
   }
 
   /**
@@ -246,38 +196,20 @@ export class UserAuthService {
    * @param fbAuthorizationCode
    * @param spaRootUrl
    */
-  public async signInWithFacebook(
-    fbAuthorizationCode: string,
-    spaRootUrl: string,
-  ): Promise<AccessPermissionsEntity> {
+  public async signInWithFacebook(fbAuthorizationCode: string, spaRootUrl: string): Promise<AccessPermissionsEntity> {
     // get fb auth token using fb access token
-    const fbAuthorizationToken = await this.fbAuthenticationService.getOauthAccessToken(
-      fbAuthorizationCode,
-      spaRootUrl,
-    );
+    const fbAuthorizationToken = await this.fbAuthenticationService.getOauthAccessToken(fbAuthorizationCode, spaRootUrl);
 
     // get fb profile
-    const fbProfile = await this.fbProfileService.getProfile(
-      fbAuthorizationToken,
-    );
+    const fbProfile = await this.fbProfileService.getProfile(fbAuthorizationToken);
 
     // find Authentication Entity
-    const authenticationEntity = await this.authenticationRepo.findOne(
-      { facebook: { id: fbProfile.id } },
-      { skipAuthorization: true },
-    );
-    if (!authenticationEntity)
-      throw new AppError(
-        'Could not find authentication information for signIn',
-      );
+    const authenticationEntity = await this.authenticationRepo.findOne({ facebook: { id: fbProfile.id } }, { skipAuthorization: true });
+    if (!authenticationEntity) throw new AppError('Could not find authentication information for signIn');
 
-    const authorizationEntity = await this.accessPermissionsRepo.findOne(
-      { userId: authenticationEntity.userId },
-      { skipAuthorization: true },
-    );
-    if (!authorizationEntity)
-      throw new AppError('Could not find authorization information for signIn');
+    const accessPermissionsEntity = await this.accessPermissionsRepo.findOne({ userId: authenticationEntity.userId }, { skipAuthorization: true });
+    if (!accessPermissionsEntity) throw new AppError('Could not find authorization information for signIn');
 
-    return authorizationEntity;
+    return accessPermissionsEntity;
   }
 }

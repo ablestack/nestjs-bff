@@ -19,8 +19,8 @@ export async function up(connection: Connection, bffLoggerService: LoggerSharedS
 export async function down(connection: Connection, bffLoggerService: LoggerSharedService) {
   // Write migration here
   const newReminders = data.entities;
-  const idsToRemove = newReminders.map(item => item._id);
+  const idsToRemove = newReminders.map(item => item.id);
   const reminder = connection.model('Reminder', ReminderSchema);
-  const completed = await reminder.collection.deleteMany({ _id: { $in: idsToRemove } });
+  const completed = await reminder.collection.deleteMany({ id: { $in: idsToRemove } });
   bffLoggerService.info(`DOWN script completed. ${completed ? JSON.stringify(completed.result) : 'no results'}`);
 }

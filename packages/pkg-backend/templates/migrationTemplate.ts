@@ -32,8 +32,8 @@
  */
 // export async function down(connection: Connection, bffLoggerService: LoggerSharedService) {
 // const new<Model>s = data.entities;
-// const idsToRemove = new<Model>s.map(item => item._id);
+// const idsToRemove = new<Model>s.map(item => item.id);
 // const <Model> = connection.model('<Model>', <Model>Schema);
-// const completed = await <Model>.collection.deleteMany({ _id: { $in: idsToRemove } });
+// const completed = await <Model>.collection.deleteMany({ id: { $in: idsToRemove } });
 // bffLoggerService.log(`DOWN script completed. ${completed ? JSON.stringify(completed.result) : 'no results'}`);
 // }
