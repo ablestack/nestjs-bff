@@ -10,7 +10,7 @@ export class OrgRolesAuthCheck extends AuthCheckContract<ScopedData, any> {
   }
 
   public async isAuthorized(params: AuthorizationCheckParams<any, any>): Promise<boolean> {
-    if (!params.targetResource || !params.targetResource.orgId) throw new AuthorizationCheckError(params, 'orgId can not be null');
+    if (!params.targetResource || !params.targetResource.orgId) throw new AuthorizationCheckError(params, 'AuthorizationCheckParams - orgId can not be null');
 
     if (!params.accessPermissions) return false;
 

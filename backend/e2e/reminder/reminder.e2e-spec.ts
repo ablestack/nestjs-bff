@@ -1,5 +1,5 @@
 import { getLogger } from '@nestjs-bff/backend/lib/shared/logging/logging.shared.module';
-import { INestApplication } from '@nestjs/common';
+import { HttpServer, INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import 'jest';
 import * as moment from 'moment';
@@ -27,6 +27,7 @@ export const reminderData = {
 
 describe('Reminder', () => {
   let app: INestApplication;
+  let httpServer: HttpServer;
   // @ts-ignore
   const logger = getLogger();
 
@@ -47,6 +48,7 @@ describe('Reminder', () => {
 
     app = module.createNestApplication();
     await app.init();
+    httpServer = app.getHttpServer();
 
     const reminderRepo = await app.get(ReminderRepo);
 
@@ -65,27 +67,28 @@ describe('Reminder', () => {
         AND no authorization
         WHEN a get request is made
         THEN access is denied`, async () => {
-    const response = await supertest(app.getHttpServer()).get(
+    const response = await supertest(httpServer).get(
       `/Reminder/${testData.orgA.orgEntity.slug}/${testData.orgA.users.regularUser.userEntity._id}`,
     );
 
     expect(response.status).toEqual(403);
   });
 
-  // // Authorization Test - GREEN
-  // it(`GIVEN a Reminder endpoint
-  //       AND an authorized user
-  //       WHEN a get request is made
-  //       THEN a successful response is returned`, async () => {
-  //   const response = await supertest(app.getHttpServer())
-  //     .get(`/Reminder/${testData.orgA.orgEntity.slug}/${testData.orgA.users.regularUser.userEntity._id}`)
-  //     .set('authorization', `Bearer ${testData.orgA.users.regularUser.jwt.token}`);
+  // Authorization Test - GREEN
+  it(`GIVEN a Reminder endpoint
+        AND an authorized user
+        WHEN a get request is made
+        THEN a successful response is returned`, async () => {
+    const response = await supertest(httpServer)
+      .get(`/Reminder/${testData.orgA.orgEntity.slug}/${testData.orgA.users.regularUser.userEntity._id}`)
+      .set('authorization', `Bearer ${testData.orgA.users.regularUser.jwt.token}`);
 
-  //   expect(response.status).toEqual(200);
-  // });
+    expect(response.status).toEqual(200);
+  });
 
-  afterAll(async () => {
+  afterAll(async done => {
     logger.trace('---- Starting Reminder e2e ----');
+    if (httpServer) httpServer.close();
     if (app) await app.close();
   });
 });

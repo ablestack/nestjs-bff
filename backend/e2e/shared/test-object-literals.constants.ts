@@ -8,14 +8,14 @@ const jwtTokenService = new JwtTokenService(AppConfig);
 const testData = {
   orgA: {
     orgEntity: {
-      _id: 'A00000000000000000000000',
+      _id: 'a00000000000000000000000',
       name: 'Org A',
       slug: 'admin@domain.com',
     },
     users: {
       adminUser: {
         userEntity: {
-          _id: 'A00000000000000000000001',
+          _id: 'a00000000000000000000001',
           username: 'admin@domain.com',
           displayName: 'first-name last-name',
         },
@@ -36,7 +36,7 @@ const testData = {
           twitter: undefined,
         },
         accessPermissionsEntity: {
-          _id: 'A00000000000000000000011',
+          _id: 'a00000000000000000000011',
           get userId() {
             return testData.orgA.users.adminUser.userEntity._id;
           },
@@ -56,7 +56,7 @@ const testData = {
       },
       regularUser: {
         userEntity: {
-          _id: 'A00000000000000000000002',
+          _id: 'a00000000000000000000002',
           username: 'user@domain.com',
           displayName: 'first-name last-name',
         },
@@ -73,7 +73,7 @@ const testData = {
           twitter: undefined,
         },
         accessPermissionsEntity: {
-          _id: 'A00000000000000000000022',
+          _id: 'a00000000000000000000022',
           get userId() {
             return testData.orgA.users.regularUser.userEntity._id;
           },
@@ -95,14 +95,14 @@ const testData = {
   },
   orgB: {
     orgEntity: {
-      _id: 'B00000000000000000000000',
+      _id: 'b00000000000000000000000',
       name: 'Org B',
       slug: 'admin@domain-b.com',
     },
     users: {
       adminUser: {
         userEntity: {
-          _id: 'B00000000000000000000001',
+          _id: 'b00000000000000000000001',
           username: 'admin@domain-b.com',
           displayName: 'regular user',
         },
@@ -119,7 +119,7 @@ const testData = {
           twitter: undefined,
         },
         accessPermissionsEntity: {
-          _id: 'B00000000000000000000011',
+          _id: 'b00000000000000000000011',
           get userId() {
             return testData.orgB.users.adminUser.userEntity._id;
           },
@@ -141,14 +141,14 @@ const testData = {
   },
   orgC: {
     orgEntity: {
-      _id: 'C00000000000000000000000',
+      _id: 'c00000000000000000000000',
       name: 'Org C',
       slug: 'group-admin@group-admin-domain.com',
     },
     users: {
       groupAdminUser: {
         userEntity: {
-          _id: 'C00000000000000000000001',
+          _id: 'c00000000000000000000001',
           username: 'group-admin@group-admin-domain.com',
           displayName: 'first-name last-name',
         },
@@ -165,7 +165,7 @@ const testData = {
           twitter: undefined,
         },
         accessPermissionsEntity: {
-          _id: 'C00000000000000000000011',
+          _id: 'c00000000000000000000011',
           get userId() {
             return testData.orgC.users.groupAdminUser.userEntity._id;
           },
@@ -194,19 +194,19 @@ const testData = {
   },
   orgZ: {
     orgEntity: {
-      _id: 'F00000000000000000000000',
+      _id: 'f00000000000000000000000',
       name: 'Org Z',
       slug: 'sys-admin@sys-admin-domain.com',
     },
     users: {
       systemAdminUser: {
         userEntity: {
-          _id: 'F00000000000000000000001',
+          _id: 'f00000000000000000000001',
           username: 'sys-admin@sys-admin-domain.com',
           displayName: 'first-name last-name',
         },
         accessPermissionsEntity: {
-          _id: 'F00000000000000000000011',
+          _id: 'f00000000000000000000011',
           get userId() {
             return testData.orgZ.users.systemAdminUser.userEntity._id;
           },

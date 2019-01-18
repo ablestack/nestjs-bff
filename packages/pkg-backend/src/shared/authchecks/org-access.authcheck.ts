@@ -6,7 +6,8 @@ import { ScopedData } from './scoped-data';
 
 export class OrgAccessAuthCheck extends AuthCheckContract<ScopedData, any> {
   public async isAuthorized(params: AuthorizationCheckParams<any, any>): Promise<boolean> {
-    if (!params.targetResource || !params.targetResource.orgId) throw new AuthorizationCheckError(params, 'organizationSlugForRequestedResource can not be null');
+    if (!params.targetResource || !params.targetResource.orgId)
+      throw new AuthorizationCheckError(params, 'OrgAccessAuthCheck - organizationSlugForRequestedResource can not be null');
 
     if (!params.accessPermissions) return false;
     if (isStaffAdmin(params.accessPermissions)) return true;

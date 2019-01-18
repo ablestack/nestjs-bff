@@ -11,13 +11,12 @@ export class UserAccessAuthCheck extends AuthCheckContract<ScopedData, any> {
   }
 
   public async isAuthorized(params: AuthorizationCheckParams<ScopedData, any>): Promise<boolean> {
-    if (!params || !params.targetResource || !params.targetResource.userId) throw new AuthorizationCheckError(params, 'userId can not be null');
+    if (!params || !params.targetResource || !params.targetResource.userId) throw new AuthorizationCheckError(params, 'AuthorizationCheckParams - userId can not be null');
 
     if (!params.accessPermissions) return false;
 
     // if self, then true
-    // tslint:disable-next-line:triple-equals - necessary because requestingEntity.userId is actually an mongoId that evaluates to a string
-    if (params.accessPermissions.userId == params.targetResource.userId) return true;
+    if (params.accessPermissions.userId && params.accessPermissions.userId.toString() === params.targetResource.userId.toString()) return true;
 
     // if system admin, then true
     if (isStaffAdmin(params.accessPermissions)) return true;

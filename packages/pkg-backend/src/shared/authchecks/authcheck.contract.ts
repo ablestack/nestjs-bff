@@ -6,7 +6,7 @@ export abstract class AuthCheckContract<TTargetResource, TOperations> {
 
   async ensureAuthorized(params: AuthorizationCheckParams<TTargetResource, TOperations>): Promise<void> {
     if (!(await this.isAuthorized(params))) {
-      throw new AuthorizationCheckError(params);
+      throw new AuthorizationCheckError(params, `Authorization Error in ${this.constructor.name}: `);
     }
   }
 }

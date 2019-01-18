@@ -1,5 +1,5 @@
 import { getLogger } from '@nestjs-bff/backend/lib/shared/logging/logging.shared.module';
-import { INestApplication } from '@nestjs/common';
+import { HttpServer, INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import 'jest';
 import * as supertest from 'supertest';
@@ -13,6 +13,7 @@ global.nestjs_bff = { AppConfig };
 
 describe('Auth', () => {
   let app: INestApplication;
+  let httpServer: HttpServer;
   // @ts-ignore
   const logger = getLogger();
 
@@ -32,6 +33,7 @@ describe('Auth', () => {
 
     app = module.createNestApplication();
     await app.init();
+    httpServer = app.getHttpServer();
   }, 5 * 60 * 1000);
 
   //
@@ -40,7 +42,7 @@ describe('Auth', () => {
   it(`GIVEN an unauthenticated user
   WHEN incorrect signin data is posted to the signin endpoint
   THEN the user is not authenticated, and an appropriate error message is returned`, async () => {
-    const response = await supertest(app.getHttpServer())
+    const response = await supertest(httpServer)
       .post('/auth/public/local/signin')
       .send({
         username: testData.orgA.users.adminUser.userEntity.username,
@@ -56,7 +58,7 @@ describe('Auth', () => {
   it(`GIVEN an unauthenticated user
         WHEN correct signin data is posted to the signin endpoint
         THEN the user is successfully authenticated and receives a JWT token`, async () => {
-    const response = await supertest(app.getHttpServer())
+    const response = await supertest(httpServer)
       .post('/auth/public/local/signin')
       .send({
         username: testData.orgA.users.adminUser.userEntity.username,
@@ -77,7 +79,7 @@ describe('Auth', () => {
   it(`GIVEN an unauthenticated user with no auth token 
         WHEN a GET request is made for public data 
         THEN the request succeeds`, async () => {
-    const response = await supertest(app.getHttpServer()).get('/auth/public/verification');
+    const response = await supertest(httpServer).get('/auth/public/verification');
 
     expect(response.status).toEqual(200);
   });
@@ -89,7 +91,7 @@ describe('Auth', () => {
   it(`GIVEN an endpoint without an authorization decorator
         WHEN a request is made
         THEN access is denied`, async () => {
-    const response = await supertest(app.getHttpServer()).get('/auth/verification/no-authorization-decorator');
+    const response = await supertest(httpServer).get('/auth/verification/no-authorization-decorator');
 
     expect(response.status).toEqual(403);
   });
@@ -101,7 +103,7 @@ describe('Auth', () => {
   it(`GIVEN a role protected endpoint
         WHEN an unauthenticated request is made
         THEN access is denied`, async () => {
-    const response = await supertest(app.getHttpServer()).get('/auth/verification/role-protected-group-admin');
+    const response = await supertest(httpServer).get('/auth/verification/role-protected-group-admin');
 
     expect(response.status).toEqual(403);
   });
@@ -110,7 +112,7 @@ describe('Auth', () => {
         AND authorization that does not include groupAdmin role 
         WHEN get request is made
         THEN access is denied`, async () => {
-    const response = await supertest(app.getHttpServer())
+    const response = await supertest(httpServer)
       .get('/auth/verification/role-protected-group-admin')
       .set('authorization', `Bearer ${testData.orgA.users.regularUser.jwt.token}`);
 
@@ -121,7 +123,7 @@ describe('Auth', () => {
         AND authorization that includes groupAdmin role 
         WHEN get request is made
         THEN access is denied`, async () => {
-    const response = await supertest(app.getHttpServer())
+    const response = await supertest(httpServer)
       .get('/auth/verification/role-protected-group-admin')
       .set('authorization', `Bearer ${testData.orgC.users.groupAdminUser.jwt.token}`);
 
@@ -136,7 +138,7 @@ describe('Auth', () => {
         AND authorization that does not include any authorization for that organization
         WHEN a get request is made 
         THEN access is denied`, async () => {
-    const response = await supertest(app.getHttpServer())
+    const response = await supertest(httpServer)
       .get(`/auth/${testData.orgA.orgEntity.slug}/verification/organization-protected-member`)
       .set('authorization', `Bearer ${testData.orgB.users.adminUser.jwt.token}`);
 
@@ -147,7 +149,7 @@ describe('Auth', () => {
         AND authorization that includes member role authorization for that organization
         WHEN a get request is made 
         THEN the request is successful`, async () => {
-    const response = await supertest(app.getHttpServer())
+    const response = await supertest(httpServer)
       .get(`/auth/${testData.orgA.orgEntity.slug}/verification/organization-protected-member`)
       .set('authorization', `Bearer ${testData.orgA.users.regularUser.jwt.token}`);
 
@@ -159,7 +161,7 @@ describe('Auth', () => {
         AND authorization that does not include any authorization for that organization
         WHEN a get request is made 
         THEN access is denied`, async () => {
-    const response = await supertest(app.getHttpServer())
+    const response = await supertest(httpServer)
       .get(`/auth/${testData.orgA.orgEntity.slug}/verification/organization-protected-admin`)
       .set('authorization', `Bearer ${testData.orgA.users.regularUser.jwt.token}`);
 
@@ -170,7 +172,7 @@ describe('Auth', () => {
         AND authorization that includes member role authorization for that organization
         WHEN a get request is made 
         THEN access is denied`, async () => {
-    const response = await supertest(app.getHttpServer())
+    const response = await supertest(httpServer)
       .get(`/auth/${testData.orgA.orgEntity.slug}/verification/organization-protected-admin`)
       .set('authorization', `Bearer ${testData.orgA.users.regularUser.jwt.token}`);
 
@@ -181,7 +183,7 @@ describe('Auth', () => {
         AND authorization that includes admin role authorization for that organization
         WHEN a get request is made 
         THEN request is successful`, async () => {
-    const response = await supertest(app.getHttpServer())
+    const response = await supertest(httpServer)
       .get(`/auth/${testData.orgA.orgEntity.slug}/verification/organization-protected-admin`)
       .set('authorization', `Bearer ${testData.orgA.users.adminUser.jwt.token}`);
 
