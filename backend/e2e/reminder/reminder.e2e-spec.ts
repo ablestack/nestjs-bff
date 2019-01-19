@@ -11,7 +11,7 @@ import { ReminderE2eModule } from './reminder-e2e.module';
 
 // Config
 // @ts-ignore
-global.nestjs_bff = { AppConfig };
+global.nestjs_bff = { config: AppConfig };
 
 export const reminderData = {
   RMa1_Uar: {

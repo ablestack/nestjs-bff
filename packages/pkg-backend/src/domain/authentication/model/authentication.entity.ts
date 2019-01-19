@@ -1,20 +1,20 @@
 import { BaseEntity } from '@nestjs-bff/global/lib/entities/core/base.entity';
-import { IsEmail, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
 export class AuthenticationEntity extends BaseEntity {
   @IsNotEmpty()
   userId?: string;
 
-  @ValidateNested()
+  // @ValidateNested()
   local: LocalAuth | undefined;
 
-  @ValidateNested()
+  // @ValidateNested()
   google: GoogleAuth | undefined;
 
-  @ValidateNested()
+  // @ValidateNested()
   facebook: FacebookAuth | undefined;
 
-  @ValidateNested()
+  // @ValidateNested()
   twitter: TwitterAuth | undefined;
 }
 

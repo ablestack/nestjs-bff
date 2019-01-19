@@ -3,7 +3,7 @@ import { AppConfig } from '../../src/config/app.config';
 
 // Config
 // @ts-ignore
-global.nestjs_bff = { AppConfig };
+global.nestjs_bff = { config: AppConfig };
 
 //
 // Primary global setup function

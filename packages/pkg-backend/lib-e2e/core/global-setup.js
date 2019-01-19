@@ -19,8 +19,6 @@ const global_setup_db_1 = require("./global-setup-db");
 exports.globalSetup = (globalConfig, nestJsBffConfig) => __awaiter(this, void 0, void 0, function* () {
     // Setup
     nestJsBffConfig = nestJsBffConfig || nestjs_bff_config_1.NestjsBffConfig;
-    // @ts-ignore
-    global.nestjs_bff = { nestJsBffConfig };
     const logger = logging_shared_module_1.getLogger();
     logger.trace('Global Setup Start', Date.now().toString());
     // catch and highlight any unhandled exceptions

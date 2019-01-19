@@ -6,9 +6,8 @@ import { getLogger } from '@nestjs-bff/backend/shared/logging/logging.shared.mod
 
 // global setup
 AppConfig.appName = 'nestjs-bff-cli';
-AppConfig.jwt;
 
-global.nestjs_bff = { AppConfig };
+global.nestjs_bff = { config: AppConfig };
 const bffLogger = getLogger();
 
 // prettier-ignore

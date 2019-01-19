@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const testing_1 = require("@nestjs/testing");
+const nestjs_bff_config_1 = require("../../lib/config/nestjs-bff.config");
 const access_permissions_repo_1 = require("../../src/domain/access-permissions/repo/access-permissions.repo");
 const authentication_entity_1 = require("../../src/domain/authentication/model/authentication.entity");
 const authentication_repo_1 = require("../../src/domain/authentication/repo/authentication.repo");
@@ -17,6 +18,8 @@ const user_repo_1 = require("../../src/domain/user/repo/user.repo");
 const logging_shared_module_1 = require("../../src/shared/logging/logging.shared.module");
 const auth_e2e_module_1 = require("../auth/auth-e2e.module");
 const test_object_literals_constants_1 = require("./test-object-literals.constants");
+// @ts-ignore
+global.nestjs_bff = { config: nestjs_bff_config_1.NestjsBffConfig };
 const authInitializer = new authentication_entity_1.AuthenticationEntity();
 authInitializer.local = new authentication_entity_1.LocalAuth();
 authInitializer.google = new authentication_entity_1.GoogleAuth();

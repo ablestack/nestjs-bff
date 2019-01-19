@@ -5,7 +5,7 @@ const NestjsBffConfigProvider = {
   provide: AppSharedProviderTokens.Config.App,
   useFactory: () => {
     // @ts-ignore
-    return global.nestjs_bff.AppConfig;
+    return global.nestjs_bff.config;
   },
 };
 

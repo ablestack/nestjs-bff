@@ -9,7 +9,7 @@ declare const module: any;
 
 // GLOBAL CONFIGURATION
 // @ts-ignore: type specified in node.d.ts but compilation not always picking it up.  Ignore for now
-global.nestjs_bff = { AppConfig };
+global.nestjs_bff = { config: AppConfig };
 
 async function bootstrap() {
   // CONFIGURATION

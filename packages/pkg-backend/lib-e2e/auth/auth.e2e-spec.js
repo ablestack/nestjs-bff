@@ -17,7 +17,7 @@ const test_object_literals_constants_1 = require("../core/test-object-literals.c
 const auth_e2e_module_1 = require("./auth-e2e.module");
 // Config
 // @ts-ignore
-global.nestjs_bff = { NestjsBffConfig: nestjs_bff_config_1.NestjsBffConfig };
+global.nestjs_bff = { config: nestjs_bff_config_1.NestjsBffConfig };
 describe('Auth', () => {
     let app;
     let httpServer;

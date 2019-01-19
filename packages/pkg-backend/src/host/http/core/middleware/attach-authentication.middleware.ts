@@ -103,7 +103,7 @@ export class AttachAuthenticationHttpMiddleware implements NestMiddleware {
     if (!authHdr) {
       // log if authHdr not found
       this.bffLoggerService.debug(`No auth header found for request: ${req.originalUrl}`);
-      return;
+      return undefined;
     }
 
     const parsedAuthHdr = parseAuthHeader(authHdr);

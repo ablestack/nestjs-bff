@@ -10,8 +10,6 @@ import { setupDB } from './global-setup-db';
 export const globalSetup = async (globalConfig: any, nestJsBffConfig?: INestjsBffConfig) => {
   // Setup
   nestJsBffConfig = nestJsBffConfig || NestjsBffConfig;
-  // @ts-ignore
-  global.nestjs_bff = { nestJsBffConfig };
 
   const logger = getLogger();
 

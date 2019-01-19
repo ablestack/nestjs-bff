@@ -1,6 +1,6 @@
 import { INestApplication } from '@nestjs/common/interfaces';
 import { Test } from '@nestjs/testing';
-import { INestjsBffConfig } from '../../lib/config/nestjs-bff.config';
+import { INestjsBffConfig, NestjsBffConfig } from '../../lib/config/nestjs-bff.config';
 import { AccessPermissionsRepo } from '../../src/domain/access-permissions/repo/access-permissions.repo';
 import { AuthenticationEntity, FacebookAuth, GoogleAuth, LocalAuth, TwitterAuth } from '../../src/domain/authentication/model/authentication.entity';
 import { AuthenticationRepo } from '../../src/domain/authentication/repo/authentication.repo';
@@ -9,6 +9,9 @@ import { UserRepo } from '../../src/domain/user/repo/user.repo';
 import { getLogger } from '../../src/shared/logging/logging.shared.module';
 import { AuthE2eModule } from '../auth/auth-e2e.module';
 import { testData } from './test-object-literals.constants';
+
+// @ts-ignore
+global.nestjs_bff = { config: NestjsBffConfig };
 
 const authInitializer = new AuthenticationEntity();
 authInitializer.local = new LocalAuth();

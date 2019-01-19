@@ -9,7 +9,7 @@ import { AuthE2eModule } from './auth-e2e.module';
 
 // Config
 // @ts-ignore
-global.nestjs_bff = { NestjsBffConfig };
+global.nestjs_bff = { config: NestjsBffConfig };
 
 describe('Auth', () => {
   let app: INestApplication;
