@@ -12,7 +12,7 @@ import { IReminderArchiveModel } from '../model/reminder-archive.model';
 import { ReminderArchiveProviderTokens } from '../reminder-archive.constants';
 
 @Injectable()
-export class ReminderArchiveRepo extends BaseRepo<ReminderArchiveEntity, IReminderArchiveModel> {
+export class ReminderArchiveRepo extends BaseRepo<ReminderArchiveEntity> {
   constructor(
     readonly loggerService: LoggerSharedService,
     @Inject(AppSharedProviderTokens.Config.App) appConfig: IAppConfig,

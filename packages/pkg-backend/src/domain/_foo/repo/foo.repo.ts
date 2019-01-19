@@ -12,7 +12,7 @@ import { FooEntity } from '../model/foo.entity';
 import { IFooModel } from '../model/foo.model';
 
 @Injectable()
-export class FooRepo extends BaseRepo<FooEntity, IFooModel> {
+export class FooRepo extends BaseRepo<FooEntity> {
   constructor(
     readonly loggerService: LoggerSharedService,
     @Inject(AppSharedProviderTokens.Config.App) nestjsBffConfig: INestjsBffConfig,

@@ -11,9 +11,9 @@ import { AppError } from '../../../shared/exceptions/app.exception';
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { ClassValidator } from '../validators/class-validator';
 
-export interface IBaseRepoParams<TEntity extends IEntity, TModel extends Document & TEntity> {
+export interface IBaseRepoParams<TEntity extends IEntity> {
   loggerService: LoggerSharedService;
-  model: Model<TModel>;
+  model: Model<Document & TEntity>;
   cacheStore: CacheStore;
   defaultTTL: number;
   entityValidator: ClassValidator<TEntity>;
@@ -27,17 +27,17 @@ export interface IBaseRepoParams<TEntity extends IEntity, TModel extends Documen
  *  - By default will try to validate that org and user filtering in in place, unless overridden with params
  *  - FindAll can be achieved with find, passing no conditions
  */
-export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document & TEntity> {
+export abstract class BaseRepo<TEntity extends IEntity> {
   private readonly name: string;
   protected readonly loggerService: LoggerSharedService;
-  protected readonly model: Model<TModel>;
+  protected readonly model: Model<Document & TEntity>;
   protected readonly cacheStore: CacheStore;
   protected readonly defaultTTL: number;
   public readonly modelName: string;
   public readonly entityValidator: ClassValidator<TEntity>;
   public readonly entityAuthChecker: AuthCheckContract<IEntity, CrudOperations>;
 
-  constructor(params: IBaseRepoParams<TEntity, TModel>) {
+  constructor(params: IBaseRepoParams<TEntity>) {
     this.loggerService = params.loggerService;
     this.model = params.model;
     this.name = `RepoBase<${this.model.modelName}>`;
@@ -292,7 +292,7 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     }
 
     // transfer values to the model
-    const createModel: TModel = new this.model();
+    const createModel: Document & TEntity = new this.model();
     Object.assign(createModel, newEntity);
 
     // persist
@@ -387,7 +387,10 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
   // delete
   //
 
-  public async delete(id: string, options?: { accessPermissions?: AccessPermissionsContract; skipAuthorization?: boolean }): Promise<TEntity | undefined> {
+  public async delete(
+    id: string,
+    options?: { accessPermissions?: AccessPermissionsContract; skipAuthorization?: boolean },
+  ): Promise<TEntity | undefined> {
     // debug logging
     this.loggerService.debug(`${this.name}.delete`, id, options);
 
@@ -457,22 +460,22 @@ export abstract class BaseRepo<TEntity extends IEntity, TModel extends Document 
     return result;
   }
 
-  protected async _dbFind(conditions: object): Promise<TModel[]> {
+  protected async _dbFind(conditions: object): Promise<Array<Document & TEntity>> {
     this.loggerService.debug(`${this.name}._dbFind`, conditions);
     return this.model.find(conditions).exec();
   }
 
-  protected async _dbSave(createModel: TModel): Promise<TModel> {
+  protected async _dbSave(createModel: Document & TEntity): Promise<Document & TEntity> {
     this.loggerService.debug(`${this.name}._dbSave`, createModel);
     return createModel.save();
   }
 
-  protected async _dbRemove(deleteModel: TModel): Promise<TModel> {
+  protected async _dbRemove(deleteModel: Document & TEntity): Promise<Document & TEntity> {
     this.loggerService.debug(`${this.name}._dbRemove`, deleteModel);
     return deleteModel.remove();
   }
 
-  protected async _dbFindById(id: any): Promise<TModel | null> {
+  protected async _dbFindById(id: any): Promise<Document & TEntity | null> {
     this.loggerService.debug(`${this.name}._dbFindById`, id);
     return this.model.findById(id).exec();
   }

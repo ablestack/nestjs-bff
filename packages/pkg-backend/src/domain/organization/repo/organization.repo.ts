@@ -12,7 +12,7 @@ import { IOrganizationModel } from '../model/organization.model';
 import { OrganizationProviderTokens } from '../organization.constants';
 
 @Injectable()
-export class OrganizationRepo extends BaseRepo<OrganizationEntity, IOrganizationModel> {
+export class OrganizationRepo extends BaseRepo<OrganizationEntity> {
   constructor(
     readonly loggerService: LoggerSharedService,
     @Inject(OrganizationProviderTokens.Models.Organization) model: Model<IOrganizationModel>,

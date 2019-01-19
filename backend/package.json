@@ -10,7 +10,7 @@
     "build": "tsc --build",
     "rebuild": "rm -rf dist && tsc --build",
     "e2e-with-docker": "concurrently --kill-others \"npm run mongodb-docker\" \"npm run e2e\"",
-    "e2e": "jest --config ./e2e/jest-e2e.json --detectOpenHandles",
+    "e2e": "jest --config ./e2e/jest-e2e.json --detectOpenHandles --forceExit",
     "e2e-with-full-build": "cd ../devops && npm run packages:build && cd ../backend && npm run e2e",
     "format": "prettier --write \"**/*.ts\"",
     "install-docker-mongodb": "docker-compose pull mongodb",

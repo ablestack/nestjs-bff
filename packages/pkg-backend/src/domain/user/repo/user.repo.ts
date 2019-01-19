@@ -12,7 +12,7 @@ import { IUserModel } from '../model/user.model';
 import { UserProviderTokens } from '../user.constants';
 
 @Injectable()
-export class UserRepo extends BaseRepo<UserEntity, IUserModel> {
+export class UserRepo extends BaseRepo<UserEntity> {
   constructor(
     loggerService: LoggerSharedService,
     @Inject(AppSharedProviderTokens.Config.App) nestjsBffConfig: INestjsBffConfig,

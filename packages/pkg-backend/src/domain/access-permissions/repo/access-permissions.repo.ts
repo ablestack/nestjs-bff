@@ -13,7 +13,7 @@ import { IAccessPermissionsModel } from '../model/access-permissions.model';
 import { AccessPermissionsEntityAuthCheck } from './access-permissions-entity.authcheck';
 
 @Injectable()
-export class AccessPermissionsRepo extends BaseRepo<AccessPermissionsEntity, IAccessPermissionsModel> {
+export class AccessPermissionsRepo extends BaseRepo<AccessPermissionsEntity> {
   constructor(
     readonly loggerService: LoggerSharedService,
     @Inject(AccessPermissionsProviderTokens.Models.AccessPermissions) model: Model<IAccessPermissionsModel>,

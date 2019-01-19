@@ -12,7 +12,7 @@ import { AuthenticationEntity } from '../model/authentication.entity';
 import { IAuthenticationModel } from '../model/authentication.model';
 
 @Injectable()
-export class AuthenticationRepo extends BaseRepo<AuthenticationEntity, IAuthenticationModel> {
+export class AuthenticationRepo extends BaseRepo<AuthenticationEntity> {
   constructor(
     readonly loggerService: LoggerSharedService,
     @Inject(AuthenticationProviderTokens.Models.Authentication) model: Model<IAuthenticationModel>,
