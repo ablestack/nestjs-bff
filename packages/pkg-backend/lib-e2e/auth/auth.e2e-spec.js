@@ -28,7 +28,7 @@ describe('Auth', () => {
     //
     beforeAll(() => __awaiter(this, void 0, void 0, function* () {
         logger.trace('---- Starting Auth e2e ----');
-        yield test_object_literals_constants_1.setupTestDataJwtTokens();
+        yield test_object_literals_constants_1.setupTestDataJwtTokens(nestjs_bff_config_1.NestjsBffConfig);
         // console.log('Auth-testData', JSON.stringify(testData, null, 2));
         const module = yield testing_1.Test.createTestingModule({
             imports: [auth_e2e_module_1.AuthE2eModule],

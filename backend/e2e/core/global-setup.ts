@@ -9,5 +9,5 @@ global.nestjs_bff = { AppConfig };
 // Primary global setup function
 //
 export const globalSetup = async globalConfig => {
-  await pkgBackendGlobalSetup(globalConfig);
+  await pkgBackendGlobalSetup(globalConfig, AppConfig);
 };

@@ -9,10 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const roles_constants_1 = require("@nestjs-bff/global/lib/constants/roles.constants");
-const nestjs_bff_config_1 = require("../../src/config/nestjs-bff.config");
 const encryption_util_1 = require("../../src/domain/authentication/utils/encryption.util");
 const jwt_token_service_1 = require("../../src/host/http/core/jwt/jwt-token.service");
-const jwtTokenService = new jwt_token_service_1.JwtTokenService(nestjs_bff_config_1.NestjsBffConfig);
 const testData = {
     orgA: {
         orgEntity: {
@@ -276,7 +274,8 @@ const testData = {
     },
 };
 exports.testData = testData;
-exports.setupTestDataJwtTokens = () => __awaiter(this, void 0, void 0, function* () {
+exports.setupTestDataJwtTokens = (nestJsBffConfig) => __awaiter(this, void 0, void 0, function* () {
+    const jwtTokenService = new jwt_token_service_1.JwtTokenService(nestJsBffConfig);
     testData.orgA.users.adminUser.jwt = yield jwtTokenService.createToken(testData.orgA.users.adminUser.accessPermissionsEntity);
     testData.orgA.users.regularUser.jwt = yield jwtTokenService.createToken(testData.orgA.users.regularUser.accessPermissionsEntity);
     testData.orgB.users.adminUser.jwt = yield jwtTokenService.createToken(testData.orgB.users.adminUser.accessPermissionsEntity);

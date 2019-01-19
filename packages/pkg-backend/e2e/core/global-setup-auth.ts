@@ -1,5 +1,6 @@
 import { INestApplication } from '@nestjs/common/interfaces';
 import { Test } from '@nestjs/testing';
+import { INestjsBffConfig } from '../../lib/config/nestjs-bff.config';
 import { AccessPermissionsRepo } from '../../src/domain/access-permissions/repo/access-permissions.repo';
 import { AuthenticationEntity, FacebookAuth, GoogleAuth, LocalAuth, TwitterAuth } from '../../src/domain/authentication/model/authentication.entity';
 import { AuthenticationRepo } from '../../src/domain/authentication/repo/authentication.repo';
@@ -15,7 +16,7 @@ authInitializer.google = new GoogleAuth();
 authInitializer.facebook = new FacebookAuth();
 authInitializer.twitter = new TwitterAuth();
 
-export const setupAuth = async globalConfig => {
+export const setupAuth = async (globalConfig: any, nestJsBffConfig: INestjsBffConfig) => {
   const logger = getLogger();
 
   //

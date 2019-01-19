@@ -7,9 +7,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
-const auth_module_1 = require("../../src/host/http/application-services-host/auth/auth.module");
+const web_app_module_1 = require("../../lib/host/http/web-app.module");
+const auth_module_1 = require("../../src/host/http/application-service-host/auth/auth.module");
 const attach_authentication_middleware_1 = require("../../src/host/http/core/middleware/attach-authentication.middleware");
-const web_app_module_1 = require("../../src/host/http/web-app.module");
 let AuthE2eModule = class AuthE2eModule {
     configure(consumer) {
         consumer.apply(attach_authentication_middleware_1.AttachAuthenticationHttpMiddleware).forRoutes({ path: '*', method: common_1.RequestMethod.ALL });

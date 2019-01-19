@@ -1,3 +1,4 @@
+import { extractKey } from '../shared/utils/key.shared.utils';
 import { INestjsBffConfigEnv } from './nestjs.config.env.interface';
 
 export const NestjsBffConfigEnv: INestjsBffConfigEnv = {
@@ -6,7 +7,7 @@ export const NestjsBffConfigEnv: INestjsBffConfigEnv = {
     mongo: {
       mongoConnectionUri: 'mongodb://localhost',
       options: {
-        dbName: 'nestjs-bff-e2e',
+        dbName: 'my-nestjs-bff-app-e2e',
       },
     },
   },
@@ -29,7 +30,7 @@ export const NestjsBffConfigEnv: INestjsBffConfigEnv = {
     },
   },
   jwt: {
-    jwtPrivateKey: '',
-    jwtPublicKey: '',
+    jwtPrivateKey: extractKey(`${process.cwd()}\\src\\config\\keys\\jwt.private-key.test.pem`),
+    jwtPublicKey: extractKey(`${process.cwd()}\\src\\config\\keys\\jwt.public-key.test.pem`),
   },
 };

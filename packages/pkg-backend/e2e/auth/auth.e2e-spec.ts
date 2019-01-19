@@ -22,7 +22,7 @@ describe('Auth', () => {
   //
   beforeAll(async () => {
     logger.trace('---- Starting Auth e2e ----');
-    await setupTestDataJwtTokens();
+    await setupTestDataJwtTokens(NestjsBffConfig);
     // console.log('Auth-testData', JSON.stringify(testData, null, 2));
 
     const module = await Test.createTestingModule({

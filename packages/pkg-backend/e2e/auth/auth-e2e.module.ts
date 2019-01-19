@@ -1,7 +1,7 @@
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
-import { HttpAuthModule } from '../../src/host/http/application-services-host/auth/auth.module';
+import { HttpWebAppModule } from '../../lib/host/http/web-app.module';
+import { HttpAuthModule } from '../../src/host/http/application-service-host/auth/auth.module';
 import { AttachAuthenticationHttpMiddleware } from '../../src/host/http/core/middleware/attach-authentication.middleware';
-import { HttpWebAppModule } from '../../src/host/http/web-app.module';
 
 @Module({
   imports: [HttpWebAppModule, HttpAuthModule],

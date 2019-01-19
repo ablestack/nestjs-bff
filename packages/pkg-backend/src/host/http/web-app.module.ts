@@ -1,9 +1,9 @@
 import { CacheInterceptor, MiddlewareConsumer, Module, NestModule, RequestMethod, ValidationPipe } from '@nestjs/common';
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { MigrationsSharedModule } from '../../shared/migrations/migrations.shared.module';
-import { HttpAuthModule } from './application-services-host/auth/auth.module';
-import { WebAppHealthCheckController } from './application-services-host/web-app/web-app-health-check.controller';
-import { WebAppHealthCheckService } from './application-services-host/web-app/web-app-health-check.service';
+import { HttpAuthModule } from './application-service-host/auth/auth.module';
+import { WebAppHealthCheckModule } from './application-service-host/web-app-health-check/web-app-health-check.module';
+import { WebAppHealthCheckService } from './application-service-host/web-app-health-check/web-app-health-check.service';
 import { HttpCoreModule } from './core/core.module';
 import { HttpExceptionFilter } from './core/exceptions/http-exception.filter';
 import { AuthorizationGuard } from './core/guards/authorization.guard';
@@ -42,7 +42,7 @@ const AppPipeProvider = {
 };
 
 @Module({
-  imports: [HttpCoreModule, HttpAuthModule, MigrationsSharedModule, WebAppHealthCheckController],
+  imports: [HttpCoreModule, HttpAuthModule, MigrationsSharedModule, WebAppHealthCheckModule],
   controllers: [],
   providers: [WebAppHealthCheckService, AppFilterProvider, CacheInterceptorProvider, AppGuardProvider, AppPipeProvider],
   exports: undefined,

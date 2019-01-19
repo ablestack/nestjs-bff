@@ -1,21 +1,21 @@
-// import { NestjsBffConfig } from '../../src/config/nestjs-bff.config';
+import { INestjsBffConfig, NestjsBffConfig } from '../../src/config/nestjs-bff.config';
 import { getLogger } from '../../src/shared/logging/logging.shared.module';
 import { setupTestDataJwtTokens } from '../core/test-object-literals.constants';
 import { setupAuth } from './global-setup-auth';
 import { setupDB } from './global-setup-db';
 
-// Config
-// @ts-ignore
-// global.nestjs_bff = { NestjsBffConfig };
-
 //
 // Primary global setup function
 //
-export const globalSetup = async globalConfig => {
+export const globalSetup = async (globalConfig: any, nestJsBffConfig?: INestjsBffConfig) => {
   // Setup
+  nestJsBffConfig = nestJsBffConfig || NestjsBffConfig;
+  // @ts-ignore
+  global.nestjs_bff = { nestJsBffConfig };
+
   const logger = getLogger();
 
-  logger.trace('Global Setup Start', Date.now().toLocaleString());
+  logger.trace('Global Setup Start', Date.now().toString());
 
   // catch and highlight any unhandled exceptions
   process
@@ -27,13 +27,13 @@ export const globalSetup = async globalConfig => {
     });
 
   // setup DB
-  await setupDB(globalConfig);
+  await setupDB(globalConfig, nestJsBffConfig);
 
   // setup test data literals
-  await setupTestDataJwtTokens();
+  await setupTestDataJwtTokens(nestJsBffConfig);
 
   // add test users and auth
-  await setupAuth(globalConfig);
+  await setupAuth(globalConfig, nestJsBffConfig);
 
   logger.trace('Global Setup End');
 };

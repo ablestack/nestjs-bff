@@ -8,8 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const nestjs_bff_config_1 = require("../../lib/config/nestjs-bff.config");
 const logging_shared_module_1 = require("../../src/shared/logging/logging.shared.module");
-exports.globalTearDown = (globalConfig) => __awaiter(this, void 0, void 0, function* () {
+exports.globalTearDown = (globalConfig, nestJsBffConfig) => __awaiter(this, void 0, void 0, function* () {
+    // Setup
+    nestJsBffConfig = nestJsBffConfig || nestjs_bff_config_1.NestjsBffConfig;
     const logger = logging_shared_module_1.getLogger();
     logger.trace('-- Global TearDown Start -- ');
     // No teardown currently configured. The TestDB resets in the global setup

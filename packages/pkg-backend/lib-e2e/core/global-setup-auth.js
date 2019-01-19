@@ -22,7 +22,7 @@ authInitializer.local = new authentication_entity_1.LocalAuth();
 authInitializer.google = new authentication_entity_1.GoogleAuth();
 authInitializer.facebook = new authentication_entity_1.FacebookAuth();
 authInitializer.twitter = new authentication_entity_1.TwitterAuth();
-exports.setupAuth = (globalConfig) => __awaiter(this, void 0, void 0, function* () {
+exports.setupAuth = (globalConfig, nestJsBffConfig) => __awaiter(this, void 0, void 0, function* () {
     const logger = logging_shared_module_1.getLogger();
     //
     // Setup

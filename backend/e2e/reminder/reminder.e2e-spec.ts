@@ -37,7 +37,7 @@ describe('Reminder', () => {
   beforeAll(async () => {
     logger.trace('---- Starting Reminder e2e ----');
 
-    await setupTestDataJwtTokens();
+    await setupTestDataJwtTokens(AppConfig);
 
     //
     // Instantiate nest application
