@@ -24,19 +24,19 @@ export async function up(connection: Connection, bffLoggerService: LoggerSharedS
 export async function down(connection: Connection, bffLoggerService: LoggerSharedService) {
   await connection
     .model('IUserModel', UserSchema)
-    .collection.deleteMany({ id: { $in: data.users.map(item => item.id) } });
+    .collection.deleteMany({ id: { $in: data.users.map(item => item._id) } });
 
   await connection
     .model('IAuthenticationModel', AuthenticationSchema)
-    .collection.deleteMany({ id: { $in: data.authentications.map(item => item.id) } });
+    .collection.deleteMany({ id: { $in: data.authentications.map(item => item._id) } });
 
   await connection
     .model('IOrganizationModel', OrganizationSchema)
-    .collection.deleteMany({ id: { $in: data.organizations.map(item => item.id) } });
+    .collection.deleteMany({ id: { $in: data.organizations.map(item => item._id) } });
 
   await connection
     .model('IAuthorizationModel', AccessPermissionsSchema)
-    .collection.deleteMany({ id: { $in: data.authorizations.map(item => item.id) } });
+    .collection.deleteMany({ id: { $in: data.authorizations.map(item => item._id) } });
 
   bffLoggerService.info(`DOWN script completed.`);
 }

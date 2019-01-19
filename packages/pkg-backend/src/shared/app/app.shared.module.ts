@@ -4,6 +4,7 @@ import { AppSharedProviderTokens } from './app.shared.constants';
 const NestjsBffConfigProvider = {
   provide: AppSharedProviderTokens.Config.App,
   useFactory: () => {
+    // @ts-ignore
     return global.nestjs_bff.AppConfig;
   },
 };

@@ -16,7 +16,7 @@
     "install-docker-mongodb": "docker-compose pull mongodb",
     "mongodb-docker": "docker-compose up mongodb",
     "prestart:prod": "npm run build",
-    "start": "ts-node src/app/host/http/web-app/web-app.ts",
+    "start": "ts-node src/app/host/http/web-app.ts",
     "start:dev": "nodemon",
     "start:prod": "node dist/app/host/http/web-app/web-app.js",
     "start:hmr": "node dist/server",

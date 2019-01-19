@@ -10,6 +10,7 @@
   },
   "files": [
     "lib",
+    "lib-e2e",
     "templates",
     "README.md",
     "LICENSE.md"
@@ -22,6 +23,7 @@
   "scripts": {
     "tsc": "tsc",
     "test": "jest --config=./jest.json",
+    "e2e": "jest --config ./e2e/jest-e2e.json --detectOpenHandles --forceExit",
     "copy:template": "cp -rf 'src/shared/migrations/templates/migrationTemplate.ts' 'lib/shared/migrations/templates/' "
   },
   "publishConfig": {

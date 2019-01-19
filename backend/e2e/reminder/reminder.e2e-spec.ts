@@ -1,3 +1,4 @@
+import { setupTestDataJwtTokens, testData } from '@nestjs-bff/backend/lib-e2e/core/test-object-literals.constants';
 import { getLogger } from '@nestjs-bff/backend/lib/shared/logging/logging.shared.module';
 import { HttpServer, INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
@@ -6,7 +7,6 @@ import * as moment from 'moment';
 import * as supertest from 'supertest';
 import { ReminderRepo } from '../../src/app/domain/reminder/repo/reminder.repo';
 import { AppConfig } from '../../src/config/app.config';
-import { setupTestDataJwtTokens, testData } from '../shared/test-object-literals.constants';
 import { ReminderE2eModule } from './reminder-e2e.module';
 
 // Config
