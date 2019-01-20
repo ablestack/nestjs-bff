@@ -1,3 +1,4 @@
+import 'jest';
 import { ObjectId } from 'mongodb';
 import { TestingUtils } from '../utils/testing.utils';
 
