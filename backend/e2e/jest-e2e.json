@@ -3,6 +3,7 @@
   "testEnvironment": "node",
   "globalSetup": "./core/global-setup-hook.js",
   "globalTeardown": "./core/global-tear-down-hook.js",
+  "setupTestFrameworkScriptFile": "jest-extended",
   "testMatch": ["<rootDir>/**/*.e2e-spec.(ts|tsx|js)"],
   "testURL": "http://localhost/"
 }

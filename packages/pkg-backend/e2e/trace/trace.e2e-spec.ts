@@ -1,3 +1,4 @@
+import 'jest-extended';
 import { getLogger } from '../../src/shared/logging/logging.shared.module';
 
 describe('Trace', () => {

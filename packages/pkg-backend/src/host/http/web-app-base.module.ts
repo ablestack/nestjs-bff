@@ -45,9 +45,9 @@ const AppPipeProvider = {
   imports: [HttpCoreModule, HttpAuthModule, MigrationsSharedModule, WebAppHealthCheckModule],
   controllers: [],
   providers: [WebAppHealthCheckService, AppFilterProvider, CacheInterceptorProvider, AppGuardProvider, AppPipeProvider],
-  exports: undefined,
+  exports: [],
 })
-export class HttpWebAppModule implements NestModule {
+export class HttpWebAppBaseModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(AttachAuthenticationHttpMiddleware).forRoutes({ path: '*', method: RequestMethod.ALL });
   }

@@ -47,7 +47,7 @@ export const NestBffConfigOverrides = {
   logging: {
     logDir: 'logs',
     console: {
-      levels: [LogLevels.error, LogLevels.warning, LogLevels.info, LogLevels.debug, LogLevels.trace],
+      levels: [LogLevels.error, LogLevels.warning, LogLevels.info, LogLevels.debug, LogLevels.trace], // LogLevels.error, LogLevels.warning, LogLevels.info, LogLevels.debug, LogLevels.trace
     },
     winston: {
       level: 'info',

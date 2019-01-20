@@ -24,7 +24,7 @@
     "tsc": "tsc",
     "build": "tsc --build",
     "test": "jest --config=./jest.json",
-    "e2e": "jest --config ./e2e/jest-e2e.json --detectOpenHandles --forceExit",
+    "e2e": "jest --config ./e2e/jest-e2e.json --detectOpenHandles",
     "e2e-with-build": "npm run build && npm run e2e",
     "copy:template": "cp -rf 'src/shared/migrations/templates/migrationTemplate.ts' 'lib/shared/migrations/templates/' "
   },
@@ -75,6 +75,7 @@
     "@types/supertest": "^2.0.7",
     "@types/yargs": "^12.0.1",
     "jest": "^23.6.0",
+    "jest-extended": "^0.11.0",
     "prettier": "^1.15.3",
     "supertest": "^3.4.1",
     "ts-jest": "^23.10.5",

@@ -1,6 +1,6 @@
 import { INestApplication } from '@nestjs/common/interfaces';
 import { Test } from '@nestjs/testing';
-import { INestjsBffConfig, NestjsBffConfig } from '../../lib/config/nestjs-bff.config';
+import { INestjsBffConfig, NestjsBffConfig } from '../../src/config/nestjs-bff.config';
 import { AccessPermissionsRepo } from '../../src/domain/access-permissions/repo/access-permissions.repo';
 import { AuthenticationEntity, FacebookAuth, GoogleAuth, LocalAuth, TwitterAuth } from '../../src/domain/authentication/model/authentication.entity';
 import { AuthenticationRepo } from '../../src/domain/authentication/repo/authentication.repo';

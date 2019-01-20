@@ -1,15 +1,11 @@
-import { AttachAuthenticationHttpMiddleware } from '@nestjs-bff/backend/lib/host/http/core/middleware/attach-authentication.middleware';
-import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
+import { Module } from '@nestjs/common';
+import { HttpReminderModule } from '../../src/app/host/http/domain-service-host/reminder/reminder.module';
 import { HttpWebAppModule } from '../../src/app/host/http/web-app.module';
 
 @Module({
-  imports: [HttpWebAppModule, ReminderE2eModule],
+  imports: [HttpWebAppModule, HttpReminderModule],
   controllers: [],
   providers: [],
-  exports: undefined,
+  exports: [],
 })
-export class ReminderE2eModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AttachAuthenticationHttpMiddleware).forRoutes({ path: '*', method: RequestMethod.ALL });
-  }
-}
+export class ReminderE2eModule {}

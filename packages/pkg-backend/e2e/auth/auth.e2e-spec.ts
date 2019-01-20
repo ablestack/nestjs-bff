@@ -1,6 +1,7 @@
 import { HttpServer, INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import 'jest';
+import 'jest-extended';
 import * as supertest from 'supertest';
 import { NestjsBffConfig } from '../../src/config/nestjs-bff.config';
 import { getLogger } from '../../src/shared/logging/logging.shared.module';

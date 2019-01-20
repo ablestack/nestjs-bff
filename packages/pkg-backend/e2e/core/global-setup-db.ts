@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import { INestjsBffConfig } from '../../lib/config/nestjs-bff.config';
+import { INestjsBffConfig } from '../../src/config/nestjs-bff.config';
 import { getLogger } from '../../src/shared/logging/logging.shared.module';
 
 const logger = getLogger();

@@ -1,16 +1,11 @@
-import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
-import { HttpWebAppModule } from '../../lib/host/http/web-app.module';
+import { Module } from '@nestjs/common';
 import { HttpAuthModule } from '../../src/host/http/application-service-host/auth/auth.module';
-import { AttachAuthenticationHttpMiddleware } from '../../src/host/http/core/middleware/attach-authentication.middleware';
+import { HttpWebAppBaseModule } from '../../src/host/http/web-app-base.module';
 
 @Module({
-  imports: [HttpWebAppModule, HttpAuthModule],
+  imports: [HttpWebAppBaseModule, HttpAuthModule],
   controllers: [],
   providers: [],
   exports: undefined,
 })
-export class AuthE2eModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AttachAuthenticationHttpMiddleware).forRoutes({ path: '*', method: RequestMethod.ALL });
-  }
-}
+export class AuthE2eModule {}
