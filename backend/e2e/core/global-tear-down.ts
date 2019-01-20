@@ -1,13 +1,9 @@
-// import { globalTearDownBase } from '@nestjs-bff/backend/lib-e2e/core/global-tear-down-base';
-// import { AppConfig } from '../../src/config/app.config';
+import { globalTearDownBase } from '@nestjs-bff/backend/lib-e2e/core/global-tear-down-base';
+import { AppConfig } from '../../src/config/app.config';
 
-// // Config
-// // @ts-ignore
-// global.nestjs_bff = { config: AppConfig };
-
-// //
-// // Primary global setup function
-// //
-// export const globalTearDown = async globalConfig => {
-//   await globalTearDownBase(globalConfig);
-// };
+//
+// Primary global setup function
+//
+export const globalTearDown = async globalConfig => {
+  await globalTearDownBase(globalConfig, AppConfig);
+};
