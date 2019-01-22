@@ -38,7 +38,7 @@ export class AuthorizationGuard implements CanActivate {
       const req = context.switchToHttp().getRequest<any>();
       if (!req) throw new BadGatewayHttpError('request can not be null');
 
-      this.logger.warn('AuthorizationGuard.canActivate -------------------------------------->', {
+      this.logger.trace('AuthorizationGuard.canActivate', {
         'req.originalUrl': req.originalUrl,
       });
 

@@ -24,7 +24,7 @@
     "tsc": "tsc",
     "build": "tsc --build",
     "test": "jest --config=./jest.json",
-    "e2e": "jest --config ./e2e/jest-e2e.json --detectOpenHandles",
+    "e2e": "jest --config ./e2e/jest-e2e.json --detectOpenHandles --forceExit",
     "e2e-with-build": "npm run build && npm run e2e",
     "copy:template": "cp -rf 'src/shared/migrations/templates/migrationTemplate.ts' 'lib/shared/migrations/templates/' "
   },

@@ -11,6 +11,9 @@
   },
   "scripts": {
     "db-seed:dev": "ts-node cli migration-custom --filename seed-dev --direction up",
+    "e2e-all": "lerna run e2e",
+    "test-all": "lerna run test",
+    "uber-test-all": "npm run test-all && npm run e2e-all",
     "install-all-with-docker": "npm run install-all && npm run install-docker-mongodb",
     "install-all": "lerna exec -- npm install && lerna run build",
     "install-docker-mongodb": "cd ../backend && npm run install-docker-mongodb && cd ..",

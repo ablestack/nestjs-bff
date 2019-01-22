@@ -18,10 +18,10 @@
     "prestart:prod": "npm run build",
     "start": "ts-node src/app/host/http/web-app.ts",
     "start:dev": "nodemon",
-    "start:prod": "node dist/app/host/http/web-app/web-app.js",
+    "start:prod": "node dist/app/host/http/web-app.js",
     "start:hmr": "node dist/server",
     "start-docker-mongodb": "npm run mongodb-docker && npm run start",
-    "test": "jest --config=./src/jest.json",
+    "-- test": "jest --config=./src/jest.json",
     "test:cov": "jest --coverage",
     "webpack": "webpack --config webpack.config.js"
   },
