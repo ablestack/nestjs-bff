@@ -1,5 +1,4 @@
 import { LogLevels } from '@nestjs-bff/backend/lib/shared/logging/log-levels.const';
-import { extractKey } from '@nestjs-bff/backend/lib/shared/utils/key.shared.utils';
 
 export const NestBffConfigOverrides = {
   rootPath: process.cwd(),
@@ -17,7 +16,7 @@ export const NestBffConfigOverrides = {
 
   db: {
     mongo: {
-      debugLogging: true,
+      debugLogging: false,
       options: {
         useNewUrlParser: true,
         useCreateIndex: true,
@@ -39,9 +38,7 @@ export const NestBffConfigOverrides = {
   },
 
   jwt: {
-    jwtPrivateKey: extractKey(`${process.cwd()}\\src\\config\\keys\\jwt.private-key.pem`),
     jwtPrivateKeyPemPassphrase: 'D161tal',
-    jwtPublicKey: extractKey(`${process.cwd()}\\src\\config\\keys\\jwt.public-key.pem`),
     issuer: 'my org name',
     expiresIn: '18h',
     signingAlgorithm: 'RS256',
@@ -50,7 +47,7 @@ export const NestBffConfigOverrides = {
   logging: {
     logDir: 'logs',
     console: {
-      levels: [LogLevels.error, LogLevels.warning, LogLevels.info, LogLevels.debug, LogLevels.trace],
+      levels: [LogLevels.error, LogLevels.warning, LogLevels.info, LogLevels.debug, LogLevels.trace], // LogLevels.error, LogLevels.warning, LogLevels.info, LogLevels.debug, LogLevels.trace
     },
     winston: {
       level: 'info',

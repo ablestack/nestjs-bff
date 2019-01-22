@@ -1,25 +1,21 @@
-import { AuthenticationDomainSchema } from '@nestjs-bff/backend/lib/domain/authentication/model/authentication.domain.schema';
-import { AuthorizationDomainSchema } from '@nestjs-bff/backend/lib/domain/authorization/model/authorization.domain.schema';
-import { OrganizationDomainSchema } from '@nestjs-bff/backend/lib/domain/organization/model/organization.domain.schema';
-import { UserDomainSchema } from '@nestjs-bff/backend/lib/domain/user/model/user.domain.schema';
+import { AccessPermissionsSchema } from '@nestjs-bff/backend/lib/domain/access-permissions/model/access-permissions.schema';
+import { AuthenticationSchema } from '@nestjs-bff/backend/lib/domain/authentication/model/authentication.schema';
+import { OrganizationSchema } from '@nestjs-bff/backend/lib/domain/organization/model/organization.schema';
+import { UserSchema } from '@nestjs-bff/backend/lib/domain/user/model/user.schema';
 import { LoggerSharedService } from '@nestjs-bff/backend/lib/shared/logging/logger.shared.service';
 import { Connection } from 'mongoose';
-import { CatDomainSchema } from '../../app/domain/cats/model/cat.domain.schema';
 import { data } from './data/seed-data';
 
 /**
  * Make any changes you need to make to the database here
  */
 export async function up(connection: Connection, bffLoggerService: LoggerSharedService) {
-  await connection.model('IUserDomainModel', UserDomainSchema).collection.insertMany(data.users);
+  await connection.model('IUserModel', UserSchema).collection.insertMany(data.users);
+  await connection.model('IAuthenticationModel', AuthenticationSchema).collection.insertMany(data.authentications);
+  await connection.model('IOrganizationModel', OrganizationSchema).collection.insertMany(data.organizations);
   await connection
-    .model('IAuthenticationDomainModel', AuthenticationDomainSchema)
-    .collection.insertMany(data.authentications);
-  await connection
-    .model('IOrganizationDomainModel', OrganizationDomainSchema)
-    .collection.insertMany(data.organizations);
-  await connection.model('IAuthorizationModel', AuthorizationDomainSchema).collection.insertMany(data.authorizations);
-  await connection.model('ICatModel', CatDomainSchema).collection.insertMany(data.cats);
+    .model('IAccessPermissionsModel', AccessPermissionsSchema)
+    .collection.insertMany(data.accesspermissions);
 
   bffLoggerService.info(`UP script completed.`);
 }
@@ -29,24 +25,20 @@ export async function up(connection: Connection, bffLoggerService: LoggerSharedS
  */
 export async function down(connection: Connection, bffLoggerService: LoggerSharedService) {
   await connection
-    .model('IUserDomainModel', UserDomainSchema)
-    .collection.deleteMany({ _id: { $in: data.users.map(item => item._id) } });
+    .model('IUserModel', UserSchema)
+    .collection.deleteMany({ id: { $in: data.users.map(item => item._id) } });
 
   await connection
-    .model('IAuthenticationDomainModel', AuthenticationDomainSchema)
-    .collection.deleteMany({ _id: { $in: data.authentications.map(item => item._id) } });
+    .model('IAuthenticationModel', AuthenticationSchema)
+    .collection.deleteMany({ id: { $in: data.authentications.map(item => item._id) } });
 
   await connection
-    .model('IOrganizationDomainModel', OrganizationDomainSchema)
-    .collection.deleteMany({ _id: { $in: data.organizations.map(item => item._id) } });
+    .model('IOrganizationModel', OrganizationSchema)
+    .collection.deleteMany({ id: { $in: data.organizations.map(item => item._id) } });
 
   await connection
-    .model('IAuthorizationModel', AuthorizationDomainSchema)
-    .collection.deleteMany({ _id: { $in: data.authorizations.map(item => item._id) } });
-
-  await connection
-    .model('Cat', CatDomainSchema)
-    .collection.deleteMany({ _id: { $in: data.cats.map(item => item._id) } });
+    .model('IAuthorizationModel', AccessPermissionsSchema)
+    .collection.deleteMany({ id: { $in: data.accesspermissions.map(item => item._id) } });
 
   bffLoggerService.info(`DOWN script completed.`);
 }

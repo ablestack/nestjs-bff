@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig-base",
+  "compilerOptions": {
+    "outDir": "../lib-e2e",
+    "allowJs": false,
+    "rootDir": "."
+  },
+  "references": [{ "path": "../../pkg-global" }, { "path": "../src" }],
+  "include": ["./**/*"]
+}

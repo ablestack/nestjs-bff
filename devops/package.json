@@ -11,12 +11,12 @@
   },
   "scripts": {
     "db-seed:dev": "ts-node cli migration-custom --filename seed-dev --direction up",
+    "e2e-all": "lerna run e2e",
+    "test-all": "lerna run test",
+    "uber-test-all": "npm run test-all && npm run e2e-all",
     "install-all-with-docker": "npm run install-all && npm run install-docker-mongodb",
-    "install-all": "npm install & npm run install-backend & npm run install-cli & npm run install-frontend",
-    "install-backend": "cd ../backend && npm install && npm run build && cd ..",
-    "install-cli": "cd ../cli && npm install && cd ..",
+    "install-all": "lerna exec -- npm install && lerna run build",
     "install-docker-mongodb": "cd ../backend && npm run install-docker-mongodb && cd ..",
-    "install-frontend": "cd ../frontend && npm install && cd ..",
     "start-all-with-docker": "concurrently --kill-others \"npm run start-docker-mongodb\" \"npm run start-backend\" \"npm run start-frontend\"",
     "start": "concurrently --kill-others \"npm run start-backend\" \"npm run start-frontend\"",
     "start-backend": "cd ../backend && npm run start",
@@ -24,7 +24,9 @@
     "start-docker-mongodb": "cd ../backend && npm run start-docker-mongodb",
     "start-frontend": "cd ../frontend && npm run start",
     "packages:link": "tsc --build ../packages && lerna bootstrap",
-    "packages:publish": "tsc --build ../packages && lerna publish"
+    "packages:publish": "npm run packages:build && lerna publish",
+    "packages:build": "tsc --build ../packages",
+    "packages:rebuild": "tsc --build --force ../packages"
   },
   "devDependencies": {
     "concurrently": "^3.6.0",

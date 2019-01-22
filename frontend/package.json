@@ -10,9 +10,9 @@
     "ng": "ng",
     "start": "ng serve --open --hmr --proxy-config proxy.conf.json",
     "build": "ng build --prod",
-    "test": "ng test",
+    "--test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
+    "--e2e": "ng e2e",
     "link": "npm link @nestjs-bff/global"
   },
   "dependencies": {

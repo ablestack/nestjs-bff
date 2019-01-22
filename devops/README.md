@@ -18,7 +18,7 @@ The NestJS-BFF DevOps directory contains scripts, tooling, and documentation des
 
 ## Installation
 
-1.  Ensure that NodeJS and Docker are installed on your local machine
+1.  Ensure that NodeJS, Docker, and Lerna are installed on your local machine
 
 2.  Ensure you have a console installed that can run
     Linux shell commands. [Cmder](http://cmder.net) is an excellent option for Windows machines, and [can be integrated into VS Code](https://github.com/cmderdev/cmder/wiki/Seamless-VS-Code-Integration)

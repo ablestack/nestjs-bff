@@ -1,0 +1,11 @@
+{
+  "rootDir": "src",
+  "preset": "ts-jest",
+  "testEnvironment": "node",
+  "testMatch": ["<rootDir>/**/*.spec.(ts|tsx|js)"],
+  "modulePaths": ["<rootDir>/"],
+  "collectCoverageFrom": ["<rootDir>/**/*.{js,jsx,tsx,ts}", "!**/node_modules/**", "!**/vendor/**"],
+  "coverageReporters": ["json", "lcov"],
+  "coverageDirectory": "coverage",
+  "clearMocks": true
+}

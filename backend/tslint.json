@@ -7,6 +7,7 @@
     "arrow-parens": false,
     "arrow-return-shorthand": true,
     "callable-types": true,
+    "interface-name": false,
     "class-name": true,
     "comment-format": [true, "check-space"],
     "curly": false,

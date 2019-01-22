@@ -8,7 +8,8 @@ import { NestBffConfigOverrides } from './nest-bff-overrides.config';
 export const _AppConfig = {
   caching: {
     entities: {
-      cat: 60 * 20,
+      reminder: 60 * 5,
+      reminderArchive: 60 * 60 * 24,
     },
   },
 };
