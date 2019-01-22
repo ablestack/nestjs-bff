@@ -34,16 +34,16 @@ export class UserAuthService {
   public async signInWithLocal(cmd: LocalAuthenticateCommand): Promise<AccessPermissionsEntity> {
     const authenticationEntity = await this.authenticationRepo.findOne({ 'local.email': cmd.username }, { skipAuthorization: true });
 
-    if (!authenticationEntity) throw new ValidationError(['Your login accessPermissions were not correct']);
+    if (!authenticationEntity) throw new ValidationError(['Your login credentials were not correct']);
     if (!authenticationEntity.local)
-      throw new ValidationError(['Your login accessPermissions were not correct or you do not have an account. Perhaps you registered with social login?']);
+      throw new ValidationError(['Your login credentials were not correct or you do not have an account. Perhaps you registered with social login?']);
     if (!authenticationEntity.userId) throw new AppError('UserId can not be null');
 
-    if (!validPassword(cmd.password, authenticationEntity.local.hashedPassword)) throw new ValidationError(['Your login accessPermissions were not correct']);
+    if (!validPassword(cmd.password, authenticationEntity.local.hashedPassword)) throw new ValidationError(['Your login credentials were not correct']);
 
     const accessPermissionsEntity = await this.accessPermissionsRepo.findOne({ userId: authenticationEntity.userId }, { skipAuthorization: true });
 
-    if (!accessPermissionsEntity) throw new AppError('Could not find authorization information for signIn');
+    if (!accessPermissionsEntity) throw new AppError('Could not find access permission information for signIn');
 
     return accessPermissionsEntity;
   }

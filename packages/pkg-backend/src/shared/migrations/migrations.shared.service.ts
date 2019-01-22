@@ -187,7 +187,7 @@ export class MigrationsSharedService {
   }
 
   /**
-   * Looks at the file system migrations and imports any migrations that are
+   * Looks at the file system migrations and import any migrations that are
    * on the file system but missing in the database into the database
    *
    * This functionality is opposite of prune()
@@ -312,7 +312,7 @@ export class MigrationsSharedService {
 
     if (migrationsInDatabase.length > 0) {
       this.bffLoggerService.log('\n');
-      this.bffLoggerService.log(`The following migrations are in the database:`);
+      this.bffLoggerService.log(`The following migrations were detected:`);
       migrationsInDatabase.map(m => {
         this.bffLoggerService.log(`${m.filename} (${m.state === MigrationState.Up ? 'UP:' : 'DOWN'})`);
       });
@@ -347,7 +347,7 @@ export class MigrationsSharedService {
 
     const migrationsInDatabase = await this.migrationModel.find({}).sort({ createdAt: 1 });
 
-    this.bffLoggerService.debug('compareFileSystemWithDB.migrationsInDatabase', migrationsInDatabase);
+    // this.bffLoggerService.debug('compareFileSystemWithDB.migrationsInDatabase', migrationsInDatabase);
 
     const migrationsInFolder = filesInMigrationFolder
       .filter(file => /\d{13,}\-.+.(ts)$/.test(file))
@@ -357,7 +357,7 @@ export class MigrationsSharedService {
         return { createdAt: fileCreatedAt, filename, existsInDatabase };
       });
 
-    this.bffLoggerService.debug('compareFileSystemWithDB.migrationsInFolder', filesInMigrationFolder, migrationsInFolder);
+    // this.bffLoggerService.debug('compareFileSystemWithDB.migrationsInFolder', filesInMigrationFolder, migrationsInFolder);
 
     const filesNotInDb = migrationsInFolder.filter(migrationInFolder => migrationInFolder.existsInDatabase === false).map(f => f.filename);
     const dbMigrationsNotOnFs = migrationsInDatabase.filter(migrationInDB => {

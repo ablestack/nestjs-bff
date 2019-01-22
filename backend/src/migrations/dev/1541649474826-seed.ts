@@ -13,7 +13,9 @@ export async function up(connection: Connection, bffLoggerService: LoggerSharedS
   await connection.model('IUserModel', UserSchema).collection.insertMany(data.users);
   await connection.model('IAuthenticationModel', AuthenticationSchema).collection.insertMany(data.authentications);
   await connection.model('IOrganizationModel', OrganizationSchema).collection.insertMany(data.organizations);
-  await connection.model('IAccessPermissionsModel', AccessPermissionsSchema).collection.insertMany(data.authorizations);
+  await connection
+    .model('IAccessPermissionsModel', AccessPermissionsSchema)
+    .collection.insertMany(data.accesspermissions);
 
   bffLoggerService.info(`UP script completed.`);
 }
@@ -36,7 +38,7 @@ export async function down(connection: Connection, bffLoggerService: LoggerShare
 
   await connection
     .model('IAuthorizationModel', AccessPermissionsSchema)
-    .collection.deleteMany({ id: { $in: data.authorizations.map(item => item._id) } });
+    .collection.deleteMany({ id: { $in: data.accesspermissions.map(item => item._id) } });
 
   bffLoggerService.info(`DOWN script completed.`);
 }
