@@ -1,6 +1,6 @@
 {
   "name": "@nestjs-bff/frontend",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A frontend module for nestjs-bff",
   "author": "ahrnee <ahrndee@gmail.com>",
   "license": "MIT",

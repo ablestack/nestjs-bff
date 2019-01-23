@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "nestjs-bff-backend",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Nestjs Backend-For-Frontend with CLI",
   "author": "ahrnee",
   "license": "MIT",
@@ -26,13 +26,13 @@
     "webpack": "webpack --config webpack.config.js"
   },
   "dependencies": {
-    "@nestjs-bff/backend": "^1.0.0",
-    "@nestjs-bff/global": "^1.0.0",
-    "@yourapp/global": "^1.0.0",
+    "@nestjs-bff/backend": "^1.0.1",
+    "@nestjs-bff/global": "^1.0.1",
     "@nestjs/common": "^5.6.2",
     "@nestjs/core": "^5.6.2",
     "@nestjs/testing": "^5.6.2",
     "@types/lodash": "^4.14.120",
+    "@yourapp/global": "^1.0.1",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "cache-manager": "^2.9.0",
