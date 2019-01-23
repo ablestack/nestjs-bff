@@ -1,5 +1,5 @@
 import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/shared/authorization/roles.constants';
-import { BaseEntity } from '@nestjs-bff/global/lib/entities/core/base.entity';
+import { BaseEntity } from '@nestjs-bff/global/lib/domain/core/base.entity';
 import { AccessPermissionsContract, UserOrgPermissionsContract } from '@nestjs-bff/global/lib/domain/access-permissions/access-permissions.contract';
 import { IsArray, IsBoolean, IsIn, IsNotEmpty, ValidateNested } from 'class-validator';
 

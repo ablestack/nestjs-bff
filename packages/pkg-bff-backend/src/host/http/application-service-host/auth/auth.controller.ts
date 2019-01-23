@@ -2,7 +2,7 @@ import { LocalAuthenticateCommand } from '@nestjs-bff/global/lib/application/aut
 import { LocalRegisterCommand } from '@nestjs-bff/global/lib/application/auth/local-register.command';
 import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/shared/authorization/roles.constants';
 import { AccessPermissionsContract } from '@nestjs-bff/global/lib/domain/access-permissions/access-permissions.contract';
-import { IAuthenticationToken } from '@nestjs-bff/global/lib/interfaces/authentication-token.interface';
+import { IAuthenticationToken } from '@nestjs-bff/global/lib/shared/authentication/authentication-token.interface';
 import { Body, Controller, Get, Inject, Post, Req } from '@nestjs/common';
 import { UserAuthService } from '../../../../application/user-auth/user-auth.service';
 import { INestjsBffConfig } from '../../../../config/nestjs-bff.config';

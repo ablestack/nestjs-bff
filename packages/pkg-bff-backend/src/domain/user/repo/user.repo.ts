@@ -1,4 +1,4 @@
-import { UserEntity } from '@nestjs-bff/global/lib/entities/user.entity';
+import { UserEntity } from '@nestjs-bff/global/lib/domain/user/user.entity';
 import { Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { INestjsBffConfig } from '../../../config/nestjs-bff.config';

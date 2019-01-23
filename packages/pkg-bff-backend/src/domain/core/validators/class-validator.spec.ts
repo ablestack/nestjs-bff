@@ -1,4 +1,4 @@
-import { IEntity } from '@nestjs-bff/global/lib/interfaces/entity.interface';
+import { IEntity } from '@nestjs-bff/global/lib/domain/core/entity.interface';
 import { ValidationError } from '../../../shared/exceptions/validation.exception';
 import { getLogger } from '../../../shared/logging/logging.shared.module';
 import { TestingUtils } from '../../../shared/utils/testing.utils';
