@@ -16,13 +16,16 @@
       "path": "..\\frontend"
     },
     {
-      "path": "..\\packages\\pkg-backend"
+      "path": "..\\packages\\pkg-bff-backend"
     },
     {
-      "path": "..\\packages\\pkg-frontend"
+      "path": "..\\packages\\pkg-bff-frontend"
     },
     {
-      "path": "..\\packages\\pkg-global"
+      "path": "..\\packages\\pkg-bff-global"
+    },
+    {
+      "path": "..\\packages\\pkg-yourapp-global"
     }
   ],
   "settings": {

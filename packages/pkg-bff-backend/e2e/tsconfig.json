@@ -5,6 +5,6 @@
     "allowJs": false,
     "rootDir": "."
   },
-  "references": [{ "path": "../../pkg-global" }, { "path": "../src" }],
+  "references": [{ "path": "../../pkg-bff-global" }, { "path": "../src" }],
   "include": ["./**/*"]
 }
