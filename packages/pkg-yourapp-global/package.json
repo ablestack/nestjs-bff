@@ -22,13 +22,11 @@
   "scripts": {
     "tsc": "tsc"
   },
-  "publishConfig": {
-    "access": "public"
-  },
   "bugs": {
     "url": "https://github.com/ahrnee/nestjs-bff/issues"
   },
   "dependencies": {
+    "@nestjs-bff/global": "^1.0.0",
     "class-validator": "^0.9.1"
   },
   "devDependencies": {

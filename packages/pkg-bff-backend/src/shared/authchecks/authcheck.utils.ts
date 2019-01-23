@@ -1,5 +1,5 @@
-import { Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
-import { AccessPermissionsContract } from '@nestjs-bff/global/lib/interfaces/access-permissions.contract';
+import { Roles } from '@nestjs-bff/global/lib/shared/authorization/roles.constants';
+import { AccessPermissionsContract } from '@nestjs-bff/global/lib/domain/access-permissions/access-permissions.contract';
 
 function hasRole(requestingEntity: AccessPermissionsContract, qualifyingRole: string): boolean {
   return !!requestingEntity.roles && requestingEntity.roles.includes(qualifyingRole);

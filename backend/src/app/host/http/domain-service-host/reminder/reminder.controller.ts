@@ -1,7 +1,7 @@
 import { DomainControllerBase } from '@nestjs-bff/backend/lib/host/http/core/controller/domain-controller-base';
 import { Controller } from '@nestjs/common';
+import { ReminderEntity } from '@yourapp/global/lib/domain/reminder/reminder.entity';
 import { ReminderRepo } from '../../../../domain/reminder/repo/reminder.repo';
-import { ReminderEntity } from '../../../../global/entities/reminder.entity';
 
 /*
   Domain Service Hosted Endpoints are RESTful. Inheriting from DomainControllerBase proves the following structure:

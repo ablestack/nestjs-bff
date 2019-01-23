@@ -1,4 +1,4 @@
-import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
+import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/shared/authorization/roles.constants';
 import { TestingUtils } from '../utils/testing.utils';
 
 export const TestOrgLiterals = {

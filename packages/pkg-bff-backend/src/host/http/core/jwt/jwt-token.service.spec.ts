@@ -1,4 +1,4 @@
-import { Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
+import { Roles } from '@nestjs-bff/global/lib/shared/authorization/roles.constants';
 import { verify, VerifyOptions } from 'jsonwebtoken';
 import { NestjsBffConfig } from '../../../../config/nestjs-bff.config';
 import { AccessPermissionsEntity } from '../../../../domain/access-permissions/model/access-permissions.entity';

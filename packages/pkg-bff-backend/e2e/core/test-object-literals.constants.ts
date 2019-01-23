@@ -1,4 +1,4 @@
-import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/constants/roles.constants';
+import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/shared/authorization/roles.constants';
 import { INestjsBffConfig } from '../../src/config/nestjs-bff.config';
 import { generateHashedPassword } from '../../src/domain/authentication/utils/encryption.util';
 import { JwtTokenService } from '../../src/host/http/core/jwt/jwt-token.service';

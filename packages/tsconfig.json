@@ -2,5 +2,5 @@
   "extends": "./tsconfig-base",
   "files": [],
   "include": [],
-  "references": [{ "path": "./pkg-global" }, { "path": "./pkg-backend" }, { "path": "./pkg-frontend" }]
+  "references": [{ "path": "./pkg-bff-global" }, { "path": "./pkg-bff-backend" }, { "path": "./pkg-bff-frontend" }, { "path": "./pkg-yourapp-global" }]
 }

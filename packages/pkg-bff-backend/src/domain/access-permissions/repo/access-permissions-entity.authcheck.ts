@@ -1,4 +1,4 @@
-import { OrganizationRoles } from '@nestjs-bff/global/lib/constants/roles.constants';
+import { OrganizationRoles } from '@nestjs-bff/global/lib/shared/authorization/roles.constants';
 import { AuthCheckContract } from '../../../shared/authchecks/authcheck.contract';
 import { AuthorizationCheckParams } from '../../../shared/authchecks/authorization-params';
 import { CrudOperations } from '../../../shared/authchecks/crud-operations.enum';
