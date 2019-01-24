@@ -1,4 +1,5 @@
-import { setupTestDataJwtTokens, testData } from '@nestjs-bff/backend/lib-e2e/core/test-object-literals.constants';
+import { testData } from '@nestjs-bff/backend/lib-e2e/core/test-object-literals.constants';
+import { setupTestDataJwtTokens } from '@nestjs-bff/backend/lib-e2e/core/test-object.utils';
 import { getLogger } from '@nestjs-bff/backend/lib/shared/logging/logging.shared.module';
 import { HttpServer, INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
@@ -37,7 +38,7 @@ describe('Reminder', () => {
   beforeAll(async () => {
     logger.trace('---- Starting Reminder e2e ----');
 
-    await setupTestDataJwtTokens(AppConfig);
+    await setupTestDataJwtTokens(AppConfig, testData);
 
     //
     // Instantiate nest application

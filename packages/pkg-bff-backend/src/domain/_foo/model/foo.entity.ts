@@ -1,5 +1,5 @@
 // import { UserAndOrgScopedEntity } from '@nestjs-bff/global/lib/entities/core/user-and-org-scoped.entity';
-import { BaseEntity } from '@nestjs-bff/global/lib/entities/core/base.entity';
+import { BaseEntity } from '@nestjs-bff/global/lib/domain/core/base.entity';
 import { IsDefined, IsNotEmpty, Length } from 'class-validator';
 
 export class FooEntity extends BaseEntity {

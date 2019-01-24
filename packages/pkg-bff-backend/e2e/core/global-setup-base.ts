@@ -1,8 +1,9 @@
 import { NestjsBffConfig } from '../../src/config/nestjs-bff.config';
 import { getLogger } from '../../src/shared/logging/logging.shared.module';
+import { setupTestDataJwtTokens } from '../core/test-object.utils';
 import { setupAuth } from './global-setup-auth';
 import { setupDB } from './global-setup-db';
-import { setupTestDataJwtTokens } from './test-object-literals.constants';
+import { testData } from './test-object-literals.constants';
 
 //
 // Primary global setup function
@@ -23,7 +24,7 @@ export const globalSetupBase = async (globalConfig: any, nestJsBffConfig?: any) 
   // setup DB
   await setupDB(globalConfig, nestJsBffConfig);
   // setup test data literals
-  await setupTestDataJwtTokens(nestJsBffConfig);
+  await setupTestDataJwtTokens(nestJsBffConfig, testData);
   // add test users and auth
   await setupAuth(globalConfig, nestJsBffConfig);
   logger.trace('Global Setup End');

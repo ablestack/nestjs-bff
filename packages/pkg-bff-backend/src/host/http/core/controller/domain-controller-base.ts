@@ -1,4 +1,4 @@
-import { IEntity } from '@nestjs-bff/global/lib/interfaces/entity.interface';
+import { IEntity } from '@nestjs-bff/global/lib/domain/core/entity.interface';
 import { Body, Delete, Get, Param, Patch, Post, Put, Req } from '@nestjs/common';
 import { BaseRepo } from '../../../../domain/core/repo/base.repo';
 import { ScopedEntityAuthCheck } from '../../../../shared/authchecks/scoped-entity.authcheck';

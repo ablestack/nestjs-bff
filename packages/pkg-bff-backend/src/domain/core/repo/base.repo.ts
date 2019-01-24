@@ -1,5 +1,5 @@
-import { AccessPermissionsContract } from '@nestjs-bff/global/lib/interfaces/access-permissions.contract';
-import { IEntity } from '@nestjs-bff/global/lib/interfaces/entity.interface';
+import { AccessPermissionsContract } from '@nestjs-bff/global/lib/domain/access-permissions/access-permissions.contract';
+import { IEntity } from '@nestjs-bff/global/lib/domain/core/entity.interface';
 import * as _ from 'lodash';
 import { Document, Model } from 'mongoose';
 import { AuthCheckContract } from '../../../shared/authchecks/authcheck.contract';
@@ -387,10 +387,7 @@ export abstract class BaseRepo<TEntity extends IEntity> {
   // delete
   //
 
-  public async delete(
-    id: string,
-    options?: { accessPermissions?: AccessPermissionsContract; skipAuthorization?: boolean },
-  ): Promise<TEntity | undefined> {
+  public async delete(id: string, options?: { accessPermissions?: AccessPermissionsContract; skipAuthorization?: boolean }): Promise<TEntity | undefined> {
     // debug logging
     this.loggerService.debug(`${this.name}.delete`, id, options);
 

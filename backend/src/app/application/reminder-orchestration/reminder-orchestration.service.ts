@@ -1,8 +1,8 @@
-import { AccessPermissionsContract } from '@nestjs-bff/global/lib/interfaces/access-permissions.contract';
+import { AccessPermissionsContract } from '@nestjs-bff/global/lib/domain/access-permissions/access-permissions.contract';
 import { Injectable } from '@nestjs/common';
+import { SendReminderToArchiveCommand } from '@yourapp/global/lib/application/reminder-orchestration/send-reminder-to-archive.command';
 import { ReminderArchiveRepo } from '../../domain/reminder-archive/repo/reminder-archive.repo';
 import { ReminderRepo } from '../../domain/reminder/repo/reminder.repo';
-import { SendReminderToArchiveCommand } from '../../global/commands/send-reminder-to-archive.command';
 
 @Injectable()
 export class ReminderOrchestrationService {
@@ -21,9 +21,9 @@ export class ReminderOrchestrationService {
     // add to ReminderArchive data store
     this.reminderArchiveRepo.create(
       {
-        Title: reminder.title,
-        Deadline: reminder.deadline,
-        Completed: reminder.completed,
+        title: reminder.title,
+        deadline: reminder.deadline,
+        completed: reminder.completed,
         userId: reminder.userId,
         orgId: reminder.orgId,
         archivedDate: new Date(),

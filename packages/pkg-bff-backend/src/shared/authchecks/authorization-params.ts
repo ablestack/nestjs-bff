@@ -1,4 +1,4 @@
-import { AccessPermissionsContract } from '@nestjs-bff/global/lib/interfaces/access-permissions.contract';
+import { AccessPermissionsContract } from '@nestjs-bff/global/lib/domain/access-permissions/access-permissions.contract';
 
 export class AuthorizationCheckParams<TResource, TOperations> {
   accessPermissions: AccessPermissionsContract | null | undefined;

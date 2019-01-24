@@ -1,6 +1,6 @@
 {
   "name": "@nestjs-bff/global",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "A backend and frontend module for nestjs-bff",
   "author": "ahrnee <ahrndee@gmail.com>",
   "license": "MIT",

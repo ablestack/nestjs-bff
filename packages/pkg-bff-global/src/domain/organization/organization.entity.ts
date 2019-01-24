@@ -1,4 +1,4 @@
-import { BaseEntity } from './core/base.entity';
+import { BaseEntity } from '../core/base.entity';
 import { Length } from 'class-validator';
 
 export class OrganizationEntity extends BaseEntity {

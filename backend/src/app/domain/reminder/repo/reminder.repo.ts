@@ -5,9 +5,9 @@ import { CacheStore } from '@nestjs-bff/backend/lib/shared/caching/cache-store.s
 import { CachingProviderTokens } from '@nestjs-bff/backend/lib/shared/caching/caching.shared.constants';
 import { LoggerSharedService } from '@nestjs-bff/backend/lib/shared/logging/logger.shared.service';
 import { Inject, Injectable } from '@nestjs/common';
+import { ReminderEntity } from '@yourapp/global/lib/domain/reminder/reminder.entity';
 import { Model } from 'mongoose';
 import { IAppConfig } from '../../../../config/app.config';
-import { ReminderEntity } from '../../../global/entities/reminder.entity';
 import { IReminderModel } from '../model/reminder.model';
 import { ReminderProviderTokens } from '../reminder.constants';
 

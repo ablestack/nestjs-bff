@@ -5,7 +5,8 @@ import 'jest-extended';
 import * as supertest from 'supertest';
 import { NestjsBffConfig } from '../../src/config/nestjs-bff.config';
 import { getLogger } from '../../src/shared/logging/logging.shared.module';
-import { setupTestDataJwtTokens, testData } from '../core/test-object-literals.constants';
+import { testData } from '../core/test-object-literals.constants';
+import { setupTestDataJwtTokens } from '../core/test-object.utils';
 import { AuthE2eModule } from './auth-e2e.module';
 
 // Config
@@ -23,7 +24,7 @@ describe('Auth', () => {
   //
   beforeAll(async () => {
     logger.trace('---- Starting Auth e2e ----');
-    await setupTestDataJwtTokens(NestjsBffConfig);
+    await setupTestDataJwtTokens(NestjsBffConfig, testData);
     // console.log('Auth-testData', JSON.stringify(testData, null, 2));
 
     const module = await Test.createTestingModule({

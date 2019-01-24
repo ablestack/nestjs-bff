@@ -1,4 +1,4 @@
-import { IAuthenticationToken } from '@nestjs-bff/global/lib/interfaces/authentication-token.interface';
+import { IAuthenticationToken } from '@nestjs-bff/global/lib/shared/authentication/authentication-token.interface';
 import { Inject, Injectable } from '@nestjs/common';
 import axios from 'axios';
 import { createHmac } from 'crypto';
@@ -29,8 +29,7 @@ export class FacebookClientService {
     this.bffLoggerService.debug('FacebookClientService-get-nestjsBffConfig', this.nestjsBffConfig);
 
     // Get profile data
-    const getRequestWithAuth =
-      `${this.nestjsBffConfig.social.facebook.apiHost}` + getRequest + `&access_token=${accessToken.token}` + `&appsecret_proof=${proof}`;
+    const getRequestWithAuth = `${this.nestjsBffConfig.social.facebook.apiHost}` + getRequest + `&access_token=${accessToken.token}` + `&appsecret_proof=${proof}`;
 
     // Submit request
     this.bffLoggerService.debug('FacebookClientService-get-getRequestWithAuth', getRequestWithAuth);

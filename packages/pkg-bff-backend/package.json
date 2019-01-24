@@ -1,6 +1,6 @@
 {
   "name": "@nestjs-bff/backend",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "A backend module for nestjs-bff",
   "author": "ahrnee",
   "license": "MIT",
@@ -35,7 +35,7 @@
     "url": "https://github.com/ahrnee/nestjs-bff/issues"
   },
   "dependencies": {
-    "@nestjs-bff/global": "^1.0.0",
+    "@nestjs-bff/global": "^1.0.3",
     "@nestjs/common": "^5.6.2",
     "@nestjs/core": "^5.6.2",
     "@nestjs/testing": "^5.6.2",
