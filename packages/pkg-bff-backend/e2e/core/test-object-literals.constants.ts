@@ -1,9 +1,7 @@
 import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/shared/authorization/roles.constants';
-import { INestjsBffConfig } from '../../src/config/nestjs-bff.config';
 import { generateHashedPassword } from '../../src/domain/authentication/utils/encryption.util';
-import { JwtTokenService } from '../../src/host/http/core/jwt/jwt-token.service';
 
-const testData = {
+export const testData = {
   orgA: {
     orgEntity: {
       _id: 'a00000000000000000000000',
@@ -265,14 +263,3 @@ const testData = {
     },
   },
 };
-
-export const setupTestDataJwtTokens = async (nestJsBffConfig: INestjsBffConfig) => {
-  const jwtTokenService = new JwtTokenService(nestJsBffConfig);
-
-  testData.orgA.users.adminUser.jwt = await jwtTokenService.createToken(testData.orgA.users.adminUser.accessPermissionsEntity);
-  testData.orgA.users.regularUser.jwt = await jwtTokenService.createToken(testData.orgA.users.regularUser.accessPermissionsEntity);
-  testData.orgB.users.adminUser.jwt = await jwtTokenService.createToken(testData.orgB.users.adminUser.accessPermissionsEntity);
-  testData.orgC.users.groupAdminUser.jwt = await jwtTokenService.createToken(testData.orgC.users.groupAdminUser.accessPermissionsEntity);
-};
-
-export { testData };
