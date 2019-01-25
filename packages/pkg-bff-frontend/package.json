@@ -28,6 +28,10 @@
     "url": "https://github.com/ahrnee/nestjs-bff/issues"
   },
   "dependencies": {
+    "@nestjs-bff/global-contracts": "^1.0.3",
+    "@nestjs-bff/global-utils-prod": "^1.0.3",
+    "@nestjs-bff/frontend": "^1.0.3",
+    "@yourapp/global-contracts": "^1.0.3",
     "class-validator": "^0.9.1"
   },
   "devDependencies": {

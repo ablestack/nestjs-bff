@@ -16,23 +16,8 @@
       "path": "..\\frontend"
     },
     {
-      "path": "..\\packages\\pkg-bff-backend"
+      "path": "..\\packages"
     },
-    {
-      "path": "..\\packages\\pkg-bff-frontend"
-    },
-    {
-      "path": "..\\packages\\pkg-bff-global-contracts"
-    },
-    {
-      "path": "..\\packages\\pkg-bff-global-utils-dev"
-    },
-    {
-      "path": "..\\packages\\pkg-bff-global-utils-prod"
-    },
-    {
-      "path": "..\\packages\\pkg-yourapp-global-contracts"
-    }
   ],
   "settings": {
     "prettier.printWidth": 140,

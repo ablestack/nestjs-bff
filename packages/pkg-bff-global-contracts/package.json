@@ -1,5 +1,5 @@
 {
-  "name": "@nestjs-bff/global",
+  "name": "@nestjs-bff/global-contracts",
   "version": "1.0.3",
   "description": "A backend and frontend module for nestjs-bff",
   "author": "ahrnee <ahrndee@gmail.com>",
