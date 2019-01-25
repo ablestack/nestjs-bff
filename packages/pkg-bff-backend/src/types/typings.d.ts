@@ -1,4 +1,4 @@
-import { AccessPermissionsContract } from '@nestjs-bff/global/lib/domain/access-permissions/access-permissions.contract';
+import { AccessPermissionsContract } from '@nestjs-bff/global-contracts/lib/domain/access-permissions/access-permissions.contract';
 
 declare module '*.json' {
   const value: any;

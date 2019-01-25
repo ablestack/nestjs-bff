@@ -1,7 +1,7 @@
-import { IEntity } from '@nestjs-bff/global/lib/domain/core/entity.interface';
+import { IEntity } from '@nestjs-bff/global-contracts/lib/domain/core/entity.interface';
 import { ValidationError } from '../../../shared/exceptions/validation.exception';
 import { getLogger } from '../../../shared/logging/logging.shared.module';
-import { TestingUtils } from '@nestjs-bff/global/lib/shared/utils/testing.utils';
+import { TestingUtils } from '@nestjs-bff/global-utils-dev/lib/testing.utils';
 import { FooEntity } from '../../_foo/model/foo.entity';
 import { ClassValidator } from './class-validator';
 

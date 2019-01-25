@@ -1,5 +1,5 @@
-import { AccessPermissionsContract } from '@nestjs-bff/global/lib/domain/access-permissions/access-permissions.contract';
-import { IEntity } from '@nestjs-bff/global/lib/domain/core/entity.interface';
+import { AccessPermissionsContract } from '@nestjs-bff/global-contracts/lib/domain/access-permissions/access-permissions.contract';
+import { IEntity } from '@nestjs-bff/global-contracts/lib/domain/core/entity.interface';
 import * as _ from 'lodash';
 import { Document, Model } from 'mongoose';
 import { AuthCheckContract } from '../../../shared/authchecks/authcheck.contract';

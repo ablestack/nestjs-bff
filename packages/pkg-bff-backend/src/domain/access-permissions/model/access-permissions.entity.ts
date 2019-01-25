@@ -1,6 +1,6 @@
-import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/shared/authorization/roles.constants';
-import { BaseEntity } from '@nestjs-bff/global/lib/domain/core/base.entity';
-import { AccessPermissionsContract, UserOrgPermissionsContract } from '@nestjs-bff/global/lib/domain/access-permissions/access-permissions.contract';
+import { OrganizationRoles, Roles } from '@nestjs-bff/global-contracts/lib/shared/authorization/roles.constants';
+import { BaseEntity } from '@nestjs-bff/global-contracts/lib/domain/core/base.entity';
+import { AccessPermissionsContract, UserOrgPermissionsContract } from '@nestjs-bff/global-contracts/lib/domain/access-permissions/access-permissions.contract';
 import { IsArray, IsBoolean, IsIn, IsNotEmpty, ValidateNested } from 'class-validator';
 
 export class AccessPermissionsEntity extends BaseEntity implements AccessPermissionsContract {

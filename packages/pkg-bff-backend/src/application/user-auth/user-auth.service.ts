@@ -1,8 +1,8 @@
-import { LocalAuthenticateCommand } from '@nestjs-bff/global/lib/application/auth/local-authenticate.command';
-import { LocalRegisterCommand } from '@nestjs-bff/global/lib/application/auth/local-register.command';
-import { PromoteToGroupAdminCommand } from '@nestjs-bff/global/lib/application/auth/promote-to-group-admin.command';
-import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/shared/authorization/roles.constants';
-import { AccessPermissionsContract } from '@nestjs-bff/global/lib/domain/access-permissions/access-permissions.contract';
+import { LocalAuthenticateCommand } from '@nestjs-bff/global-contracts/lib/application/auth/local-authenticate.command';
+import { LocalRegisterCommand } from '@nestjs-bff/global-contracts/lib/application/auth/local-register.command';
+import { PromoteToGroupAdminCommand } from '@nestjs-bff/global-contracts/lib/application/auth/promote-to-group-admin.command';
+import { OrganizationRoles, Roles } from '@nestjs-bff/global-contracts/lib/shared/authorization/roles.constants';
+import { AccessPermissionsContract } from '@nestjs-bff/global-contracts/lib/domain/access-permissions/access-permissions.contract';
 import { Injectable } from '@nestjs/common';
 import { AccessPermissionsEntity } from '../../domain/access-permissions/model/access-permissions.entity';
 import { AccessPermissionsRepo } from '../../domain/access-permissions/repo/access-permissions.repo';

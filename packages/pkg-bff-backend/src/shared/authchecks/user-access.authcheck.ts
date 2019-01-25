@@ -1,4 +1,4 @@
-import { OrganizationRoles } from '@nestjs-bff/global/lib/shared/authorization/roles.constants';
+import { OrganizationRoles } from '@nestjs-bff/global-contracts/lib/shared/authorization/roles.constants';
 import { AuthorizationCheckError } from '../exceptions/authorization-check.exception';
 import { AuthCheckContract } from './authcheck.contract';
 import { hasOrganizationRole, isStaffAdmin } from './authcheck.utils';

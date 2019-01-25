@@ -1,4 +1,4 @@
-import { OrganizationEntity } from '@nestjs-bff/global/lib/domain/organization/organization.entity';
+import { OrganizationEntity } from '@nestjs-bff/global-contracts/lib/domain/organization/organization.entity';
 import { Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { INestjsBffConfig } from '../../../config/nestjs-bff.config';

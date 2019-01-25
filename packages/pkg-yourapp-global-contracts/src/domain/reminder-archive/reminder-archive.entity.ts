@@ -1,4 +1,4 @@
-import { UserAndOrgScopedEntity } from '@nestjs-bff/global/lib/domain/core/user-and-org-scoped.entity';
+import { UserAndOrgScopedEntity } from '@nestjs-bff/global-contracts/lib/domain/core/user-and-org-scoped.entity';
 import { IsBoolean, IsDate, Length } from 'class-validator';
 
 export class ReminderArchiveEntity extends UserAndOrgScopedEntity {

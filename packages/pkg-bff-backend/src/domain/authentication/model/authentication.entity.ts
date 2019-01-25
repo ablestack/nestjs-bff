@@ -1,4 +1,4 @@
-import { BaseEntity } from '@nestjs-bff/global/lib/domain/core/base.entity';
+import { BaseEntity } from '@nestjs-bff/global-contracts/lib/domain/core/base.entity';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
 export class AuthenticationEntity extends BaseEntity {

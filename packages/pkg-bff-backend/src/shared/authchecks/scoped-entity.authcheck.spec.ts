@@ -1,5 +1,5 @@
 import { TestAuthorizationLiterals, TestFooEntityLiterals, TestOrgLiterals, TestUserLiterals } from '../testing/test-literals.constants';
-import { TestingUtils } from '@nestjs-bff/global/lib/utils/testing.utils';
+import { TestingUtils } from '@nestjs-bff/global-utils-dev/lib/testing.utils';
 import { ScopedEntityAuthCheck } from './scoped-entity.authcheck';
 
 //

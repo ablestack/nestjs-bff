@@ -1,4 +1,4 @@
-import { IEntity } from '@nestjs-bff/global/lib/domain/core/entity.interface';
+import { IEntity } from '@nestjs-bff/global-contracts/lib/domain/core/entity.interface';
 import { AppError } from '../exceptions/app.exception';
 import { AuthCheckContract } from './authcheck.contract';
 import { AuthorizationCheckParams } from './authorization-params';

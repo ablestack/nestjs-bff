@@ -28,9 +28,9 @@
   "bugs": {
     "url": "https://github.com/ahrnee/nestjs-bff/issues"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
+    "@types/jest": "^23.3.12",
     "prettier": "^1.15.2",
     "tslint": "^5.11.0",
     "jest": "^23.6.0",

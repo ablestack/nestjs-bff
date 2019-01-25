@@ -1,6 +1,6 @@
-import { CreateOrganizationMemberCommand } from '@nestjs-bff/global/lib/application/auth/create-organization-member.command';
-import { AccessPermissionsContract } from '@nestjs-bff/global/lib/domain/access-permissions/access-permissions.contract';
-import { OrganizationRoles, Roles } from '@nestjs-bff/global/lib/shared/authorization/roles.constants';
+import { CreateOrganizationMemberCommand } from '@nestjs-bff/global-contracts/lib/application/auth/create-organization-member.command';
+import { AccessPermissionsContract } from '@nestjs-bff/global-contracts/lib/domain/access-permissions/access-permissions.contract';
+import { OrganizationRoles, Roles } from '@nestjs-bff/global-contracts/lib/shared/authorization/roles.constants';
 import { Injectable } from '@nestjs/common';
 import { AccessPermissionsEntity } from '../../domain/access-permissions/model/access-permissions.entity';
 import { AccessPermissionsRepo } from '../../domain/access-permissions/repo/access-permissions.repo';

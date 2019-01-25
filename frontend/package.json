@@ -12,8 +12,7 @@
     "build": "ng build --prod",
     "--test": "ng test",
     "lint": "ng lint",
-    "--e2e": "ng e2e",
-    "link": "npm link @nestjs-bff/global"
+    "--e2e": "ng e2e"
   },
   "dependencies": {
     "@angular/animations": "^6.1.10",

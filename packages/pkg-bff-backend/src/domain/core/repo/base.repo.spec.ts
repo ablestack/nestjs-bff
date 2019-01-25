@@ -1,4 +1,4 @@
-import { TestingUtils } from '@nestjs-bff/global/lib/shared/utils/testing.utils';
+import { TestingUtils } from '@nestjs-bff/global-utils-dev/lib/testing.utils';
 import * as cacheManager from 'cache-manager';
 import _ = require('lodash');
 import * as mongoose from 'mongoose';

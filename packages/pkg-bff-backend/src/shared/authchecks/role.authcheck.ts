@@ -1,4 +1,4 @@
-import { Roles } from '@nestjs-bff/global/lib/shared/authorization/roles.constants';
+import { Roles } from '@nestjs-bff/global-contracts/lib/shared/authorization/roles.constants';
 import { AuthCheckContract } from './authcheck.contract';
 import { hasRole } from './authcheck.utils';
 import { AuthorizationCheckParams } from './authorization-params';

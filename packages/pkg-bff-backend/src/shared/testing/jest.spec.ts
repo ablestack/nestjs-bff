@@ -1,4 +1,4 @@
-import { TestingUtils } from '@nestjs-bff/global/lib/utils/testing.utils';
+import { TestingUtils } from '@nestjs-bff/global-utils-dev/lib/testing.utils';
 import 'jest';
 import { ObjectId } from 'mongodb';
 
