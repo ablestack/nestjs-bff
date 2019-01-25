@@ -5,8 +5,8 @@
   "references": [
     { "path": "./pkg-bff-global-contracts" },
     { "path": "./pkg-bff-global-utils-dev" },
-    { "path": "./pkg-bff-global-utils-prod" }, 
-    { "path": "./pkg-bff-backend" }, 
-    { "path": "./pkg-bff-frontend" }, 
-    { "path": "./pkg-yourapp-global-contracts" }]
+    { "path": "./pkg-bff-global-utils-prod" },
+    { "path": "./pkg-bff-backend" },
+    { "path": "./pkg-yourapp-global-contracts" }
+  ]
 }

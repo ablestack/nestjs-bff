@@ -1,7 +1,0 @@
-{
-  "preset": "ts-jest",
-  "testEnvironment": "node",
-  "setupTestFrameworkScriptFile": "jest-extended",
-  "testMatch": ["<rootDir>/**/*.e2e-spec.(ts|tsx|js)"],
-  "testURL": "http://localhost/"
-}
