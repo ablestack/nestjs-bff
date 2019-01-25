@@ -1,5 +1,5 @@
-import { ObjectId } from 'mongodb';
 import { TestingUtils } from './testing.utils';
+import 'jest';
 
 const performanceTestIterations = 1000;
 
@@ -7,9 +7,9 @@ describe('GIVEN TestingUtils.objectIdsToStrings method', () => {
   it(`WHEN passing an Object with ObjectId types fields
     THEN execution time should be fast`, async () => {
     const o = {
-      id: new ObjectId('5c36b1295ec9e3fbdc3d1062'),
+      id: TestingUtils.generateMongoObjectIdString(),
       name: 'Foo',
-      orgId: new ObjectId('5c36b1295ec9e3fbdc3d1054'),
+      orgId: TestingUtils.generateMongoObjectIdString(),
     };
 
     const objectIdsToStringsFunc = () => {

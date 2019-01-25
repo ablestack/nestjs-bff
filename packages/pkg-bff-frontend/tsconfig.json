@@ -1,9 +1,6 @@
 {
   "extends": "../tsconfig-base",
-  "compilerOptions": {
-    "outDir": "lib",
-    "rootDir": "src"
-  },
-  "include": ["src"],
-  "references": [{ "path": "../pkg-bff-global" }]
+  "files": [],
+  "include": [],
+  "references": [{ "path": "./src" }, { "path": "./e2e" }]
 }

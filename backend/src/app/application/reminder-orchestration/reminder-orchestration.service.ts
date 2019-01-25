@@ -23,7 +23,7 @@ export class ReminderOrchestrationService {
       {
         title: reminder.title,
         deadline: reminder.deadline,
-        completed: reminder.completed,
+        complete: reminder.complete,
         userId: reminder.userId,
         orgId: reminder.orgId,
         archivedDate: new Date(),

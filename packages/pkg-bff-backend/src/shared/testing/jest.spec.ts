@@ -1,6 +1,6 @@
+import { TestingUtils } from '@nestjs-bff/global/lib/utils/testing.utils';
 import 'jest';
 import { ObjectId } from 'mongodb';
-import { TestingUtils } from '../utils/testing.utils';
 
 //
 // Testing Jest capabilities

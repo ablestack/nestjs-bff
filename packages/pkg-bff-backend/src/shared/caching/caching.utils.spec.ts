@@ -1,6 +1,6 @@
+import { TestingUtils } from '@nestjs-bff/global/lib/utils/testing.utils';
 import { FooEntity } from '../../domain/_foo/model/foo.entity';
 import { getLogger } from '../logging/logging.shared.module';
-import { TestingUtils } from '../utils/testing.utils';
 import { CachingUtils } from './caching.utils';
 
 const performanceTestIterations = 1000;

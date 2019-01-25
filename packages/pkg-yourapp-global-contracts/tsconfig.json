@@ -5,5 +5,5 @@
     "rootDir": "src"
   },
   "include": ["src"],
-  "references": [{ "path": "../pkg-bff-global" }]
+  "references": [{ "path": "../../pkg-bff-global-contracts" }]
 }

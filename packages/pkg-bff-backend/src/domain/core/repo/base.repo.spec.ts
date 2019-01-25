@@ -1,3 +1,4 @@
+import { TestingUtils } from '@nestjs-bff/global/lib/shared/utils/testing.utils';
 import * as cacheManager from 'cache-manager';
 import _ = require('lodash');
 import * as mongoose from 'mongoose';
@@ -10,7 +11,6 @@ import { LoggerConsoleSharedService } from '../../../shared/logging/console-logg
 import { LoggerSharedService } from '../../../shared/logging/logger.shared.service';
 import { getLogger } from '../../../shared/logging/logging.shared.module';
 import { TestAuthorizationLiterals, TestFooEntityLiterals } from '../../../shared/testing/test-literals.constants';
-import { TestingUtils } from '../../../shared/utils/testing.utils';
 import { IFooModel } from '../../_foo/model/foo.model';
 import { FooSchema } from '../../_foo/model/foo.schema';
 import { FooRepo } from '../../_foo/repo/foo.repo';

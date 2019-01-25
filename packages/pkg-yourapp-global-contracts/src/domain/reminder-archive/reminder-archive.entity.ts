@@ -9,7 +9,7 @@ export class ReminderArchiveEntity extends UserAndOrgScopedEntity {
   deadline?: Date;
 
   @IsBoolean()
-  completed?: boolean;
+  complete?: boolean;
 
   @IsDate()
   archivedDate?: Date;

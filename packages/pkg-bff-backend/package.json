@@ -35,7 +35,8 @@
     "url": "https://github.com/ahrnee/nestjs-bff/issues"
   },
   "dependencies": {
-    "@nestjs-bff/global": "^1.0.3",
+    "@nestjs-bff/global-contracts": "^1.0.3",
+    "@nestjs-bff/global-utils-prod": "^1.0.3",
     "@nestjs/common": "^5.6.2",
     "@nestjs/core": "^5.6.2",
     "@nestjs/testing": "^5.6.2",
@@ -58,6 +59,7 @@
     "winston-daily-rotate-file": "^3.6.0"
   },
   "devDependencies": {
+    "@nestjs-bff/global-utils-dev": "^1.0.3",
     "@types/bcrypt-nodejs": "0.0.30",
     "@types/body-parser": "^1.17.0",
     "@types/cache-manager": "^1.2.6",

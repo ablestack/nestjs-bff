@@ -22,10 +22,16 @@
       "path": "..\\packages\\pkg-bff-frontend"
     },
     {
-      "path": "..\\packages\\pkg-bff-global"
+      "path": "..\\packages\\pkg-bff-global-contracts"
     },
     {
-      "path": "..\\packages\\pkg-yourapp-global"
+      "path": "..\\packages\\pkg-bff-global-utils-dev"
+    },
+    {
+      "path": "..\\packages\\pkg-bff-global-utils-prod"
+    },
+    {
+      "path": "..\\packages\\pkg-yourapp-global-contracts"
     }
   ],
   "settings": {

@@ -5,9 +5,9 @@ export class ReminderEntity extends UserAndOrgScopedEntity {
   @Length(2, 50)
   title?: string;
 
+  @IsBoolean()
+  complete?: boolean;
+
   @IsDate()
   deadline?: Date;
-
-  @IsBoolean()
-  completed?: boolean;
 }
