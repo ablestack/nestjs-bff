@@ -11,8 +11,8 @@
   },
   "scripts": {
     "db-seed:dev": "ts-node cli migration-custom --filename seed-dev --direction up",
-    "e2e-all": "lerna run e2e",
-    "test-all": "lerna run test",
+    "e2e": "lerna run e2e",
+    "test": "lerna run test",
     "uber-test-all": "npm run test-all && npm run e2e-all",
     "install-all-with-docker": "npm run install-all && npm run install-docker-mongodb",
     "install-all": "lerna exec -- npm install && lerna run build",
@@ -23,11 +23,11 @@
     "start-bff-backend": "ts-node --project ../backend -r tsconfig-paths/register ../backend/src/main.ts",
     "start-docker-mongodb": "cd ../backend && npm run start-docker-mongodb",
     "start-frontend": "cd ../frontend && npm run start",
-    "build": "tsc --build ./tsconfig-all-ref.json",
+    "build": "tsc --build ./tsconfig-all-ref.json --verbose",
     "packages:link": "lerna bootstrap",
     "packages:publish": "npm run packages:build && lerna publish",
-    "packages:build": "tsc --build ./tsconfig-pkg-ref.json",
-    "packages:rebuild": "tsc --build --force ./tsconfig-pkg-ref.json"
+    "packages:build": "tsc --build ./tsconfig-pkg-ref.json --verbose",
+    "packages:rebuild": "tsc --build --force ./tsconfig-pkg-ref.json --verbose"
   },
   "devDependencies": {
     "concurrently": "^3.6.0",

@@ -1,6 +1,6 @@
 import { AccessPermissionsContract } from '@nestjs-bff/global-contracts/lib/domain/access-permissions/access-permissions.contract';
 import { Injectable } from '@nestjs/common';
-import { SendReminderToArchiveCommand } from '@yourapp/global-contracts/lib/application/reminder-orchestration/send-reminder-to-archive.command';
+import { SendReminderToArchiveCommand } from '@yourapp/global/lib/application/reminder-orchestration/send-reminder-to-archive.command';
 import { ReminderArchiveRepo } from '../../domain/reminder-archive/repo/reminder-archive.repo';
 import { ReminderRepo } from '../../domain/reminder/repo/reminder.repo';
 

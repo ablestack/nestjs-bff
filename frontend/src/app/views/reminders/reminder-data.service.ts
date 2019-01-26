@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TestingUtils } from '@nestjs-bff/global-utils-dev/lib/testing.utils';
-import { ReminderEntity } from '@yourapp/global-contracts/lib/domain/reminder/reminder.entity';
+import { ReminderEntity } from '@yourapp/global/lib/domain/reminder/reminder.entity';
 
 @Injectable({
   providedIn: 'root',

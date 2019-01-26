@@ -1,7 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { ReminderDataService } from './reminder-data.service';
 import { TestingUtils } from '@nestjs-bff/global-utils-dev/lib/testing.utils';
-import { ReminderEntity } from '@yourapp/global-contracts/lib/domain/reminder/reminder.entity';
+import { ReminderEntity } from '@yourapp/global/lib/domain/reminder/reminder.entity';
 
 describe('ReminderDataService', () => {
   beforeEach(() => {

@@ -1,6 +1,6 @@
 import { DomainControllerBase } from '@nestjs-bff/backend/lib/host/http/core/controller/domain-controller-base';
 import { Controller } from '@nestjs/common';
-import { ReminderArchiveEntity } from '@yourapp/global-contracts/lib/domain/reminder-archive/reminder-archive.entity';
+import { ReminderArchiveEntity } from '@yourapp/global/lib/domain/reminder-archive/reminder-archive.entity';
 import { ReminderArchiveRepo } from '../../../../domain/reminder-archive/repo/reminder-archive.repo';
 
 /*
