@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "nestjs-bff-devops",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "A Nestjs Backend-For-Frontend with CLI",
   "author": "ahrnee",
   "license": "MIT",

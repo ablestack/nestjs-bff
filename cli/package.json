@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "nestjs-bff-cli",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "A Nestjs Backend-For-Frontend CLI",
   "author": "ahrnee",
   "license": "MIT",
@@ -9,7 +9,7 @@
     "db-seed:dev": "ts-node cli migration-custom --filename seed-dev --direction up"
   },
   "dependencies": {
-    "@nestjs-bff/backend": "^1.0.3",
+    "@nestjs-bff/backend": "^1.1.0",
     "@nestjs/common": "^5.0.0",
     "@nestjs/core": "^5.0.0",
     "@types/inquirer": "^0.0.41",
