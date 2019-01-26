@@ -34,7 +34,7 @@
     "@nestjs/core": "^5.6.2",
     "@nestjs/testing": "^5.6.2",
     "@types/lodash": "^4.14.120",
-    "@yourapp/global": "^1.1.0",
+    "@yourapp/global": "file:../global",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "cache-manager": "^2.9.0",
