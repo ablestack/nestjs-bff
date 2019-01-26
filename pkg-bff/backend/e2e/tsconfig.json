@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig-base",
+  "compilerOptions": {
+    "outDir": "../lib-e2e",
+    "allowJs": false,
+    "rootDir": "."
+  },
+  "references": [
+    { "path": "../../global-contracts" },
+    { "path": "../../global-utils-dev" },
+    { "path": "../../global-utils-prod" },
+    { "path": "../src" }
+  ],
+  "include": ["./**/*"]
+}

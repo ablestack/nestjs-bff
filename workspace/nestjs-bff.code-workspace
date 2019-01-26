@@ -15,18 +15,12 @@
     {
       "path": "..\\frontend"
     },
-    {
-      "path": "..\\packages\\pkg-bff-backend"
+	 {
+      "path": "..\\global"
     },
     {
-      "path": "..\\packages\\pkg-bff-frontend"
+      "path": "..\\pkg-bff"
     },
-    {
-      "path": "..\\packages\\pkg-bff-global"
-    },
-    {
-      "path": "..\\packages\\pkg-yourapp-global"
-    }
   ],
   "settings": {
     "prettier.printWidth": 140,

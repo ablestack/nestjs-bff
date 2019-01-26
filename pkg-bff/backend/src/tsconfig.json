@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig-base",
+  "compilerOptions": {
+    "outDir": "../lib",
+    "rootDir": "."
+  },
+  "include": ["./**/*"],
+  "references": [{ "path": "../../global-contracts" }, { "path": "../../global-utils-prod" }]
+}

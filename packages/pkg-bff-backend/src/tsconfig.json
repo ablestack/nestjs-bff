@@ -1,9 +1,0 @@
-{
-  "extends": "../../tsconfig-base",
-  "compilerOptions": {
-    "outDir": "../lib",
-    "rootDir": "."
-  },
-  "include": ["./**/*"],
-  "references": [{ "path": "../../pkg-bff-global" }]
-}

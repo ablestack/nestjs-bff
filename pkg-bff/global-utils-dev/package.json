@@ -1,0 +1,39 @@
+{
+  "name": "@nestjs-bff/global-utils-dev",
+  "version": "1.0.3",
+  "description": "A backend and frontend module for nestjs-bff",
+  "author": "ahrnee <ahrndee@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/ahrnee/nestjs-bff",
+  "directories": {
+    "src": "src"
+  },
+  "files": [
+    "lib",
+    "README.md",
+    "LICENSE.md"
+  ],
+  "types": "./lib",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahrnee/nestjs-bff.git"
+  },
+  "scripts": {
+    "tsc": "tsc",
+    "test": "jest --config=./jest.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/ahrnee/nestjs-bff/issues"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/jest": "^23.3.12",
+    "prettier": "^1.15.2",
+    "tslint": "^5.11.0",
+    "jest": "^23.6.0",
+    "ts-jest": "^23.10.5"
+  }
+}

@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "nestjs-bff-backend",
+  "name": "@yourapp/backend",
   "version": "1.0.3",
   "description": "A Nestjs Backend-For-Frontend with CLI",
   "author": "ahrnee",
@@ -27,7 +27,9 @@
   },
   "dependencies": {
     "@nestjs-bff/backend": "^1.0.3",
-    "@nestjs-bff/global": "^1.0.3",
+    "@nestjs-bff/global-contracts": "^1.0.3",
+    "@nestjs-bff/global-utils-prod": "^1.0.3",
+    "@nestjs-bff/global-utils-dev": "^1.0.3",
     "@nestjs/common": "^5.6.2",
     "@nestjs/core": "^5.6.2",
     "@nestjs/testing": "^5.6.2",

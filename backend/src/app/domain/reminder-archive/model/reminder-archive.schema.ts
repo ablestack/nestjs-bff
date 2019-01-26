@@ -6,7 +6,7 @@ export const ReminderArchiveSchema = new Schema(
       required: true,
       type: Schema.Types.String,
     },
-    completed: {
+    complete: {
       required: true,
       type: Schema.Types.Boolean,
     },

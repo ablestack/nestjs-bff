@@ -22,7 +22,7 @@ export const reminderData = {
     deadline: moment()
       .add(1, 'month')
       .toDate(),
-    completed: false,
+    complete: false,
   },
 };
 

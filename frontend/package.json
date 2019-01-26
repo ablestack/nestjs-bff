@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "nestjs-bff-frontend",
+  "name": "@yourapp/frontend",
   "version": "1.0.1",
   "description": "A working example of a Nestjs-BFF angular web-app frontend",
   "author": "ahrnee",
@@ -12,8 +12,7 @@
     "build": "ng build --prod",
     "--test": "ng test",
     "lint": "ng lint",
-    "--e2e": "ng e2e",
-    "link": "npm link @nestjs-bff/global"
+    "--e2e": "ng e2e"
   },
   "dependencies": {
     "@angular/animations": "^6.1.10",
@@ -25,10 +24,13 @@
     "@angular/platform-browser": "^6.1.10",
     "@angular/platform-browser-dynamic": "^6.1.10",
     "@angular/router": "^6.1.10",
+    "@nestjs-bff/global-contracts": "^1.0.3",
+    "@nestjs-bff/global-utils-prod": "^1.0.3",
     "@coreui/angular": "^2.0.0-rc.1",
     "@coreui/coreui": "^2.0.20",
     "@coreui/coreui-plugin-chartjs-custom-tooltips": "^1.2.0",
     "@coreui/icons": "0.3.0",
+    "@yourapp/global": "^1.0.3",
     "bootstrap": "^4.1.3",
     "chart.js": "^2.7.3",
     "core-js": "^2.5.7",
@@ -51,6 +53,7 @@
     "@angular/cli": "^6.2.6",
     "@angular/compiler-cli": "^6.1.10",
     "@angular/language-service": "^6.1.10",
+    "@nestjs-bff/global-utils-dev": "^1.0.3",
     "@types/jasmine": "^2.8.9",
     "@types/jasminewd2": "^2.0.5",
     "@types/node": "^10.12.0",
