@@ -1,6 +1,7 @@
-import { TestBed, async, inject } from '@angular/core/testing';
-import { Reminder } from './reminder';
+import { TestBed, inject } from '@angular/core/testing';
 import { ReminderDataService } from './reminder-data.service';
+import { TestingUtils } from '@nestjs-bff/global-utils-dev/lib/testing.utils';
+import { ReminderEntity } from '@yourapp/global-contracts/lib/domain/reminder/reminder.entity';
 
 describe('ReminderDataService', () => {
   beforeEach(() => {
@@ -19,8 +20,8 @@ describe('ReminderDataService', () => {
     }));
 
     it('should return all reminders', inject([ReminderDataService], (service: ReminderDataService) => {
-      const reminder1 = new Reminder({ title: 'Hello 1', complete: false });
-      const reminder2 = new Reminder({ title: 'Hello 2', complete: true });
+      const reminder1 = new ReminderEntity({ title: 'Hello 1', complete: false });
+      const reminder2 = new ReminderEntity({ title: 'Hello 2', complete: true });
       service.addReminder(reminder1);
       service.addReminder(reminder2);
       expect(service.getAllReminders()).toEqual([reminder1, reminder2]);
@@ -29,8 +30,8 @@ describe('ReminderDataService', () => {
 
   describe('#save(reminder)', () => {
     it('should successfully get reminder by id', inject([ReminderDataService], (service: ReminderDataService) => {
-      const reminder1 = new Reminder({ title: 'Hello 1', complete: false });
-      const reminder2 = new Reminder({ title: 'Hello 2', complete: true });
+      const reminder1 = new ReminderEntity({ title: 'Hello 1', complete: false });
+      const reminder2 = new ReminderEntity({ title: 'Hello 2', complete: true });
       service.addReminder(reminder1);
       service.addReminder(reminder2);
       expect(service.getReminderById(reminder1.id)).toEqual(reminder1);
@@ -40,8 +41,8 @@ describe('ReminderDataService', () => {
 
   describe('#deleteReminderById(id)', () => {
     it('should remove reminder with the corresponding id', inject([ReminderDataService], (service: ReminderDataService) => {
-      const reminder1 = new Reminder({ title: 'Hello 1', complete: false });
-      const reminder2 = new Reminder({ title: 'Hello 2', complete: true });
+      const reminder1 = new ReminderEntity({ title: 'Hello 1', complete: false });
+      const reminder2 = new ReminderEntity({ title: 'Hello 2', complete: true });
       service.addReminder(reminder1);
       service.addReminder(reminder2);
       expect(service.getAllReminders()).toEqual([reminder1, reminder2]);
@@ -54,12 +55,12 @@ describe('ReminderDataService', () => {
     it('should not removing anything if reminder with corresponding id is not found', inject(
       [ReminderDataService],
       (service: ReminderDataService) => {
-        const reminder1 = new Reminder({ title: 'Hello 1', complete: false });
-        const reminder2 = new Reminder({ title: 'Hello 2', complete: true });
+        const reminder1 = new ReminderEntity({ title: 'Hello 1', complete: false });
+        const reminder2 = new ReminderEntity({ title: 'Hello 2', complete: true });
         service.addReminder(reminder1);
         service.addReminder(reminder2);
         expect(service.getAllReminders()).toEqual([reminder1, reminder2]);
-        service.deleteReminderById(generateId);
+        service.deleteReminderById(TestingUtils.generateMongoObjectIdString());
         expect(service.getAllReminders()).toEqual([reminder1, reminder2]);
       },
     ));
@@ -69,7 +70,7 @@ describe('ReminderDataService', () => {
     it('should return reminder with the corresponding id and updated data', inject(
       [ReminderDataService],
       (service: ReminderDataService) => {
-        const reminder = new Reminder({ title: 'Hello 1', complete: false });
+        const reminder = new ReminderEntity({ title: 'Hello 1', complete: false });
         service.addReminder(reminder);
         const updatedReminder = service.updateReminderById(reminder.id, {
           title: 'new title',
@@ -79,9 +80,9 @@ describe('ReminderDataService', () => {
     ));
 
     it('should return null if reminder is not found', inject([ReminderDataService], (service: ReminderDataService) => {
-      const reminder = new Reminder({ title: 'Hello 1', complete: false });
+      const reminder = new ReminderEntity({ title: 'Hello 1', complete: false });
       service.addReminder(reminder);
-      const updatedReminder = service.updateReminderById(generateId, {
+      const updatedReminder = service.updateReminderById(TestingUtils.generateMongoObjectIdString(), {
         title: 'new title',
       });
       expect(updatedReminder).toEqual(null);
@@ -90,7 +91,7 @@ describe('ReminderDataService', () => {
 
   describe('#toggleReminderComplete(reminder)', () => {
     it('should return the updated reminder with inverse complete status', inject([ReminderDataService], (service: ReminderDataService) => {
-      const reminder = new Reminder({ title: 'Hello 1', complete: false });
+      const reminder = new ReminderEntity({ title: 'Hello 1', complete: false });
       service.addReminder(reminder);
       const updatedReminder = service.toggleReminderComplete(reminder);
       expect(updatedReminder.complete).toEqual(true);

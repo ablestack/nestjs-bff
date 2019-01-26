@@ -10,4 +10,9 @@ export class ReminderEntity extends UserAndOrgScopedEntity {
 
   @IsDate()
   deadline?: Date;
+
+  constructor(values: Partial<ReminderEntity> = {}) {
+    super();
+    Object.assign(this, values);
+  }
 }

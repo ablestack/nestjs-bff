@@ -1,5 +1,5 @@
-import { TestAuthorizationLiterals, TestFooEntityLiterals, TestOrgLiterals, TestUserLiterals } from '../testing/test-literals.constants';
 import { TestingUtils } from '@nestjs-bff/global-utils-dev/lib/testing.utils';
+import { TestAuthorizationLiterals, TestFooEntityLiterals, TestOrgLiterals, TestUserLiterals } from '../testing/test-literals.constants';
 import { ScopedEntityAuthCheck } from './scoped-entity.authcheck';
 
 //
@@ -30,7 +30,11 @@ describe('GIVEN a ScopedEntityAuthCheck', () => {
       let result;
 
       try {
-        result = await scopedEntityAuthCheck.isAuthorized({ accessPermissions: null, origin: __filename, targetResource: TestFooEntityLiterals.FE_Ua2Oa });
+        result = await scopedEntityAuthCheck.isAuthorized({
+          accessPermissions: null,
+          origin: __filename,
+          targetResource: TestFooEntityLiterals.FE_Ua2Oa,
+        });
       } catch (e) {
         error = e;
       }

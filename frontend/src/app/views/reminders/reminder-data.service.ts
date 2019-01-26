@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Reminder } from './reminder';
+import { TestingUtils } from '@nestjs-bff/global-utils-dev/lib/testing.utils';
+import { ReminderEntity } from '@yourapp/global-contracts/lib/domain/reminder/reminder.entity';
 
 @Injectable({
   providedIn: 'root',
@@ -10,27 +11,27 @@ export class ReminderDataService {
   lastId = 0;
 
   // Placeholder for reminders
-  reminders: Reminder[] = [];
+  reminders: ReminderEntity[] = [];
 
   constructor() {}
 
   // Simulate POST /reminders
-  addReminder(reminder: Reminder): ReminderDataService {
+  addReminder(reminder: ReminderEntity): ReminderDataService {
     if (!reminder.id) {
-      reminder.id = ++this.lastId;
+      reminder.id = TestingUtils.generateMongoObjectIdString();
     }
     this.reminders.push(reminder);
     return this;
   }
 
   // Simulate DELETE /reminders/:id
-  deleteReminderById(id: number): ReminderDataService {
+  deleteReminderById(id: string): ReminderDataService {
     this.reminders = this.reminders.filter(reminder => reminder.id !== id);
     return this;
   }
 
   // Simulate PUT /reminders/:id
-  updateReminderById(id: number, values: Object = {}): Reminder {
+  updateReminderById(id: string, values: Object = {}): ReminderEntity {
     const reminder = this.getReminderById(id);
     if (!reminder) {
       return null;
@@ -40,17 +41,17 @@ export class ReminderDataService {
   }
 
   // Simulate GET /reminders
-  getAllReminders(): Reminder[] {
+  getAllReminders(): ReminderEntity[] {
     return this.reminders;
   }
 
   // Simulate GET /reminders/:id
-  getReminderById(id: number): Reminder {
+  getReminderById(id: string): ReminderEntity {
     return this.reminders.filter(reminder => reminder.id === id).pop();
   }
 
   // Toggle reminder complete
-  toggleReminderComplete(reminder: Reminder) {
+  toggleReminderComplete(reminder: ReminderEntity) {
     const updatedReminder = this.updateReminderById(reminder.id, {
       complete: !reminder.complete,
     });
