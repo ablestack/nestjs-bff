@@ -15,8 +15,11 @@
     {
       "path": "..\\frontend"
     },
+	 {
+      "path": "..\\global"
+    },
     {
-      "path": "..\\packages"
+      "path": "..\\pkg-bff"
     },
   ],
   "settings": {

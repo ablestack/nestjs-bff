@@ -1,0 +1,9 @@
+{
+  "extends": "../pkg-bff/tsconfig-base",
+  "compilerOptions": {
+    "outDir": "lib",
+    "rootDir": "src"
+  },
+  "include": ["src"],
+  "references": [{ "path": "../pkg-bff/global-contracts" }]
+}

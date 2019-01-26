@@ -1,23 +1,13 @@
 {
   "version": "1.0.3",
-  "packages": [
-    ".",
-    "../backend",
-    "../cli",
-    "../frontend",
-    "../packages/*"
-  ],
+  "packages": [".", "../backend", "../cli", "../frontend", "../global", "../pkg-bff/*"],
   "npmClient": "npm",
   "command": {
     "publish": {
-      "ignoreChanges": [
-        "*.md"
-      ]
+      "ignoreChanges": ["*.md"]
     },
     "bootstrap": {
-      "npmClientArgs": [
-        "--no-package-lock"
-      ]
+      "npmClientArgs": ["--no-package-lock"]
     }
   }
 }
