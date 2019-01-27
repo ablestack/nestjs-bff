@@ -1,10 +1,9 @@
-import { prompt as ask } from 'inquirer';
 import * as yargs from 'yargs'; // eslint-disable-line no-unused-vars
-import { MigrationsService } from '../../../backend/src/migrations/migrations.service';
+import { MigrationsSharedService } from '@nestjs-bff/backend/lib/shared/migrations/migrations.shared.service';
 import { NestjsBffAppContainer } from '../nestjsBffAppContainer';
-import { LoggerService } from '../../../backend/src/common/services/logger.service';
+import { LoggerSharedService } from '@nestjs-bff/backend/lib/shared/logging/logger.shared.service';
 
-export let loggerService: LoggerService; // This needs to be initialized by the commandLoader
+export let loggerService: LoggerSharedService; // This needs to be initialized by the commandLoader
 export interface IParams {
   migrationName: string;
 }
@@ -17,8 +16,8 @@ export const builder: { [key: string]: yargs.Options } = {
 };
 export async function handler({ migrationName }: IParams) {
   await NestjsBffAppContainer.ensureInitialized().then(() => {
-    const migrationService = NestjsBffAppContainer.appInstance.get(MigrationsService);
-    migrationService.create(migrationName).then(() => {
+    const migrationService = NestjsBffAppContainer.appInstance.get(MigrationsSharedService);
+    migrationService.create('', migrationName).then(() => {
       process.exit(0);
     });
   });
