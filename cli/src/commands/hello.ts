@@ -1,9 +1,8 @@
 import { prompt as ask } from 'inquirer';
 import * as yargs from 'yargs'; // eslint-disable-line no-unused-vars
-import { LoggerService } from '../../../backend/src/common/services/logger.service';
-import { ConsoleLoggerService } from '../../../backend/src/common/services/consolelogger.service';
+import { LoggerSharedService } from '@nestjs-bff/backend/lib/shared/logging/logger.shared.service';
 
-export let loggerService: LoggerService = null; // This needs to be initialized by the commandLoader
+export let loggerService: LoggerSharedService = null; // This needs to be initialized by the commandLoader
 
 async function askName(): Promise<string> {
   loggerService.log(':wave:  Hello stranger!');

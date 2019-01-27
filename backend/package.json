@@ -28,7 +28,6 @@
   "dependencies": {
     "@nestjs-bff/backend": "^1.1.0",
     "@nestjs-bff/global-contracts": "^1.1.0",
-    "@nestjs-bff/global-utils-dev": "^1.1.0",
     "@nestjs-bff/global-utils-prod": "^1.1.0",
     "@nestjs/common": "^5.6.2",
     "@nestjs/core": "^5.6.2",
@@ -51,6 +50,7 @@
     "rxjs": "^6.3.3"
   },
   "devDependencies": {
+    "@nestjs-bff/global-utils-dev": "^1.1.0",
     "@types/cache-manager": "^1.2.6",
     "@types/jest": "^23.3.12",
     "@types/node": "^10.12.18",
