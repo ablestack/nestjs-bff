@@ -1,6 +1,6 @@
 {
   "name": "@nestjs-bff/backend",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A backend module for nestjs-bff",
   "author": "ahrnee",
   "license": "MIT",
@@ -35,8 +35,8 @@
     "url": "https://github.com/ahrnee/nestjs-bff/issues"
   },
   "dependencies": {
-    "@nestjs-bff/global-contracts": "^1.1.1",
-    "@nestjs-bff/global-utils-prod": "^1.1.1",
+    "@nestjs-bff/global-contracts": "^1.1.2",
+    "@nestjs-bff/global-utils-prod": "^1.1.2",
     "@nestjs/common": "^5.6.2",
     "@nestjs/core": "^5.6.2",
     "@nestjs/testing": "^5.6.2",
@@ -58,7 +58,7 @@
     "winston-daily-rotate-file": "^3.6.0"
   },
   "devDependencies": {
-    "@nestjs-bff/global-utils-dev": "^1.1.1",
+    "@nestjs-bff/global-utils-dev": "^1.1.2",
     "@types/bcrypt-nodejs": "0.0.30",
     "@types/body-parser": "^1.17.0",
     "@types/cache-manager": "^1.2.6",
