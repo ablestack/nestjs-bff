@@ -18,7 +18,6 @@
       "url": "https://github.com/ahrnee/nestjs-bff.git"
     },
     "scripts": {
-      "install": "lerna exec -- yarn install && yarn run packages:build",
       "clean": "lerna run clean",
       "build": "tsc --build ../tsconfig-all-ref.json --verbose",
       "rebuild": "yarn run build -- --force",

@@ -8,6 +8,7 @@
     "global",
     "pkg-bff/*"
   ],
+  "useWorkspaces": true,
   "npmClient": "yarn",
   "command": {
     "publish": {

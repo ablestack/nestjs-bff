@@ -40,6 +40,7 @@
     "ng2-charts": "^1.6.0",
     "ngx-bootstrap": "^3.0.1",
     "ngx-perfect-scrollbar": "^7.2.0",
+    "perfect-scrollbar": "^1.4.0",
     "popper.js": "^1.14.6",
     "rxjs": "~6.3.3",
     "rxjs-compat": "^6.3.3",
