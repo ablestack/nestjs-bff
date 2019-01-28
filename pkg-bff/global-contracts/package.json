@@ -35,6 +35,6 @@
     "jest": "^24.0.0",
     "jest-extended": "^0.11.0",
     "prettier": "^1.15.2",
-    "tslint": "^5.12.1"
+    "tslint": "~5.11.0"
   }
 }
