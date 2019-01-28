@@ -19,6 +19,7 @@ node_modules
 
 # misc
 npm-debug.log
+yarn-error.log
 
 # example
 /quick-start

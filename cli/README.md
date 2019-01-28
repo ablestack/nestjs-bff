@@ -37,7 +37,7 @@ The primary set of services that are currently exposed via the CLI are for datab
 
 ```bash
 # install dependencies for all sub projects (api, cli, webfrontend)
-$ npm run install-all
+$ yarn run install-all
 
 ```
 
@@ -56,7 +56,7 @@ $ <TODO>
 
 ```bash
 # Windows
-$ npm install -g ts-node
+$ yarn install -g ts-node
 
 ```
 

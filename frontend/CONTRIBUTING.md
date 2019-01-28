@@ -133,7 +133,7 @@ included in the project:
 
 Inspired by Sparkbox's awesome article on [semantic commit messages](http://seesparkbox.com/foundry/semantic_commit_messages). Please use following commit message format.
 
-* chore (updating npm tasks etc; no production code change) -> ```git test -m 'chore: commit-message-here'```
+* chore (updating yarn tasks etc; no production code change) -> ```git test -m 'chore: commit-message-here'```
 * docs (changes to documentation) -> ```git commit -m 'docs: commit-message-here'```
 * feat (new feature) -> ```git commit -m 'feat: commit-message-here'```
 * fix (bug fix) -> ```git commit -m 'fix: commit-message-here'```

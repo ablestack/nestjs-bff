@@ -27,7 +27,7 @@ The NestJS-BFF DevOps directory contains scripts, tooling, and documentation des
 
 ```bash
 # install dependencies for all sub projects (backend, cli, frontend), and a Docker MongoDB image
-$ npm run install-all-with-docker
+$ yarn run install-all-with-docker
 ```
 
 ## Start
@@ -36,7 +36,7 @@ To start the Frontend and Backend, navigate to the devops folder of Nestjs-Bff r
 
 ```bash
 # run backend, frontend, and a Docker hosted MongoDB instance
-$ npm run start-all-with-docker
+$ yarn run start-all-with-docker
 
 ```
 
@@ -49,7 +49,7 @@ If you would like to develop and test updates to the companion Nestjs-bff packag
 ```bash
 # Symlink the packages for local development
 
-$ npm run packages:link
+$ yarn run packages:link
 ```
 
 ### Permanent

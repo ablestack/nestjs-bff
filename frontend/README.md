@@ -31,7 +31,7 @@ Navigate to the root of Nestjs-Bff repo, the run then following command:
 
 ```bash
 # install dependencies for all sub projects (api, cli, webfrontend)
-$ npm run install-all
+$ yarn run install-all
 
 ```
 
@@ -41,7 +41,7 @@ Navigate to /frontend, then run the following command:
 
 ```bash
 # install dependencies
-$ npm install
+$ yarn install
 
 ```
 
@@ -52,10 +52,10 @@ $ npm install
 $ cd frontend
 
 # serve with hot reload at localhost:4200.
-$ npm start
+$ yarn start
 
 # build for production with minification
-$ npm build
+$ yarn build
 
 ```
 

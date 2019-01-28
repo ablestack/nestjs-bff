@@ -29,7 +29,7 @@ Based on the standard Nest CLI generated API, with the following customizations 
 
 ```bash
 # install dependencies for all sub projects (backend, cli, frontend)
-$ npm run install-all
+$ yarn run install-all
 ```
 
 Or
@@ -38,7 +38,7 @@ Or
 
 ```bash
 # install dependencies for backend only
-$ npm install
+$ yarn install
 ```
 
 ## API Configuration
@@ -54,7 +54,7 @@ Various self-explanatory configuration options are available via the config fold
 
 ```bash
 # development
-$ npm run start
+$ yarn run start
 ```
 
 View at: http://localhost:3000
@@ -65,16 +65,16 @@ View at: http://localhost:3000
 
 ```bash
 # e2e tests
-$ npm run e2e-with-docker
+$ yarn run e2e-with-docker
 ```
 
 <!---
     Not avaialable yet:
     # unit tests
-    $ npm run test
+    $ yarn run test
 
     # test coverage
-    $ npm run test:cov
+    $ yarn run test:cov
 --->
 
 ## Readme Navigation
