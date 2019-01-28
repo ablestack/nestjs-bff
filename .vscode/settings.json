@@ -1,28 +1,4 @@
 {
-  "folders": [
-    {
-      "path": "..\\backend"
-    },
-    {
-      "path": "..\\cli"
-    },
-    {
-      "path": "..\\devops"
-    },
-    {
-      "path": "..\\docs"
-    },
-    {
-      "path": "..\\frontend"
-    },
-	 {
-      "path": "..\\global"
-    },
-    {
-      "path": "..\\pkg-bff"
-    },
-  ],
-  "settings": {
     "prettier.printWidth": 140,
     "cSpell.words": [
       "Injectable",
@@ -30,6 +6,8 @@
       "authorizationcheck",
       "autosync",
       "backend",
+      "devops",
+      "lerna",
       "mockingoose",
       "nestjs",
       "virtuals",
@@ -38,5 +16,4 @@
     "tslint.autoFixOnSave": true,
     "typescript.preferences.quoteStyle": "single",
     "prettier.singleQuote": true
-  }
 }

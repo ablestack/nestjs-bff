@@ -1,20 +1,20 @@
 # Nestjs-BFF
 
 <p align="center">
-  <a href="../README.md">Overview</a>
+  <a href="README.md">Overview</a>
   &nbsp;&nbsp;&nbsp;
-	<a href="../frontend/README.md">Frontend</a>
+	<a href="frontend/README.md">Frontend</a>
   &nbsp;&nbsp;&nbsp;
-	<a href="../backend/README.md">Backend</a>
+	<a href="backend/README.md">Backend</a>
   &nbsp;&nbsp;&nbsp;
-	<a href="../cli/README.md">CLI</a>
+	<a href="cli/README.md">CLI</a>
   &nbsp;&nbsp;&nbsp;
-	<i><a href="README.md">DevOps</a></i>
+	<i><a href="DEVOPS.md">DevOps</a></i>
 </p>
 
 ## Overview
 
-The NestJS-BFF DevOps directory contains scripts, tooling, and documentation designed to automate and simplify the operational aspects of running a NestJS-BFF application.
+The NestJS-BFF root folder contains scripts, tooling, and documentation designed to automate and simplify the operational aspects of running a NestJS-BFF application.
 
 ## Installation
 
@@ -23,7 +23,7 @@ The NestJS-BFF DevOps directory contains scripts, tooling, and documentation des
 2.  Ensure you have a console installed that can run
     Linux shell commands. [Cmder](http://cmder.net) is an excellent option for Windows machines, and [can be integrated into VS Code](https://github.com/cmderdev/cmder/wiki/Seamless-VS-Code-Integration)
 
-3.  Navigate to the devops folder of Nestjs-Bff repo, the run the following command:
+3.  Navigate to the root folder of Nestjs-Bff repo, the run the following command:
 
 ```bash
 # install dependencies for all sub projects (backend, cli, frontend), and a Docker MongoDB image
@@ -32,7 +32,7 @@ $ yarn run install-all-with-docker
 
 ## Start
 
-To start the Frontend and Backend, navigate to the devops folder of Nestjs-Bff repo, the run the following command:
+To start the Frontend and Backend, navigate to the root folder of Nestjs-Bff repo, the run the following command:
 
 ```bash
 # run backend, frontend, and a Docker hosted MongoDB instance
@@ -60,8 +60,8 @@ If you would like to make permanent custom updates to the companion Nestjs-bff p
 
 Further details on each of the systems contained in this project can be found via the following links:
 
-- [Overview](../README.md)
-- [Frontend](../frontend/README.md)
-- [API](../backend/README.md)
-- [CLI](../cli/README.md)
-- _[DevOps](devops/README.md)_
+- [Overview](README.md)
+- [Frontend](frontend/README.md)
+- [API](backend/README.md)
+- [CLI](cli/README.md)
+- _[DevOps](DEVOPS.md)_

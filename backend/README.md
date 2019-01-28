@@ -9,7 +9,7 @@
   &nbsp;&nbsp;&nbsp;
 	<a href="../cli/README.md">CLI</a>
   &nbsp;&nbsp;&nbsp;
-	<a href="../devops/README.md">DevOps</a>
+	<a href="../DEVOPS.md">DevOps</a>
 </p>
 
 ## API Overview
@@ -25,7 +25,7 @@ Based on the standard Nest CLI generated API, with the following customizations 
 
 ## Backend Installation
 
-1.  Navigate /devops, the run then following command:
+1.  Navigate to the root folder, the run then following command:
 
 ```bash
 # install dependencies for all sub projects (backend, cli, frontend)
@@ -85,4 +85,4 @@ Further details on each of the systems contained in this project can be found vi
 - [Frontend](../frontend/README.md)
 - _[Backend](README.md)_
 - [CLI](../cli/README.md)
-- [DevOps](../devops/README.md)
+- [DevOps](../DEVOPS.md)

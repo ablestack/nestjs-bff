@@ -9,7 +9,7 @@
   &nbsp;&nbsp;&nbsp;
 	<a href="cli/README.md">CLI</a>
   &nbsp;&nbsp;&nbsp;
-	<a href="devops/README.md">DevOps</a>
+	<a href="DEVOPS.md">DevOps</a>
 </p>
 
 ## Overview

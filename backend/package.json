@@ -11,7 +11,6 @@
     "rebuild": "rm -rf dist && tsc --build",
     "e2e-with-docker": "concurrently --kill-others \"yarn run mongodb-docker\" \"yarn run e2e\"",
     "e2e": "jest --config ./e2e/jest-e2e.json --detectOpenHandles",
-    "e2e-with-full-build": "cd ../devops && yarn run packages:build && cd ../backend && yarn run e2e",
     "format": "prettier --write \"**/*.ts\"",
     "install-docker-mongodb": "docker-compose pull mongodb",
     "mongodb-docker": "docker-compose up mongodb",

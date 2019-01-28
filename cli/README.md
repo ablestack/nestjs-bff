@@ -9,7 +9,7 @@
   &nbsp;&nbsp;&nbsp;
 	<i><a href="../cli/README.md">CLI</a></i>
   &nbsp;&nbsp;&nbsp;
-	<a href="../devops/README.md">DevOps</a>
+	<a href="../DEVOPS.md">DevOps</a>
 </p>
 
 ## CLI Overview
@@ -108,4 +108,4 @@ Further details on each of the systems contained in this project can be found vi
 - [Frontend](../frontend/README.md)
 - [Backend](../backend/README.md)
 - _[CLI](README.md)_
-- [DevOps](../devops/README.md)
+- [DevOps](../DEVOPS.md)
