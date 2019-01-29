@@ -1,5 +1,10 @@
 {
   "private": true,
+  "workspaces": {
+    "nohoist": [
+      "chart.js"
+    ]
+  },
   "name": "@yourapp/frontend",
   "version": "1.1.4",
   "description": "A working example of a Nestjs-BFF angular web-app frontend",
