@@ -10,7 +10,7 @@
     "url": "https://github.com/ahrnee/nestjs-bff.git"
   },
   "scripts": {
-    "bootstrap": "lerna bootstrap --stream",
+    "bootstrap": "lerna bootstrap",
     "build": "tsc --build tsconfig-all-ref.json --verbose",
     "rebuild": "yarn run build -- --force",
     "start": "concurrently --kill-others \"lerna run start --stream --scope @yourapp/backend\" \"lerna run start --stream --scope @yourapp/frontend\"",
@@ -18,7 +18,7 @@
     "e2e": "lerna run e2e --stream",
     "check": "yarn clean && yarn build && yarn test && yarn e2e",
     "clean": "lerna run clean --stream",
-    "packages:link": "lerna bootstrap --stream",
+    "packages:link": "lerna bootstrap",
     "packages:publish": "yarn run packages:build && lerna publish --stream",
     "packages:build": "tsc --build tsconfig-pkg-ref.json --verbose",
     "packages:rebuild": "tsc --build --force tsconfig-pkg-ref.json --verbose",
