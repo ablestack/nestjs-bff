@@ -1,6 +1,6 @@
 {
   "version": "1.1.4",
-  "packages": ["backend", "cli", "devops", "frontend", "global", "pkg-bff/*"],
+  "packages": ["backend", "cli", "frontend", "global", "pkg-bff/*"],
   "useWorkspaces": false,
   "npmClient": "yarn",
   "command": {

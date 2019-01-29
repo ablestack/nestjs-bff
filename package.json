@@ -1,12 +1,5 @@
 {
   "private": true,
-  "workspaces": [
-    "backend",
-    "cli",
-    "devops",
-    "global",
-    "pkg-bff/*"
-  ],
   "name": "nestjs-bff",
   "version": "1.1.4",
   "description": "A Nestjs Backend-For-Frontend with CLI",
@@ -17,14 +10,14 @@
     "url": "https://github.com/ahrnee/nestjs-bff.git"
   },
   "scripts": {
-    "install-all": "yarn install && yarn --cwd \"./frontend\" install",
-    "clean": "lerna run clean",
+    "bootstrap": "lerna bootstrap",
     "build": "tsc --build tsconfig-all-ref.json --verbose",
     "rebuild": "yarn run build -- --force",
     "start": "concurrently --kill-others \"lerna run start --stream --scope @yourapp/backend\" \"lerna run start --stream --scope @yourapp/frontend\"",
     "test": "lerna run test",
     "e2e": "lerna run e2e",
     "check": "yarn clean && yarn build && yarn test && yarn e2e",
+    "clean": "lerna run clean",
     "packages:link": "lerna bootstrap",
     "packages:publish": "yarn run packages:build && lerna publish",
     "packages:build": "tsc --build tsconfig-pkg-ref.json --verbose",

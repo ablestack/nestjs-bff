@@ -29,6 +29,7 @@
     "@coreui/icons": "0.3.0",
     "@nestjs-bff/global-contracts": "^1.1.4",
     "@nestjs-bff/global-utils-prod": "^1.1.4",
+    "@yourapp/global": "file:../global",
     "bootstrap": "^4.1.3",
     "chart.js": "^2.7.3",
     "core-js": "^2.5.4",
