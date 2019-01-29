@@ -5,5 +5,5 @@
     "rootDir": "."
   },
   "include": ["./**/*"],
-  "references": [{ "path": "../../global-contracts" }, { "path": "../../global-utils-prod" }]
+  "references": [{ "path": "../../global-contracts" }, { "path": "../../global-utils-prod" }, { "path": "../../global-utils-dev" }]
 }
