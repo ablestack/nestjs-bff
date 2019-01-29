@@ -26,11 +26,8 @@ The NestJS-BFF root folder contains scripts, tooling, and documentation designed
 3.  Navigate to the root folder of Nestjs-Bff repo, the run the following command:
 
 ```bash
-# install dependencies for all sub projects (backend, cli, frontend), and a Docker MongoDB image
-$ yarn install-with-docker
-
-# if you wish to use a local installation of MongoDB instead of docker, you can use the following command instead
-$ yarn install-all
+# install dependencies for all projects and symlink local dependencies
+$ yarn bootstrap
 
 ```
 

@@ -22,9 +22,7 @@
     "packages:publish": "yarn run packages:build && lerna publish --stream",
     "packages:build": "tsc --build tsconfig-pkg-ref.json --verbose",
     "packages:rebuild": "tsc --build --force tsconfig-pkg-ref.json --verbose",
-    "install-with-docker": "yarn run install-all && yarn run install-docker-mongodb",
     "start-with-docker": "concurrently --kill-others \"lerna run start-docker-mongodb --stream --scope @yourapp/backend\" \"yarn run start\"",
-    "install-docker-mongodb": "lerna run install-docker-mongodb --stream --scope @yourapp/backend",
     "db-seed:dev": "ts-node cli migration-custom --filename seed-dev --direction up"
   },
   "devDependencies": {
