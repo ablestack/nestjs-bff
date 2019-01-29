@@ -26,7 +26,7 @@ The NestJS-BFF root folder contains scripts, tooling, and documentation designed
 3.  Navigate to the root folder of Nestjs-Bff repo, the run the following command:
 
 ```bash
-# install dependencies for all projects and symlink local dependencies
+# installs dependencies for all projects, symlinks local dependencies, and compiles the typescript
 $ yarn bootstrap
 
 ```
