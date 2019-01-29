@@ -27,7 +27,11 @@ The NestJS-BFF root folder contains scripts, tooling, and documentation designed
 
 ```bash
 # install dependencies for all sub projects (backend, cli, frontend), and a Docker MongoDB image
-$ yarn run install-all-with-docker
+$ yarn install-with-docker
+
+# if you wish to use a local installation of MongoDB instead of docker, you can use the following command instead
+$ yarn install-all
+
 ```
 
 ## Start
@@ -36,25 +40,13 @@ To start the Frontend and Backend, navigate to the root folder of Nestjs-Bff rep
 
 ```bash
 # run backend, frontend, and a Docker hosted MongoDB instance
-$ yarn run start-all-with-docker
+$ yarn start-with-docker
+
+# if you wish to use a local installation of MongoDB instead of docker, you can use the following command instead
+$ yarn start
+
 
 ```
-
-## Local Package Development
-
-### Temporary
-
-If you would like to develop and test updates to the companion Nestjs-bff packages, you can run the following commands to create symlinks
-
-```bash
-# Symlink the packages for local development
-
-$ yarn run packages:link
-```
-
-### Permanent
-
-If you would like to make permanent custom updates to the companion Nestjs-bff packages, for your Nestjs-BFF application to consume, you can leverage [NPM local paths](https://docs.npmjs.com/files/package.json#local-paths) to enable this. Simply update your package.json files to use [NPM local paths](https://docs.npmjs.com/files/package.json#local-paths) for any packages in the package directory that you wish to customize. However, please note, this will mean that you will not longer be able to benefit from future published updates to the companion packages.
 
 ## Readme Navigation
 

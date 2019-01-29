@@ -24,7 +24,7 @@ This is a Mono-repo project containing a [Backend](backend/README.md), companion
 
 ## Installation & Usage
 
-See the [DevOps](devops/README.md) documentation and folder for instructions and scripts to install, run, and maintain nestjs-bff applications
+See the [DevOps](README.md) documentation and folder for instructions and scripts to install, run, and maintain nestjs-bff applications
 
 ## Key Features
 

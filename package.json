@@ -4,7 +4,6 @@
     "backend",
     "cli",
     "devops",
-    "frontend",
     "global",
     "pkg-bff/*"
   ],
@@ -18,10 +17,11 @@
     "url": "https://github.com/ahrnee/nestjs-bff.git"
   },
   "scripts": {
+    "install-all": "yarn install && yarn --cwd \"./frontend\" install",
     "clean": "lerna run clean",
     "build": "tsc --build tsconfig-all-ref.json --verbose",
     "rebuild": "yarn run build -- --force",
-    "start": "concurrently --kill-others \"lerna run start --scope @yourapp/backend\" \"lerna run start --scope @yourapp/backend\"",
+    "start": "concurrently --kill-others \"lerna run start --stream --scope @yourapp/backend\" \"lerna run start --stream --scope @yourapp/frontend\"",
     "test": "lerna run test",
     "e2e": "lerna run e2e",
     "check": "yarn clean && yarn build && yarn test && yarn e2e",
@@ -29,9 +29,9 @@
     "packages:publish": "yarn run packages:build && lerna publish",
     "packages:build": "tsc --build tsconfig-pkg-ref.json --verbose",
     "packages:rebuild": "tsc --build --force tsconfig-pkg-ref.json --verbose",
-    "install-docker-mongodb": "lerna run install-docker-mongodb --scope @yourapp/backend",
-    "install-all-with-docker": "yarn run install && yarn run install-docker-mongodb",
-    "start-all-with-docker": "concurrently --kill-others \"lerna run start-docker-mongodb --scope @yourapp/backend\" \"yarn run start\"",
+    "install-with-docker": "yarn run install-all && yarn run install-docker-mongodb",
+    "start-with-docker": "concurrently --kill-others \"lerna run start-docker-mongodb --stream --scope @yourapp/backend\" \"yarn run start\"",
+    "install-docker-mongodb": "lerna run install-docker-mongodb --stream --scope @yourapp/backend",
     "db-seed:dev": "ts-node cli migration-custom --filename seed-dev --direction up"
   },
   "devDependencies": {
