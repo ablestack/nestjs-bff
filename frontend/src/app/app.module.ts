@@ -35,11 +35,12 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { ErrorInterceptor, JwtInterceptor } from './interceptors';
 import { AuthenticationService } from './services';
 import { AuthGuard } from './guards';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { ReminderComponent } from './views/reminders/reminder.component';
 
 @NgModule({
   imports: [
-    HttpClientModule,
+    HttpClient,
     BrowserModule,
     AppRoutingModule,
     AppAsideModule,
@@ -54,7 +55,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
     TabsModule.forRoot(),
     ChartsModule,
   ],
-  declarations: [AppComponent, ...APP_CONTAINERS, P404Component, P500Component, LoginComponent, RegisterComponent],
+  declarations: [AppComponent, ...APP_CONTAINERS, P404Component, P500Component, LoginComponent, RegisterComponent, ReminderComponent],
   providers: [
     {
       provide: LocationStrategy,

@@ -1,16 +1,16 @@
-import { ReminderEntity } from '@yourapp/global/lib/domain/reminder/reminder.entity';
+import { Reminder } from './reminder';
 
-describe('ReminderEntity', () => {
+describe('Reminder', () => {
   it('should create an instance', () => {
-    expect(new ReminderEntity()).toBeTruthy();
+    expect(new Reminder()).toBeTruthy();
   });
 
   it('should accept values in the constructor', () => {
-    const todo = new ReminderEntity({
+    let reminder = new Reminder({
       title: 'hello',
       complete: true,
     });
-    expect(todo.title).toEqual('hello');
-    expect(todo.complete).toEqual(true);
+    expect(reminder.title).toEqual('hello');
+    expect(reminder.complete).toEqual(true);
   });
 });

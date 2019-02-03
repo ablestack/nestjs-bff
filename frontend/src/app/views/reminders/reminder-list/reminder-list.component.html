@@ -1,0 +1,14 @@
+<section class="main" *ngIf="reminders.length > 0">
+  <ul class="reminder-list">
+    <li
+      *ngFor="let reminder of reminders"
+      [class.completed]="reminder.complete"
+    >
+      <app-reminder-list-item
+        [reminder]="reminder"
+        (toggleComplete)="onToggleReminderComplete($event)"
+        (remove)="onRemoveReminder($event)"
+      ></app-reminder-list-item>
+    </li>
+  </ul>
+</section>

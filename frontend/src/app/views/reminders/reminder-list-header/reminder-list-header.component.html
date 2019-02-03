@@ -1,0 +1,10 @@
+<header class="header">
+  <h1>Reminders</h1>
+  <input
+    class="new-reminder"
+    placeholder="What needs to be done?"
+    autofocus=""
+    [(ngModel)]="newReminder.title"
+    (keyup.enter)="addReminder()"
+  />
+</header>

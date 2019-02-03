@@ -1,0 +1,10 @@
+<div class="view">
+  <input
+    class="toggle"
+    type="checkbox"
+    (click)="toggleReminderComplete(reminder)"
+    [checked]="reminder.complete"
+  />
+  <label>{{ reminder.title }}</label>
+  <button class="destroy" (click)="removeReminder(reminder)"></button>
+</div>

@@ -16,9 +16,7 @@
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
             "polyfills": "src/polyfills.ts",
-            "assets": [
-              "src/assets"
-            ],
+            "assets": ["src/assets"],
             "styles": [
               "node_modules/@coreui/icons/css/coreui-icons.css",
               "node_modules/flag-icon-css/css/flag-icon.css",
@@ -29,9 +27,7 @@
             "stylePreprocessorOptions": {
               "includePaths": ["./node_modules"]
             },
-            "scripts": [
-              "node_modules/chart.js/dist/Chart.min.js"
-            ]
+            "scripts": ["node_modules/chart.js/dist/Chart.min.js"]
           },
           "configurations": {
             "production": {
@@ -77,9 +73,7 @@
             "karmaConfig": "./karma.conf.js",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
-            "scripts": [
-              "node_modules/chart.js/dist/Chart.min.js"
-            ],
+            "scripts": ["node_modules/chart.js/dist/Chart.min.js"],
             "styles": [
               "node_modules/flag-icon-css/css/flag-icon.css",
               "node_modules/font-awesome/css/font-awesome.css",
@@ -89,28 +83,20 @@
             "stylePreprocessorOptions": {
               "includePaths": ["./node_modules"]
             },
-            "assets": [
-              "src/assets",
-              "src/favicon.ico"
-            ]
+            "assets": ["src/assets", "src/favicon.ico"]
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
     },
     "ng-e2e": {
-      "root": "",
+      "root": "e2e",
       "sourceRoot": "",
       "projectType": "application",
       "architect": {
@@ -124,12 +110,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }

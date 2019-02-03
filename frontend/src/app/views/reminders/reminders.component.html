@@ -1,0 +1,11 @@
+<section class="reminderapp">
+  <app-reminder-list-header
+    (add)="onAddReminder($event)"
+  ></app-reminder-list-header>
+  <app-reminder-list
+    [reminders]="reminders"
+    (toggleComplete)="onToggleReminderComplete($event)"
+    (remove)="onRemoveReminder($event)"
+  ></app-reminder-list>
+  <app-reminder-list-footer [reminders]="reminders"></app-reminder-list-footer>
+</section>

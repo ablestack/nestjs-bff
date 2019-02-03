@@ -54,7 +54,7 @@ Various self-explanatory configuration options are available via the config fold
 
 ```bash
 # development
-$ yarn run start
+$ yarn start
 ```
 
 View at: http://localhost:3000
@@ -65,7 +65,7 @@ View at: http://localhost:3000
 
 ```bash
 # e2e tests
-$ yarn run e2e-with-docker
+$ yarn e2e-with-docker
 ```
 
 <!---
