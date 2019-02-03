@@ -10,7 +10,7 @@
     "url": "https://github.com/ahrnee/nestjs-bff.git"
   },
   "scripts": {
-    "bootstrap": "yarn patience && lerna bootstrap && yarn build",
+    "bootstrap": "yarn patience && yarn install && lerna bootstrap && yarn build && lerna run docker-pull   ",
     "build": "tsc --build tsconfig-all-ref.json --verbose",
     "rebuild": "yarn run build -- --force",
     "start": "concurrently --kill-others \"lerna run start --stream --scope @yourapp/backend\" \"lerna run start --stream --scope @yourapp/frontend\"",
@@ -22,9 +22,9 @@
     "packages:publish": "yarn run packages:build && lerna publish --stream",
     "packages:build": "tsc --build tsconfig-pkg-ref.json --verbose",
     "packages:rebuild": "tsc --build --force tsconfig-pkg-ref.json --verbose",
-    "start-with-docker": "concurrently --kill-others \"lerna run start-docker-mongodb --stream --scope @yourapp/backend\" \"yarn run start\"",
+    "start-with-docker": "concurrently --kill-others \"lerna run start-with-docker --stream --scope @yourapp/backend\" \"yarn run start\"",
     "db-seed:dev": "ts-node cli migration-custom --filename seed-dev --direction up",
-    "patience": "echo --------------------------------------------- \n\n bootstrapping nestjs-bff may take a few minutes. This might be a good time to make a cup of tea... \n"
+    "patience": "echo -e '--------------------------------------------- \n\n bootstrapping nestjs-bff may take a few minutes. This might be a good time to make a cup of tea... \n'"
   },
   "devDependencies": {
     "concurrently": "^4.1.0",

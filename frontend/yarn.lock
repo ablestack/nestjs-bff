@@ -291,20 +291,6 @@
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@coreui/icons/-/icons-0.3.0.tgz#d5bece91b1442a9543593d1146bc8042b18489e3"
 
-"@nestjs-bff/global-contracts@^1.1.4":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@nestjs-bff/global-contracts/-/global-contracts-1.1.4.tgz#0951ddfdbfe8f3b0c82914c9f612d078bd82a90a"
-  dependencies:
-    class-validator "^0.9.1"
-
-"@nestjs-bff/global-utils-dev@^1.1.4":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@nestjs-bff/global-utils-dev/-/global-utils-dev-1.1.4.tgz#a6119de960316669db5bdd487bb1ea15b37635e7"
-
-"@nestjs-bff/global-utils-prod@^1.1.4":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@nestjs-bff/global-utils-prod/-/global-utils-prod-1.1.4.tgz#5eb3a506fa7ce6ffb917d5872af63342dd10c67c"
-
 "@ngtools/webpack@7.2.3":
   version "7.2.3"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-7.2.3.tgz#11d69c3183ff576efba89a510817fd77f8e87da9"
@@ -510,12 +496,6 @@
 "@yarnpkg/lockfile@1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@yarnpkg/lockfile/-/lockfile-1.1.0.tgz#e77a97fbd345b76d83245edcd17d393b1b41fb31"
-
-"@yourapp/global@file:../global":
-  version "1.1.4"
-  dependencies:
-    "@nestjs-bff/global-contracts" "^1.1.4"
-    class-validator "^0.9.1"
 
 JSONStream@^1.3.4:
   version "1.3.5"
@@ -1362,13 +1342,6 @@ class-utils@^0.3.5:
     define-property "^0.2.5"
     isobject "^3.0.0"
     static-extend "^0.1.1"
-
-class-validator@^0.9.1:
-  version "0.9.1"
-  resolved "https://registry.yarnpkg.com/class-validator/-/class-validator-0.9.1.tgz#d60e58c5d14abca0a41bce38cf792ad4c46d1531"
-  dependencies:
-    google-libphonenumber "^3.1.6"
-    validator "10.4.0"
 
 clean-css@4.2.1:
   version "4.2.1"
@@ -2738,10 +2711,6 @@ globule@^1.0.0:
     glob "~7.1.1"
     lodash "~4.17.10"
     minimatch "~3.0.2"
-
-google-libphonenumber@^3.1.6:
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/google-libphonenumber/-/google-libphonenumber-3.2.2.tgz#3d9d7ba727e99a50812f21b0ed313723b76c5c54"
 
 graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2:
   version "4.1.15"
@@ -6395,10 +6364,6 @@ validate-npm-package-name@^3.0.0:
   resolved "https://registry.yarnpkg.com/validate-npm-package-name/-/validate-npm-package-name-3.0.0.tgz#5fa912d81eb7d0c74afc140de7317f0ca7df437e"
   dependencies:
     builtins "^1.0.3"
-
-validator@10.4.0:
-  version "10.4.0"
-  resolved "https://registry.yarnpkg.com/validator/-/validator-10.4.0.tgz#ee99a44afb3bb5ed350a159f056ca72a204cfc3c"
 
 vary@~1.1.2:
   version "1.1.2"

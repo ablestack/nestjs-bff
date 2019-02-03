@@ -7,9 +7,9 @@ export const NestjsBffConfigEnv: INestjsBffConfigEnv = {
     mongo: {
       mongoConnectionUri: 'mongodb://localhost',
       options: {
-        dbName: 'my-nestjs-bff-app-e2e',
-      },
-    },
+        dbName: 'my-nestjs-bff-app-e2e'
+      }
+    }
   },
   http: {
     bffDomain: 'localhost',
@@ -21,16 +21,16 @@ export const NestjsBffConfigEnv: INestjsBffConfigEnv = {
     spaPort: 4200,
     get spaRootUrl() {
       return `http://${this.spaDomain}:${this.spaPort}`;
-    },
+    }
   },
   social: {
     facebook: {
       clientID: 'your-secret-clientID-here', // your App ID
-      clientSecret: 'your-client-secret-here', // your App Secret
-    },
+      clientSecret: 'your-client-secret-here' // your App Secret
+    }
   },
   jwt: {
-    jwtPrivateKey: extractKey(`${process.cwd()}\\src\\config\\keys\\jwt.private-key.test.pem`),
-    jwtPublicKey: extractKey(`${process.cwd()}\\src\\config\\keys\\jwt.public-key.test.pem`),
-  },
+    jwtPrivateKey: extractKey(`${process.cwd()}/src/config/keys/jwt.private-key.test.pem`),
+    jwtPublicKey: extractKey(`${process.cwd()}/src/config/keys/jwt.public-key.test.pem`)
+  }
 };

@@ -30,7 +30,7 @@ export const NestjsConfigEnv: INestjsBffConfigEnv = {
     },
   },
   jwt: {
-    jwtPrivateKey: extractKey(`${process.cwd()}\\src\\config\\keys\\jwt.private-key.dev.pem`),
-    jwtPublicKey: extractKey(`${process.cwd()}\\src\\config\\keys\\jwt.public-key.dev.pem`),
+    jwtPrivateKey: extractKey(`${process.cwd()}/src/config/keys/jwt.private-key.dev.pem`),
+    jwtPublicKey: extractKey(`${process.cwd()}/src/config/keys/jwt.public-key.dev.pem`),
   },
 };
