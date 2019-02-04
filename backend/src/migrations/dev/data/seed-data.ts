@@ -58,8 +58,8 @@ export const data = {
     {
       _id: new ObjectId('5c46906bc07baa98e0ce4a36'),
       local: {
-        email: '() => testdata.orga.users.regularuser.userentity.username',
-        hashedPassword: '() => encryption_util_1.generateHashedPassword(testData.orgA.users.regularUser.password)',
+        email: 'user@domain.com',
+        hashedPassword: '$2a$08$fkDiwuscJSWmDqEYo86xpejj7hVPGUkVeOMdRQC/dJhXFSjqPPqky',
       },
       userId: new ObjectId('a00000000000000000000002'),
       createdAt: new Date('2019-01-22T03:39:23.167+0000'),
@@ -69,8 +69,8 @@ export const data = {
     {
       _id: new ObjectId('5c46906bc07baa98e0ce4a3b'),
       local: {
-        email: '() => testdata.orgb.users.adminuser.userentity.username',
-        hashedPassword: '() => encryption_util_1.generateHashedPassword(testData.orgB.users.adminUser.password)',
+        email: 'admin@domain-b.com',
+        hashedPassword: '$2a$08$fkDiwuscJSWmDqEYo86xpejj7hVPGUkVeOMdRQC/dJhXFSjqPPqky',
       },
       userId: new ObjectId('b00000000000000000000001'),
       createdAt: new Date('2019-01-22T03:39:23.251+0000'),
@@ -80,8 +80,19 @@ export const data = {
     {
       _id: new ObjectId('5c46906bc07baa98e0ce4a40'),
       local: {
-        email: '() => testdata.orgc.users.groupadminuser.userentity.username',
-        hashedPassword: '() => encryption_util_1.generateHashedPassword(testData.orgC.users.groupAdminUser.password)',
+        email: 'group-admin@group-admin-domain.com',
+        hashedPassword: '$2a$08$fkDiwuscJSWmDqEYo86xpejj7hVPGUkVeOMdRQC/dJhXFSjqPPqky',
+      },
+      userId: new ObjectId('c00000000000000000000001'),
+      createdAt: new Date('2019-01-22T03:39:23.325+0000'),
+      updatedAt: new Date('2019-01-22T03:39:23.325+0000'),
+      __v: 0,
+    },
+    {
+      _id: new ObjectId('6c46906bc07baa98e0ce4a41'),
+      local: {
+        email: 'sys-admin@sys-admin-domain.com',
+        hashedPassword: '$2a$08$fkDiwuscJSWmDqEYo86xpejj7hVPGUkVeOMdRQC/dJhXFSjqPPqky',
       },
       userId: new ObjectId('c00000000000000000000001'),
       createdAt: new Date('2019-01-22T03:39:23.325+0000'),
