@@ -1,5 +1,13 @@
 {
   "private": true,
+  "workspaces": [
+    "frontend",
+    "backend",
+    "cli",
+    "devops",
+    "global",
+    "pkg-bff/*"
+  ],
   "name": "nestjs-bff",
   "version": "1.1.4",
   "description": "A Nestjs Backend-For-Frontend with CLI",
@@ -10,7 +18,7 @@
     "url": "https://github.com/ahrnee/nestjs-bff.git"
   },
   "scripts": {
-    "bootstrap": "yarn patience && yarn install && lerna bootstrap && yarn build && lerna run docker-pull   ",
+    "bootstrap": "yarn patience && yarn install && yarn build && lerna run docker-pull   ",
     "build": "tsc --build tsconfig-all-ref.json --verbose",
     "rebuild": "yarn run build -- --force",
     "start": "concurrently --kill-others \"lerna run start --stream --scope @yourapp/backend\" \"lerna run start --stream --scope @yourapp/frontend\"",
@@ -28,7 +36,7 @@
   },
   "devDependencies": {
     "concurrently": "^4.1.0",
-    "lerna": "^3.5.1",
+    "lerna": "^3.14.1",
     "ts-node": "~7.0.0",
     "typescript": "^3.2.2"
   }

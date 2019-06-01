@@ -40,7 +40,7 @@
     "@nestjs/common": "^5.6.2",
     "@nestjs/core": "^5.6.2",
     "@nestjs/testing": "^5.6.2",
-    "axios": "^0.18.0",
+    "axios": "^0.19.0",
     "bcrypt-nodejs": "0.0.3",
     "cache-manager": "^2.9.0",
     "class-transformer": "^0.2.0",

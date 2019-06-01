@@ -1,7 +1,4 @@
 {
-  "compilerOptions": {
-    "composite": true
-  },
   "files": [],
   "include": [],
   "references": [{ "path": "./tsconfig-pkg-ref.json" }, { "path": "frontend" }, { "path": "backend" }, { "path": "cli" }]
