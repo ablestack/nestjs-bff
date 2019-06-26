@@ -1,6 +1,7 @@
 # dependencies
 node_modules
 package.lock
+tsconfig.tsbuildinfo
 
 # IDE
 /.idea
