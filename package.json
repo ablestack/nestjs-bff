@@ -1,14 +1,15 @@
 {
   "private": true,
-  "workspaces": { 
+  "workspaces": {
     "packages": [
-    "frontend",
-    "backend",
-    "cli",
-    "devops",
-    "global",
-    "pkg-bff/*"
-  ]},
+      "frontend",
+      "backend",
+      "cli",
+      "devops",
+      "global",
+      "pkg-bff/*"
+    ]
+  },
   "name": "nestjs-bff",
   "version": "1.1.4",
   "description": "A Nestjs Backend-For-Frontend with CLI",
