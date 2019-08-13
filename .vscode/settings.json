@@ -15,5 +15,6 @@
     ],
     "tslint.autoFixOnSave": true,
     "typescript.preferences.quoteStyle": "single",
-    "prettier.singleQuote": true
+    "prettier.singleQuote": true,
+    "vsicons.presets.nestjs": true
 }
