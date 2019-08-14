@@ -25,39 +25,9 @@ The Web Frontend demonstrates how to integrate with the NestJS BFF API, includin
 
 ![Dashboard - leverages CoreUI template](../docs/images/dashboard.jpg 'Dashboard')
 
-## Web Frontend Installation
+## Web Frontend Installation and Usage
 
-Navigate to the root of Nestjs-Bff repo, the run then following command:
-
-```bash
-# install dependencies for all sub projects (api, cli, webfrontend)
-$ yarn run install-all
-
-```
-
-Or
-
-Navigate to /frontend, then run the following command:
-
-```bash
-# install dependencies
-$ yarn install
-
-```
-
-## Web Frontend Usage
-
-```bash
-# go into app's directory
-$ cd frontend
-
-# serve with hot reload at localhost:4200.
-$ yarn start
-
-# build for production with minification
-$ yarn build
-
-```
+This project uses Yarn Workspaces and Lerna to install and run multiple sub-repos from a single command. See the <a href="../DEVOPS.md">DevOps</a> README for instructions on how to install and run this application.
 
 ## Readme Navigation
 

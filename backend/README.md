@@ -23,41 +23,11 @@ Based on the standard Nest CLI generated API, with the following customizations 
 - **Configuration Service**: Strongly typed production-grade configuration system. Centralizes configuration and leverages both .env and fast and flexible ts object literal based configuration
 - **e2e Testing**: e2e testing of controllers and services, including exercising of authentication and authorization
 
-## Backend Installation
+## Backend API Installation and Usage
 
-1.  Navigate to the root folder, the run then following command:
+This project uses Yarn Workspaces and Lerna to install and run multiple sub-repos from a single command. See the <a href="../DEVOPS.md">DevOps</a> README for instructions on how to install and run this application.
 
-```bash
-# install dependencies for all sub projects (backend, cli, frontend)
-$ yarn run install-all
-```
-
-Or
-
-1.  Navigate to /backend, then run the following command:
-
-```bash
-# install dependencies for backend only
-$ yarn install
-```
-
-## API Configuration
-
-Various self-explanatory configuration options are available via the config folder:
-
-- use the .env file for environment specific and sensitive configuration items
-- use the .ts files for all other configuration needs
-
-## API Usage
-
-1.  Navigate to /backend, then run the following command:
-
-```bash
-# development
-$ yarn run start
-```
-
-View at: http://localhost:3000
+View api endpoint at: http://localhost:3000
 
 ## API Test
 

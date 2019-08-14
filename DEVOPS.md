@@ -21,7 +21,7 @@ The NestJS-BFF root folder contains scripts, tooling, and documentation designed
 1.  Ensure that NodeJS, Docker, and Lerna are installed on your local machine
 
 2.  Ensure you have a console installed that can run
-    Linux shell commands. [Cmder](http://cmder.net) is an excellent option for Windows machines, and [can be integrated into VS Code](https://github.com/cmderdev/cmder/wiki/Seamless-VS-Code-Integration)
+    Linux shell commands. Mac can do this natively, and [Cmder](http://cmder.net) is an excellent option for Windows machines(and [can be integrated into VS Code](https://github.com/cmderdev/cmder/wiki/Seamless-VS-Code-Integration))
 
 3.  Navigate to the root folder of Nestjs-Bff repo, the run the following command:
 
