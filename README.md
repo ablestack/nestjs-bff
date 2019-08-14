@@ -87,7 +87,7 @@ Contributions are not only welcome, but encouraged. Please help make this better
 
 # Attributions
 
-See the [Attributions](attributions/ATTRIBUTIONS.md) section.
+See the [Attributions](docs/ATTRIBUTIONS.md) section.
 
 ## Readme Navigation
 
