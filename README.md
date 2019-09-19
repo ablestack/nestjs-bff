@@ -97,4 +97,4 @@ Further details on each of the systems contained in this project can be found vi
 - [Frontend](frontend/README.md)
 - [Backend](backend/README.md)
 - [CLI](cli/README.md)
-- [DevOps](README.md)
+- [DevOps](DEVOPS.md)
