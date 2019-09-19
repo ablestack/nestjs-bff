@@ -1,4 +1,4 @@
-# Nestjs-BFF Web Frontend
+# Nestjs-BFF Web FRONTEND
 
 <p align="center">
   <a href="../README.md">Overview</a>
