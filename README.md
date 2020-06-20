@@ -89,6 +89,24 @@ Contributions are not only welcome, but encouraged. Please help make this better
 
 See the [Attributions](docs/ATTRIBUTIONS.md) section.
 
+## Companion Libraries
+
+This library is part of a collection of companion tools and libraries under the [AbleStack](https://github.com/ablestack) umbrella. All of these libraries share the common goal:
+
+> Helping small teams and solo-developers build big ideas rapidly and affordably
+
+To achieve these goals, the following principles are applied:
+
+- Selectively **leverage existing open source tools and libraries**, where, high quality, open source tools and libraries where possible
+  - Curate usage examples, and guidance where available, and create where not available
+- Prioritize technology choices that** embrace open source**
+  - TypeScript over C#, and Node over .Net an example of this
+- **Avoid** technology choices that could result in **hosting vendor lock-in**
+  - ApolloGraphQL over AWS Amplify is an example of this
+- **Automate wherever possible**, from development, through testing, to deployment, monitoring, and maintenance
+  - Codegen from strongly types schemas is a good example of this.
+- Where needed, **develop high quality, open source tools and libraries** to augment and automate existing open source tooling and libraries
+
 ## Readme Navigation
 
 Further details on each of the systems contained in this project can be found via the following links:

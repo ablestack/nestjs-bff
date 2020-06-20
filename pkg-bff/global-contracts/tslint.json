@@ -54,6 +54,7 @@
     "no-var-keyword": true,
     "object-literal-sort-keys": false,
     "one-line": false,
+    "ordered-imports": false,
     "prefer-const": true,
     "quotemark": [true, "single"],
     "radix": true,
