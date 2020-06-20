@@ -99,7 +99,7 @@ To achieve these goals, the following principles are applied:
 
 - Selectively **leverage existing open source tools and libraries**, where, high quality, open source tools and libraries where possible
   - Curate usage examples, and guidance where available, and create where not available
-- Prioritize technology choices that** embrace open source**
+- Prioritize technology choices that **embrace open source**
   - TypeScript over C#, and Node over .Net an example of this
 - **Avoid** technology choices that could result in **hosting vendor lock-in**
   - ApolloGraphQL over AWS Amplify is an example of this
