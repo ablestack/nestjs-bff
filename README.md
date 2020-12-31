@@ -12,6 +12,11 @@
 	<a href="DEVOPS.md">DevOps</a>
 </p>
 
+## Status
+This library is currently 'on ice' and is no longer being activley maintained at this time. However, it may still server as a useful as a reference to others on how to build a production ready app around the NestJS platform. Also, it is anticiapted that at some indeterminate point in the fututure, the library will be thawed, updated, and work will continue.
+
+If anyone is interested in taking a leading role in the maintenance and update of this library, please contact me to dicsuss.
+
 ## Overview
 
 NestJS-BFF is a full-stack TypeScript solution, and starter project. It is intended for developers who are looking to fast-track building a strongly typed, enterprise-grade, modern NodeJs application, with supporting tooling.
